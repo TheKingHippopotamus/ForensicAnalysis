@@ -721,6 +721,203 @@ body {
   .section-toggle { display: none; }
   .section-header.collapsed + .section-body { display: block !important; }
 }
+
+/* ============================================================
+   VS BATTLE — Street Fighter inspired Positive vs Red Flags
+   ============================================================ */
+.vs-arena {
+  position: relative;
+  margin: 1rem 0;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  background: linear-gradient(135deg, rgba(63,185,80,0.03) 0%, transparent 40%, transparent 60%, rgba(248,81,73,0.03) 100%);
+  border: 1px solid var(--b2);
+}
+
+.vs-header {
+  display: flex;
+  align-items: stretch;
+  position: relative;
+  overflow: hidden;
+}
+
+.vs-side {
+  flex: 1;
+  padding: 1.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  position: relative;
+}
+
+.vs-side.green {
+  background: linear-gradient(135deg, rgba(63,185,80,0.12) 0%, rgba(63,185,80,0.03) 100%);
+  border-right: 1px solid var(--b1);
+}
+
+.vs-side.red {
+  background: linear-gradient(225deg, rgba(248,81,73,0.12) 0%, rgba(248,81,73,0.03) 100%);
+}
+
+.vs-count {
+  font-family: var(--font-display);
+  font-size: 2.8rem;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.vs-side.green .vs-count { color: var(--green); }
+.vs-side.red .vs-count { color: var(--red); }
+
+.vs-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--t3);
+}
+
+.vs-badge {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--s1);
+  border: 2px solid var(--b3);
+  box-shadow: 0 0 24px rgba(0,0,0,0.5), 0 0 48px rgba(88,166,255,0.08);
+}
+
+.vs-badge span {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+  font-style: italic;
+  color: var(--t1);
+  letter-spacing: 1px;
+}
+
+/* Diagonal cut */
+.vs-header::after {
+  content: '';
+  position: absolute;
+  top: -10%;
+  left: 50%;
+  width: 3px;
+  height: 120%;
+  background: var(--b3);
+  transform: skewX(-12deg);
+}
+
+/* Battle items */
+.vs-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.vs-column {
+  padding: 1rem;
+}
+
+.vs-column.green { border-right: 1px solid var(--b1); }
+
+.vs-item {
+  display: flex;
+  gap: 0.6rem;
+  padding: 0.75rem 0.75rem;
+  margin-bottom: 0.35rem;
+  border-radius: var(--r-sm);
+  transition: background 0.2s;
+  align-items: flex-start;
+}
+
+.vs-item:hover {
+  background: rgba(255,255,255,0.03);
+}
+
+.vs-pip {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  margin-top: 0.5rem;
+  flex-shrink: 0;
+}
+
+.vs-column.green .vs-pip { background: var(--green); box-shadow: 0 0 6px rgba(63,185,80,0.4); }
+.vs-column.red .vs-pip { background: var(--red); box-shadow: 0 0 6px rgba(248,81,73,0.4); }
+.vs-column.red .vs-pip.amber { background: var(--amber); box-shadow: 0 0 6px rgba(210,153,34,0.4); }
+
+.vs-item strong {
+  display: block;
+  font-size: 0.85rem;
+  margin-bottom: 0.15rem;
+}
+
+.vs-column.green .vs-item strong { color: var(--green); }
+.vs-column.red .vs-item strong { color: var(--red); }
+.vs-column.red .vs-item .amber-text { color: var(--amber); }
+
+.vs-item .desc {
+  font-size: 0.8rem;
+  color: var(--t3);
+  line-height: 1.5;
+}
+
+/* Power bar */
+.vs-power {
+  padding: 0.75rem 1.5rem;
+  border-top: 1px solid var(--b1);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.vs-power-label {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--t4);
+  white-space: nowrap;
+}
+
+.vs-power-track {
+  flex: 1;
+  height: 6px;
+  background: var(--s3);
+  border-radius: 3px;
+  overflow: hidden;
+  display: flex;
+}
+
+.vs-power-fill-green {
+  height: 100%;
+  background: linear-gradient(90deg, var(--green), #2dd4bf);
+  border-radius: 3px 0 0 3px;
+  transition: width 0.8s var(--ease);
+}
+
+.vs-power-fill-red {
+  height: 100%;
+  background: linear-gradient(90deg, var(--amber), var(--red));
+  border-radius: 0 3px 3px 0;
+  transition: width 0.8s var(--ease);
+}
+
+@media (max-width: 900px) {
+  .vs-body { grid-template-columns: 1fr; }
+  .vs-column.green { border-right: none; border-bottom: 1px solid var(--b1); }
+  .vs-side { padding: 1rem; }
+  .vs-count { font-size: 2.2rem; }
+}
+
 </style>
 </head>
 <body>
@@ -1586,94 +1783,118 @@ body {
       </div>
       <div class="section-body">
 
-        <h3 class="sub-heading">Red Flags</h3>
-        <div class="flag-list">
-          <div class="flag-item red">
-            <div class="flag-icon">1</div>
-            <div><strong>Revenue decline of -9.8% YoY</strong> &mdash; First material revenue contraction in NIKE's modern history. Revenue fell from $51.4B to $46.3B, erasing two years of growth.</div>
+        
+        <!-- VS BATTLE ARENA -->
+        <div class="vs-arena">
+          <div class="vs-header">
+            <div class="vs-side green">
+              <div class="vs-count">7</div>
+              <div class="vs-label">Positive signals</div>
+            </div>
+            <div class="vs-badge"><span>VS</span></div>
+            <div class="vs-side red">
+              <div class="vs-count">13</div>
+              <div class="vs-label">Red flags</div>
+            </div>
           </div>
-          <div class="flag-item red">
-            <div class="flag-icon">2</div>
-            <div><strong>Net income collapsed -43.5%</strong> &mdash; Earnings fell from $5.7B to $3.2B, the steepest profit decline since the pandemic year, on a much weaker demand environment.</div>
-          </div>
-          <div class="flag-item red">
-            <div class="flag-icon">3</div>
-            <div><strong>CFO halved: -50.2%</strong> &mdash; Operating cash flow plummeted from $7.4B to $3.7B. This is the most operationally significant deterioration, as it constrains buybacks, dividends, and investment.</div>
-          </div>
-          <div class="flag-item red">
-            <div class="flag-icon">4</div>
-            <div><strong>Retained earnings turned negative (-$727M)</strong> &mdash; Cumulative returns to shareholders have now exceeded cumulative lifetime profits. Balance sheet buffer eliminated.</div>
-          </div>
-          <div class="flag-item red">
-            <div class="flag-icon">5</div>
-            <div><strong>DSO +18% while revenue declining</strong> &mdash; Classic channel-stuffing signal. Accounts receivable grew even as sales shrank, suggesting aggressive credit terms or collection issues.</div>
-          </div>
-          <div class="flag-item amber">
-            <div class="flag-icon">6</div>
-            <div><strong>DPO surged +31%</strong> &mdash; Supplier payment stretching from 36.5 to 47.9 days indicates cash conservation but risks supply chain relationships.</div>
-          </div>
-          <div class="flag-item amber">
-            <div class="flag-icon">7</div>
-            <div><strong>Inventory reserve +50%</strong> &mdash; Reserve increase from $155M to $233M signals product quality issues, excess stock, or seasonal obsolescence risk.</div>
-          </div>
-          <div class="flag-item amber">
-            <div class="flag-icon">8</div>
-            <div><strong>Demand creation +9.4% while revenue -9.8%</strong> &mdash; Marketing spend rose to $4.7B even as sales declined, indicating diminishing returns on brand investment.</div>
-          </div>
-          <div class="flag-item amber">
-            <div class="flag-icon">9</div>
-            <div><strong>Prepaid demand creation +64%</strong> &mdash; $1,333M in prepaid marketing (vs. $814M prior year) front-loads costs and may be used to smooth future SGA recognition.</div>
-          </div>
-          <div class="flag-item amber">
-            <div class="flag-icon">10</div>
-            <div><strong>Converse EBIT -49%</strong> &mdash; The Converse brand is in a near-freefall, with EBIT halving to just $240M. Margin at 14.2% vs. Nike brand's ~24%.</div>
-          </div>
-          <div class="flag-item amber">
-            <div class="flag-icon">11</div>
-            <div><strong>All geographic segments declining</strong> &mdash; No region provided a growth offset. Greater China fell hardest (-30.6% EBIT). No safe haven.</div>
-          </div>
-          <div class="flag-item amber">
-            <div class="flag-icon">12</div>
-            <div><strong>Z-Score in grey zone (2.33)</strong> &mdash; Previously in safe zone. One more year of similar deterioration could push into distress territory.</div>
-          </div>
-          <div class="flag-item amber">
-            <div class="flag-icon">13</div>
-            <div><strong>Massive insider filing clusters</strong> &mdash; 50 Form 4 filings in 6 months with unusual concentration. Likely administrative but warrants monitoring.</div>
-          </div>
-        </div>
 
-        <h3 class="sub-heading" style="margin-top:2rem;">Positive Signals</h3>
-        <div class="flag-list">
-          <div class="flag-item green">
-            <div class="flag-icon">1</div>
-            <div><strong>M-Score below manipulation threshold</strong> &mdash; At -2.461, the Beneish model does not flag NIKE as a likely manipulator, though the margin of safety is thin.</div>
+          <div class="vs-power">
+            <div class="vs-power-label">Risk balance</div>
+            <div class="vs-power-track">
+              <div class="vs-power-fill-green" style="width:35%"></div>
+              <div class="vs-power-fill-red" style="width:65%"></div>
+            </div>
           </div>
-          <div class="flag-item green">
-            <div class="flag-icon">2</div>
-            <div><strong>Cash conversion exceeds 1.0x</strong> &mdash; CFO/NI of 1.15x indicates earnings quality is intact. Cash generation still exceeds reported profits.</div>
-          </div>
-          <div class="flag-item green">
-            <div class="flag-icon">3</div>
-            <div><strong>Sloan accrual ratio safe at -0.55%</strong> &mdash; Well within the &plusmn;10% safe range. Minimal evidence of accrual-based earnings manipulation.</div>
-          </div>
-          <div class="flag-item green">
-            <div class="flag-icon">4</div>
-            <div><strong>Active deleveraging</strong> &mdash; Long-term debt reduced from $9.4B (FY21) to $8.0B (FY25). Prudent balance sheet management through the downturn.</div>
-          </div>
-          <div class="flag-item green">
-            <div class="flag-icon">5</div>
-            <div><strong>Minimal goodwill ($240M)</strong> &mdash; No impairment risk from acquisitions. Balance sheet is overwhelmingly organic. Goodwill is just 0.7% of assets.</div>
-          </div>
-          <div class="flag-item green">
-            <div class="flag-icon">6</div>
-            <div><strong>Still profitable at $3.2B NI</strong> &mdash; Despite the downturn, NIKE generated more net income than most of its peers combined.</div>
-          </div>
-          <div class="flag-item green">
-            <div class="flag-icon">7</div>
-            <div><strong>F-Score neutral at 5/9</strong> &mdash; Not a strong buy signal, but also not a sell signal. Four of five profitability and leverage tests passed.</div>
+
+          <div class="vs-body">
+            <div class="vs-column green">
+              <div class="vs-item">
+                <div class="vs-pip"></div>
+                <div><strong>M-Score below manipulation threshold</strong><span class="desc">At -2.461, Beneish model does not flag manipulation. Thin margin of safety.</span></div>
+              </div>
+              <div class="vs-item">
+                <div class="vs-pip"></div>
+                <div><strong>Cash conversion exceeds 1.0x</strong><span class="desc">CFO/NI of 1.15x — earnings quality intact. Cash generation exceeds reported profits.</span></div>
+              </div>
+              <div class="vs-item">
+                <div class="vs-pip"></div>
+                <div><strong>Sloan accrual ratio safe at -0.55%</strong><span class="desc">Well within ±10% safe range. Minimal accrual-based manipulation evidence.</span></div>
+              </div>
+              <div class="vs-item">
+                <div class="vs-pip"></div>
+                <div><strong>Active deleveraging</strong><span class="desc">LT debt reduced from $9.4B (FY21) to $8.0B (FY25). Prudent through the downturn.</span></div>
+              </div>
+              <div class="vs-item">
+                <div class="vs-pip"></div>
+                <div><strong>Minimal goodwill ($240M)</strong><span class="desc">No impairment risk. Balance sheet is overwhelmingly organic. Goodwill just 0.7% of assets.</span></div>
+              </div>
+              <div class="vs-item">
+                <div class="vs-pip"></div>
+                <div><strong>Still profitable at $3.2B NI</strong><span class="desc">Despite downturn, more net income than most peers combined.</span></div>
+              </div>
+              <div class="vs-item">
+                <div class="vs-pip"></div>
+                <div><strong>F-Score neutral at 5/9</strong><span class="desc">Not a buy signal, but not a sell. Four of five profitability tests passed.</span></div>
+              </div>
+            </div>
+
+            <div class="vs-column red">
+              <div class="vs-item">
+                <div class="vs-pip"></div>
+                <div><strong>Revenue decline -9.8% YoY</strong><span class="desc">First material contraction in modern history. $51.4B → $46.3B, erasing two years.</span></div>
+              </div>
+              <div class="vs-item">
+                <div class="vs-pip"></div>
+                <div><strong>Net income collapsed -43.5%</strong><span class="desc">$5.7B → $3.2B. Steepest profit decline since pandemic on weaker demand.</span></div>
+              </div>
+              <div class="vs-item">
+                <div class="vs-pip"></div>
+                <div><strong>CFO halved: -50.2%</strong><span class="desc">$7.4B → $3.7B. Constrains buybacks, dividends, and investment capacity.</span></div>
+              </div>
+              <div class="vs-item">
+                <div class="vs-pip"></div>
+                <div><strong>Retained earnings negative (-$727M)</strong><span class="desc">Cumulative returns exceeded lifetime profits. Balance sheet buffer eliminated.</span></div>
+              </div>
+              <div class="vs-item">
+                <div class="vs-pip"></div>
+                <div><strong>DSO +18% while revenue declining</strong><span class="desc">Classic channel-stuffing signal. Receivables grew as sales shrank.</span></div>
+              </div>
+              <div class="vs-item">
+                <div class="vs-pip amber"></div>
+                <div><strong class="amber-text">DPO surged +31%</strong><span class="desc">Supplier stretching from 36.5 to 47.9 days. Cash conservation but risks relationships.</span></div>
+              </div>
+              <div class="vs-item">
+                <div class="vs-pip amber"></div>
+                <div><strong class="amber-text">Inventory reserve +50%</strong><span class="desc">$155M → $233M. Product quality issues, excess stock, or obsolescence.</span></div>
+              </div>
+              <div class="vs-item">
+                <div class="vs-pip amber"></div>
+                <div><strong class="amber-text">Demand creation +9.4% while revenue -9.8%</strong><span class="desc">$4.7B marketing spend up while sales fell. Diminishing returns.</span></div>
+              </div>
+              <div class="vs-item">
+                <div class="vs-pip amber"></div>
+                <div><strong class="amber-text">Prepaid demand creation +64%</strong><span class="desc">$1,333M prepaid marketing. Front-loaded costs may smooth future SGA.</span></div>
+              </div>
+              <div class="vs-item">
+                <div class="vs-pip amber"></div>
+                <div><strong class="amber-text">Converse EBIT -49%</strong><span class="desc">Near-freefall. EBIT halved to $240M. 14.2% margin vs Nike brand ~24%.</span></div>
+              </div>
+              <div class="vs-item">
+                <div class="vs-pip amber"></div>
+                <div><strong class="amber-text">All geographic segments declining</strong><span class="desc">No safe haven. Greater China fell hardest (-30.6% EBIT).</span></div>
+              </div>
+              <div class="vs-item">
+                <div class="vs-pip amber"></div>
+                <div><strong class="amber-text">Z-Score in grey zone (2.33)</strong><span class="desc">Previously safe. One more year could push into distress territory.</span></div>
+              </div>
+              <div class="vs-item">
+                <div class="vs-pip amber"></div>
+                <div><strong class="amber-text">Massive insider filing clusters</strong><span class="desc">50 Form 4 filings in 6 months. Likely administrative but warrants monitoring.</span></div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+</div>
     </section>
 
     <!-- 10. CAPITAL ALLOCATION -->
