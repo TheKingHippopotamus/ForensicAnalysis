@@ -4,630 +4,638 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NIKE, Inc. (NKE) — Forensic Financial Analysis</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Serif+Display&family=JetBrains+Mono:wght@500;700&family=Playfair+Display:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Newsreader:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <style>
+/* ============================================================
+   DESIGN SYSTEM: "The Observatory"
+   Calm, focused research environment.
+   ============================================================ */
+
+/* --- TOKENS --- */
 :root {
-  --navy: #0c0c14;
-  --navy-light: #111119;
-  --navy-mid: #1a1a24;
-  --gold: #e2b714;
-  --gold-light: #f5d45e;
-  --gold-dark: #c49b0e;
-  --teal: #2dd4bf;
-  --teal-soft: rgba(45,212,191,0.10);
-  --teal-dim: #14b8a6;
-  --lavender: #a78bfa;
-  --lavender-soft: rgba(167,139,250,0.10);
-  --blue-bright: #818cf8;
-  --white: #f0f0f3;
-  --off-white: #09090e;
-  --gray-50: #13131b;
-  --gray-100: rgba(255,255,255,0.07);
-  --gray-200: rgba(255,255,255,0.10);
-  --gray-300: #9898a3;
-  --gray-400: #acacb5;
-  --gray-500: #b8b8c0;
-  --gray-600: #cdcdd4;
-  --gray-700: #dddde2;
-  --gray-800: #f0f0f3;
-  --red: #f87171;
-  --red-bg: rgba(248,113,113,0.12);
-  --red-border: rgba(248,113,113,0.2);
-  --green: #34d399;
-  --green-bg: rgba(52,211,153,0.12);
-  --green-border: rgba(52,211,153,0.2);
-  --amber: #fbbf24;
-  --amber-bg: rgba(251,191,36,0.12);
-  --amber-border: rgba(251,191,36,0.2);
-  --blue: #60a5fa;
-  --sidebar-w: 260px;
+  /* Surfaces */
+  --bg:       #0d1117;
+  --s1:       #151b23;
+  --s2:       #1a2233;
+  --s3:       #212d40;
+  --s4:       #283548;
+
+  /* Borders */
+  --b1:       rgba(255,255,255,0.06);
+  --b2:       rgba(255,255,255,0.10);
+  --b3:       rgba(255,255,255,0.16);
+
+  /* Text */
+  --t1:       #e6edf3;
+  --t2:       #b0b8c4;
+  --t3:       #6e7a8a;
+  --t4:       #4a5568;
+
+  /* Accent — each has ONE job */
+  --blue:     #58a6ff;   /* data, links, neutral info */
+  --green:    #3fb950;   /* positive only */
+  --red:      #f85149;   /* negative only */
+  --amber:    #d29922;   /* warning only */
+  --purple:   #bc8cff;   /* insights, predictions */
+  --gold:     #d4a520;   /* brand only */
+  --teal:     #39d0c0;   /* navigation accent */
+
+  /* Accent backgrounds (subtle tints) */
+  --blue-bg:    rgba(88,166,255,0.08);
+  --green-bg:   rgba(63,185,80,0.10);
+  --red-bg:     rgba(248,81,73,0.10);
+  --amber-bg:   rgba(210,153,34,0.10);
+  --purple-bg:  rgba(188,140,255,0.08);
+
+  /* Typography */
+  --font-display: 'Newsreader', Georgia, serif;
+  --font-body:    'IBM Plex Sans', -apple-system, sans-serif;
+  --font-mono:    'IBM Plex Mono', 'JetBrains Mono', monospace;
+
+  /* Spacing */
+  --r-sm:  6px;
+  --r-md:  10px;
+  --r-lg:  14px;
+  --r-xl:  20px;
+
+  /* Layout */
+  --sidebar-w: 250px;
+
+  /* Transitions */
+  --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
+/* --- RESET --- */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-html { scroll-behavior: smooth; font-size: 17px; }
+html { scroll-behavior: smooth; font-size: 16px; -webkit-text-size-adjust: 100%; }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  background: var(--off-white);
-  color: var(--gray-800);
-  -webkit-tap-highlight-color: transparent;
-  line-height: 1.65;
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--t1);
+  line-height: 1.7;
   -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
 }
 
-/* SIDEBAR */
+/* ============================================================
+   AGENT 2: REPORT SHELL — Sidebar, Hero, KPI, Mobile
+   ============================================================ */
+
+/* --- SIDEBAR --- */
 .sidebar {
   position: fixed; top: 0; left: 0;
   width: var(--sidebar-w); height: 100vh;
-  background: var(--navy);
-  color: var(--white);
-  overflow-y: auto;
-  z-index: 1000;
+  background: var(--s1);
+  border-right: 1px solid var(--b2);
+  overflow-y: auto; z-index: 1000;
   padding: 0 0 2rem;
-  border-right: 3px solid var(--gold);
   scrollbar-width: thin;
-  scrollbar-color: var(--navy-mid) var(--navy);
+  scrollbar-color: var(--s3) transparent;
+  transition: transform 0.3s var(--ease);
 }
 
 .sidebar-logo {
-  padding: 1.5rem 1.25rem 1rem;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
+  padding: 1.5rem 1.25rem 1.25rem;
+  border-bottom: 1px solid var(--b1);
   text-align: center;
 }
 
-.sidebar-logo .ticker {
-  font-family: 'Playfair Display', serif;
-  font-size: 2rem;
-  font-weight: 800;
-  color: var(--gold);
-  letter-spacing: 2px;
-}
-
+.sidebar-logo img { width: 56px; filter: brightness(0) invert(0.9); }
 .sidebar-logo .co-name {
-  font-size: 0.7rem;
-  letter-spacing: 3px;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 2px;
   text-transform: uppercase;
-  color: var(--gray-400);
-  margin-top: 2px;
+  color: var(--t3);
+  margin-top: 6px;
 }
 
 .sidebar-label {
-  font-size: 0.68rem;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 2.5px;
   color: var(--teal);
-  padding: 1.25rem 1.25rem 0.5rem;
-  font-weight: 700;
+  padding: 1.5rem 1.25rem 0.5rem;
+  font-weight: 500;
 }
 
 .sidebar nav a {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  padding: 0.5rem 1.25rem;
-  color: var(--gray-300);
+  display: flex; align-items: center; gap: 0.6rem;
+  padding: 0.55rem 1.25rem;
+  color: var(--t3);
   text-decoration: none;
-  font-size: 0.88rem;
-  font-weight: 400;
-  transition: all 0.2s;
-  border-left: 3px solid transparent;
+  font-size: 0.82rem;
+  transition: all 0.2s var(--ease);
+  border-left: 2px solid transparent;
+  position: relative;
 }
 
 .sidebar nav a:hover,
 .sidebar nav a.active {
-  background: rgba(255,255,255,0.05);
-  color: var(--teal);
-  border-left-color: var(--teal);
+  color: var(--t1);
+  background: rgba(88,166,255,0.05);
+  border-left-color: var(--blue);
 }
 
 .sidebar nav a .nav-num {
+  font-family: var(--font-mono);
   font-size: 0.65rem;
-  font-weight: 700;
-  color: var(--teal-dim);
-  min-width: 1.2rem;
+  font-weight: 500;
+  color: var(--t4);
+  min-width: 1.4rem;
 }
 
-/* MAIN */
+.sidebar nav a:hover .nav-num { color: var(--blue); }
+
+/* --- MAIN --- */
 .main {
   margin-left: var(--sidebar-w);
   min-height: 100vh;
 }
 
-/* HERO */
+/* --- HERO --- */
 .hero {
-  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 40%, var(--navy-mid) 100%);
-  color: var(--white);
-  padding: 4rem 3rem 3rem;
+  background: linear-gradient(160deg, var(--s1) 0%, var(--s2) 50%, var(--s3) 100%);
+  color: var(--t1);
+  padding: 3.5rem 3rem 2.5rem;
   position: relative;
   overflow: hidden;
+  border-bottom: 1px solid var(--b2);
 }
 
 .hero::before {
   content: '';
   position: absolute;
-  top: -50%; right: -20%;
-  width: 600px; height: 600px;
-  background: radial-gradient(circle, rgba(226,183,20,0.08) 0%, transparent 70%);
+  top: -40%; right: -15%;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(88,166,255,0.06) 0%, transparent 70%);
   border-radius: 50%;
 }
 
-.hero::after {
-  content: '';
-  position: absolute;
-  bottom: -30%; left: -10%;
-  width: 400px; height: 400px;
-  background: radial-gradient(circle, rgba(226,183,20,0.05) 0%, transparent 70%);
-  border-radius: 50%;
+.hero-content { position: relative; z-index: 1; max-width: 800px; }
+
+.hero-brand {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  color: var(--gold);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
 }
 
-.hero-content { position: relative; z-index: 1; max-width: 900px; }
+.hero-brand span {
+  color: var(--t3);
+  font-family: var(--font-body);
+  font-weight: 400;
+  letter-spacing: 0.06em;
+}
 
 .hero-badge {
   display: inline-block;
-  background: var(--gold);
-  color: var(--navy);
-  font-size: 0.65rem;
-  font-weight: 700;
+  background: var(--blue);
+  color: var(--bg);
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 600;
   letter-spacing: 2px;
   text-transform: uppercase;
-  padding: 0.35rem 1rem;
-  border-radius: 2px;
+  padding: 0.3rem 0.8rem;
+  border-radius: var(--r-sm);
   margin-bottom: 1rem;
 }
 
 .hero h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: 3.2rem;
-  font-weight: 800;
-  line-height: 1.15;
+  font-family: var(--font-display);
+  font-size: 2.6rem;
+  font-weight: 400;
+  line-height: 1.2;
   margin-bottom: 0.5rem;
+  display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;
 }
 
+.hero h1 img { height: 2rem; filter: brightness(0) invert(0.92); }
 .hero h1 .gold { color: var(--gold); }
 
 .hero-sub {
-  font-size: 1.15rem;
-  color: var(--gray-300);
-  font-weight: 300;
-  margin-bottom: 1.5rem;
+  font-size: 1rem;
+  color: var(--t2);
+  line-height: 1.65;
+  margin-bottom: 1.25rem;
+  max-width: 680px;
 }
 
 .hero-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  font-size: 0.78rem;
-  color: var(--gray-400);
+  display: flex; flex-wrap: wrap; gap: 1.5rem 2rem;
+  font-size: 0.78rem; color: var(--t3);
 }
 
-.hero-meta span { display: flex; align-items: center; gap: 0.4rem; }
-.hero-meta .label { color: var(--teal); font-weight: 600; }
+.hero-meta span { display: flex; align-items: center; gap: 0.35rem; }
+.hero-meta .label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--blue);
+  font-weight: 500;
+}
 
-/* KPI STRIP */
+/* --- KPI STRIP --- */
 .kpi-strip {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 1px;
-  background: var(--navy);
-  border-bottom: 3px solid var(--gold);
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  background: var(--s1);
+  border-bottom: 1px solid var(--b2);
 }
 
 .kpi-card {
-  background: var(--navy-light);
-  padding: 1.25rem 1.5rem;
+  padding: 1.1rem 1rem;
   text-align: center;
+  border-right: 1px solid var(--b1);
+  transition: background 0.2s;
 }
 
+.kpi-card:last-child { border-right: none; }
+.kpi-card:hover { background: rgba(88,166,255,0.03); }
+
 .kpi-card .kpi-label {
-  font-size: 0.68rem;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
   text-transform: uppercase;
   letter-spacing: 1.5px;
-  color: var(--teal-dim);
-  margin-bottom: 0.35rem;
+  color: var(--t3);
+  margin-bottom: 0.3rem;
 }
 
 .kpi-card .kpi-value {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.85rem;
-  font-weight: 700;
-  color: var(--white);
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--t1);
 }
 
 .kpi-card .kpi-change {
-  font-size: 0.72rem;
-  margin-top: 0.2rem;
-  font-weight: 600;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  margin-top: 0.15rem;
+  font-weight: 500;
 }
 
 .kpi-change.neg { color: var(--red); }
 .kpi-change.pos { color: var(--green); }
 .kpi-change.neu { color: var(--amber); }
 
-/* CONTENT */
-.content { padding: 2rem 2.5rem 4rem; max-width: 1100px; }
+/* ============================================================
+   AGENT 3: DATA COMPONENTS — Tables, Gauges, Charts
+   ============================================================ */
 
-/* SECTION */
+.content { padding: 2rem 2.5rem 4rem; max-width: 1000px; }
+
+/* --- SECTIONS --- */
 .report-section {
-  margin-bottom: 2.5rem;
-  background: var(--navy-light);
-  border-radius: 10px;
-  border: 1px solid var(--gray-200);
+  margin-bottom: 1.5rem;
+  background: var(--s1);
+  border-radius: var(--r-lg);
+  border: 1px solid var(--b1);
   overflow: hidden;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  transition: border-color 0.3s;
 }
+
+.report-section:hover { border-color: var(--b2); }
 
 .section-header {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
+  display: flex; align-items: center; gap: 0.75rem;
   padding: 1rem 1.5rem;
-  background: var(--navy-light);
-  cursor: pointer;
-  user-select: none;
-  border-bottom: 1px solid var(--gray-100);
+  cursor: pointer; user-select: none;
   transition: background 0.2s;
+  border-bottom: 1px solid transparent;
 }
 
-.section-header:hover { background: var(--navy-mid); }
+.section-header:not(.collapsed) { border-bottom-color: var(--b1); }
+.section-header:hover { background: rgba(88,166,255,0.03); }
 
 .section-num {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.25rem;
-  font-weight: 800;
-  color: var(--teal);
-  min-width: 2rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--blue);
+  background: var(--blue-bg);
+  width: 2rem; height: 2rem;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: var(--r-sm);
+  flex-shrink: 0;
 }
 
 .section-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: var(--white);
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  color: var(--t1);
   flex: 1;
 }
 
 .section-toggle {
-  width: 24px; height: 24px;
+  width: 20px; height: 20px;
   display: flex; align-items: center; justify-content: center;
-  color: var(--gray-400);
-  transition: transform 0.3s;
-  font-size: 0.85rem;
+  color: var(--t4);
+  transition: transform 0.3s var(--ease);
+  font-size: 0.7rem;
 }
 
 .section-header.collapsed .section-toggle { transform: rotate(-90deg); }
-
-.section-body { padding: 1.5rem; font-size: 1rem; line-height: 1.75; color: var(--gray-600); }
-.section-body h3, .section-body h4 { color: var(--teal); }
-.section-body strong { color: var(--white); font-weight: 600; }
-.section-body p { color: var(--gray-600); }
+.section-body { padding: 1.5rem; }
 .section-header.collapsed + .section-body { display: none; }
 
-/* TABLES */
+/* --- SECTION BODY TYPOGRAPHY --- */
+.section-body { color: var(--t2); font-size: 0.95rem; line-height: 1.8; }
+.section-body h3, .section-body .sub-heading {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  color: var(--t1);
+  margin: 1.5rem 0 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--b1);
+}
+.section-body h3:first-child, .section-body .sub-heading:first-child { margin-top: 0; }
+.section-body strong { color: var(--t1); font-weight: 600; }
+.section-body p, .section-body .body-text { color: var(--t2); margin-bottom: 0.75rem; }
+
+/* --- TABLES --- */
+.table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: var(--r-md); }
+
 .data-table {
   width: 100%;
-  border-collapse: collapse;
-  font-size: 0.9rem;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.85rem;
 }
 
 .data-table th {
-  background: #0e0e16;
-  color: var(--teal-dim);
-  padding: 0.6rem 0.75rem;
+  background: var(--s2);
+  color: var(--t3);
+  padding: 0.7rem 0.85rem;
   text-align: right;
-  font-weight: 600;
-  font-size: 0.78rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.8px;
   white-space: nowrap;
+  position: sticky; top: 0;
+  border-bottom: 1px solid var(--b2);
 }
 
-.data-table th:first-child { text-align: left; border-radius: 4px 0 0 0; }
-.data-table th:last-child { border-radius: 0 4px 0 0; }
+.data-table th:first-child { text-align: left; border-radius: var(--r-md) 0 0 0; }
+.data-table th:last-child { border-radius: 0 var(--r-md) 0 0; }
 
 .data-table td {
-  padding: 0.65rem 0.85rem;
+  padding: 0.6rem 0.85rem;
   text-align: right;
-  border-bottom: 1px solid var(--gray-100);
+  border-bottom: 1px solid var(--b1);
   font-variant-numeric: tabular-nums;
-  color: var(--gray-600);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--t2);
+  transition: background 0.15s;
 }
 
 .data-table td:first-child {
   text-align: left;
+  font-family: var(--font-body);
   font-weight: 500;
-  color: var(--gold);
+  color: var(--t1);
 }
 
-.data-table tr:hover td { background: rgba(45,212,191,0.04); }
+.data-table tr:hover td { background: rgba(88,166,255,0.04); }
 .data-table tr:last-child td { border-bottom: none; }
-
-.data-table .row-highlight td { background: var(--amber-bg); font-weight: 600; color: var(--amber); }
+.data-table .row-highlight td { background: var(--amber-bg); color: var(--amber); }
 .data-table .neg { color: var(--red); }
 .data-table .pos { color: var(--green); }
 
-/* SCORE GAUGES */
+/* --- GAUGE GRID (Forensic Dashboard) --- */
 .gauge-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1.25rem;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
 }
 
 .gauge-card {
-  background: var(--navy-mid);
-  border: 1px solid rgba(255,255,255,0.10);
-  border-radius: 12px;
-  padding: 1.5rem;
+  background: var(--s2);
+  border: 1px solid var(--b1);
+  border-radius: var(--r-lg);
+  padding: 1.5rem 1.25rem;
   text-align: center;
-  transition: all 0.2s;
-}
-.gauge-card:hover {
-  border-color: rgba(45,212,191,0.25);
-  box-shadow: 0 0 24px rgba(45,212,191,0.06);
+  transition: all 0.3s var(--ease);
+  position: relative;
+  overflow: hidden;
 }
 
+.gauge-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--r-lg);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.gauge-card:hover {
+  border-color: var(--b3);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+
+.gauge-card:hover::before { opacity: 1; }
+
 .gauge-card h4 {
-  font-size: 0.8rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
   text-transform: uppercase;
   letter-spacing: 1.5px;
-  color: var(--white);
+  color: var(--t3);
   margin-bottom: 0.75rem;
 }
 
 .gauge-svg { margin: 0 auto; }
 
 .gauge-value {
-  font-family: 'Playfair Display', serif;
-  font-size: 2.2rem;
-  font-weight: 800;
+  font-family: var(--font-display);
+  font-size: 2rem;
   margin-top: 0.5rem;
 }
 
 .gauge-verdict {
-  font-size: 0.72rem;
-  font-weight: 700;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  padding: 0.25rem 0.75rem;
-  border-radius: 3px;
+  letter-spacing: 1.5px;
+  padding: 0.3rem 0.75rem;
+  border-radius: 100px;
   display: inline-block;
   margin-top: 0.5rem;
 }
 
-.verdict-safe { background: rgba(52,211,153,0.15); color: #34d399; border: 1px solid rgba(52,211,153,0.35); font-size: 0.78rem; }
-.verdict-warn { background: rgba(251,191,36,0.15); color: #fbbf24; border: 1px solid rgba(251,191,36,0.35); font-size: 0.78rem; }
-.verdict-danger { background: rgba(248,113,113,0.15); color: #f87171; border: 1px solid rgba(248,113,113,0.35); font-size: 0.78rem; }
+.verdict-safe { background: var(--green-bg); color: var(--green); }
+.verdict-warn { background: var(--amber-bg); color: var(--amber); }
+.verdict-danger { background: var(--red-bg); color: var(--red); }
 
 .gauge-detail {
-  font-size: 0.8rem;
-  color: var(--gray-500);
+  font-size: 0.72rem;
+  color: var(--t3);
   margin-top: 0.5rem;
-  line-height: 1.5;
+  line-height: 1.6;
+  font-family: var(--font-mono);
 }
 
-/* CHART CONTAINER */
+/* --- CHARTS --- */
 .chart-container {
   margin: 1.25rem 0;
-  padding: 1rem;
-  background: var(--navy-mid);
-  border-radius: 8px;
-  border: 1px solid var(--gray-200);
-  color: var(--gray-600);
+  padding: 1.25rem;
+  background: var(--s2);
+  border-radius: var(--r-md);
+  border: 1px solid var(--b1);
+  color: var(--t2);
 }
 
 .chart-title {
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: var(--white);
-  margin-bottom: 1rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 2px solid var(--gold);
-  display: inline-block;
-}
-
-/* FLAG CARDS */
-.flag-list { display: flex; flex-direction: column; gap: 0.6rem; }
-
-.flag-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.75rem;
-  padding: 0.85rem 1rem;
-  border-radius: 6px;
-  font-size: 0.82rem;
-  line-height: 1.5;
-}
-
-.flag-item.red { background: var(--red-bg); border: 1px solid var(--red-border); }
-.flag-item.green { background: var(--green-bg); border: 1px solid var(--green-border); }
-.flag-item.amber { background: var(--amber-bg); border: 1px solid var(--amber-border); }
-
-.flag-icon {
-  flex-shrink: 0;
-  width: 22px; height: 22px;
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 0.7rem;
-  font-weight: 800;
-  color: var(--white);
-}
-
-.flag-item.red .flag-icon { background: var(--red); }
-.flag-item.green .flag-icon { background: var(--green); }
-.flag-item.amber .flag-icon { background: var(--amber); }
-
-/* INSIGHT BOXES */
-.insight-box {
-  color: var(--gray-600);
-  padding: 1rem 1.25rem;
-  border-radius: 6px;
-  margin: 1rem 0;
-  font-size: 0.85rem;
-  line-height: 1.6;
-  border-left: 4px solid;
-}
-
-.insight-box.warn { border-left: 4px solid var(--amber);  background: var(--amber-bg); border-color: var(--amber); }
-.insight-box.danger { background: var(--red-bg); border-color: var(--red); }
-.insight-box.info { background: #eff6ff; border-color: var(--blue); }
-.insight-box.safe { background: var(--green-bg); border-color: var(--green); }
-
-.insight-box strong { color: var(--lavender); }
-
-/* TWO-COL */
-.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-
-/* TIMELINE */
-.timeline { position: relative; padding-left: 1.5rem; }
-.timeline::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  background: var(--gold);
-}
-
-.timeline-item {
-  position: relative;
-  padding-bottom: 1.25rem;
-  font-size: 0.82rem;
-}
-
-.timeline-item::before {
-  content: '';
-  position: absolute;
-  left: -1.5rem;
-  top: 0.35rem;
-  width: 10px; height: 10px;
-  border-radius: 50%;
-  background: var(--gold);
-  border: 2px solid var(--white);
-  box-shadow: 0 0 0 2px var(--gold);
-}
-
-.timeline-item .t-date { font-weight: 700; color: var(--gold); }
-.timeline-item .t-detail { color: var(--gray-600); margin-top: 0.15rem; }
-.timeline-item .t-count {
-  display: inline-block;
-  background: var(--red-bg);
-  color: var(--red);
-  font-weight: 700;
-  font-size: 0.7rem;
-  padding: 0.1rem 0.5rem;
-  border-radius: 3px;
-  margin-left: 0.4rem;
-}
-
-/* METHODOLOGY */
-.method-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-.method-card {
-  padding: 1rem;
-  background: var(--gray-50);
-  border-radius: 6px;
-  border: 1px solid var(--gray-200);
-}
-.method-card h4 {
-  font-size: 0.78rem;
-  font-weight: 700;
-  color: var(--white);
-  margin-bottom: 0.35rem;
-}
-.method-card p { font-size: 0.75rem; color: var(--gray-600); line-height: 1.55; }
-
-/* SUB HEADING */
-.sub-heading {
-  font-family: 'Playfair Display', serif;
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--white);
-  margin: 1.5rem 0 0.75rem;
-  padding-bottom: 0.35rem;
-  border-bottom: 2px solid var(--gold);
-  display: inline-block;
-}
-
-.sub-heading:first-child { margin-top: 0; }
-
-p.body-text {
-  font-size: 0.85rem;
-  line-height: 1.7;
-  color: var(--gray-700);
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  color: var(--t1);
   margin-bottom: 0.75rem;
 }
 
-/* FOOTER */
+.axis-label { font-size: 11px; fill: var(--t3); font-family: 'IBM Plex Mono', monospace; }
+.bar-value { font-size: 12px; font-weight: 600; font-family: 'IBM Plex Mono', monospace; fill: var(--t1); }
+
+/* ============================================================
+   AGENT 4: CONTENT & FLOW — Insights, Reading Experience
+   ============================================================ */
+
+/* --- INSIGHT BOXES --- */
+.insight-box {
+  background: var(--purple-bg);
+  border: 1px solid rgba(188,140,255,0.12);
+  border-left: 3px solid var(--purple);
+  border-radius: var(--r-md);
+  padding: 1.25rem 1.5rem;
+  margin: 1.25rem 0;
+  color: var(--t2);
+  line-height: 1.75;
+}
+
+.insight-box strong { color: var(--purple); }
+
+.insight-box.warn {
+  background: var(--amber-bg);
+  border-color: rgba(210,153,34,0.12);
+  border-left-color: var(--amber);
+}
+.insight-box.warn strong { color: var(--amber); }
+
+.insight-box.danger {
+  background: var(--red-bg);
+  border-color: rgba(248,81,73,0.12);
+  border-left-color: var(--red);
+}
+.insight-box.danger strong { color: var(--red); }
+
+/* --- TWO COLUMN --- */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+/* --- METHOD GRID --- */
+.method-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+/* --- TIMELINE --- */
+.timeline-item {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--b1);
+}
+.timeline-item:last-child { border-bottom: none; }
+.timeline-item .t-date { font-weight: 600; color: var(--blue); font-family: var(--font-mono); font-size: 0.82rem; }
+
+/* --- FOOTER --- */
 .report-footer {
-  color: var(--gray-500);
   margin-left: var(--sidebar-w);
   padding: 2rem 2.5rem;
-  background: var(--navy);
-  color: var(--gray-400);
-  font-size: 0.7rem;
-  text-align: center;
-  line-height: 1.6;
+  border-top: 1px solid var(--b1);
+  color: var(--t3);
+  font-size: 0.8rem;
 }
 
-.report-footer .gold { color: var(--gold); }
+.report-footer strong { color: var(--t2); }
 
-/* SVG CHART STYLES */
-.bar-label {
-  font-family: 'Inter', sans-serif;
-  font-size: 10px;
-  fill: #6b7280;
+/* ============================================================
+   AGENT 5: INTERACTIONS — Animations, Mobile, Focus
+   ============================================================ */
+
+/* --- FOCUS ZONE: active section gets subtle glow --- */
+.report-section:target {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 1px rgba(88,166,255,0.15), 0 4px 20px rgba(88,166,255,0.05);
 }
 
-.bar-value {
-  font-family: 'Inter', sans-serif;
-  font-size: 9px;
-  fill: #374151;
-  font-weight: 600;
+/* --- STAGGERED LOAD ANIMATION --- */
+@media (prefers-reduced-motion: no-preference) {
+  .report-section, .kpi-card, .gauge-card {
+    opacity: 0;
+    transform: translateY(16px);
+    animation: slideUp 0.5s var(--ease) forwards;
+  }
+  @keyframes slideUp { to { opacity: 1; transform: translateY(0); } }
+
+  .kpi-card:nth-child(1) { animation-delay: 0.05s; }
+  .kpi-card:nth-child(2) { animation-delay: 0.1s; }
+  .kpi-card:nth-child(3) { animation-delay: 0.15s; }
+  .kpi-card:nth-child(4) { animation-delay: 0.2s; }
+  .kpi-card:nth-child(5) { animation-delay: 0.25s; }
+  .kpi-card:nth-child(6) { animation-delay: 0.3s; }
+
+  .report-section:nth-of-type(1) { animation-delay: 0.15s; }
+  .report-section:nth-of-type(2) { animation-delay: 0.2s; }
+  .report-section:nth-of-type(3) { animation-delay: 0.25s; }
+  .report-section:nth-of-type(n+4) { animation-delay: 0.3s; }
+
+  .gauge-card { animation-delay: 0.35s; }
 }
 
-.axis-label { fill: #b8b8c0;
-  font-family: 'Inter', sans-serif;
-  font-size: 10px;
-  fill: #9ca3af;
+/* --- SCROLL PROGRESS INDICATOR --- */
+.scroll-progress {
+  position: fixed; top: 0; left: var(--sidebar-w); right: 0;
+  height: 2px; background: transparent; z-index: 999;
+}
+.scroll-progress-bar {
+  height: 100%; width: 0%;
+  background: linear-gradient(90deg, var(--blue), var(--purple));
+  transition: width 0.1s;
 }
 
-.chart-legend {
-  display: flex;
-  gap: 1.25rem;
-  justify-content: center;
-  margin-top: 0.75rem;
-  flex-wrap: wrap;
-}
-
-.legend-item {
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-  font-size: 0.7rem;
-  color: var(--gray-600);
-}
-
-.legend-dot {
-  width: 10px; height: 10px;
-  border-radius: 2px;
-}
-
-/* MOBILE HAMBURGER */
+/* --- MOBILE HEADER --- */
 .mobile-header {
   display: none;
   position: fixed; top: 0; left: 0; right: 0;
-  height: 56px;
-  background: var(--navy);
-  border-bottom: 2px solid var(--gold);
+  height: 52px;
+  background: var(--s1);
+  border-bottom: 1px solid var(--b2);
   z-index: 1001;
   align-items: center;
   padding: 0 1rem;
   gap: 0.75rem;
 }
-.mobile-header img { height: 24px; filter: brightness(0) invert(1); opacity: 0.9; }
-.mobile-header .brand { font-family:'DM Serif Display',serif; font-size: 0.7rem; color: var(--gold-dark); letter-spacing: 0.1em; text-transform: uppercase; }
+.mobile-header img { height: 22px; filter: brightness(0) invert(0.9); }
+.mobile-header .brand {
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  color: var(--gold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
 .hamburger {
   width: 36px; height: 36px;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -635,72 +643,67 @@ p.body-text {
   background: none; border: none; padding: 0;
 }
 .hamburger span {
-  display: block; width: 20px; height: 2px;
-  background: var(--gold); border-radius: 2px;
-  transition: all 0.3s;
+  display: block; width: 18px; height: 1.5px;
+  background: var(--t2); border-radius: 2px;
+  transition: all 0.3s var(--ease);
 }
 .sidebar-overlay {
   display: none; position: fixed; inset: 0;
-  background: rgba(0,0,0,0.6); z-index: 999;
+  background: rgba(0,0,0,0.5); z-index: 999;
   backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
 }
 
-/* MOBILE TABLE SCROLL */
-.table-wrap {
-  overflow-x: auto; -webkit-overflow-scrolling: touch;
-  margin: 0 -0.5rem; padding: 0 0.5rem;
-}
-
+/* --- RESPONSIVE --- */
 @media (max-width: 900px) {
   .mobile-header { display: flex; }
+  .scroll-progress { left: 0; top: 52px; }
   .sidebar {
-    transform: translateX(-100%); transition: transform 0.3s ease;
+    transform: translateX(-100%); width: 260px;
     top: 0; z-index: 1002;
   }
   .sidebar.open { transform: translateX(0); }
   .sidebar-overlay.open { display: block; }
-  .main { margin-left: 0; padding-top: 56px; }
+  .main { margin-left: 0; padding-top: 52px; }
   .report-footer { margin-left: 0; }
-  .hero { padding: 2rem 1.25rem 1.5rem; }
-  .hero h1 { font-size: 1.8rem; }
-  .hero h1 img { height: 1.6rem !important; }
+  .hero { padding: 1.75rem 1.25rem 1.5rem; }
+  .hero h1 { font-size: 1.6rem; }
+  .hero h1 img { height: 1.5rem !important; }
   .hero-brand { font-size: 0.6rem !important; }
-  .hero-sub { font-size: 0.9rem; }
-  .hero-meta { gap: 0.75rem; font-size: 0.7rem; }
-  .hero-meta span { flex-basis: 45%; }
+  .hero-sub { font-size: 0.88rem; }
+  .hero-meta { gap: 0.6rem 1.25rem; font-size: 0.72rem; }
   .content { padding: 1rem 0.75rem; }
-  .section-body { padding: 1rem 0.75rem; overflow-x: hidden; }
-  .data-table { font-size: 0.8rem; }
-  .data-table th, .data-table td { padding: 0.4rem 0.5rem; white-space: nowrap; }
-  .two-col, .method-grid { grid-template-columns: 1fr; }
-  .gauge-grid { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
-  .gauge-card { padding: 1rem; }
-  .gauge-value { font-size: 1.4rem; }
-  .kpi-strip { grid-template-columns: repeat(2, 1fr); }
-  .kpi-card { padding: 0.9rem 0.75rem; }
-  .kpi-card .kpi-value { font-size: 1.3rem; }
+  .section-body { padding: 1rem; }
   .section-header { padding: 0.85rem 1rem; }
   .section-title { font-size: 1rem; }
-  .section-num { font-size: 0.95rem; }
+  .data-table { font-size: 0.78rem; }
+  .data-table th, .data-table td { padding: 0.45rem 0.6rem; }
+  .two-col, .method-grid { grid-template-columns: 1fr; }
+  .gauge-grid { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+  .gauge-card { padding: 1.1rem 0.75rem; }
+  .gauge-value { font-size: 1.5rem; }
+  .kpi-strip { grid-template-columns: repeat(3, 1fr); }
+  .kpi-card { padding: 0.8rem 0.5rem; }
+  .kpi-card .kpi-value { font-size: 1.2rem; }
+  .insight-box { padding: 1rem; }
 }
 
-@media (max-width: 420px) {
+@media (max-width: 480px) {
   .gauge-grid { grid-template-columns: 1fr; }
-  .kpi-strip { grid-template-columns: 1fr 1fr; }
+  .kpi-strip { grid-template-columns: repeat(2, 1fr); }
   .hero-meta span { flex-basis: 100%; }
+  .hero h1 { font-size: 1.4rem; }
 }
 
-/* PRINT */
+/* --- PRINT --- */
 @media print {
-  .sidebar { display: none; }
+  .sidebar, .mobile-header, .scroll-progress { display: none; }
   .main { margin-left: 0; }
   .report-footer { margin-left: 0; }
-  .hero { padding: 1.5rem; background: var(--navy) !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-  .report-section { break-inside: avoid; page-break-inside: avoid; box-shadow: none; }
+  body { background: white; color: #1a1a2e; font-size: 11px; }
+  .hero { background: #1a1a2e !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .report-section { break-inside: avoid; border: 1px solid #ddd; }
   .section-toggle { display: none; }
   .section-header.collapsed + .section-body { display: block !important; }
-  body { font-size: 12px; }
-  .kpi-strip { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 }
 </style>
 </head>
@@ -738,20 +741,21 @@ p.body-text {
   </nav>
   <div class="sidebar-label" style="margin-top:1.5rem;">Report Info</div>
   <nav>
-    <a href="#" style="font-size:0.68rem;color:var(--gray-500);cursor:default;">CIK 320187 | SIC 3021</a>
-    <a href="#" style="font-size:0.68rem;color:var(--gray-500);cursor:default;">FY ends May 31</a>
-    <a href="#" style="font-size:0.68rem;color:var(--gray-500);cursor:default;">Data through FY2025</a>
-    <a href="#" style="font-size:0.68rem;color:var(--gray-500);cursor:default;">Report: April 2026</a>
+    <a href="#" style="font-size:0.68rem;color:var(--t3);cursor:default;">CIK 320187 | SIC 3021</a>
+    <a href="#" style="font-size:0.68rem;color:var(--t3);cursor:default;">FY ends May 31</a>
+    <a href="#" style="font-size:0.68rem;color:var(--t3);cursor:default;">Data through FY2025</a>
+    <a href="#" style="font-size:0.68rem;color:var(--t3);cursor:default;">Report: April 2026</a>
   </nav>
 </aside>
 
+<div class="scroll-progress"><div class="scroll-progress-bar" id="progressBar"></div></div>
 <!-- MAIN CONTENT -->
 <div class="main">
 
   <!-- HERO -->
   <header class="hero">
     <div class="hero-content">
-      <div class="hero-brand" style="font-size:0.68rem;color:var(--gold-dark);letter-spacing:0.15em;text-transform:uppercase;font-weight:700;margin-bottom:0.75rem;font-family:'DM Serif Display',serif;">The King Hippopotamus <span style="color:var(--gray-400);font-family:'DM Sans',sans-serif;font-weight:400;letter-spacing:0.08em">— Independent Research</span></div>
+      <div class="hero-brand" style="font-size:0.68rem;color:var(--gold-dark);letter-spacing:0.15em;text-transform:uppercase;font-weight:700;margin-bottom:0.75rem;font-family:'DM Serif Display',serif;">The King Hippopotamus <span style="color:var(--t3);font-family:'DM Sans',sans-serif;font-weight:400;letter-spacing:0.08em">— Independent Research</span></div>
       <div class="hero-badge">Forensic Financial Analysis</div>
       <h1 style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg" alt="NIKE" style="height:2.2rem;filter:brightness(0) invert(1);opacity:0.9;"> <span class="gold">Inc.</span></h1>
       <div class="hero-sub">Quantitative risk assessment and multi-dimensional forensic screening of the world's largest athletic footwear company.</div>
@@ -770,22 +774,22 @@ p.body-text {
   <div class="kpi-strip">
     <div class="kpi-card">
       <div class="kpi-label">Revenue FY25</div>
-      <div class="kpi-value" style="color:var(--white);">$46.3B</div>
+      <div class="kpi-value" style="color:var(--t1);">$46.3B</div>
       <div class="kpi-change neg">-9.8% YoY</div>
     </div>
     <div class="kpi-card">
       <div class="kpi-label">Net Income FY25</div>
-      <div class="kpi-value" style="color:var(--white);">$3.2B</div>
+      <div class="kpi-value" style="color:var(--t1);">$3.2B</div>
       <div class="kpi-change neg">-43.5% YoY</div>
     </div>
     <div class="kpi-card">
       <div class="kpi-label">Gross Margin</div>
-      <div class="kpi-value" style="color:var(--white);">42.7%</div>
+      <div class="kpi-value" style="color:var(--t1);">42.7%</div>
       <div class="kpi-change neg">-190bps</div>
     </div>
     <div class="kpi-card">
       <div class="kpi-label">Cash from Ops</div>
-      <div class="kpi-value" style="color:var(--white);">$3.7B</div>
+      <div class="kpi-value" style="color:var(--t1);">$3.7B</div>
       <div class="kpi-change neg">-50.2% YoY</div>
     </div>
     <div class="kpi-card">
@@ -838,24 +842,24 @@ p.body-text {
           <div>
             <h3 class="sub-heading">Identity</h3>
             <div class="table-wrap"><table class="data-table">
-              <tr><td style="font-weight:600;color:#818cf8;text-align:left;">Legal Name</td><td style="text-align:left;">NIKE, Inc.</td></tr>
-              <tr><td style="font-weight:600;color:#818cf8;text-align:left;">Ticker</td><td style="text-align:left;">NYSE: NKE</td></tr>
-              <tr><td style="font-weight:600;color:#818cf8;text-align:left;">CIK</td><td style="text-align:left;">0000320187</td></tr>
-              <tr><td style="font-weight:600;color:#818cf8;text-align:left;">SIC Code</td><td style="text-align:left;">3021 &mdash; Rubber &amp; Plastics Footwear</td></tr>
-              <tr><td style="font-weight:600;color:#818cf8;text-align:left;">Headquarters</td><td style="text-align:left;">Beaverton, Oregon</td></tr>
-              <tr><td style="font-weight:600;color:#818cf8;text-align:left;">Fiscal Year End</td><td style="text-align:left;">May 31</td></tr>
-              <tr><td style="font-weight:600;color:#818cf8;text-align:left;">Auditor</td><td style="text-align:left;">PricewaterhouseCoopers LLP</td></tr>
+              <tr><td style="font-weight:500;color:var(--t1);text-align:left;">Legal Name</td><td style="text-align:left;">NIKE, Inc.</td></tr>
+              <tr><td style="font-weight:500;color:var(--t1);text-align:left;">Ticker</td><td style="text-align:left;">NYSE: NKE</td></tr>
+              <tr><td style="font-weight:500;color:var(--t1);text-align:left;">CIK</td><td style="text-align:left;">0000320187</td></tr>
+              <tr><td style="font-weight:500;color:var(--t1);text-align:left;">SIC Code</td><td style="text-align:left;">3021 &mdash; Rubber &amp; Plastics Footwear</td></tr>
+              <tr><td style="font-weight:500;color:var(--t1);text-align:left;">Headquarters</td><td style="text-align:left;">Beaverton, Oregon</td></tr>
+              <tr><td style="font-weight:500;color:var(--t1);text-align:left;">Fiscal Year End</td><td style="text-align:left;">May 31</td></tr>
+              <tr><td style="font-weight:500;color:var(--t1);text-align:left;">Auditor</td><td style="text-align:left;">PricewaterhouseCoopers LLP</td></tr>
             </table></div>
           </div>
           <div>
             <h3 class="sub-heading">Market Profile</h3>
             <div class="table-wrap"><table class="data-table">
-              <tr><td style="font-weight:600;color:#818cf8;text-align:left;">Shares Outstanding</td><td style="text-align:left;">1.188 Billion</td></tr>
-              <tr><td style="font-weight:600;color:#818cf8;text-align:left;">Public Float</td><td style="text-align:left;">$92.66 Billion</td></tr>
-              <tr><td style="font-weight:600;color:#818cf8;text-align:left;">Filer Status</td><td style="text-align:left;">Large Accelerated</td></tr>
-              <tr><td style="font-weight:600;color:#818cf8;text-align:left;">Goodwill</td><td style="text-align:left;">$240M (minimal)</td></tr>
-              <tr><td style="font-weight:600;color:#818cf8;text-align:left;">Brands</td><td style="text-align:left;">Nike, Jordan, Converse</td></tr>
-              <tr><td style="font-weight:600;color:#818cf8;text-align:left;">Channels</td><td style="text-align:left;">Wholesale 57.9% / DTC 42.1%</td></tr>
+              <tr><td style="font-weight:500;color:var(--t1);text-align:left;">Shares Outstanding</td><td style="text-align:left;">1.188 Billion</td></tr>
+              <tr><td style="font-weight:500;color:var(--t1);text-align:left;">Public Float</td><td style="text-align:left;">$92.66 Billion</td></tr>
+              <tr><td style="font-weight:500;color:var(--t1);text-align:left;">Filer Status</td><td style="text-align:left;">Large Accelerated</td></tr>
+              <tr><td style="font-weight:500;color:var(--t1);text-align:left;">Goodwill</td><td style="text-align:left;">$240M (minimal)</td></tr>
+              <tr><td style="font-weight:500;color:var(--t1);text-align:left;">Brands</td><td style="text-align:left;">Nike, Jordan, Converse</td></tr>
+              <tr><td style="font-weight:500;color:var(--t1);text-align:left;">Channels</td><td style="text-align:left;">Wholesale 57.9% / DTC 42.1%</td></tr>
             </table></div>
 
             <h3 class="sub-heading">Revenue Mix FY2025</h3>
@@ -863,7 +867,7 @@ p.body-text {
             <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.5rem;">
               <span style="background:rgba(129,140,248,0.15);color:#818cf8;padding:0.3rem 0.6rem;border-radius:4px;font-size:0.72rem;font-weight:600;border:1px solid rgba(129,140,248,0.25);">Footwear 66.9%</span>
               <span style="background:var(--teal-soft);color:var(--teal);padding:0.3rem 0.6rem;border-radius:4px;font-size:0.72rem;font-weight:600;border:1px solid rgba(45,212,191,0.25);">Apparel 28.2%</span>
-              <span style="background:var(--gold);color:var(--navy);padding:0.3rem 0.6rem;border-radius:4px;font-size:0.72rem;font-weight:600;">Equipment 4.8%</span>
+              <span style="background:var(--gold);color:var(--bg);padding:0.3rem 0.6rem;border-radius:4px;font-size:0.72rem;font-weight:600;">Equipment 4.8%</span>
             </div>
           </div>
         </div>
@@ -884,11 +888,11 @@ p.body-text {
           <div class="chart-title">Revenue &amp; Net Income ($B)</div>
           <svg viewBox="0 0 640 260" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:640px;">
             <!-- Grid lines -->
-            <line x1="60" y1="30" x2="620" y2="30" stroke="#2a2a38" stroke-width="0.5"/>
-            <line x1="60" y1="75" x2="620" y2="75" stroke="#2a2a38" stroke-width="0.5"/>
-            <line x1="60" y1="120" x2="620" y2="120" stroke="#2a2a38" stroke-width="0.5"/>
-            <line x1="60" y1="165" x2="620" y2="165" stroke="#2a2a38" stroke-width="0.5"/>
-            <line x1="60" y1="210" x2="620" y2="210" stroke="#2a2a38" stroke-width="0.5"/>
+            <line x1="60" y1="30" x2="620" y2="30" stroke="var(--b1)" stroke-width="0.5"/>
+            <line x1="60" y1="75" x2="620" y2="75" stroke="var(--b1)" stroke-width="0.5"/>
+            <line x1="60" y1="120" x2="620" y2="120" stroke="var(--b1)" stroke-width="0.5"/>
+            <line x1="60" y1="165" x2="620" y2="165" stroke="var(--b1)" stroke-width="0.5"/>
+            <line x1="60" y1="210" x2="620" y2="210" stroke="var(--b1)" stroke-width="0.5"/>
             <!-- Y-axis labels (Revenue scale 0-55B) -->
             <text x="55" y="34" text-anchor="end" class="axis-label">$55B</text>
             <text x="55" y="79" text-anchor="end" class="axis-label">$41B</text>
@@ -897,23 +901,23 @@ p.body-text {
             <text x="55" y="214" text-anchor="end" class="axis-label">$0</text>
             <!-- Revenue bars -->
             <!-- FY20: 37.4/55*180=122.4 => h=122, y=210-122=88 -->
-            <rect x="80" y="87" width="40" height="123" rx="3" fill="#60a5fa"/>
+            <rect x="80" y="87" width="40" height="123" rx="3" fill="var(--blue)"/>
             <text x="100" y="82" text-anchor="middle" class="bar-value" fill="#f0f0f3">37.4</text>
             <!-- FY21: 44.5/55*180=145.6 => y=64 -->
-            <rect x="172" y="64" width="40" height="146" rx="3" fill="#60a5fa"/>
+            <rect x="172" y="64" width="40" height="146" rx="3" fill="var(--blue)"/>
             <text x="192" y="59" text-anchor="middle" class="bar-value" fill="#f0f0f3">44.5</text>
             <!-- FY22: 46.7 => 152.8 => y=57 -->
-            <rect x="264" y="57" width="40" height="153" rx="3" fill="#60a5fa"/>
+            <rect x="264" y="57" width="40" height="153" rx="3" fill="var(--blue)"/>
             <text x="284" y="52" text-anchor="middle" class="bar-value" fill="#f0f0f3">46.7</text>
             <!-- FY23: 51.2 => 167.6 => y=42 -->
-            <rect x="356" y="42" width="40" height="168" rx="3" fill="#60a5fa"/>
+            <rect x="356" y="42" width="40" height="168" rx="3" fill="var(--blue)"/>
             <text x="376" y="37" text-anchor="middle" class="bar-value" fill="#f0f0f3">51.2</text>
             <!-- FY24: 51.4 => 168.2 => y=42 -->
-            <rect x="448" y="42" width="40" height="168" rx="3" fill="#60a5fa"/>
+            <rect x="448" y="42" width="40" height="168" rx="3" fill="var(--blue)"/>
             <text x="468" y="37" text-anchor="middle" class="bar-value" fill="#f0f0f3">51.4</text>
             <!-- FY25: 46.3 => 151.5 => y=58 -->
-            <rect x="540" y="58" width="40" height="152" rx="3" fill="#f87171"/>
-            <text x="560" y="53" text-anchor="middle" class="bar-value" fill="#f87171">46.3</text>
+            <rect x="540" y="58" width="40" height="152" rx="3" fill="var(--red)"/>
+            <text x="560" y="53" text-anchor="middle" class="bar-value" fill="var(--red)">46.3</text>
             <!-- NI line (scale: 0-7B mapped to 210-30) -->
             <!-- FY20:2.54 => y=210-(2.54/7)*180=144.6 -->
             <!-- FY21:5.73 => y=210-(5.73/7)*180=62.6 -->
@@ -922,20 +926,20 @@ p.body-text {
             <!-- FY24:5.70 => y=210-(5.70/7)*180=63.4 -->
             <!-- FY25:3.22 => y=210-(3.22/7)*180=127.2 -->
             <polyline points="100,145 192,63 284,54 376,80 468,63 560,127"
-                      fill="none" stroke="#fbbf24" stroke-width="3" stroke-linejoin="round"/>
-            <circle cx="100" cy="145" r="5" fill="#fbbf24"/>
-            <circle cx="192" cy="63" r="5" fill="#fbbf24"/>
-            <circle cx="284" cy="54" r="5" fill="#fbbf24"/>
-            <circle cx="376" cy="80" r="5" fill="#fbbf24"/>
-            <circle cx="468" cy="63" r="5" fill="#fbbf24"/>
-            <circle cx="560" cy="127" r="5" fill="#fbbf24"/>
+                      fill="none" stroke="var(--green)" stroke-width="2.5" stroke-linejoin="round"/>
+            <circle cx="100" cy="145" r="4" fill="var(--green)"/>
+            <circle cx="192" cy="63" r="4" fill="var(--green)"/>
+            <circle cx="284" cy="54" r="4" fill="var(--green)"/>
+            <circle cx="376" cy="80" r="4" fill="var(--green)"/>
+            <circle cx="468" cy="63" r="4" fill="var(--green)"/>
+            <circle cx="560" cy="127" r="4" fill="var(--green)"/>
             <!-- NI labels -->
             <text x="100" y="139" text-anchor="middle" class="bar-value" fill="#c49b0e">2.5</text>
             <text x="192" y="57" text-anchor="middle" class="bar-value" fill="#c49b0e">5.7</text>
             <text x="284" y="48" text-anchor="middle" class="bar-value" fill="#c49b0e">6.0</text>
             <text x="376" y="74" text-anchor="middle" class="bar-value" fill="#c49b0e">5.1</text>
             <text x="468" y="57" text-anchor="middle" class="bar-value" fill="#c49b0e">5.7</text>
-            <text x="560" y="121" text-anchor="middle" class="bar-value" fill="#f87171">3.2</text>
+            <text x="560" y="121" text-anchor="middle" class="bar-value" fill="var(--red)">3.2</text>
             <!-- X-axis -->
             <text x="100" y="228" text-anchor="middle" class="bar-label">FY20</text>
             <text x="192" y="228" text-anchor="middle" class="bar-label">FY21</text>
@@ -945,7 +949,7 @@ p.body-text {
             <text x="560" y="228" text-anchor="middle" class="bar-label">FY25</text>
           </svg>
           <div class="chart-legend">
-            <div class="legend-item"><div class="legend-dot" style="background:var(--navy);"></div> Revenue ($B)</div>
+            <div class="legend-item"><div class="legend-dot" style="background:var(--s2);"></div> Revenue ($B)</div>
             <div class="legend-item"><div class="legend-dot" style="background:var(--gold);"></div> Net Income ($B)</div>
           </div>
         </div>
@@ -955,11 +959,11 @@ p.body-text {
           <div class="chart-title">Margin Trends (%)</div>
           <svg viewBox="0 0 640 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:640px;">
             <!-- Grid -->
-            <line x1="60" y1="20" x2="620" y2="20" stroke="#2a2a38" stroke-width="0.5"/>
-            <line x1="60" y1="60" x2="620" y2="60" stroke="#2a2a38" stroke-width="0.5"/>
-            <line x1="60" y1="100" x2="620" y2="100" stroke="#2a2a38" stroke-width="0.5"/>
-            <line x1="60" y1="140" x2="620" y2="140" stroke="#2a2a38" stroke-width="0.5"/>
-            <line x1="60" y1="180" x2="620" y2="180" stroke="#2a2a38" stroke-width="0.5"/>
+            <line x1="60" y1="20" x2="620" y2="20" stroke="var(--b1)" stroke-width="0.5"/>
+            <line x1="60" y1="60" x2="620" y2="60" stroke="var(--b1)" stroke-width="0.5"/>
+            <line x1="60" y1="100" x2="620" y2="100" stroke="var(--b1)" stroke-width="0.5"/>
+            <line x1="60" y1="140" x2="620" y2="140" stroke="var(--b1)" stroke-width="0.5"/>
+            <line x1="60" y1="180" x2="620" y2="180" stroke="var(--b1)" stroke-width="0.5"/>
             <text x="55" y="24" text-anchor="end" class="axis-label">50%</text>
             <text x="55" y="64" text-anchor="end" class="axis-label">40%</text>
             <text x="55" y="104" text-anchor="end" class="axis-label">30%</text>
@@ -974,12 +978,12 @@ p.body-text {
             <!-- FY25:42.7 => 20+(50-42.7)*4=49.2 -->
             <polyline points="100,46 192,41 284,36 376,46 468,42 560,49"
                       fill="none" stroke="#1a1a2e" stroke-width="2.5" stroke-linejoin="round"/>
-            <circle cx="100" cy="46" r="3.5" fill="#cdcdd4"/>
-            <circle cx="192" cy="41" r="3.5" fill="#cdcdd4"/>
-            <circle cx="284" cy="36" r="3.5" fill="#cdcdd4"/>
-            <circle cx="376" cy="46" r="3.5" fill="#cdcdd4"/>
-            <circle cx="468" cy="42" r="3.5" fill="#cdcdd4"/>
-            <circle cx="560" cy="49" r="3.5" fill="#cdcdd4"/>
+            <circle cx="100" cy="46" r="3.5" fill="var(--t2)"/>
+            <circle cx="192" cy="41" r="3.5" fill="var(--t2)"/>
+            <circle cx="284" cy="36" r="3.5" fill="var(--t2)"/>
+            <circle cx="376" cy="46" r="3.5" fill="var(--t2)"/>
+            <circle cx="468" cy="42" r="3.5" fill="var(--t2)"/>
+            <circle cx="560" cy="49" r="3.5" fill="var(--t2)"/>
             <!-- SGA% -->
             <!-- FY20:35.1 => 20+(50-35.1)*4=79.6 -->
             <!-- FY21:29.2 => 20+(50-29.2)*4=103.2 -->
@@ -988,7 +992,7 @@ p.body-text {
             <!-- FY24:32.3 => 20+(50-32.3)*4=90.8 -->
             <!-- FY25:34.7 => 20+(50-34.7)*4=81.2 -->
             <polyline points="100,80 192,103 284,93 376,92 468,91 560,81"
-                      fill="none" stroke="#fbbf24" stroke-width="3" stroke-linejoin="round" stroke-dasharray="6,3"/>
+                      fill="none" stroke="var(--green)" stroke-width="2.5" stroke-linejoin="round" stroke-dasharray="6,3"/>
             <circle cx="100" cy="80" r="3.5" fill="#e2b714"/>
             <circle cx="192" cy="103" r="3.5" fill="#e2b714"/>
             <circle cx="284" cy="93" r="3.5" fill="#e2b714"/>
@@ -1002,12 +1006,12 @@ p.body-text {
             <!-- Using same scale: -->
             <polyline points="100,193 192,159 284,159 376,170 468,164 560,192"
                       fill="none" stroke="#3b82f6" stroke-width="2" stroke-linejoin="round"/>
-            <circle cx="100" cy="193" r="3" fill="#60a5fa"/>
-            <circle cx="192" cy="159" r="3" fill="#60a5fa"/>
-            <circle cx="284" cy="159" r="3" fill="#60a5fa"/>
-            <circle cx="376" cy="170" r="3" fill="#60a5fa"/>
-            <circle cx="468" cy="164" r="3" fill="#60a5fa"/>
-            <circle cx="560" cy="192" r="3" fill="#60a5fa"/>
+            <circle cx="100" cy="193" r="3" fill="var(--blue)"/>
+            <circle cx="192" cy="159" r="3" fill="var(--blue)"/>
+            <circle cx="284" cy="159" r="3" fill="var(--blue)"/>
+            <circle cx="376" cy="170" r="3" fill="var(--blue)"/>
+            <circle cx="468" cy="164" r="3" fill="var(--blue)"/>
+            <circle cx="560" cy="192" r="3" fill="var(--blue)"/>
             <!-- Labels -->
             <text x="100" y="202" text-anchor="middle" class="bar-label">FY20</text>
             <text x="192" y="202" text-anchor="middle" class="bar-label">FY21</text>
@@ -1017,7 +1021,7 @@ p.body-text {
             <text x="560" y="202" text-anchor="middle" class="bar-label">FY25</text>
           </svg>
           <div class="chart-legend">
-            <div class="legend-item"><div class="legend-dot" style="background:var(--navy);"></div> Gross Margin</div>
+            <div class="legend-item"><div class="legend-dot" style="background:var(--s2);"></div> Gross Margin</div>
             <div class="legend-item"><div class="legend-dot" style="background:var(--gold);"></div> SGA % (dashed)</div>
             <div class="legend-item"><div class="legend-dot" style="background:var(--blue);"></div> Net Margin</div>
           </div>
@@ -1093,13 +1097,13 @@ p.body-text {
             <h4>Beneish M-Score</h4>
             <svg class="gauge-svg" viewBox="0 0 160 100" width="160" height="100">
               <!-- Background arc -->
-              <path d="M 15 85 A 65 65 0 0 1 145 85" fill="none" stroke="#2a2a38" stroke-width="14" stroke-linecap="round"/>
+              <path d="M 15 85 A 65 65 0 0 1 145 85" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="12" stroke-linecap="round" stroke-linecap="round"/>
               <!-- Danger zone (right side) -->
-              <path d="M 100 22 A 65 65 0 0 1 145 85" fill="none" stroke="#ef4444" stroke-width="14" opacity="0.7" stroke-linecap="round"/>
+              <path d="M 100 22 A 65 65 0 0 1 145 85" fill="none" stroke="var(--red)" stroke-width="12" stroke-linecap="round" opacity="0.6" stroke-linecap="round"/>
               <!-- Value marker: -2.46 on scale -3.5 to -1.0. Normalized: (-2.46 - -3.5)/(2.5)= 0.416. angle = 180*0.416=74.9 deg -->
-              <circle cx="0" cy="0" r="8" fill="#fbbf24" transform="rotate(74.9, 80, 85) translate(80, 20)"/>
+              <circle cx="0" cy="0" r="6" fill="var(--amber)" transform="rotate(74.9, 80, 85) translate(80, 20)"/>
               <!-- Threshold line at -2.22: (1.28/2.5)=0.512 => 92.2 deg -->
-              <line x1="80" y1="85" x2="80" y2="25" stroke="#f87171" stroke-width="2" stroke-dasharray="4,3"
+              <line x1="80" y1="85" x2="80" y2="25" stroke="var(--red)" stroke-width="1.5" opacity="0.6" stroke-dasharray="4,3"
                     transform="rotate(92.2, 80, 85)"/>
             </svg>
             <div class="gauge-value" style="color:var(--amber);">-2.461</div>
@@ -1111,14 +1115,14 @@ p.body-text {
           <div class="gauge-card">
             <h4>Altman Z-Score</h4>
             <svg class="gauge-svg" viewBox="0 0 160 100" width="160" height="100">
-              <path d="M 15 85 A 65 65 0 0 1 145 85" fill="none" stroke="#2a2a38" stroke-width="14" stroke-linecap="round"/>
+              <path d="M 15 85 A 65 65 0 0 1 145 85" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="12" stroke-linecap="round" stroke-linecap="round"/>
               <!-- Safe zone -->
-              <path d="M 100 22 A 65 65 0 0 1 145 85" fill="none" stroke="#22c55e" stroke-width="14" opacity="0.7" stroke-linecap="round"/>
+              <path d="M 100 22 A 65 65 0 0 1 145 85" fill="none" stroke="var(--green)" stroke-width="12" stroke-linecap="round" opacity="0.6" stroke-linecap="round"/>
               <!-- Distress zone -->
-              <path d="M 15 85 A 65 65 0 0 1 45 30" fill="none" stroke="#ef4444" stroke-width="14" opacity="0.7" stroke-linecap="round"/>
+              <path d="M 15 85 A 65 65 0 0 1 45 30" fill="none" stroke="var(--red)" stroke-width="12" stroke-linecap="round" opacity="0.6" stroke-linecap="round"/>
               <!-- Grey zone in middle already covered by default gray -->
               <!-- Value: 2.33 on scale 0-5. 2.33/5=0.466 => 83.9 deg -->
-              <circle cx="0" cy="0" r="8" fill="#fbbf24" transform="rotate(83.9, 80, 85) translate(80, 20)"/>
+              <circle cx="0" cy="0" r="6" fill="var(--amber)" transform="rotate(83.9, 80, 85) translate(80, 20)"/>
             </svg>
             <div class="gauge-value" style="color:var(--amber);">2.331</div>
             <div class="gauge-verdict verdict-warn">Grey Zone</div>
@@ -1129,11 +1133,11 @@ p.body-text {
           <div class="gauge-card">
             <h4>Piotroski F-Score</h4>
             <svg class="gauge-svg" viewBox="0 0 160 100" width="160" height="100">
-              <path d="M 15 85 A 65 65 0 0 1 145 85" fill="none" stroke="#2a2a38" stroke-width="14" stroke-linecap="round"/>
+              <path d="M 15 85 A 65 65 0 0 1 145 85" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="12" stroke-linecap="round" stroke-linecap="round"/>
               <!-- Filled portion: 5/9 = 0.556 => 100 deg -->
-              <path d="M 15 85 A 65 65 0 0 1 62 26" fill="none" stroke="#fbbf24" stroke-width="14" stroke-linecap="round"/>
-              <text x="80" y="75" text-anchor="middle" font-family="Playfair Display, serif" font-size="32" font-weight="800" fill="#fbbf24">5</text>
-              <text x="80" y="90" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#c0c0c8">of 9</text>
+              <path d="M 15 85 A 65 65 0 0 1 62 26" fill="none" stroke="var(--amber)" stroke-width="12" stroke-linecap="round" stroke-linecap="round"/>
+              <text x="80" y="75" text-anchor="middle" font-family="Playfair Display, serif" font-size="28" font-weight="600" fill="var(--amber)">5</text>
+              <text x="80" y="90" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="var(--t2)">of 9</text>
             </svg>
             <div class="gauge-verdict verdict-warn">Neutral</div>
             <div class="gauge-detail">
@@ -1146,11 +1150,11 @@ p.body-text {
           <div class="gauge-card">
             <h4>Sloan Accrual Ratio</h4>
             <svg class="gauge-svg" viewBox="0 0 160 100" width="160" height="100">
-              <path d="M 15 85 A 65 65 0 0 1 145 85" fill="none" stroke="#2a2a38" stroke-width="14" stroke-linecap="round"/>
+              <path d="M 15 85 A 65 65 0 0 1 145 85" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="12" stroke-linecap="round" stroke-linecap="round"/>
               <!-- Safe zone is center; mark it green -->
-              <path d="M 50 28 A 65 65 0 0 1 110 28" fill="none" stroke="#22c55e" stroke-width="14" opacity="0.7" stroke-linecap="round"/>
+              <path d="M 50 28 A 65 65 0 0 1 110 28" fill="none" stroke="var(--green)" stroke-width="12" stroke-linecap="round" opacity="0.6" stroke-linecap="round"/>
               <!-- Value: -0.55% => very center -->
-              <circle cx="80" cy="21" r="8" fill="#34d399"/>
+              <circle cx="80" cy="21" r="6" fill="var(--green)"/>
             </svg>
             <div class="gauge-value" style="color:var(--green);">-0.55%</div>
             <div class="gauge-verdict verdict-safe">Safe</div>
@@ -1161,10 +1165,10 @@ p.body-text {
           <div class="gauge-card">
             <h4>Cash Conversion (CFO/NI)</h4>
             <svg class="gauge-svg" viewBox="0 0 160 100" width="160" height="100">
-              <path d="M 15 85 A 65 65 0 0 1 145 85" fill="none" stroke="#2a2a38" stroke-width="14" stroke-linecap="round"/>
-              <path d="M 80 20 A 65 65 0 0 1 145 85" fill="none" stroke="#22c55e" stroke-width="14" opacity="0.7" stroke-linecap="round"/>
+              <path d="M 15 85 A 65 65 0 0 1 145 85" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="12" stroke-linecap="round" stroke-linecap="round"/>
+              <path d="M 80 20 A 65 65 0 0 1 145 85" fill="none" stroke="var(--green)" stroke-width="12" stroke-linecap="round" opacity="0.6" stroke-linecap="round"/>
               <!-- 1.15x on 0-2x scale => 0.575 => 103.5 deg -->
-              <circle cx="0" cy="0" r="8" fill="#34d399" transform="rotate(103.5, 80, 85) translate(80, 20)"/>
+              <circle cx="0" cy="0" r="6" fill="var(--green)" transform="rotate(103.5, 80, 85) translate(80, 20)"/>
             </svg>
             <div class="gauge-value" style="color:var(--green);">1.15x</div>
             <div class="gauge-verdict verdict-safe">Healthy</div>
@@ -1175,11 +1179,11 @@ p.body-text {
           <div class="gauge-card">
             <h4>Effective Tax Rate</h4>
             <svg class="gauge-svg" viewBox="0 0 160 100" width="160" height="100">
-              <path d="M 15 85 A 65 65 0 0 1 145 85" fill="none" stroke="#2a2a38" stroke-width="14" stroke-linecap="round"/>
+              <path d="M 15 85 A 65 65 0 0 1 145 85" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="12" stroke-linecap="round" stroke-linecap="round"/>
               <!-- 21% statutory line at center -->
-              <line x1="80" y1="85" x2="80" y2="22" stroke="#6b7280" stroke-width="2" stroke-dasharray="3,2"/>
+              <line x1="80" y1="85" x2="80" y2="22" stroke="var(--t4)" stroke-width="1.5" stroke-dasharray="3,2"/>
               <!-- 17.1% on 0-40% scale => 0.4275 => 76.95 deg -->
-              <circle cx="0" cy="0" r="8" fill="#fbbf24" transform="rotate(77, 80, 85) translate(80, 20)"/>
+              <circle cx="0" cy="0" r="6" fill="var(--amber)" transform="rotate(77, 80, 85) translate(80, 20)"/>
             </svg>
             <div class="gauge-value" style="color:var(--amber);">17.1%</div>
             <div class="gauge-verdict verdict-warn">Below Statutory</div>
@@ -1258,15 +1262,15 @@ p.body-text {
             <!-- Horizontal bars -->
             <!-- N.America: 19572. Scale max=20000. Bar max width=420 -->
             <text x="120" y="35" text-anchor="end" class="bar-label" font-weight="600">N. America</text>
-            <rect x="125" y="22" width="411" height="22" rx="3" fill="#cdcdd4"/>
+            <rect x="125" y="22" width="411" height="22" rx="3" fill="var(--t2)"/>
             <text x="540" y="37" class="bar-value" fill="#f0f0f3">$19,572 (42.3%)</text>
 
             <text x="120" y="70" text-anchor="end" class="bar-label" font-weight="600">EMEA</text>
-            <rect x="125" y="57" width="257" height="22" rx="3" fill="#252530"/>
+            <rect x="125" y="57" width="257" height="22" rx="3" fill="var(--s3)"/>
             <text x="387" y="72" class="bar-value" fill="#f0f0f3">$12,257 (26.5%)</text>
 
             <text x="120" y="105" text-anchor="end" class="bar-label" font-weight="600">Gr. China</text>
-            <rect x="125" y="92" width="138" height="22" rx="3" fill="#252530"/>
+            <rect x="125" y="92" width="138" height="22" rx="3" fill="var(--s3)"/>
             <text x="268" y="107" class="bar-value" fill="#f0f0f3">$6,586 (14.2%)</text>
 
             <text x="120" y="140" text-anchor="end" class="bar-label" font-weight="600">APLA</text>
@@ -1301,11 +1305,11 @@ p.body-text {
           <svg viewBox="0 0 640 240" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:640px;">
             <!-- Y axis -->
             <line x1="50" y1="20" x2="50" y2="200" stroke="#d1d5db" stroke-width="0.5"/>
-            <line x1="50" y1="20" x2="620" y2="20" stroke="#2a2a38" stroke-width="0.5"/>
-            <line x1="50" y1="60" x2="620" y2="60" stroke="#2a2a38" stroke-width="0.5"/>
-            <line x1="50" y1="100" x2="620" y2="100" stroke="#2a2a38" stroke-width="0.5"/>
-            <line x1="50" y1="140" x2="620" y2="140" stroke="#2a2a38" stroke-width="0.5"/>
-            <line x1="50" y1="180" x2="620" y2="180" stroke="#2a2a38" stroke-width="0.5"/>
+            <line x1="50" y1="20" x2="620" y2="20" stroke="var(--b1)" stroke-width="0.5"/>
+            <line x1="50" y1="60" x2="620" y2="60" stroke="var(--b1)" stroke-width="0.5"/>
+            <line x1="50" y1="100" x2="620" y2="100" stroke="var(--b1)" stroke-width="0.5"/>
+            <line x1="50" y1="140" x2="620" y2="140" stroke="var(--b1)" stroke-width="0.5"/>
+            <line x1="50" y1="180" x2="620" y2="180" stroke="var(--b1)" stroke-width="0.5"/>
             <line x1="50" y1="200" x2="620" y2="200" stroke="#d1d5db" stroke-width="0.5"/>
             <text x="45" y="24" text-anchor="end" class="axis-label">6000</text>
             <text x="45" y="64" text-anchor="end" class="axis-label">4500</text>
@@ -1316,17 +1320,17 @@ p.body-text {
             <!-- Scale: 0-6000 mapped to y200-y20. 1unit = 180/6000=0.03px -->
             <!-- N.America group x=70 -->
             <!-- FY23:5454 => y=200-5454*0.03=36.4 h=163.6 -->
-            <rect x="70" y="36" width="25" height="164" rx="2" fill="#f87171"/>
+            <rect x="70" y="36" width="25" height="164" rx="2" fill="var(--red)"/>
             <!-- FY24:5822 => y=200-5822*0.03=25.3 h=174.7 -->
-            <rect x="97" y="25" width="25" height="175" rx="2" fill="#cdcdd4" opacity="0.8"/>
+            <rect x="97" y="25" width="25" height="175" rx="2" fill="var(--t2)" opacity="0.8"/>
             <!-- FY25:4735 => y=200-4735*0.03=57.9 h=142.1 -->
-            <rect x="124" y="58" width="25" height="142" rx="2" fill="#cdcdd4"/>
+            <rect x="124" y="58" width="25" height="142" rx="2" fill="var(--t2)"/>
             <text x="107" y="218" text-anchor="middle" class="bar-label">N.Am</text>
 
             <!-- EMEA group x=180 -->
-            <rect x="180" y="94" width="25" height="106" rx="2" fill="#252530" opacity="0.6"/>
-            <rect x="207" y="98" width="25" height="102" rx="2" fill="#252530" opacity="0.8"/>
-            <rect x="234" y="123" width="25" height="77" rx="2" fill="#252530"/>
+            <rect x="180" y="94" width="25" height="106" rx="2" fill="var(--s3)" opacity="0.6"/>
+            <rect x="207" y="98" width="25" height="102" rx="2" fill="var(--s3)" opacity="0.8"/>
+            <rect x="234" y="123" width="25" height="77" rx="2" fill="var(--s3)"/>
             <text x="217" y="218" text-anchor="middle" class="bar-label">EMEA</text>
 
             <!-- China group x=290 -->
@@ -1336,21 +1340,21 @@ p.body-text {
             <text x="327" y="218" text-anchor="middle" class="bar-label">China</text>
 
             <!-- APLA group x=400 -->
-            <rect x="400" y="142" width="25" height="58" rx="2" fill="#60a5fa" opacity="0.6"/>
-            <rect x="427" y="143" width="25" height="57" rx="2" fill="#60a5fa" opacity="0.8"/>
-            <rect x="454" y="154" width="25" height="46" rx="2" fill="#60a5fa"/>
+            <rect x="400" y="142" width="25" height="58" rx="2" fill="var(--blue)" opacity="0.6"/>
+            <rect x="427" y="143" width="25" height="57" rx="2" fill="var(--blue)" opacity="0.8"/>
+            <rect x="454" y="154" width="25" height="46" rx="2" fill="var(--blue)"/>
             <text x="437" y="218" text-anchor="middle" class="bar-label">APLA</text>
 
             <!-- Converse group x=510 -->
-            <rect x="510" y="180" width="25" height="20" rx="2" fill="#c0c0c8" opacity="0.6"/>
-            <rect x="537" y="186" width="25" height="14" rx="2" fill="#c0c0c8" opacity="0.8"/>
-            <rect x="564" y="193" width="25" height="7" rx="2" fill="#c0c0c8"/>
+            <rect x="510" y="180" width="25" height="20" rx="2" fill="var(--t2)" opacity="0.6"/>
+            <rect x="537" y="186" width="25" height="14" rx="2" fill="var(--t2)" opacity="0.8"/>
+            <rect x="564" y="193" width="25" height="7" rx="2" fill="var(--t2)"/>
             <text x="547" y="218" text-anchor="middle" class="bar-label">Converse</text>
           </svg>
           <div class="chart-legend">
-            <div class="legend-item"><div class="legend-dot" style="background:var(--navy);opacity:0.6;"></div> FY2023</div>
-            <div class="legend-item"><div class="legend-dot" style="background:var(--navy);opacity:0.8;"></div> FY2024</div>
-            <div class="legend-item"><div class="legend-dot" style="background:var(--navy);"></div> FY2025</div>
+            <div class="legend-item"><div class="legend-dot" style="background:var(--s2);opacity:0.6;"></div> FY2023</div>
+            <div class="legend-item"><div class="legend-dot" style="background:var(--s2);opacity:0.8;"></div> FY2024</div>
+            <div class="legend-item"><div class="legend-dot" style="background:var(--s2);"></div> FY2025</div>
           </div>
         </div>
 
@@ -1361,27 +1365,27 @@ p.body-text {
         <!-- PRODUCT MIX -->
         <h3 class="sub-heading">Product Revenue FY2025</h3>
         <div style="display:flex;gap:1rem;flex-wrap:wrap;">
-          <div style="flex:1;min-width:200px;padding:1rem;background:var(--navy);border-radius:6px;text-align:center;">
+          <div style="flex:1;min-width:200px;padding:1rem;background:var(--s2);border-radius:6px;text-align:center;">
             <div style="color:var(--gold);font-size:0.65rem;text-transform:uppercase;letter-spacing:1px;font-weight:700;">Footwear</div>
-            <div style="color:var(--white);font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:800;">$30,967M</div>
-            <div style="color:var(--gray-400);font-size:0.75rem;">66.9% of revenue</div>
+            <div style="color:var(--t1);font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:800;">$30,967M</div>
+            <div style="color:var(--t3);font-size:0.75rem;">66.9% of revenue</div>
           </div>
           <div style="flex:1;min-width:200px;padding:1rem;background:var(--navy-light);border-radius:6px;text-align:center;">
             <div style="color:var(--gold);font-size:0.65rem;text-transform:uppercase;letter-spacing:1px;font-weight:700;">Apparel</div>
-            <div style="color:var(--white);font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:800;">$13,045M</div>
-            <div style="color:var(--gray-400);font-size:0.75rem;">28.2% of revenue</div>
+            <div style="color:var(--t1);font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:800;">$13,045M</div>
+            <div style="color:var(--t3);font-size:0.75rem;">28.2% of revenue</div>
           </div>
-          <div style="flex:1;min-width:200px;padding:1rem;background:var(--navy-mid);border-radius:6px;text-align:center;">
+          <div style="flex:1;min-width:200px;padding:1rem;background:var(--s3);border-radius:6px;text-align:center;">
             <div style="color:var(--gold);font-size:0.65rem;text-transform:uppercase;letter-spacing:1px;font-weight:700;">Equipment</div>
-            <div style="color:var(--white);font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:800;">$2,223M</div>
-            <div style="color:var(--gray-400);font-size:0.75rem;">4.8% of revenue</div>
+            <div style="color:var(--t1);font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:800;">$2,223M</div>
+            <div style="color:var(--t3);font-size:0.75rem;">4.8% of revenue</div>
           </div>
         </div>
 
         <!-- CHANNEL -->
         <h3 class="sub-heading">Channel Mix (Nike Brand FY2025)</h3>
         <div style="display:flex;align-items:center;gap:0;border-radius:6px;overflow:hidden;height:36px;margin-top:0.5rem;">
-          <div style="width:57.9%;background:var(--navy);height:100%;display:flex;align-items:center;justify-content:center;color:var(--white);font-size:0.72rem;font-weight:700;">Wholesale $25,883M (57.9%)</div>
+          <div style="width:57.9%;background:var(--s2);height:100%;display:flex;align-items:center;justify-content:center;color:var(--t1);font-size:0.72rem;font-weight:700;">Wholesale $25,883M (57.9%)</div>
           <div style="width:42.1%;background:var(--gold);height:100%;display:flex;align-items:center;justify-content:center;color:var(--navy);font-size:0.72rem;font-weight:700;">DTC ~$18,831M (42.1%)</div>
         </div>
       </div>
@@ -1403,30 +1407,30 @@ p.body-text {
             <!-- FY24 -->
             <text x="200" y="30" text-anchor="middle" class="bar-label" font-weight="700" font-size="12">FY2024</text>
             <!-- DSO -->
-            <rect x="80" y="45" width="94" height="30" rx="2" fill="#60a5fa"/>
+            <rect x="80" y="45" width="94" height="30" rx="2" fill="var(--blue)"/>
             <text x="127" y="64" text-anchor="middle" fill="white" font-size="10" font-weight="600">DSO 31.5d</text>
             <!-- DIO -->
-            <rect x="174" y="45" width="289" height="30" rx="2" fill="#cdcdd4"/>
+            <rect x="174" y="45" width="289" height="30" rx="2" fill="var(--t2)"/>
             <text x="318" y="64" text-anchor="middle" fill="white" font-size="10" font-weight="600">DIO 96.4d</text>
             <!-- DPO offset -->
             <rect x="80" y="82" width="110" height="24" rx="2" fill="#22c55e" opacity="0.8"/>
             <text x="135" y="98" text-anchor="middle" fill="white" font-size="10" font-weight="600">DPO 36.5d</text>
             <!-- CCC label -->
-            <text x="480" y="64" class="bar-value" font-size="12" fill="#cdcdd4">CCC = 91.4 days</text>
+            <text x="480" y="64" class="bar-value" font-size="12" fill="var(--t2)">CCC = 91.4 days</text>
 
             <!-- FY25 -->
             <text x="200" y="140" text-anchor="middle" class="bar-label" font-weight="700" font-size="12">FY2025</text>
             <!-- DSO -->
-            <rect x="80" y="155" width="112" height="30" rx="2" fill="#60a5fa"/>
+            <rect x="80" y="155" width="112" height="30" rx="2" fill="var(--blue)"/>
             <text x="136" y="174" text-anchor="middle" fill="white" font-size="10" font-weight="600">DSO 37.2d</text>
             <!-- DIO -->
-            <rect x="192" y="155" width="309" height="30" rx="2" fill="#cdcdd4"/>
+            <rect x="192" y="155" width="309" height="30" rx="2" fill="var(--t2)"/>
             <text x="346" y="174" text-anchor="middle" fill="white" font-size="10" font-weight="600">DIO 103.1d</text>
             <!-- DPO offset -->
             <rect x="80" y="192" width="144" height="24" rx="2" fill="#22c55e" opacity="0.8"/>
             <text x="152" y="208" text-anchor="middle" fill="white" font-size="10" font-weight="600">DPO 47.9d</text>
             <!-- CCC label -->
-            <text x="520" y="174" class="bar-value" font-size="12" fill="#f87171">CCC = 92.4 days</text>
+            <text x="520" y="174" class="bar-value" font-size="12" fill="var(--red)">CCC = 92.4 days</text>
           </svg>
         </div>
 
@@ -1478,7 +1482,7 @@ p.body-text {
             <tr><td>GP Margin*</td><td>~39.2%</td><td>~38.1%</td><td>~61.3%</td><td>~74.3%</td></tr>
           </tbody>
         </table></div>
-        <p style="font-size:0.7rem;color:var(--gray-500);margin-top:0.5rem;">*GP Margins are approximate based on available data. NKE GP Margin based on Q3 FY2026 trailing data.</p>
+        <p style="font-size:0.7rem;color:var(--t3);margin-top:0.5rem;">*GP Margins are approximate based on available data. NKE GP Margin based on Q3 FY2026 trailing data.</p>
 
         <!-- Peer visual comparison -->
         <div class="chart-container">
@@ -1487,12 +1491,12 @@ p.body-text {
             <!-- Scale: -500 to 2200, mapped horizontally. 0 line at x=100 -->
             <!-- NKE: 2039 => bar width = 2039/2200 * 440 = 408 -->
             <text x="65" y="35" text-anchor="end" class="bar-label" font-weight="700">NKE</text>
-            <rect x="100" y="22" width="408" height="22" rx="3" fill="#cdcdd4"/>
+            <rect x="100" y="22" width="408" height="22" rx="3" fill="var(--t2)"/>
             <text x="514" y="37" class="bar-value" fill="#f0f0f3">$2,039M</text>
 
             <!-- LULU: 1579 => 316 -->
             <text x="65" y="67" text-anchor="end" class="bar-label" font-weight="700">LULU</text>
-            <rect x="100" y="54" width="316" height="22" rx="3" fill="#252530"/>
+            <rect x="100" y="54" width="316" height="22" rx="3" fill="var(--s3)"/>
             <text x="421" y="69" class="bar-value" fill="#f0f0f3">$1,579M</text>
 
             <!-- DECK: 889 => 178 -->
@@ -1502,8 +1506,8 @@ p.body-text {
 
             <!-- UAA: -452 => bar going left from 0 line, width=452/2200*440=90 -->
             <text x="65" y="131" text-anchor="end" class="bar-label" font-weight="700">UAA</text>
-            <rect x="10" y="118" width="90" height="22" rx="3" fill="#f87171"/>
-            <text x="105" y="133" class="bar-value" fill="#f87171">-$452M</text>
+            <rect x="10" y="118" width="90" height="22" rx="3" fill="var(--red)"/>
+            <text x="105" y="133" class="bar-value" fill="var(--red)">-$452M</text>
 
             <!-- Zero line -->
             <line x1="100" y1="15" x2="100" y2="145" stroke="#374151" stroke-width="1" stroke-dasharray="3,2"/>
@@ -1690,18 +1694,18 @@ p.body-text {
             <!-- Outflow bars stacked -->
             <text x="15" y="80" class="bar-label" font-weight="700">Deployments</text>
             <!-- Buybacks: 2985/3698 = 80.7% of 370 = 299 -->
-            <rect x="115" y="65" width="299" height="28" rx="4" fill="#cdcdd4"/>
+            <rect x="115" y="65" width="299" height="28" rx="4" fill="var(--t2)"/>
             <text x="264" y="84" text-anchor="middle" fill="white" font-size="10" font-weight="600">Buybacks $2,985M</text>
             <!-- Dividends: 2300/3698 = 62.2% of 370 = 230 -->
             <rect x="115" y="100" width="230" height="28" rx="4" fill="#e2b714"/>
             <text x="230" y="119" text-anchor="middle" fill="#f0f0f3" font-size="10" font-weight="600">Dividends $2,300M</text>
             <!-- CapEx: 430/3698 = 11.6% of 370 = 43 -->
-            <rect x="115" y="135" width="43" height="28" rx="4" fill="#60a5fa"/>
+            <rect x="115" y="135" width="43" height="28" rx="4" fill="var(--blue)"/>
             <text x="165" y="154" class="bar-value" fill="#f0f0f3">CapEx $430M</text>
 
             <!-- Total outflow label -->
-            <text x="420" y="84" class="bar-value" font-size="12" fill="#f87171">Total: $5,715M</text>
-            <text x="420" y="100" class="bar-value" font-size="10" fill="#f87171">(155% of CFO)</text>
+            <text x="420" y="84" class="bar-value" font-size="12" fill="var(--red)">Total: $5,715M</text>
+            <text x="420" y="100" class="bar-value" font-size="10" fill="var(--red)">(155% of CFO)</text>
           </svg>
         </div>
 
@@ -1752,8 +1756,8 @@ p.body-text {
           </div>
         </div>
 
-        <div style="margin-top:1.5rem;padding:1rem;background:var(--gray-50);border-radius:6px;color:var(--gray-600);border:1px solid var(--gray-200);font-size:0.75rem;color:var(--gray-600);line-height:1.6;">
-          <strong style="color:var(--gold);">Disclaimer:</strong> This report is for informational and educational purposes only. It does not constitute investment advice, a recommendation, or solicitation to buy or sell any security. The forensic models employed are academic screening tools with known limitations and false-positive rates. All data is derived from public SEC filings and may contain errors or omissions. Past financial performance is not indicative of future results. Readers should conduct their own due diligence and consult qualified financial advisors before making investment decisions.
+        <div style="margin-top:1.5rem;padding:1rem;background:var(--gray-50);border-radius:6px;color:var(--t2);border:1px solid var(--gray-200);font-size:0.75rem;color:var(--t2);line-height:1.6;">
+          <strong style="color:var(--t1);">Disclaimer:</strong> This report is for informational and educational purposes only. It does not constitute investment advice, a recommendation, or solicitation to buy or sell any security. The forensic models employed are academic screening tools with known limitations and false-positive rates. All data is derived from public SEC filings and may contain errors or omissions. Past financial performance is not indicative of future results. Readers should conduct their own due diligence and consult qualified financial advisors before making investment decisions.
         </div>
       </div>
     </section>
@@ -1812,16 +1816,43 @@ document.querySelectorAll('.sidebar nav a[href^="#"]').forEach(function(link) {
 </script>
 
 <script>
+// Sidebar toggle
 function toggleSidebar() {
   document.querySelector('.sidebar').classList.toggle('open');
   document.querySelector('.sidebar-overlay').classList.toggle('open');
 }
-// Close sidebar when nav link clicked (mobile)
 document.querySelectorAll('.sidebar nav a').forEach(a => {
   a.addEventListener('click', () => {
     if (window.innerWidth <= 900) toggleSidebar();
   });
 });
+
+// Scroll progress bar
+window.addEventListener('scroll', () => {
+  const h = document.documentElement;
+  const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+  const bar = document.getElementById('progressBar');
+  if (bar) bar.style.width = pct + '%';
+});
+
+// Section collapse
+function toggleSection(el) {
+  el.classList.toggle('collapsed');
+}
+
+// Active sidebar link on scroll
+const sections = document.querySelectorAll('.report-section');
+const navLinks = document.querySelectorAll('.sidebar nav a[href^="#"]');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(a => a.classList.remove('active'));
+      const link = document.querySelector('.sidebar nav a[href="#' + entry.target.id + '"]');
+      if (link) link.classList.add('active');
+    }
+  });
+}, { threshold: 0.2, rootMargin: '-80px 0px -60% 0px' });
+sections.forEach(s => observer.observe(s));
 </script>
 </body>
 </html>

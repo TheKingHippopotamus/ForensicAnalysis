@@ -4,502 +4,368 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Forensic Financial Research</title>
-<meta name="description" content="Independent forensic analysis of US public companies. 20+ SEC filings, 6 forensic models, 10 investigation layers per report.">
+<meta name="description" content="Independent forensic analysis of US public companies. Deep-dive reports from primary SEC filings.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&family=DM+Serif+Display&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Newsreader:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #08080c;
-  --surface: #101018;
-  --surface-hover: #16161f;
-  --border: rgba(255,255,255,0.06);
-  --border-hover: rgba(45,212,191,0.3);
-  --gold: #e2b714;
-  --gold-soft: rgba(226,183,20,0.12);
-  --gold-glow: rgba(45,212,191,0.04);
-  --text: #e8e8ec;
-  --text-secondary: #8b8b96;
-  --text-tertiary: #55555f;
-  --accent-green: #34d399;
-  --accent-blue: #60a5fa;
-  --accent-red: #f87171;
+  --bg: #0d1117;
+  --s1: #151b23;
+  --s2: #1a2233;
+  --s3: #212d40;
+  --b1: rgba(255,255,255,0.06);
+  --b2: rgba(255,255,255,0.10);
+  --b3: rgba(255,255,255,0.16);
+  --t1: #e6edf3;
+  --t2: #b0b8c4;
+  --t3: #6e7a8a;
+  --t4: #4a5568;
+  --blue: #58a6ff;
+  --green: #3fb950;
+  --red: #f85149;
+  --amber: #d29922;
+  --purple: #bc8cff;
+  --gold: #d4a520;
+  --teal: #39d0c0;
+  --blue-bg: rgba(88,166,255,0.08);
+  --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
-
 * { margin: 0; padding: 0; box-sizing: border-box; }
-
 body {
-  font-family: 'DM Sans', -apple-system, sans-serif;
+  font-family: 'IBM Plex Sans', -apple-system, sans-serif;
   background: var(--bg);
-  color: var(--text);
+  color: var(--t1);
   min-height: 100vh;
-  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
 }
 
-/* --- SUBTLE GRID BG --- */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(226,183,20,0.015) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(226,183,20,0.015) 1px, transparent 1px);
-  background-size: 60px 60px;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.container {
-  position: relative;
-  z-index: 1;
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 0 2rem;
-}
+.container { max-width: 880px; margin: 0 auto; padding: 0 2rem; }
 
 /* --- HEADER --- */
-header {
-  padding: 5rem 0 4rem;
-  text-align: center;
-}
+header { padding: 4.5rem 0 3rem; text-align: center; }
 
-.eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: var(--gold-soft);
-  border: 1px solid rgba(226,183,20,0.15);
+.brand {
+  font-family: 'Newsreader', Georgia, serif;
+  font-size: 0.78rem;
   color: var(--gold);
-  padding: 0.35rem 1rem;
-  border-radius: 100px;
-  font-size: 0.7rem;
-  font-weight: 700;
-  text-transform: uppercase;
   letter-spacing: 0.12em;
+  text-transform: uppercase;
   margin-bottom: 1.5rem;
 }
 
-.eyebrow svg { width: 14px; height: 14px; }
-
-header h1 {
-  font-family: 'DM Serif Display', Georgia, serif;
-  font-size: clamp(2.2rem, 5vw, 3.2rem);
-  color: var(--text);
-  margin-bottom: 1rem;
-  font-weight: 400;
-  line-height: 1.15;
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: var(--blue-bg);
+  border: 1px solid rgba(88,166,255,0.12);
+  color: var(--blue);
+  padding: 0.3rem 0.9rem;
+  border-radius: 100px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 1.5rem;
 }
 
-header h1 span { color: var(--gold); }
+.eyebrow svg { width: 13px; height: 13px; }
+
+header h1 {
+  font-family: 'Newsreader', Georgia, serif;
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  color: var(--t1);
+  margin-bottom: 1rem;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+header h1 em { font-style: italic; color: var(--blue); }
 
 header p {
-  color: var(--text-secondary);
-  font-size: 1.15rem;
-  max-width: 580px;
+  color: var(--t2);
+  font-size: 1.05rem;
+  max-width: 520px;
   margin: 0 auto;
   line-height: 1.7;
 }
 
-/* --- STATS BAR --- */
+/* --- STATS --- */
 .stats {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 1px;
-  background: var(--border);
-  border: 1px solid var(--border);
+  background: var(--s1);
+  border: 1px solid var(--b1);
   border-radius: 12px;
   overflow: hidden;
-  margin: 3rem 0 4rem;
+  margin: 2.5rem 0 3.5rem;
 }
 
 .stat {
-  background: var(--surface);
-  padding: 1.5rem 1rem;
+  padding: 1.4rem 1rem;
   text-align: center;
+  border-right: 1px solid var(--b1);
+  transition: background 0.2s;
 }
+.stat:last-child { border-right: none; }
+.stat:hover { background: rgba(88,166,255,0.03); }
 
 .stat-value {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 1.9rem;
-  font-weight: 700;
-  color: var(--gold);
+  font-family: 'Newsreader', serif;
+  font-size: 1.8rem;
+  color: var(--t1);
   line-height: 1;
-  margin-bottom: 0.35rem;
-}
-
-.stat-label {
-  font-size: 0.78rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--text-tertiary);
-  font-weight: 500;
-}
-
-/* --- SECTION TITLES --- */
-.section-header {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 1.5rem;
-}
-
-.section-header svg {
-  width: 20px;
-  height: 20px;
-  color: var(--teal);
-  flex-shrink: 0;
-}
-
-.section-header h2 {
-  font-family: 'DM Serif Display', Georgia, serif;
-  font-size: 1.55rem;
-  font-weight: 400;
-  color: var(--text);
-}
-
-.section-header .count {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.7rem;
-  color: var(--text-tertiary);
-  background: var(--surface);
-  border: 1px solid var(--border);
-  padding: 0.15rem 0.5rem;
-  border-radius: 100px;
-  margin-left: auto;
-}
-
-/* --- REPORT CARDS --- */
-.cards {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
-  margin-bottom: 4rem;
-}
-
-.card {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  align-items: center;
-  gap: 1.5rem;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 1.5rem 2rem;
-  text-decoration: none;
-  color: inherit;
-  transition: all 0.25s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, var(--gold-glow), transparent 60%);
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.card:hover {
-  border-color: var(--border-hover);
-  transform: translateY(-2px);
-  box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(226,183,20,0.08);
-}
-
-.card:hover::before { opacity: 1; }
-
-.card-logo {
-  position: relative;
-  width: 56px;
-  height: 56px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255,255,255,0.04);
-  border-radius: 12px;
-  border: 1px solid var(--border);
-  overflow: hidden;
-}
-
-.card-logo img {
-  width: 36px;
-  height: 36px;
-  object-fit: contain;
-  filter: brightness(0) invert(1);
-  opacity: 0.9;
-}
-
-.card-logo .placeholder-icon {
-  width: 24px;
-  height: 24px;
-  color: var(--text-tertiary);
-}
-
-.card-body {
-  position: relative;
-  min-width: 0;
-}
-
-.card-top {
-  display: flex;
-  align-items: baseline;
-  gap: 0.75rem;
   margin-bottom: 0.3rem;
 }
 
-.card-ticker {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: var(--gold);
+.stat-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--t3);
 }
 
-.card-company {
-  font-size: 1.05rem;
-  color: var(--text);
-  font-weight: 500;
+/* --- SECTION HEADERS --- */
+.sh {
+  display: flex; align-items: center; gap: 0.6rem;
+  margin-bottom: 1.25rem;
 }
 
-.card-meta {
-  display: flex;
+.sh svg { width: 18px; height: 18px; color: var(--blue); flex-shrink: 0; }
+
+.sh h2 {
+  font-family: 'Newsreader', serif;
+  font-size: 1.3rem;
+  font-weight: 400;
+}
+
+/* --- REPORT CARDS --- */
+.cards { display: grid; gap: 0.75rem; margin-bottom: 3.5rem; }
+
+.card {
+  display: grid;
+  grid-template-columns: 56px 1fr 36px;
   align-items: center;
   gap: 1.25rem;
-  margin-top: 0.5rem;
+  background: var(--s1);
+  border: 1px solid var(--b1);
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.25s var(--ease);
+}
+
+.card:hover {
+  border-color: var(--b3);
+  background: var(--s2);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+}
+
+.card-logo {
+  width: 56px; height: 56px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(255,255,255,0.03);
+  border-radius: 10px;
+  border: 1px solid var(--b1);
+}
+
+.card-logo img {
+  width: 32px; height: 32px;
+  object-fit: contain;
+  filter: brightness(0) invert(0.9);
+}
+
+.card-logo .ph { width: 20px; height: 20px; color: var(--t4); }
+
+.card-body { min-width: 0; }
+
+.card-top { display: flex; align-items: baseline; gap: 0.6rem; margin-bottom: 0.3rem; }
+
+.card-ticker {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--t1);
+}
+
+.card-company { font-size: 0.92rem; color: var(--t2); }
+
+.card-meta {
+  display: flex; align-items: center; gap: 1rem;
+  margin-top: 0.4rem;
 }
 
 .card-meta-item {
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-  font-size: 0.88rem;
-  color: var(--text-secondary);
+  display: flex; align-items: center; gap: 0.3rem;
+  font-size: 0.78rem; color: var(--t3);
 }
 
-.card-meta-item svg {
-  width: 14px;
-  height: 14px;
-  color: var(--text-tertiary);
-  flex-shrink: 0;
-}
+.card-meta-item svg { width: 13px; height: 13px; flex-shrink: 0; }
 
-.card-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.35rem;
-  margin-top: 0.6rem;
-}
+.card-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.5rem; }
 
 .tag {
-  background: var(--teal-soft);
-  color: var(--teal);
-  padding: 0.2rem 0.55rem;
-  border-radius: 5px;
-  font-size: 0.72rem;
+  font-family: 'IBM Plex Mono', monospace;
+  background: var(--blue-bg);
+  color: var(--blue);
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.6rem;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  font-weight: 500;
-  border: 1px solid rgba(45,212,191,0.15);
+  letter-spacing: 0.05em;
 }
 
 .card-arrow {
-  position: relative;
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 32px; height: 32px;
+  display: flex; align-items: center; justify-content: center;
   border-radius: 50%;
-  border: 1px solid var(--border);
-  transition: all 0.25s;
-  flex-shrink: 0;
+  border: 1px solid var(--b1);
+  transition: all 0.2s;
 }
 
-.card-arrow svg {
-  width: 16px;
-  height: 16px;
-  color: var(--text-tertiary);
-  transition: color 0.25s;
-}
+.card-arrow svg { width: 14px; height: 14px; color: var(--t4); transition: color 0.2s; }
 
 .card:hover .card-arrow {
-  border-color: var(--teal);
-  background: var(--teal-soft);
+  border-color: var(--blue);
+  background: var(--blue-bg);
 }
+.card:hover .card-arrow svg { color: var(--blue); }
 
-.card:hover .card-arrow svg { color: var(--teal); }
-
-/* Disabled card */
-.card.disabled {
-  opacity: 0.45;
-  pointer-events: none;
-}
-
+.card.disabled { opacity: 0.4; pointer-events: none; }
 .card .status-badge {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  font-size: 0.6rem;
+  position: absolute; top: 0.75rem; right: 0.75rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.55rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: var(--text-tertiary);
+  color: var(--t4);
   background: var(--bg);
-  border: 1px solid var(--border);
-  padding: 0.15rem 0.5rem;
+  border: 1px solid var(--b1);
+  padding: 0.12rem 0.45rem;
   border-radius: 100px;
-  font-weight: 700;
 }
 
-/* --- METHODOLOGY --- */
+/* --- METHOD --- */
 .method {
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 2rem;
-  background: var(--surface);
-  margin-bottom: 4rem;
+  border: 1px solid var(--b1);
+  border-radius: 12px;
+  padding: 1.75rem;
+  background: var(--s1);
+  margin-bottom: 3.5rem;
 }
 
 .method-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
-  margin-top: 1.25rem;
+  margin-top: 1rem;
 }
 
-.method-item {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
+.method-item { display: flex; flex-direction: column; gap: 0.4rem; }
+
+.mi-title {
+  display: flex; align-items: center; gap: 0.45rem;
+  font-size: 0.88rem; font-weight: 600; color: var(--t1);
 }
 
-.method-item-title {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: var(--text);
-}
+.mi-title svg { width: 15px; height: 15px; color: var(--blue); }
 
-.method-item-title svg {
-  width: 16px;
-  height: 16px;
-  color: var(--teal);
-}
-
-.method-item p {
-  font-size: 0.9rem;
-  color: var(--text-secondary);
-  line-height: 1.55;
-}
+.method-item p { font-size: 0.85rem; color: var(--t2); line-height: 1.6; }
 
 /* --- FOOTER --- */
 footer {
-  border-top: 1px solid var(--border);
-  padding: 2.5rem 0;
+  border-top: 1px solid var(--b1);
+  padding: 2rem 0;
   text-align: center;
 }
 
 .footer-links {
-  display: flex;
-  justify-content: center;
-  gap: 1.5rem;
-  margin-bottom: 1rem;
+  display: flex; justify-content: center; gap: 1.5rem;
+  margin-bottom: 0.75rem;
 }
 
 .footer-links a {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  color: var(--text-secondary);
-  text-decoration: none;
-  font-size: 0.8rem;
+  display: flex; align-items: center; gap: 0.35rem;
+  color: var(--t3); text-decoration: none;
+  font-size: 0.78rem;
   transition: color 0.2s;
 }
 
-.footer-links a svg { width: 14px; height: 14px; }
-.footer-links a:hover { color: var(--gold); }
+.footer-links a svg { width: 13px; height: 13px; }
+.footer-links a:hover { color: var(--blue); }
 
-.footer-disclaimer {
-  font-size: 0.68rem;
-  color: var(--text-tertiary);
-  max-width: 520px;
-  margin: 0 auto;
-  line-height: 1.6;
-}
+.footer-note { font-size: 0.65rem; color: var(--t4); max-width: 440px; margin: 0 auto; line-height: 1.6; }
 
 /* --- RESPONSIVE --- */
-@media (max-width: 700px) {
+@media (max-width: 680px) {
   .stats { grid-template-columns: repeat(2, 1fr); }
   .method-grid { grid-template-columns: 1fr; }
-  .card { grid-template-columns: auto 1fr; padding: 1.25rem; }
+  .card { grid-template-columns: 48px 1fr; padding: 1rem; gap: 1rem; }
   .card-arrow { display: none; }
-  header { padding: 3rem 0 2.5rem; }
+  header { padding: 3rem 0 2rem; }
+  .container { padding: 0 1.25rem; }
 }
 
 /* --- ANIMATIONS --- */
 @media (prefers-reduced-motion: no-preference) {
   .card, .stat, .method-item {
-    opacity: 0;
-    transform: translateY(12px);
-    animation: fadeUp 0.5s ease forwards;
+    opacity: 0; transform: translateY(12px);
+    animation: fadeUp 0.5s var(--ease) forwards;
   }
-  .stat:nth-child(1) { animation-delay: 0.1s; }
-  .stat:nth-child(2) { animation-delay: 0.15s; }
-  .stat:nth-child(3) { animation-delay: 0.2s; }
-  .stat:nth-child(4) { animation-delay: 0.25s; }
-  .card { animation-delay: 0.3s; }
-  .method-item:nth-child(1) { animation-delay: 0.35s; }
-  .method-item:nth-child(2) { animation-delay: 0.4s; }
-  .method-item:nth-child(3) { animation-delay: 0.45s; }
-
-  @keyframes fadeUp {
-    to { opacity: 1; transform: translateY(0); }
-  }
+  .stat:nth-child(1) { animation-delay: 0.08s; }
+  .stat:nth-child(2) { animation-delay: 0.12s; }
+  .stat:nth-child(3) { animation-delay: 0.16s; }
+  .stat:nth-child(4) { animation-delay: 0.2s; }
+  .card:nth-child(1) { animation-delay: 0.25s; }
+  .card:nth-child(2) { animation-delay: 0.3s; }
+  .method-item:nth-child(1) { animation-delay: 0.32s; }
+  .method-item:nth-child(2) { animation-delay: 0.36s; }
+  .method-item:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 }
 </style>
 </head>
 <body>
 <div class="container">
 
-  <!-- HEADER -->
   <header>
-    <div style="font-family:'DM Serif Display',Georgia,serif;font-size:0.78rem;color:var(--gold);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:1.25rem;font-weight:400;">The King Hippopotamus</div>
+    <div class="brand">The King Hippopotamus</div>
     <div class="eyebrow">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
       Independent Research
     </div>
-    <h1>Forensic <span>Financial</span> Research</h1>
+    <h1>Forensic <em>Financial</em> Research</h1>
     <p>Deep forensic analysis of US public companies. Every report is built from primary SEC filings and earnings call transcripts — no third-party data, no recycled commentary.</p>
   </header>
 
-  <!-- STATS -->
   <div class="stats">
     <div class="stat">
       <div class="stat-value">20+</div>
-      <div class="stat-label">Filings Analyzed</div>
+      <div class="stat-label">Filings analyzed</div>
     </div>
     <div class="stat">
       <div class="stat-value">31</div>
-      <div class="stat-label">Research Objectives</div>
+      <div class="stat-label">Research objectives</div>
     </div>
     <div class="stat">
       <div class="stat-value">6</div>
-      <div class="stat-label">Forensic Models</div>
+      <div class="stat-label">Forensic models</div>
     </div>
     <div class="stat">
       <div class="stat-value">10</div>
-      <div class="stat-label">Investigation Layers</div>
+      <div class="stat-label">Investigation layers</div>
     </div>
   </div>
 
-  <!-- REPORTS -->
-  <div class="section-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-    <h2>Published Reports</h2>
+  <div class="sh">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+    <h2>Published reports</h2>
   </div>
 
   <div class="cards">
-    <!-- NKE -->
     <a href="./NKE/" class="card">
       <div class="card-logo">
         <img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg" alt="Nike">
@@ -511,35 +377,34 @@ footer {
         </div>
         <div class="card-meta">
           <span class="card-meta-item">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-            6 Forensic Models
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            6 forensic models
           </span>
           <span class="card-meta-item">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-            5Y Annual + 8Q Data
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            5Y + 8Q data
           </span>
           <span class="card-meta-item">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-            20+ Filings
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            20+ filings
           </span>
         </div>
         <div class="card-tags">
-          <span class="tag">Beneish M-Score</span>
-          <span class="tag">Altman Z-Score</span>
-          <span class="tag">Piotroski F-Score</span>
-          <span class="tag">Segment Analysis</span>
-          <span class="tag">5Y Trends</span>
+          <span class="tag">Beneish</span>
+          <span class="tag">Altman</span>
+          <span class="tag">Piotroski</span>
+          <span class="tag">Segments</span>
+          <span class="tag">5Y trends</span>
         </div>
       </div>
       <div class="card-arrow">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
       </div>
     </a>
 
-    <!-- RDDT (coming soon) -->
-    <div class="card disabled">
+    <div class="card disabled" style="position:relative;">
       <div class="card-logo">
-        <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <svg class="ph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
       </div>
       <div class="card-body">
         <div class="card-top">
@@ -548,64 +413,62 @@ footer {
         </div>
         <div class="card-meta">
           <span class="card-meta-item">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
             Full pipeline in progress
           </span>
         </div>
         <div class="card-tags">
-          <span class="tag">Forensic Models</span>
-          <span class="tag">Transcript Intelligence</span>
-          <span class="tag">Governance Analysis</span>
+          <span class="tag">Forensic</span>
+          <span class="tag">Transcripts</span>
+          <span class="tag">Governance</span>
         </div>
       </div>
       <span class="status-badge">Coming soon</span>
     </div>
   </div>
 
-  <!-- METHODOLOGY -->
   <div class="method">
-    <div class="section-header" style="margin-bottom:1rem">
+    <div class="sh" style="margin-bottom:0.75rem">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.32 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-      <h2>How It Works</h2>
+      <h2>How it works</h2>
     </div>
     <div class="method-grid">
       <div class="method-item">
-        <div class="method-item-title">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
-          Primary Sources Only
+        <div class="mi-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+          Primary sources
         </div>
-        <p>Every data point comes directly from SEC EDGAR filings and earnings call transcripts. No third-party aggregators, no estimates, no opinions.</p>
+        <p>Every data point from SEC EDGAR filings and earnings call transcripts directly. No aggregators, no estimates.</p>
       </div>
       <div class="method-item">
-        <div class="method-item-title">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
-          Cross-Validated
+        <div class="mi-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+          Cross-validated
         </div>
-        <p>Findings are verified across multiple filing types. What management says in Q&A is checked against what the XBRL data actually shows.</p>
+        <p>Findings verified across multiple filing types. Q&A claims checked against what the XBRL data actually shows.</p>
       </div>
       <div class="method-item">
-        <div class="method-item-title">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-          Forensic Depth
+        <div class="mi-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          Forensic depth
         </div>
-        <p>Six quantitative detection models, linguistic analysis of management speech, governance scoring, and multi-quarter pattern recognition.</p>
+        <p>Six detection models, linguistic analysis of management speech, governance scoring, and multi-quarter pattern recognition.</p>
       </div>
     </div>
   </div>
 
-  <!-- FOOTER -->
   <footer>
     <div class="footer-links">
       <a href="https://pypi.org/project/arelle-mcp/" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
         arelle-mcp
       </a>
       <a href="https://github.com/TheKingHippopotamus" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
         TheKingHippopotamus
       </a>
     </div>
-    <p class="footer-disclaimer">All analysis is based on publicly available SEC filings and earnings call transcripts. Reports are for informational and educational purposes only and do not constitute investment advice.</p>
+    <p class="footer-note">All analysis is based on publicly available SEC filings and earnings call transcripts. Reports are for informational and educational purposes only and do not constitute investment advice.</p>
   </footer>
 
 </div>
