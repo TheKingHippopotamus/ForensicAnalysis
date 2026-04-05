@@ -296,7 +296,7 @@ body {
   background: var(--s1);
   border-radius: var(--r-lg);
   border: 1px solid var(--b1);
-  overflow: hidden;
+  overflow: visible;
   transition: border-color 0.3s;
 }
 
@@ -587,12 +587,12 @@ body {
   box-shadow: 0 0 0 1px rgba(88,166,255,0.15), 0 4px 20px rgba(88,166,255,0.05);
 }
 
-/* --- STAGGERED LOAD ANIMATION --- */
+/* --- ANIMATIONS: only above-the-fold elements animate on load --- */
 @media (prefers-reduced-motion: no-preference) {
-  .report-section, .kpi-card, .gauge-card {
+  .kpi-card {
     opacity: 0;
-    transform: translateY(16px);
-    animation: slideUp 0.5s var(--ease) forwards;
+    transform: translateY(10px);
+    animation: slideUp 0.4s var(--ease) forwards;
   }
   @keyframes slideUp { to { opacity: 1; transform: translateY(0); } }
 
@@ -603,12 +603,15 @@ body {
   .kpi-card:nth-child(5) { animation-delay: 0.25s; }
   .kpi-card:nth-child(6) { animation-delay: 0.3s; }
 
-  .report-section:nth-of-type(1) { animation-delay: 0.15s; }
-  .report-section:nth-of-type(2) { animation-delay: 0.2s; }
-  .report-section:nth-of-type(3) { animation-delay: 0.25s; }
-  .report-section:nth-of-type(n+4) { animation-delay: 0.3s; }
-
-  .gauge-card { animation-delay: 0.35s; }
+  /* Scroll-reveal: sections start visible, JS adds reveal class */
+  .report-section {
+    opacity: 1;
+    transform: none;
+  }
+  .gauge-card {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 /* --- SCROLL PROGRESS INDICATOR --- */
@@ -717,6 +720,7 @@ body {
 
 <!-- MOBILE HEADER -->
 <div class="mobile-header">
+  <a href="../" style="display:flex;align-items:center;color:var(--t3);text-decoration:none;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg></a>
   <img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg" alt="NIKE">
   <span class="brand">The King Hippopotamus</span>
   <button class="hamburger" onclick="toggleSidebar()" aria-label="Menu">
@@ -731,6 +735,7 @@ body {
     <img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg" alt="NIKE" style="width:64px;filter:brightness(0) invert(1);opacity:0.9;">
     <div class="co-name" style="margin-top:6px">Forensic Analysis</div>
   </div>
+  <a href="../" style="display:flex;align-items:center;gap:0.5rem;padding:0.6rem 1.25rem;color:var(--t3);text-decoration:none;font-size:0.78rem;border-bottom:1px solid var(--b1);transition:color 0.2s;" onmouseover="this.style.color='var(--blue)'" onmouseout="this.style.color='var(--t3)'"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg> All reports</a>
   <div class="sidebar-label">Sections</div>
   <nav>
     <a href="#executive-summary"><span class="nav-num">01</span> Executive Summary</a>
