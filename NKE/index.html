@@ -349,17 +349,22 @@ body {
 
 .gauge-card {
   background: var(--navy-mid);
-  border: 1px solid var(--gray-200);
-  border-radius: 10px;
-  padding: 1.25rem;
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 12px;
+  padding: 1.5rem;
   text-align: center;
+  transition: all 0.2s;
+}
+.gauge-card:hover {
+  border-color: rgba(226,183,20,0.25);
+  box-shadow: 0 0 20px rgba(226,183,20,0.05);
 }
 
 .gauge-card h4 {
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  color: var(--gray-500);
+  letter-spacing: 1.5px;
+  color: var(--gold);
   margin-bottom: 0.75rem;
 }
 
@@ -367,7 +372,7 @@ body {
 
 .gauge-value {
   font-family: 'Playfair Display', serif;
-  font-size: 2.1rem;
+  font-size: 2.2rem;
   font-weight: 800;
   margin-top: 0.5rem;
 }
@@ -383,9 +388,9 @@ body {
   margin-top: 0.5rem;
 }
 
-.verdict-safe { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
-.verdict-warn { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-border); }
-.verdict-danger { background: var(--red-bg); color: var(--red); border: 1px solid var(--red-border); }
+.verdict-safe { background: rgba(52,211,153,0.15); color: #34d399; border: 1px solid rgba(52,211,153,0.35); font-size: 0.78rem; }
+.verdict-warn { background: rgba(251,191,36,0.15); color: #fbbf24; border: 1px solid rgba(251,191,36,0.35); font-size: 0.78rem; }
+.verdict-danger { background: rgba(248,113,113,0.15); color: #f87171; border: 1px solid rgba(248,113,113,0.35); font-size: 0.78rem; }
 
 .gauge-detail {
   font-size: 0.8rem;
@@ -458,7 +463,7 @@ body {
   border-left: 4px solid;
 }
 
-.insight-box.warn { background: var(--amber-bg); border-color: var(--amber); }
+.insight-box.warn { border-left: 4px solid var(--amber);  background: var(--amber-bg); border-color: var(--amber); }
 .insight-box.danger { background: var(--red-bg); border-color: var(--red); }
 .insight-box.info { background: #eff6ff; border-color: var(--blue); }
 .insight-box.safe { background: var(--green-bg); border-color: var(--green); }
@@ -576,7 +581,7 @@ p.body-text {
   font-weight: 600;
 }
 
-.axis-label {
+.axis-label { fill: #b8b8c0;
   font-family: 'Inter', sans-serif;
   font-size: 10px;
   fill: #9ca3af;
@@ -873,11 +878,11 @@ p.body-text {
           <div class="chart-title">Revenue &amp; Net Income ($B)</div>
           <svg viewBox="0 0 640 260" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:640px;">
             <!-- Grid lines -->
-            <line x1="60" y1="30" x2="620" y2="30" stroke="#e5e7eb" stroke-width="0.5"/>
-            <line x1="60" y1="75" x2="620" y2="75" stroke="#e5e7eb" stroke-width="0.5"/>
-            <line x1="60" y1="120" x2="620" y2="120" stroke="#e5e7eb" stroke-width="0.5"/>
-            <line x1="60" y1="165" x2="620" y2="165" stroke="#e5e7eb" stroke-width="0.5"/>
-            <line x1="60" y1="210" x2="620" y2="210" stroke="#e5e7eb" stroke-width="0.5"/>
+            <line x1="60" y1="30" x2="620" y2="30" stroke="#2a2a38" stroke-width="0.5"/>
+            <line x1="60" y1="75" x2="620" y2="75" stroke="#2a2a38" stroke-width="0.5"/>
+            <line x1="60" y1="120" x2="620" y2="120" stroke="#2a2a38" stroke-width="0.5"/>
+            <line x1="60" y1="165" x2="620" y2="165" stroke="#2a2a38" stroke-width="0.5"/>
+            <line x1="60" y1="210" x2="620" y2="210" stroke="#2a2a38" stroke-width="0.5"/>
             <!-- Y-axis labels (Revenue scale 0-55B) -->
             <text x="55" y="34" text-anchor="end" class="axis-label">$55B</text>
             <text x="55" y="79" text-anchor="end" class="axis-label">$41B</text>
@@ -886,23 +891,23 @@ p.body-text {
             <text x="55" y="214" text-anchor="end" class="axis-label">$0</text>
             <!-- Revenue bars -->
             <!-- FY20: 37.4/55*180=122.4 => h=122, y=210-122=88 -->
-            <rect x="80" y="87" width="40" height="123" rx="3" fill="#cdcdd4" opacity="0.85"/>
-            <text x="100" y="82" text-anchor="middle" class="bar-value">37.4</text>
+            <rect x="80" y="87" width="40" height="123" rx="3" fill="#60a5fa"/>
+            <text x="100" y="82" text-anchor="middle" class="bar-value" fill="#f0f0f3">37.4</text>
             <!-- FY21: 44.5/55*180=145.6 => y=64 -->
-            <rect x="172" y="64" width="40" height="146" rx="3" fill="#cdcdd4" opacity="0.85"/>
-            <text x="192" y="59" text-anchor="middle" class="bar-value">44.5</text>
+            <rect x="172" y="64" width="40" height="146" rx="3" fill="#60a5fa"/>
+            <text x="192" y="59" text-anchor="middle" class="bar-value" fill="#f0f0f3">44.5</text>
             <!-- FY22: 46.7 => 152.8 => y=57 -->
-            <rect x="264" y="57" width="40" height="153" rx="3" fill="#cdcdd4" opacity="0.85"/>
-            <text x="284" y="52" text-anchor="middle" class="bar-value">46.7</text>
+            <rect x="264" y="57" width="40" height="153" rx="3" fill="#60a5fa"/>
+            <text x="284" y="52" text-anchor="middle" class="bar-value" fill="#f0f0f3">46.7</text>
             <!-- FY23: 51.2 => 167.6 => y=42 -->
-            <rect x="356" y="42" width="40" height="168" rx="3" fill="#cdcdd4" opacity="0.85"/>
-            <text x="376" y="37" text-anchor="middle" class="bar-value">51.2</text>
+            <rect x="356" y="42" width="40" height="168" rx="3" fill="#60a5fa"/>
+            <text x="376" y="37" text-anchor="middle" class="bar-value" fill="#f0f0f3">51.2</text>
             <!-- FY24: 51.4 => 168.2 => y=42 -->
-            <rect x="448" y="42" width="40" height="168" rx="3" fill="#cdcdd4" opacity="0.85"/>
-            <text x="468" y="37" text-anchor="middle" class="bar-value">51.4</text>
+            <rect x="448" y="42" width="40" height="168" rx="3" fill="#60a5fa"/>
+            <text x="468" y="37" text-anchor="middle" class="bar-value" fill="#f0f0f3">51.4</text>
             <!-- FY25: 46.3 => 151.5 => y=58 -->
-            <rect x="540" y="58" width="40" height="152" rx="3" fill="#cdcdd4" opacity="0.6"/>
-            <text x="560" y="53" text-anchor="middle" class="bar-value" fill="#ef4444">46.3</text>
+            <rect x="540" y="58" width="40" height="152" rx="3" fill="#f87171"/>
+            <text x="560" y="53" text-anchor="middle" class="bar-value" fill="#f87171">46.3</text>
             <!-- NI line (scale: 0-7B mapped to 210-30) -->
             <!-- FY20:2.54 => y=210-(2.54/7)*180=144.6 -->
             <!-- FY21:5.73 => y=210-(5.73/7)*180=62.6 -->
@@ -911,20 +916,20 @@ p.body-text {
             <!-- FY24:5.70 => y=210-(5.70/7)*180=63.4 -->
             <!-- FY25:3.22 => y=210-(3.22/7)*180=127.2 -->
             <polyline points="100,145 192,63 284,54 376,80 468,63 560,127"
-                      fill="none" stroke="#e2b714" stroke-width="2.5" stroke-linejoin="round"/>
-            <circle cx="100" cy="145" r="4" fill="#e2b714"/>
-            <circle cx="192" cy="63" r="4" fill="#e2b714"/>
-            <circle cx="284" cy="54" r="4" fill="#e2b714"/>
-            <circle cx="376" cy="80" r="4" fill="#e2b714"/>
-            <circle cx="468" cy="63" r="4" fill="#e2b714"/>
-            <circle cx="560" cy="127" r="4" fill="#e2b714"/>
+                      fill="none" stroke="#fbbf24" stroke-width="3" stroke-linejoin="round"/>
+            <circle cx="100" cy="145" r="5" fill="#fbbf24"/>
+            <circle cx="192" cy="63" r="5" fill="#fbbf24"/>
+            <circle cx="284" cy="54" r="5" fill="#fbbf24"/>
+            <circle cx="376" cy="80" r="5" fill="#fbbf24"/>
+            <circle cx="468" cy="63" r="5" fill="#fbbf24"/>
+            <circle cx="560" cy="127" r="5" fill="#fbbf24"/>
             <!-- NI labels -->
             <text x="100" y="139" text-anchor="middle" class="bar-value" fill="#c49b0e">2.5</text>
             <text x="192" y="57" text-anchor="middle" class="bar-value" fill="#c49b0e">5.7</text>
             <text x="284" y="48" text-anchor="middle" class="bar-value" fill="#c49b0e">6.0</text>
             <text x="376" y="74" text-anchor="middle" class="bar-value" fill="#c49b0e">5.1</text>
             <text x="468" y="57" text-anchor="middle" class="bar-value" fill="#c49b0e">5.7</text>
-            <text x="560" y="121" text-anchor="middle" class="bar-value" fill="#ef4444">3.2</text>
+            <text x="560" y="121" text-anchor="middle" class="bar-value" fill="#f87171">3.2</text>
             <!-- X-axis -->
             <text x="100" y="228" text-anchor="middle" class="bar-label">FY20</text>
             <text x="192" y="228" text-anchor="middle" class="bar-label">FY21</text>
@@ -944,11 +949,11 @@ p.body-text {
           <div class="chart-title">Margin Trends (%)</div>
           <svg viewBox="0 0 640 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:640px;">
             <!-- Grid -->
-            <line x1="60" y1="20" x2="620" y2="20" stroke="#e5e7eb" stroke-width="0.5"/>
-            <line x1="60" y1="60" x2="620" y2="60" stroke="#e5e7eb" stroke-width="0.5"/>
-            <line x1="60" y1="100" x2="620" y2="100" stroke="#e5e7eb" stroke-width="0.5"/>
-            <line x1="60" y1="140" x2="620" y2="140" stroke="#e5e7eb" stroke-width="0.5"/>
-            <line x1="60" y1="180" x2="620" y2="180" stroke="#e5e7eb" stroke-width="0.5"/>
+            <line x1="60" y1="20" x2="620" y2="20" stroke="#2a2a38" stroke-width="0.5"/>
+            <line x1="60" y1="60" x2="620" y2="60" stroke="#2a2a38" stroke-width="0.5"/>
+            <line x1="60" y1="100" x2="620" y2="100" stroke="#2a2a38" stroke-width="0.5"/>
+            <line x1="60" y1="140" x2="620" y2="140" stroke="#2a2a38" stroke-width="0.5"/>
+            <line x1="60" y1="180" x2="620" y2="180" stroke="#2a2a38" stroke-width="0.5"/>
             <text x="55" y="24" text-anchor="end" class="axis-label">50%</text>
             <text x="55" y="64" text-anchor="end" class="axis-label">40%</text>
             <text x="55" y="104" text-anchor="end" class="axis-label">30%</text>
@@ -977,7 +982,7 @@ p.body-text {
             <!-- FY24:32.3 => 20+(50-32.3)*4=90.8 -->
             <!-- FY25:34.7 => 20+(50-34.7)*4=81.2 -->
             <polyline points="100,80 192,103 284,93 376,92 468,91 560,81"
-                      fill="none" stroke="#e2b714" stroke-width="2.5" stroke-linejoin="round" stroke-dasharray="6,3"/>
+                      fill="none" stroke="#fbbf24" stroke-width="3" stroke-linejoin="round" stroke-dasharray="6,3"/>
             <circle cx="100" cy="80" r="3.5" fill="#e2b714"/>
             <circle cx="192" cy="103" r="3.5" fill="#e2b714"/>
             <circle cx="284" cy="93" r="3.5" fill="#e2b714"/>
@@ -991,12 +996,12 @@ p.body-text {
             <!-- Using same scale: -->
             <polyline points="100,193 192,159 284,159 376,170 468,164 560,192"
                       fill="none" stroke="#3b82f6" stroke-width="2" stroke-linejoin="round"/>
-            <circle cx="100" cy="193" r="3" fill="#3b82f6"/>
-            <circle cx="192" cy="159" r="3" fill="#3b82f6"/>
-            <circle cx="284" cy="159" r="3" fill="#3b82f6"/>
-            <circle cx="376" cy="170" r="3" fill="#3b82f6"/>
-            <circle cx="468" cy="164" r="3" fill="#3b82f6"/>
-            <circle cx="560" cy="192" r="3" fill="#3b82f6"/>
+            <circle cx="100" cy="193" r="3" fill="#60a5fa"/>
+            <circle cx="192" cy="159" r="3" fill="#60a5fa"/>
+            <circle cx="284" cy="159" r="3" fill="#60a5fa"/>
+            <circle cx="376" cy="170" r="3" fill="#60a5fa"/>
+            <circle cx="468" cy="164" r="3" fill="#60a5fa"/>
+            <circle cx="560" cy="192" r="3" fill="#60a5fa"/>
             <!-- Labels -->
             <text x="100" y="202" text-anchor="middle" class="bar-label">FY20</text>
             <text x="192" y="202" text-anchor="middle" class="bar-label">FY21</text>
@@ -1082,13 +1087,13 @@ p.body-text {
             <h4>Beneish M-Score</h4>
             <svg class="gauge-svg" viewBox="0 0 160 100" width="160" height="100">
               <!-- Background arc -->
-              <path d="M 15 85 A 65 65 0 0 1 145 85" fill="none" stroke="#e5e7eb" stroke-width="12" stroke-linecap="round"/>
+              <path d="M 15 85 A 65 65 0 0 1 145 85" fill="none" stroke="#2a2a38" stroke-width="14" stroke-linecap="round"/>
               <!-- Danger zone (right side) -->
-              <path d="M 100 22 A 65 65 0 0 1 145 85" fill="none" stroke="#fecaca" stroke-width="12" stroke-linecap="round"/>
+              <path d="M 100 22 A 65 65 0 0 1 145 85" fill="none" stroke="#ef4444" stroke-width="14" opacity="0.7" stroke-linecap="round"/>
               <!-- Value marker: -2.46 on scale -3.5 to -1.0. Normalized: (-2.46 - -3.5)/(2.5)= 0.416. angle = 180*0.416=74.9 deg -->
-              <circle cx="0" cy="0" r="6" fill="#f59e0b" transform="rotate(74.9, 80, 85) translate(80, 20)"/>
+              <circle cx="0" cy="0" r="8" fill="#fbbf24" transform="rotate(74.9, 80, 85) translate(80, 20)"/>
               <!-- Threshold line at -2.22: (1.28/2.5)=0.512 => 92.2 deg -->
-              <line x1="80" y1="85" x2="80" y2="25" stroke="#ef4444" stroke-width="1" stroke-dasharray="3,2"
+              <line x1="80" y1="85" x2="80" y2="25" stroke="#f87171" stroke-width="2" stroke-dasharray="4,3"
                     transform="rotate(92.2, 80, 85)"/>
             </svg>
             <div class="gauge-value" style="color:var(--amber);">-2.461</div>
@@ -1100,14 +1105,14 @@ p.body-text {
           <div class="gauge-card">
             <h4>Altman Z-Score</h4>
             <svg class="gauge-svg" viewBox="0 0 160 100" width="160" height="100">
-              <path d="M 15 85 A 65 65 0 0 1 145 85" fill="none" stroke="#e5e7eb" stroke-width="12" stroke-linecap="round"/>
+              <path d="M 15 85 A 65 65 0 0 1 145 85" fill="none" stroke="#2a2a38" stroke-width="14" stroke-linecap="round"/>
               <!-- Safe zone -->
-              <path d="M 100 22 A 65 65 0 0 1 145 85" fill="none" stroke="#bbf7d0" stroke-width="12" stroke-linecap="round"/>
+              <path d="M 100 22 A 65 65 0 0 1 145 85" fill="none" stroke="#22c55e" stroke-width="14" opacity="0.7" stroke-linecap="round"/>
               <!-- Distress zone -->
-              <path d="M 15 85 A 65 65 0 0 1 45 30" fill="none" stroke="#fecaca" stroke-width="12" stroke-linecap="round"/>
+              <path d="M 15 85 A 65 65 0 0 1 45 30" fill="none" stroke="#ef4444" stroke-width="14" opacity="0.7" stroke-linecap="round"/>
               <!-- Grey zone in middle already covered by default gray -->
               <!-- Value: 2.33 on scale 0-5. 2.33/5=0.466 => 83.9 deg -->
-              <circle cx="0" cy="0" r="6" fill="#f59e0b" transform="rotate(83.9, 80, 85) translate(80, 20)"/>
+              <circle cx="0" cy="0" r="8" fill="#fbbf24" transform="rotate(83.9, 80, 85) translate(80, 20)"/>
             </svg>
             <div class="gauge-value" style="color:var(--amber);">2.331</div>
             <div class="gauge-verdict verdict-warn">Grey Zone</div>
@@ -1118,10 +1123,10 @@ p.body-text {
           <div class="gauge-card">
             <h4>Piotroski F-Score</h4>
             <svg class="gauge-svg" viewBox="0 0 160 100" width="160" height="100">
-              <path d="M 15 85 A 65 65 0 0 1 145 85" fill="none" stroke="#e5e7eb" stroke-width="12" stroke-linecap="round"/>
+              <path d="M 15 85 A 65 65 0 0 1 145 85" fill="none" stroke="#2a2a38" stroke-width="14" stroke-linecap="round"/>
               <!-- Filled portion: 5/9 = 0.556 => 100 deg -->
-              <path d="M 15 85 A 65 65 0 0 1 62 26" fill="none" stroke="#f59e0b" stroke-width="12" stroke-linecap="round"/>
-              <text x="80" y="75" text-anchor="middle" font-family="Playfair Display, serif" font-size="28" font-weight="800" fill="#f59e0b">5</text>
+              <path d="M 15 85 A 65 65 0 0 1 62 26" fill="none" stroke="#fbbf24" stroke-width="14" stroke-linecap="round"/>
+              <text x="80" y="75" text-anchor="middle" font-family="Playfair Display, serif" font-size="32" font-weight="800" fill="#fbbf24">5</text>
               <text x="80" y="90" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#c0c0c8">of 9</text>
             </svg>
             <div class="gauge-verdict verdict-warn">Neutral</div>
@@ -1135,11 +1140,11 @@ p.body-text {
           <div class="gauge-card">
             <h4>Sloan Accrual Ratio</h4>
             <svg class="gauge-svg" viewBox="0 0 160 100" width="160" height="100">
-              <path d="M 15 85 A 65 65 0 0 1 145 85" fill="none" stroke="#e5e7eb" stroke-width="12" stroke-linecap="round"/>
+              <path d="M 15 85 A 65 65 0 0 1 145 85" fill="none" stroke="#2a2a38" stroke-width="14" stroke-linecap="round"/>
               <!-- Safe zone is center; mark it green -->
-              <path d="M 50 28 A 65 65 0 0 1 110 28" fill="none" stroke="#bbf7d0" stroke-width="12" stroke-linecap="round"/>
+              <path d="M 50 28 A 65 65 0 0 1 110 28" fill="none" stroke="#22c55e" stroke-width="14" opacity="0.7" stroke-linecap="round"/>
               <!-- Value: -0.55% => very center -->
-              <circle cx="80" cy="21" r="6" fill="#22c55e"/>
+              <circle cx="80" cy="21" r="8" fill="#34d399"/>
             </svg>
             <div class="gauge-value" style="color:var(--green);">-0.55%</div>
             <div class="gauge-verdict verdict-safe">Safe</div>
@@ -1150,10 +1155,10 @@ p.body-text {
           <div class="gauge-card">
             <h4>Cash Conversion (CFO/NI)</h4>
             <svg class="gauge-svg" viewBox="0 0 160 100" width="160" height="100">
-              <path d="M 15 85 A 65 65 0 0 1 145 85" fill="none" stroke="#e5e7eb" stroke-width="12" stroke-linecap="round"/>
-              <path d="M 80 20 A 65 65 0 0 1 145 85" fill="none" stroke="#bbf7d0" stroke-width="12" stroke-linecap="round"/>
+              <path d="M 15 85 A 65 65 0 0 1 145 85" fill="none" stroke="#2a2a38" stroke-width="14" stroke-linecap="round"/>
+              <path d="M 80 20 A 65 65 0 0 1 145 85" fill="none" stroke="#22c55e" stroke-width="14" opacity="0.7" stroke-linecap="round"/>
               <!-- 1.15x on 0-2x scale => 0.575 => 103.5 deg -->
-              <circle cx="0" cy="0" r="6" fill="#22c55e" transform="rotate(103.5, 80, 85) translate(80, 20)"/>
+              <circle cx="0" cy="0" r="8" fill="#34d399" transform="rotate(103.5, 80, 85) translate(80, 20)"/>
             </svg>
             <div class="gauge-value" style="color:var(--green);">1.15x</div>
             <div class="gauge-verdict verdict-safe">Healthy</div>
@@ -1164,11 +1169,11 @@ p.body-text {
           <div class="gauge-card">
             <h4>Effective Tax Rate</h4>
             <svg class="gauge-svg" viewBox="0 0 160 100" width="160" height="100">
-              <path d="M 15 85 A 65 65 0 0 1 145 85" fill="none" stroke="#e5e7eb" stroke-width="12" stroke-linecap="round"/>
+              <path d="M 15 85 A 65 65 0 0 1 145 85" fill="none" stroke="#2a2a38" stroke-width="14" stroke-linecap="round"/>
               <!-- 21% statutory line at center -->
-              <line x1="80" y1="85" x2="80" y2="22" stroke="#374151" stroke-width="1.5" stroke-dasharray="3,2"/>
+              <line x1="80" y1="85" x2="80" y2="22" stroke="#6b7280" stroke-width="2" stroke-dasharray="3,2"/>
               <!-- 17.1% on 0-40% scale => 0.4275 => 76.95 deg -->
-              <circle cx="0" cy="0" r="6" fill="#f59e0b" transform="rotate(77, 80, 85) translate(80, 20)"/>
+              <circle cx="0" cy="0" r="8" fill="#fbbf24" transform="rotate(77, 80, 85) translate(80, 20)"/>
             </svg>
             <div class="gauge-value" style="color:var(--amber);">17.1%</div>
             <div class="gauge-verdict verdict-warn">Below Statutory</div>
@@ -1248,23 +1253,23 @@ p.body-text {
             <!-- N.America: 19572. Scale max=20000. Bar max width=420 -->
             <text x="120" y="35" text-anchor="end" class="bar-label" font-weight="600">N. America</text>
             <rect x="125" y="22" width="411" height="22" rx="3" fill="#cdcdd4"/>
-            <text x="540" y="37" class="bar-value">$19,572 (42.3%)</text>
+            <text x="540" y="37" class="bar-value" fill="#f0f0f3">$19,572 (42.3%)</text>
 
             <text x="120" y="70" text-anchor="end" class="bar-label" font-weight="600">EMEA</text>
             <rect x="125" y="57" width="257" height="22" rx="3" fill="#252530"/>
-            <text x="387" y="72" class="bar-value">$12,257 (26.5%)</text>
+            <text x="387" y="72" class="bar-value" fill="#f0f0f3">$12,257 (26.5%)</text>
 
             <text x="120" y="105" text-anchor="end" class="bar-label" font-weight="600">Gr. China</text>
             <rect x="125" y="92" width="138" height="22" rx="3" fill="#252530"/>
-            <text x="268" y="107" class="bar-value">$6,586 (14.2%)</text>
+            <text x="268" y="107" class="bar-value" fill="#f0f0f3">$6,586 (14.2%)</text>
 
             <text x="120" y="140" text-anchor="end" class="bar-label" font-weight="600">APLA</text>
             <rect x="125" y="127" width="131" height="22" rx="3" fill="#e2b714"/>
-            <text x="261" y="142" class="bar-value">$6,251 (13.5%)</text>
+            <text x="261" y="142" class="bar-value" fill="#f0f0f3">$6,251 (13.5%)</text>
 
             <text x="120" y="175" text-anchor="end" class="bar-label" font-weight="600">Converse</text>
             <rect x="125" y="162" width="36" height="22" rx="3" fill="#c49b0e"/>
-            <text x="166" y="177" class="bar-value">$1,692 (3.7%)</text>
+            <text x="166" y="177" class="bar-value" fill="#f0f0f3">$1,692 (3.7%)</text>
           </svg>
         </div>
 
@@ -1290,11 +1295,11 @@ p.body-text {
           <svg viewBox="0 0 640 240" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:640px;">
             <!-- Y axis -->
             <line x1="50" y1="20" x2="50" y2="200" stroke="#d1d5db" stroke-width="0.5"/>
-            <line x1="50" y1="20" x2="620" y2="20" stroke="#e5e7eb" stroke-width="0.5"/>
-            <line x1="50" y1="60" x2="620" y2="60" stroke="#e5e7eb" stroke-width="0.5"/>
-            <line x1="50" y1="100" x2="620" y2="100" stroke="#e5e7eb" stroke-width="0.5"/>
-            <line x1="50" y1="140" x2="620" y2="140" stroke="#e5e7eb" stroke-width="0.5"/>
-            <line x1="50" y1="180" x2="620" y2="180" stroke="#e5e7eb" stroke-width="0.5"/>
+            <line x1="50" y1="20" x2="620" y2="20" stroke="#2a2a38" stroke-width="0.5"/>
+            <line x1="50" y1="60" x2="620" y2="60" stroke="#2a2a38" stroke-width="0.5"/>
+            <line x1="50" y1="100" x2="620" y2="100" stroke="#2a2a38" stroke-width="0.5"/>
+            <line x1="50" y1="140" x2="620" y2="140" stroke="#2a2a38" stroke-width="0.5"/>
+            <line x1="50" y1="180" x2="620" y2="180" stroke="#2a2a38" stroke-width="0.5"/>
             <line x1="50" y1="200" x2="620" y2="200" stroke="#d1d5db" stroke-width="0.5"/>
             <text x="45" y="24" text-anchor="end" class="axis-label">6000</text>
             <text x="45" y="64" text-anchor="end" class="axis-label">4500</text>
@@ -1305,7 +1310,7 @@ p.body-text {
             <!-- Scale: 0-6000 mapped to y200-y20. 1unit = 180/6000=0.03px -->
             <!-- N.America group x=70 -->
             <!-- FY23:5454 => y=200-5454*0.03=36.4 h=163.6 -->
-            <rect x="70" y="36" width="25" height="164" rx="2" fill="#cdcdd4" opacity="0.6"/>
+            <rect x="70" y="36" width="25" height="164" rx="2" fill="#f87171"/>
             <!-- FY24:5822 => y=200-5822*0.03=25.3 h=174.7 -->
             <rect x="97" y="25" width="25" height="175" rx="2" fill="#cdcdd4" opacity="0.8"/>
             <!-- FY25:4735 => y=200-4735*0.03=57.9 h=142.1 -->
@@ -1325,9 +1330,9 @@ p.body-text {
             <text x="327" y="218" text-anchor="middle" class="bar-label">China</text>
 
             <!-- APLA group x=400 -->
-            <rect x="400" y="142" width="25" height="58" rx="2" fill="#3b82f6" opacity="0.6"/>
-            <rect x="427" y="143" width="25" height="57" rx="2" fill="#3b82f6" opacity="0.8"/>
-            <rect x="454" y="154" width="25" height="46" rx="2" fill="#3b82f6"/>
+            <rect x="400" y="142" width="25" height="58" rx="2" fill="#60a5fa" opacity="0.6"/>
+            <rect x="427" y="143" width="25" height="57" rx="2" fill="#60a5fa" opacity="0.8"/>
+            <rect x="454" y="154" width="25" height="46" rx="2" fill="#60a5fa"/>
             <text x="437" y="218" text-anchor="middle" class="bar-label">APLA</text>
 
             <!-- Converse group x=510 -->
@@ -1392,7 +1397,7 @@ p.body-text {
             <!-- FY24 -->
             <text x="200" y="30" text-anchor="middle" class="bar-label" font-weight="700" font-size="12">FY2024</text>
             <!-- DSO -->
-            <rect x="80" y="45" width="94" height="30" rx="2" fill="#3b82f6"/>
+            <rect x="80" y="45" width="94" height="30" rx="2" fill="#60a5fa"/>
             <text x="127" y="64" text-anchor="middle" fill="white" font-size="10" font-weight="600">DSO 31.5d</text>
             <!-- DIO -->
             <rect x="174" y="45" width="289" height="30" rx="2" fill="#cdcdd4"/>
@@ -1406,7 +1411,7 @@ p.body-text {
             <!-- FY25 -->
             <text x="200" y="140" text-anchor="middle" class="bar-label" font-weight="700" font-size="12">FY2025</text>
             <!-- DSO -->
-            <rect x="80" y="155" width="112" height="30" rx="2" fill="#3b82f6"/>
+            <rect x="80" y="155" width="112" height="30" rx="2" fill="#60a5fa"/>
             <text x="136" y="174" text-anchor="middle" fill="white" font-size="10" font-weight="600">DSO 37.2d</text>
             <!-- DIO -->
             <rect x="192" y="155" width="309" height="30" rx="2" fill="#cdcdd4"/>
@@ -1415,7 +1420,7 @@ p.body-text {
             <rect x="80" y="192" width="144" height="24" rx="2" fill="#22c55e" opacity="0.8"/>
             <text x="152" y="208" text-anchor="middle" fill="white" font-size="10" font-weight="600">DPO 47.9d</text>
             <!-- CCC label -->
-            <text x="520" y="174" class="bar-value" font-size="12" fill="#ef4444">CCC = 92.4 days</text>
+            <text x="520" y="174" class="bar-value" font-size="12" fill="#f87171">CCC = 92.4 days</text>
           </svg>
         </div>
 
@@ -1477,22 +1482,22 @@ p.body-text {
             <!-- NKE: 2039 => bar width = 2039/2200 * 440 = 408 -->
             <text x="65" y="35" text-anchor="end" class="bar-label" font-weight="700">NKE</text>
             <rect x="100" y="22" width="408" height="22" rx="3" fill="#cdcdd4"/>
-            <text x="514" y="37" class="bar-value">$2,039M</text>
+            <text x="514" y="37" class="bar-value" fill="#f0f0f3">$2,039M</text>
 
             <!-- LULU: 1579 => 316 -->
             <text x="65" y="67" text-anchor="end" class="bar-label" font-weight="700">LULU</text>
             <rect x="100" y="54" width="316" height="22" rx="3" fill="#252530"/>
-            <text x="421" y="69" class="bar-value">$1,579M</text>
+            <text x="421" y="69" class="bar-value" fill="#f0f0f3">$1,579M</text>
 
             <!-- DECK: 889 => 178 -->
             <text x="65" y="99" text-anchor="end" class="bar-label" font-weight="700">DECK</text>
             <rect x="100" y="86" width="178" height="22" rx="3" fill="#e2b714"/>
-            <text x="283" y="101" class="bar-value">$889M</text>
+            <text x="283" y="101" class="bar-value" fill="#f0f0f3">$889M</text>
 
             <!-- UAA: -452 => bar going left from 0 line, width=452/2200*440=90 -->
             <text x="65" y="131" text-anchor="end" class="bar-label" font-weight="700">UAA</text>
-            <rect x="10" y="118" width="90" height="22" rx="3" fill="#ef4444"/>
-            <text x="105" y="133" class="bar-value" fill="#ef4444">-$452M</text>
+            <rect x="10" y="118" width="90" height="22" rx="3" fill="#f87171"/>
+            <text x="105" y="133" class="bar-value" fill="#f87171">-$452M</text>
 
             <!-- Zero line -->
             <line x1="100" y1="15" x2="100" y2="145" stroke="#374151" stroke-width="1" stroke-dasharray="3,2"/>
@@ -1685,12 +1690,12 @@ p.body-text {
             <rect x="115" y="100" width="230" height="28" rx="4" fill="#e2b714"/>
             <text x="230" y="119" text-anchor="middle" fill="#f0f0f3" font-size="10" font-weight="600">Dividends $2,300M</text>
             <!-- CapEx: 430/3698 = 11.6% of 370 = 43 -->
-            <rect x="115" y="135" width="43" height="28" rx="4" fill="#3b82f6"/>
-            <text x="165" y="154" class="bar-value">CapEx $430M</text>
+            <rect x="115" y="135" width="43" height="28" rx="4" fill="#60a5fa"/>
+            <text x="165" y="154" class="bar-value" fill="#f0f0f3">CapEx $430M</text>
 
             <!-- Total outflow label -->
-            <text x="420" y="84" class="bar-value" font-size="12" fill="#ef4444">Total: $5,715M</text>
-            <text x="420" y="100" class="bar-value" font-size="10" fill="#ef4444">(155% of CFO)</text>
+            <text x="420" y="84" class="bar-value" font-size="12" fill="#f87171">Total: $5,715M</text>
+            <text x="420" y="100" class="bar-value" font-size="10" fill="#f87171">(155% of CFO)</text>
           </svg>
         </div>
 
