@@ -357,6 +357,9 @@ body {
 .section-body h3:first-child, .section-body .sub-heading:first-child { margin-top: 0; }
 .section-body strong { color: var(--t1); font-weight: 600; }
 .section-body p, .section-body .body-text { color: var(--t2); margin-bottom: 0.75rem; }
+.section-body ol { list-style: none; counter-reset: rf; padding: 0; }
+.section-body ol li { counter-increment: rf; padding: 0.6rem 0; border-bottom: 1px solid var(--b1); display: flex; gap: 0.75rem; }
+.section-body ol li::before { content: counter(rf); font-family: var(--font-mono); font-size: 0.72rem; color: var(--blue); background: var(--blue-bg); min-width: 1.6rem; height: 1.6rem; display: flex; align-items: center; justify-content: center; border-radius: 4px; flex-shrink: 0; margin-top: 0.1rem; }
 
 /* --- TABLES --- */
 .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: var(--r-md); }
@@ -510,7 +513,11 @@ body {
 .axis-label { font-size: 12px; fill: var(--t2); font-family: 'IBM Plex Mono', monospace; }
 .chart-legend { display: flex; gap: 1.5rem; margin-top: 1rem; font-size: 0.82rem; color: var(--t2); align-items: center; }
 .chart-legend span { display: flex; align-items: center; }
+.legend-dot { width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; flex-shrink: 0; }
+.legend-item { display: flex; align-items: center; gap: 0.4rem; font-size: 0.78rem; color: var(--t2); }
+.bar-label { font-size: 13px; fill: #e6edf3; font-family: 'IBM Plex Sans', sans-serif; }
 .bar-value { font-size: 13px; font-weight: 600; font-family: 'IBM Plex Mono', monospace; fill: var(--t1); }
+.ni-label { font-size: 11px; font-weight: 600; fill: var(--green); font-family: 'IBM Plex Mono', monospace; paint-order: stroke; stroke: var(--s2); stroke-width: 4px; stroke-linecap: round; stroke-linejoin: round; }
 
 /* ============================================================
    AGENT 4: CONTENT & FLOW — Insights, Reading Experience
@@ -960,7 +967,7 @@ body {
             <text x="560" y="228" text-anchor="middle" class="bar-label">FY25</text>
           </svg>
           <div class="chart-legend">
-            <div class="legend-item"><div class="legend-dot" style="background:var(--s2);"></div> <span style="display:inline-block;width:12px;height:12px;background:var(--blue);border-radius:2px;margin-right:6px;vertical-align:middle;"></span>Revenue ($B)</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#58a6ff;"></div> <span style="display:inline-block;width:12px;height:12px;background:var(--blue);border-radius:2px;margin-right:6px;vertical-align:middle;"></span>Revenue ($B)</div>
             <div class="legend-item"><div class="legend-dot" style="background:var(--gold);"></div> <span style="display:inline-block;width:12px;height:3px;background:var(--green);border-radius:2px;margin-right:6px;vertical-align:middle;"></span>Net Income ($B)</div>
           </div>
         </div>
@@ -989,12 +996,12 @@ body {
             <!-- FY25:42.7 => 20+(50-42.7)*4=49.2 -->
             <polyline points="100,46 192,41 284,36 376,46 468,42 560,49"
                       fill="none" stroke="#1a1a2e" stroke-width="2.5" stroke-linejoin="round"/>
-            <circle cx="100" cy="46" r="3.5" fill="var(--t2)"/>
-            <circle cx="192" cy="41" r="3.5" fill="var(--t2)"/>
-            <circle cx="284" cy="36" r="3.5" fill="var(--t2)"/>
-            <circle cx="376" cy="46" r="3.5" fill="var(--t2)"/>
-            <circle cx="468" cy="42" r="3.5" fill="var(--t2)"/>
-            <circle cx="560" cy="49" r="3.5" fill="var(--t2)"/>
+            <circle cx="100" cy="46" r="3.5" fill="#6e8aad"/>
+            <circle cx="192" cy="41" r="3.5" fill="#6e8aad"/>
+            <circle cx="284" cy="36" r="3.5" fill="#6e8aad"/>
+            <circle cx="376" cy="46" r="3.5" fill="#6e8aad"/>
+            <circle cx="468" cy="42" r="3.5" fill="#6e8aad"/>
+            <circle cx="560" cy="49" r="3.5" fill="#6e8aad"/>
             <!-- SGA% -->
             <!-- FY20:35.1 => 20+(50-35.1)*4=79.6 -->
             <!-- FY21:29.2 => 20+(50-29.2)*4=103.2 -->
@@ -1032,7 +1039,7 @@ body {
             <text x="560" y="202" text-anchor="middle" class="bar-label">FY25</text>
           </svg>
           <div class="chart-legend">
-            <div class="legend-item"><div class="legend-dot" style="background:var(--s2);"></div> <span style="display:inline-block;width:12px;height:3px;background:var(--t1);border-radius:2px;margin-right:6px;vertical-align:middle;"></span>Gross Margin</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#58a6ff;"></div> <span style="display:inline-block;width:12px;height:3px;background:var(--t1);border-radius:2px;margin-right:6px;vertical-align:middle;"></span>Gross Margin</div>
             <div class="legend-item"><div class="legend-dot" style="background:var(--gold);"></div> <span style="display:inline-block;width:12px;height:3px;background:var(--green);border-radius:2px;margin-right:6px;vertical-align:middle;border:1px dashed var(--green);background:none;"></span>SGA %</div>
             <div class="legend-item"><div class="legend-dot" style="background:var(--blue);"></div> <span style="display:inline-block;width:12px;height:3px;background:var(--blue);border-radius:2px;margin-right:6px;vertical-align:middle;"></span>Net Margin</div>
           </div>
@@ -1148,7 +1155,7 @@ body {
               <!-- Filled portion: 5/9 = 0.556 => 100 deg -->
               <path d="M 15 85 A 65 65 0 0 1 62 26" fill="none" stroke="var(--amber)" stroke-width="12" stroke-linecap="round" stroke-linecap="round"/>
               <text x="80" y="75" text-anchor="middle" font-family="Playfair Display, serif" font-size="28" font-weight="600" fill="var(--amber)">5</text>
-              <text x="80" y="90" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="var(--t2)">of 9</text>
+              <text x="80" y="90" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#6e8aad">of 9</text>
             </svg>
             <div class="gauge-verdict verdict-warn">Neutral</div>
             <div class="gauge-detail">
@@ -1273,23 +1280,23 @@ body {
             <!-- Horizontal bars -->
             <!-- N.America: 19572. Scale max=20000. Bar max width=420 -->
             <text x="120" y="35" text-anchor="end" class="bar-label" font-weight="600">N. America</text>
-            <rect x="125" y="22" width="411" height="22" rx="3" fill="var(--t2)"/>
+            <rect x="125" y="22" width="411" height="22" rx="3" fill="#58a6ff"/>
             <text x="540" y="37" class="bar-value" fill="#f0f0f3">$19,572 (42.3%)</text>
 
             <text x="120" y="70" text-anchor="end" class="bar-label" font-weight="600">EMEA</text>
-            <rect x="125" y="57" width="257" height="22" rx="3" fill="var(--s3)"/>
+            <rect x="125" y="57" width="257" height="22" rx="3" fill="#bc8cff"/>
             <text x="387" y="72" class="bar-value" fill="#f0f0f3">$12,257 (26.5%)</text>
 
             <text x="120" y="105" text-anchor="end" class="bar-label" font-weight="600">Gr. China</text>
-            <rect x="125" y="92" width="138" height="22" rx="3" fill="var(--s3)"/>
+            <rect x="125" y="92" width="138" height="22" rx="3" fill="#39d0c0"/>
             <text x="268" y="107" class="bar-value" fill="#f0f0f3">$6,586 (14.2%)</text>
 
             <text x="120" y="140" text-anchor="end" class="bar-label" font-weight="600">APLA</text>
-            <rect x="125" y="127" width="131" height="22" rx="3" fill="#e2b714"/>
+            <rect x="125" y="127" width="131" height="22" rx="3" fill="#f0a040"/>
             <text x="261" y="142" class="bar-value" fill="#f0f0f3">$6,251 (13.5%)</text>
 
             <text x="120" y="175" text-anchor="end" class="bar-label" font-weight="600">Converse</text>
-            <rect x="125" y="162" width="36" height="22" rx="3" fill="#c49b0e"/>
+            <rect x="125" y="162" width="36" height="22" rx="3" fill="#f06070"/>
             <text x="166" y="177" class="bar-value" fill="#f0f0f3">$1,692 (3.7%)</text>
           </svg>
         </div>
@@ -1331,41 +1338,41 @@ body {
             <!-- Scale: 0-6000 mapped to y200-y20. 1unit = 180/6000=0.03px -->
             <!-- N.America group x=70 -->
             <!-- FY23:5454 => y=200-5454*0.03=36.4 h=163.6 -->
-            <rect x="70" y="36" width="25" height="164" rx="2" fill="var(--red)"/>
+            <rect x="70" y="36" width="25" height="164" rx="2" fill="#58a6ff" opacity="0.6"/>
             <!-- FY24:5822 => y=200-5822*0.03=25.3 h=174.7 -->
-            <rect x="97" y="25" width="25" height="175" rx="2" fill="var(--t2)" opacity="0.8"/>
+            <rect x="97" y="25" width="25" height="175" rx="2" fill="#58a6ff" opacity="0.8"/>
             <!-- FY25:4735 => y=200-4735*0.03=57.9 h=142.1 -->
-            <rect x="124" y="58" width="25" height="142" rx="2" fill="var(--t2)"/>
+            <rect x="124" y="58" width="25" height="142" rx="2" fill="#58a6ff"/>
             <text x="107" y="218" text-anchor="middle" class="bar-label">N.Am</text>
 
             <!-- EMEA group x=180 -->
-            <rect x="180" y="94" width="25" height="106" rx="2" fill="var(--s3)" opacity="0.6"/>
-            <rect x="207" y="98" width="25" height="102" rx="2" fill="var(--s3)" opacity="0.8"/>
-            <rect x="234" y="123" width="25" height="77" rx="2" fill="var(--s3)"/>
+            <rect x="180" y="94" width="25" height="106" rx="2" fill="#bc8cff" opacity="0.5"/>
+            <rect x="207" y="98" width="25" height="102" rx="2" fill="#bc8cff" opacity="0.7"/>
+            <rect x="234" y="123" width="25" height="77" rx="2" fill="#bc8cff"/>
             <text x="217" y="218" text-anchor="middle" class="bar-label">EMEA</text>
 
             <!-- China group x=290 -->
-            <rect x="290" y="131" width="25" height="69" rx="2" fill="#e2b714" opacity="0.6"/>
-            <rect x="317" y="131" width="25" height="69" rx="2" fill="#e2b714" opacity="0.8"/>
-            <rect x="344" y="152" width="25" height="48" rx="2" fill="#e2b714"/>
+            <rect x="290" y="131" width="25" height="69" rx="2" fill="#39d0c0" opacity="0.5"/>
+            <rect x="317" y="131" width="25" height="69" rx="2" fill="#39d0c0" opacity="0.7"/>
+            <rect x="344" y="152" width="25" height="48" rx="2" fill="#39d0c0"/>
             <text x="327" y="218" text-anchor="middle" class="bar-label">China</text>
 
             <!-- APLA group x=400 -->
-            <rect x="400" y="142" width="25" height="58" rx="2" fill="var(--blue)" opacity="0.6"/>
-            <rect x="427" y="143" width="25" height="57" rx="2" fill="var(--blue)" opacity="0.8"/>
-            <rect x="454" y="154" width="25" height="46" rx="2" fill="var(--blue)"/>
+            <rect x="400" y="142" width="25" height="58" rx="2" fill="#f0a040" opacity="0.5"/>
+            <rect x="427" y="143" width="25" height="57" rx="2" fill="#f0a040" opacity="0.7"/>
+            <rect x="454" y="154" width="25" height="46" rx="2" fill="#f0a040"/>
             <text x="437" y="218" text-anchor="middle" class="bar-label">APLA</text>
 
             <!-- Converse group x=510 -->
-            <rect x="510" y="180" width="25" height="20" rx="2" fill="var(--t2)" opacity="0.6"/>
-            <rect x="537" y="186" width="25" height="14" rx="2" fill="var(--t2)" opacity="0.8"/>
-            <rect x="564" y="193" width="25" height="7" rx="2" fill="var(--t2)"/>
+            <rect x="510" y="180" width="25" height="20" rx="2" fill="#f06070" opacity="0.5"/>
+            <rect x="537" y="186" width="25" height="14" rx="2" fill="#f06070" opacity="0.7"/>
+            <rect x="564" y="193" width="25" height="7" rx="2" fill="#f06070"/>
             <text x="547" y="218" text-anchor="middle" class="bar-label">Converse</text>
           </svg>
           <div class="chart-legend">
-            <div class="legend-item"><div class="legend-dot" style="background:var(--s2);opacity:0.6;"></div> FY2023</div>
-            <div class="legend-item"><div class="legend-dot" style="background:var(--s2);opacity:0.8;"></div> FY2024</div>
-            <div class="legend-item"><div class="legend-dot" style="background:var(--s2);"></div> FY2025</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#58a6ff;opacity:0.5;"></div> FY2023</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#58a6ff;opacity:0.75;"></div> FY2024</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#58a6ff;"></div> FY2025</div>
           </div>
         </div>
 
@@ -1396,7 +1403,7 @@ body {
         <!-- CHANNEL -->
         <h3 class="sub-heading">Channel Mix (Nike Brand FY2025)</h3>
         <div style="display:flex;align-items:center;gap:0;border-radius:6px;overflow:hidden;height:36px;margin-top:0.5rem;">
-          <div style="width:57.9%;background:var(--s2);height:100%;display:flex;align-items:center;justify-content:center;color:var(--t1);font-size:0.72rem;font-weight:700;">Wholesale $25,883M (57.9%)</div>
+          <div style="width:57.9%;background:#2d4a7a;height:100%;display:flex;align-items:center;justify-content:center;color:#e6edf3;font-size:0.72rem;font-weight:700;">Wholesale $25,883M (57.9%)</div>
           <div style="width:42.1%;background:var(--gold);height:100%;display:flex;align-items:center;justify-content:center;color:var(--navy);font-size:0.72rem;font-weight:700;">DTC ~$18,831M (42.1%)</div>
         </div>
       </div>
@@ -1421,13 +1428,13 @@ body {
             <rect x="80" y="45" width="94" height="30" rx="2" fill="var(--blue)"/>
             <text x="127" y="64" text-anchor="middle" fill="white" font-size="10" font-weight="600">DSO 31.5d</text>
             <!-- DIO -->
-            <rect x="174" y="45" width="289" height="30" rx="2" fill="var(--t2)"/>
+            <rect x="174" y="45" width="289" height="30" rx="2" fill="#6e8aad"/>
             <text x="318" y="64" text-anchor="middle" fill="white" font-size="10" font-weight="600">DIO 96.4d</text>
             <!-- DPO offset -->
             <rect x="80" y="82" width="110" height="24" rx="2" fill="#22c55e" opacity="0.8"/>
             <text x="135" y="98" text-anchor="middle" fill="white" font-size="10" font-weight="600">DPO 36.5d</text>
             <!-- CCC label -->
-            <text x="480" y="64" class="bar-value" font-size="12" fill="var(--t2)">CCC = 91.4 days</text>
+            <text x="480" y="64" class="bar-value" font-size="12" fill="#6e8aad">CCC = 91.4 days</text>
 
             <!-- FY25 -->
             <text x="200" y="140" text-anchor="middle" class="bar-label" font-weight="700" font-size="12">FY2025</text>
@@ -1435,7 +1442,7 @@ body {
             <rect x="80" y="155" width="112" height="30" rx="2" fill="var(--blue)"/>
             <text x="136" y="174" text-anchor="middle" fill="white" font-size="10" font-weight="600">DSO 37.2d</text>
             <!-- DIO -->
-            <rect x="192" y="155" width="309" height="30" rx="2" fill="var(--t2)"/>
+            <rect x="192" y="155" width="309" height="30" rx="2" fill="#6e8aad"/>
             <text x="346" y="174" text-anchor="middle" fill="white" font-size="10" font-weight="600">DIO 103.1d</text>
             <!-- DPO offset -->
             <rect x="80" y="192" width="144" height="24" rx="2" fill="#22c55e" opacity="0.8"/>
@@ -1502,17 +1509,17 @@ body {
             <!-- Scale: -500 to 2200, mapped horizontally. 0 line at x=100 -->
             <!-- NKE: 2039 => bar width = 2039/2200 * 440 = 408 -->
             <text x="65" y="35" text-anchor="end" class="bar-label" font-weight="700">NKE</text>
-            <rect x="100" y="22" width="408" height="22" rx="3" fill="var(--t2)"/>
+            <rect x="100" y="22" width="408" height="22" rx="3" fill="#58a6ff"/>
             <text x="514" y="37" class="bar-value" fill="#f0f0f3">$2,039M</text>
 
             <!-- LULU: 1579 => 316 -->
             <text x="65" y="67" text-anchor="end" class="bar-label" font-weight="700">LULU</text>
-            <rect x="100" y="54" width="316" height="22" rx="3" fill="var(--s3)"/>
+            <rect x="100" y="54" width="316" height="22" rx="3" fill="#bc8cff"/>
             <text x="421" y="69" class="bar-value" fill="#f0f0f3">$1,579M</text>
 
             <!-- DECK: 889 => 178 -->
             <text x="65" y="99" text-anchor="end" class="bar-label" font-weight="700">DECK</text>
-            <rect x="100" y="86" width="178" height="22" rx="3" fill="#e2b714"/>
+            <rect x="100" y="86" width="178" height="22" rx="3" fill="#39d0c0"/>
             <text x="283" y="101" class="bar-value" fill="#f0f0f3">$889M</text>
 
             <!-- UAA: -452 => bar going left from 0 line, width=452/2200*440=90 -->
@@ -1521,7 +1528,7 @@ body {
             <text x="105" y="133" class="bar-value" fill="var(--red)" font-size="13" font-weight="600">-$452M</text>
 
             <!-- Zero line -->
-            <line x1="100" y1="15" x2="100" y2="145" stroke="#374151" stroke-width="1" stroke-dasharray="3,2"/>
+            <line x1="100" y1="15" x2="100" y2="145" stroke="#4a5568" stroke-width="1" stroke-dasharray="3,2"/>
           </svg>
         </div>
 
@@ -1705,7 +1712,7 @@ body {
             <!-- Outflow bars stacked -->
             <text x="15" y="80" class="bar-label" font-weight="700">Deployments</text>
             <!-- Buybacks: 2985/3698 = 80.7% of 370 = 299 -->
-            <rect x="115" y="65" width="299" height="28" rx="4" fill="var(--t2)"/>
+            <rect x="115" y="65" width="299" height="28" rx="4" fill="#6e8aad"/>
             <text x="264" y="84" text-anchor="middle" fill="white" font-size="10" font-weight="600">Buybacks $2,985M</text>
             <!-- Dividends: 2300/3698 = 62.2% of 370 = 230 -->
             <rect x="115" y="100" width="230" height="28" rx="4" fill="#e2b714"/>
