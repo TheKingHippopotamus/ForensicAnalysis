@@ -4,36 +4,36 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NIKE, Inc. (NKE) — Forensic Financial Analysis</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Serif+Display&family=JetBrains+Mono:wght@500;700&family=Playfair+Display:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root {
-  --navy: #1a1a2e;
-  --navy-light: #16213e;
-  --navy-mid: #0f3460;
+  --navy: #0c0c14;
+  --navy-light: #101018;
+  --navy-mid: #16161f;
   --gold: #e2b714;
   --gold-light: #f5d45e;
   --gold-dark: #c49b0e;
-  --white: #ffffff;
-  --off-white: #f8f9fa;
-  --gray-50: #f9fafb;
-  --gray-100: #f3f4f6;
-  --gray-200: #e5e7eb;
-  --gray-300: #d1d5db;
-  --gray-400: #9ca3af;
-  --gray-500: #6b7280;
-  --gray-600: #4b5563;
-  --gray-700: #374151;
-  --gray-800: #1f2937;
-  --red: #ef4444;
-  --red-bg: #fef2f2;
-  --red-border: #fecaca;
-  --green: #22c55e;
-  --green-bg: #f0fdf4;
-  --green-border: #bbf7d0;
-  --amber: #f59e0b;
-  --amber-bg: #fffbeb;
-  --amber-border: #fde68a;
-  --blue: #3b82f6;
+  --white: #e8e8ec;
+  --off-white: #08080c;
+  --gray-50: #101018;
+  --gray-100: rgba(255,255,255,0.06);
+  --gray-200: rgba(255,255,255,0.08);
+  --gray-300: #55555f;
+  --gray-400: #8b8b96;
+  --gray-500: #8b8b96;
+  --gray-600: #a0a0a8;
+  --gray-700: #c0c0c8;
+  --gray-800: #e8e8ec;
+  --red: #f87171;
+  --red-bg: rgba(248,113,113,0.08);
+  --red-border: rgba(248,113,113,0.2);
+  --green: #34d399;
+  --green-bg: rgba(52,211,153,0.08);
+  --green-border: rgba(52,211,153,0.2);
+  --amber: #fbbf24;
+  --amber-bg: rgba(251,191,36,0.08);
+  --amber-border: rgba(251,191,36,0.2);
+  --blue: #60a5fa;
   --sidebar-w: 260px;
 }
 
@@ -45,6 +45,7 @@ body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   background: var(--off-white);
   color: var(--gray-800);
+  -webkit-tap-highlight-color: transparent;
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
 }
@@ -243,8 +244,8 @@ body {
 /* SECTION */
 .report-section {
   margin-bottom: 2.5rem;
-  background: var(--white);
-  border-radius: 8px;
+  background: var(--navy-light);
+  border-radius: 10px;
   border: 1px solid var(--gray-200);
   overflow: hidden;
   box-shadow: 0 1px 3px rgba(0,0,0,0.04);
@@ -255,14 +256,14 @@ body {
   align-items: center;
   gap: 0.75rem;
   padding: 1rem 1.5rem;
-  background: var(--white);
+  background: var(--navy-light);
   cursor: pointer;
   user-select: none;
   border-bottom: 1px solid var(--gray-100);
   transition: background 0.2s;
 }
 
-.section-header:hover { background: var(--gray-50); }
+.section-header:hover { background: var(--navy-mid); }
 
 .section-num {
   font-family: 'Playfair Display', serif;
@@ -276,7 +277,7 @@ body {
   font-family: 'Playfair Display', serif;
   font-size: 1.15rem;
   font-weight: 700;
-  color: var(--navy);
+  color: var(--white);
   flex: 1;
 }
 
@@ -325,10 +326,10 @@ body {
 .data-table td:first-child {
   text-align: left;
   font-weight: 500;
-  color: var(--navy);
+  color: var(--gold);
 }
 
-.data-table tr:hover td { background: var(--gray-50); }
+.data-table tr:hover td { background: rgba(226,183,20,0.04); }
 .data-table tr:last-child td { border-bottom: none; }
 
 .data-table .row-highlight td { background: var(--amber-bg); font-weight: 600; }
@@ -343,9 +344,9 @@ body {
 }
 
 .gauge-card {
-  background: var(--white);
+  background: var(--navy-mid);
   border: 1px solid var(--gray-200);
-  border-radius: 8px;
+  border-radius: 10px;
   padding: 1.25rem;
   text-align: center;
 }
@@ -378,9 +379,9 @@ body {
   margin-top: 0.5rem;
 }
 
-.verdict-safe { background: var(--green-bg); color: #15803d; border: 1px solid var(--green-border); }
-.verdict-warn { background: var(--amber-bg); color: #b45309; border: 1px solid var(--amber-border); }
-.verdict-danger { background: var(--red-bg); color: #dc2626; border: 1px solid var(--red-border); }
+.verdict-safe { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
+.verdict-warn { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-border); }
+.verdict-danger { background: var(--red-bg); color: var(--red); border: 1px solid var(--red-border); }
 
 .gauge-detail {
   font-size: 0.7rem;
@@ -393,9 +394,9 @@ body {
 .chart-container {
   margin: 1.25rem 0;
   padding: 1rem;
-  background: var(--gray-50);
-  border-radius: 6px;
-  border: 1px solid var(--gray-100);
+  background: var(--navy-mid);
+  border-radius: 8px;
+  border: 1px solid var(--gray-200);
 }
 
 .chart-title {
@@ -595,17 +596,80 @@ p.body-text {
   border-radius: 2px;
 }
 
-/* MOBILE */
+/* MOBILE HAMBURGER */
+.mobile-header {
+  display: none;
+  position: fixed; top: 0; left: 0; right: 0;
+  height: 56px;
+  background: var(--navy);
+  border-bottom: 2px solid var(--gold);
+  z-index: 1001;
+  align-items: center;
+  padding: 0 1rem;
+  gap: 0.75rem;
+}
+.mobile-header img { height: 24px; filter: brightness(0) invert(1); opacity: 0.9; }
+.mobile-header .brand { font-family:'DM Serif Display',serif; font-size: 0.7rem; color: var(--gold-dark); letter-spacing: 0.1em; text-transform: uppercase; }
+.hamburger {
+  width: 36px; height: 36px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 5px; cursor: pointer; margin-left: auto;
+  background: none; border: none; padding: 0;
+}
+.hamburger span {
+  display: block; width: 20px; height: 2px;
+  background: var(--gold); border-radius: 2px;
+  transition: all 0.3s;
+}
+.sidebar-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.6); z-index: 999;
+  backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+}
+
+/* MOBILE TABLE SCROLL */
+.table-wrap {
+  overflow-x: auto; -webkit-overflow-scrolling: touch;
+  margin: 0 -0.5rem; padding: 0 0.5rem;
+}
+
 @media (max-width: 900px) {
-  .sidebar { display: none; }
-  .main { margin-left: 0; }
+  .mobile-header { display: flex; }
+  .sidebar {
+    transform: translateX(-100%); transition: transform 0.3s ease;
+    top: 0; z-index: 1002;
+  }
+  .sidebar.open { transform: translateX(0); }
+  .sidebar-overlay.open { display: block; }
+  .main { margin-left: 0; padding-top: 56px; }
   .report-footer { margin-left: 0; }
-  .hero { padding: 2.5rem 1.5rem 2rem; }
-  .hero h1 { font-size: 1.8rem; }
-  .content { padding: 1.5rem 1rem; }
+  .hero { padding: 2rem 1.25rem 1.5rem; }
+  .hero h1 { font-size: 1.6rem; }
+  .hero h1 img { height: 1.6rem !important; }
+  .hero-brand { font-size: 0.6rem !important; }
+  .hero-sub { font-size: 0.9rem; }
+  .hero-meta { gap: 0.75rem; font-size: 0.7rem; }
+  .hero-meta span { flex-basis: 45%; }
+  .content { padding: 1rem 0.75rem; }
+  .section-body { padding: 1rem 0.75rem; overflow-x: hidden; }
+  .data-table { font-size: 0.72rem; }
+  .data-table th, .data-table td { padding: 0.4rem 0.5rem; white-space: nowrap; }
   .two-col, .method-grid { grid-template-columns: 1fr; }
-  .gauge-grid { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
-  .kpi-strip { grid-template-columns: repeat(3, 1fr); }
+  .gauge-grid { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+  .gauge-card { padding: 1rem; }
+  .gauge-value { font-size: 1.4rem; }
+  .kpi-strip { grid-template-columns: repeat(2, 1fr); }
+  .kpi-card { padding: 0.9rem 0.75rem; }
+  .kpi-card .kpi-value { font-size: 1.3rem; }
+  .section-header { padding: 0.85rem 1rem; }
+  .section-title { font-size: 1rem; }
+  .section-num { font-size: 0.95rem; }
+}
+
+@media (max-width: 420px) {
+  .gauge-grid { grid-template-columns: 1fr; }
+  .kpi-strip { grid-template-columns: 1fr 1fr; }
+  .hero-meta span { flex-basis: 100%; }
 }
 
 /* PRINT */
@@ -624,11 +688,21 @@ p.body-text {
 </head>
 <body>
 
+<!-- MOBILE HEADER -->
+<div class="mobile-header">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg" alt="NIKE">
+  <span class="brand">The King Hippopotamus</span>
+  <button class="hamburger" onclick="toggleSidebar()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</div>
+<div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+
 <!-- SIDEBAR -->
 <aside class="sidebar">
   <div class="sidebar-logo">
-    <div class="ticker">NKE</div>
-    <div class="co-name">Forensic Analysis</div>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg" alt="NIKE" style="width:64px;filter:brightness(0) invert(1);opacity:0.9;">
+    <div class="co-name" style="margin-top:6px">Forensic Analysis</div>
   </div>
   <div class="sidebar-label">Sections</div>
   <nav>
@@ -659,8 +733,9 @@ p.body-text {
   <!-- HERO -->
   <header class="hero">
     <div class="hero-content">
+      <div class="hero-brand" style="font-size:0.68rem;color:var(--gold-dark);letter-spacing:0.15em;text-transform:uppercase;font-weight:700;margin-bottom:0.75rem;font-family:'DM Serif Display',serif;">The King Hippopotamus <span style="color:var(--gray-400);font-family:'DM Sans',sans-serif;font-weight:400;letter-spacing:0.08em">— Independent Research</span></div>
       <div class="hero-badge">Forensic Financial Analysis</div>
-      <h1>NIKE, <span class="gold">Inc.</span></h1>
+      <h1 style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg" alt="NIKE" style="height:2.2rem;filter:brightness(0) invert(1);opacity:0.9;"> <span class="gold">Inc.</span></h1>
       <div class="hero-sub">Quantitative risk assessment and multi-dimensional forensic screening of the world's largest athletic footwear company.</div>
       <div class="hero-meta">
         <span><span class="label">Ticker</span> NYSE: NKE</span>
@@ -744,7 +819,7 @@ p.body-text {
         <div class="two-col">
           <div>
             <h3 class="sub-heading">Identity</h3>
-            <table class="data-table">
+            <div class="table-wrap"><table class="data-table">
               <tr><td style="font-weight:600;color:var(--navy);text-align:left;">Legal Name</td><td style="text-align:left;">NIKE, Inc.</td></tr>
               <tr><td style="font-weight:600;color:var(--navy);text-align:left;">Ticker</td><td style="text-align:left;">NYSE: NKE</td></tr>
               <tr><td style="font-weight:600;color:var(--navy);text-align:left;">CIK</td><td style="text-align:left;">0000320187</td></tr>
@@ -752,18 +827,18 @@ p.body-text {
               <tr><td style="font-weight:600;color:var(--navy);text-align:left;">Headquarters</td><td style="text-align:left;">Beaverton, Oregon</td></tr>
               <tr><td style="font-weight:600;color:var(--navy);text-align:left;">Fiscal Year End</td><td style="text-align:left;">May 31</td></tr>
               <tr><td style="font-weight:600;color:var(--navy);text-align:left;">Auditor</td><td style="text-align:left;">PricewaterhouseCoopers LLP</td></tr>
-            </table>
+            </table></div>
           </div>
           <div>
             <h3 class="sub-heading">Market Profile</h3>
-            <table class="data-table">
+            <div class="table-wrap"><table class="data-table">
               <tr><td style="font-weight:600;color:var(--navy);text-align:left;">Shares Outstanding</td><td style="text-align:left;">1.188 Billion</td></tr>
               <tr><td style="font-weight:600;color:var(--navy);text-align:left;">Public Float</td><td style="text-align:left;">$92.66 Billion</td></tr>
               <tr><td style="font-weight:600;color:var(--navy);text-align:left;">Filer Status</td><td style="text-align:left;">Large Accelerated</td></tr>
               <tr><td style="font-weight:600;color:var(--navy);text-align:left;">Goodwill</td><td style="text-align:left;">$240M (minimal)</td></tr>
               <tr><td style="font-weight:600;color:var(--navy);text-align:left;">Brands</td><td style="text-align:left;">Nike, Jordan, Converse</td></tr>
               <tr><td style="font-weight:600;color:var(--navy);text-align:left;">Channels</td><td style="text-align:left;">Wholesale 57.9% / DTC 42.1%</td></tr>
-            </table>
+            </table></div>
 
             <h3 class="sub-heading">Revenue Mix FY2025</h3>
             <!-- PIE-LIKE DISPLAY -->
@@ -933,7 +1008,7 @@ p.body-text {
         <!-- FULL P&L TABLE -->
         <h3 class="sub-heading">Income Statement Detail ($M)</h3>
         <div style="overflow-x:auto;">
-        <table class="data-table">
+        <div class="table-wrap"><table class="data-table">
           <thead>
             <tr>
               <th>Metric</th><th>FY2020</th><th>FY2021</th><th>FY2022</th><th>FY2023</th><th>FY2024</th><th>FY2025</th>
@@ -950,13 +1025,13 @@ p.body-text {
             <tr><td>EPS</td><td>$1.60</td><td>$3.56</td><td>$3.75</td><td>$3.23</td><td>$3.73</td><td class="neg">$2.16</td></tr>
             <tr><td>Tax Expense</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>1,131</td><td>1,000</td><td>666</td></tr>
           </tbody>
-        </table>
+        </table></div>
         </div>
 
         <!-- BALANCE SHEET TABLE -->
         <h3 class="sub-heading">Balance Sheet Snapshot ($M)</h3>
         <div style="overflow-x:auto;">
-        <table class="data-table">
+        <div class="table-wrap"><table class="data-table">
           <thead>
             <tr><th>Item</th><th>FY2021</th><th>FY2022</th><th>FY2023</th><th>FY2024</th><th>FY2025</th></tr>
           </thead>
@@ -974,7 +1049,7 @@ p.body-text {
             <tr class="row-highlight"><td>Equity</td><td>12,767</td><td>15,281</td><td>14,004</td><td>14,430</td><td>13,213</td></tr>
             <tr><td>Retained Earn.</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>965</td><td class="neg">-727</td></tr>
           </tbody>
-        </table>
+        </table></div>
         </div>
 
         <div class="insight-box danger">
@@ -1096,7 +1171,7 @@ p.body-text {
 
         <!-- M-SCORE COMPONENT BREAKDOWN -->
         <h3 class="sub-heading">Beneish M-Score Components</h3>
-        <table class="data-table">
+        <div class="table-wrap"><table class="data-table">
           <thead>
             <tr><th>Component</th><th>Value</th><th>What It Measures</th><th>Signal</th></tr>
           </thead>
@@ -1114,7 +1189,7 @@ p.body-text {
 
         <!-- Z-SCORE COMPONENT BREAKDOWN -->
         <h3 class="sub-heading">Altman Z-Score Components</h3>
-        <table class="data-table">
+        <div class="table-wrap"><table class="data-table">
           <thead>
             <tr><th>Component</th><th>Value</th><th>Formula</th><th>Interpretation</th></tr>
           </thead>
@@ -1125,7 +1200,7 @@ p.body-text {
             <tr><td>X4 (Eq/TL)</td><td>0.566</td><td>Equity / Total Liabilities</td><td>Moderate</td></tr>
             <tr><td>X5 (Rev/TA)</td><td>1.266</td><td>Revenue / Total Assets</td><td class="pos">Good asset efficiency</td></tr>
           </tbody>
-        </table>
+        </table></div>
 
         <div class="insight-box warn">
           <strong>Key Concern:</strong> The X2 component (Retained Earnings / Total Assets) has turned negative for the first time, which is the primary driver of the Z-Score deterioration. This single factor mechanically pushes the composite score toward the grey zone. The X3 component (EBIT/TA) also weakened materially with the earnings decline.
@@ -1133,7 +1208,7 @@ p.body-text {
 
         <!-- SBC ANALYSIS -->
         <h3 class="sub-heading">Stock-Based Compensation</h3>
-        <table class="data-table">
+        <div class="table-wrap"><table class="data-table">
           <thead>
             <tr><th>Metric</th><th>FY2023</th><th>FY2024</th><th>FY2025</th></tr>
           </thead>
@@ -1142,7 +1217,7 @@ p.body-text {
             <tr><td>SBC % Revenue</td><td>1.5%</td><td>1.6%</td><td>1.5%</td></tr>
             <tr><td>SBC % CFO</td><td>12.9%</td><td>10.8%</td><td>19.2%</td></tr>
           </tbody>
-        </table>
+        </table></div>
         <div class="insight-box info">
           <strong>Note:</strong> SBC as a percentage of CFO nearly doubled from 10.8% to 19.2%, driven by the cash flow collapse rather than a SBC increase. The absolute SBC actually declined $95M, showing some cost discipline. However, SBC now consumes a meaningful share of diminished operating cash flow.
         </div>
@@ -1188,7 +1263,7 @@ p.body-text {
 
         <!-- Segment EBIT Table -->
         <h3 class="sub-heading">Segment EBIT ($M)</h3>
-        <table class="data-table">
+        <div class="table-wrap"><table class="data-table">
           <thead>
             <tr><th>Region</th><th>FY2023</th><th>FY2024</th><th>FY2025</th><th>Margin FY25</th><th>YoY Change</th></tr>
           </thead>
@@ -1338,7 +1413,7 @@ p.body-text {
         </div>
 
         <h3 class="sub-heading">Working Capital Metrics</h3>
-        <table class="data-table">
+        <div class="table-wrap"><table class="data-table">
           <thead>
             <tr><th>Metric</th><th>FY2024</th><th>FY2025</th><th>Change</th><th>Signal</th></tr>
           </thead>
@@ -1350,7 +1425,7 @@ p.body-text {
             <tr><td>Inventory Reserve</td><td>$155M</td><td>$233M</td><td class="neg">+50%</td><td class="neg">Quality/obsolescence risk</td></tr>
             <tr><td>Prepaid Demand Creation</td><td>$814M</td><td>$1,333M</td><td class="neg">+64%</td><td class="neg">Front-loaded marketing spend</td></tr>
           </tbody>
-        </table>
+        </table></div>
 
         <div class="insight-box danger">
           <strong>Channel Stuffing Signal:</strong> DSO rising 18% while revenue falls 9.8% is a textbook early-warning pattern. It suggests NIKE may be extending more generous credit terms to wholesale partners to maintain volume, or that collections are deteriorating. The 50% jump in inventory reserves further indicates product quality or sell-through issues.
@@ -1372,7 +1447,7 @@ p.body-text {
       <div class="section-body">
         <p class="body-text">Comparative financial positioning against key athletic and lifestyle footwear peers. NKE data reflects Q3 FY2026 trailing figures; peers reflect latest available annual data.</p>
 
-        <table class="data-table">
+        <div class="table-wrap"><table class="data-table">
           <thead>
             <tr><th>Metric</th><th>NKE</th><th>UAA</th><th>DECK</th><th>LULU</th></tr>
           </thead>
@@ -1384,7 +1459,7 @@ p.body-text {
             <tr><td>ROE</td><td>14.5%</td><td class="neg">-31.5%</td><td>34.1%</td><td>31.8%</td></tr>
             <tr><td>GP Margin*</td><td>~39.2%</td><td>~38.1%</td><td>~61.3%</td><td>~74.3%</td></tr>
           </tbody>
-        </table>
+        </table></div>
         <p style="font-size:0.7rem;color:var(--gray-500);margin-top:0.5rem;">*GP Margins are approximate based on available data. NKE GP Margin based on Q3 FY2026 trailing data.</p>
 
         <!-- Peer visual comparison -->
@@ -1571,7 +1646,7 @@ p.body-text {
       <div class="section-body">
 
         <h3 class="sub-heading">Cash Flow Summary ($M)</h3>
-        <table class="data-table">
+        <div class="table-wrap"><table class="data-table">
           <thead>
             <tr><th>Item</th><th>FY2020</th><th>FY2021</th><th>FY2022</th><th>FY2023</th><th>FY2024</th><th>FY2025</th></tr>
           </thead>
@@ -1718,5 +1793,17 @@ document.querySelectorAll('.sidebar nav a[href^="#"]').forEach(function(link) {
 });
 </script>
 
+<script>
+function toggleSidebar() {
+  document.querySelector('.sidebar').classList.toggle('open');
+  document.querySelector('.sidebar-overlay').classList.toggle('open');
+}
+// Close sidebar when nav link clicked (mobile)
+document.querySelectorAll('.sidebar nav a').forEach(a => {
+  a.addEventListener('click', () => {
+    if (window.innerWidth <= 900) toggleSidebar();
+  });
+});
+</script>
 </body>
 </html>
