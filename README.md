@@ -1,36 +1,52 @@
-# ForensicAnalysis
+<div align="center">
 
-Static HTML forensic research reports published via GitHub Pages.
+# Forensic Financial Research Reports
 
-**Live site**: [thekingbhippopotamus.github.io/ForensicAnalysis](https://thekingbhippopotamus.github.io/ForensicAnalysis/)
+**Autonomous SEC filing analysis. No human in the loop.**
+
+[![Live Site](https://img.shields.io/badge/live-thekinghippopotamus.github.io/ForensicAnalysis-22c55e?style=flat-square)](https://thekinghippopotamus.github.io/ForensicAnalysis/)
+[![Pipeline](https://img.shields.io/badge/pipeline-Forensic__Analysis--ArelleMCP-e2b714?style=flat-square)](https://github.com/TheKingHippopotamus/Forensic_Analysis-ArelleMCP)
+
+</div>
+
+---
 
 ## Reports
 
-| Ticker | Company | Status |
-|--------|---------|--------|
-| [NKE](./NKE/) | NIKE, Inc. | Phase 1-6 Complete |
+| Ticker | Company | Filings Analyzed | Forensic Models | Transcript Quarters | Report |
+|--------|---------|-----------------|-----------------|--------------------:|--------|
+| **NKE** | NIKE, Inc. | 20+ | Beneish · Altman · Piotroski · Sloan · Benford | — | [View →](https://thekinghippopotamus.github.io/ForensicAnalysis/NKE/) |
+| **RDDT** | Reddit, Inc. | — | — | — | *In progress* |
 
-## How Reports Are Generated
+## How Reports Are Made
 
-Reports are produced by the [Forensic_Analysis-ArelleMCP](https://github.com/TheKingHippopotamus/Forensic_Analysis-ArelleMCP) pipeline:
-
-1. **Phase 0-1**: SEC XBRL extraction via arelle-mcp (46 tools)
-2. **Phase 2-5**: Multi-agent forensic analysis (Beneish, Altman, Piotroski, Sloan, Benford's Law)
-3. **Phase 7**: Earnings call transcript Q&A extraction
-4. **Phase 8**: 10 parallel investigation layers (management decoder, credibility tracker, analyst intelligence, guidance forensics, competitive radar, supply chain, capital allocation DNA, customer growth, narrative drift, synthesis engine)
-5. **Phase 6**: HTML report generation → pushed here
-
-## Structure
+Each report is generated autonomously by the [SEC Forensic Research System](https://github.com/TheKingHippopotamus/Forensic_Analysis-ArelleMCP):
 
 ```
-ForensicAnalysis/
-├── index.html          # Landing page with report index
-├── .nojekyll           # Bypass Jekyll processing
-├── NKE/
-│   └── index.html      # NIKE forensic report
-├── RDDT/               # (coming soon)
-│   └── index.html
-└── ...
+10-K / 10-Q / 8-K / DEF 14A / Form 4 / 13F / Earnings Transcripts
+                              ↓
+              13 parallel analysis agents
+              6 forensic detection models
+              10 transcript investigation layers
+              31 research objectives covered
+                              ↓
+                    Unified HTML report
+                              ↓
+                  Published here via GitHub Pages
 ```
 
-Each report is a self-contained HTML file with embedded CSS, charts, and interactive navigation.
+Every report covers: earnings quality, forensic scores, segment evolution, governance alignment, insider activity, management credibility, competitive positioning, supply chain risks, capital allocation, and forward predictions — all cross-validated across multiple data sources.
+
+## Technical Details
+
+- Reports are **self-contained HTML** files — no external dependencies
+- Data source: **SEC EDGAR** (XBRL) + **q4cdn.com** (earnings transcripts)  
+- Extraction: **[arelle-mcp](https://pypi.org/project/arelle-mcp/)** — 46-tool XBRL MCP server
+- Analysis: **Claude Code** multi-agent orchestration
+- Each report represents **200+ MCP tool calls** and **4,915 lines of analysis protocol**
+
+---
+
+<div align="center">
+<sub>Built with <a href="https://github.com/TheKingHippopotamus/Forensic_Analysis-ArelleMCP">Forensic_Analysis-ArelleMCP</a> · <a href="https://pypi.org/project/arelle-mcp/">arelle-mcp</a> · <a href="https://github.com/TheKingHippopotamus">@TheKingHippopotamus</a></sub>
+</div>
