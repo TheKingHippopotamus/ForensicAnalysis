@@ -288,7 +288,7 @@ body {
    AGENT 3: DATA COMPONENTS — Tables, Gauges, Charts
    ============================================================ */
 
-.content { padding: 2rem 2.5rem 4rem; max-width: 1000px; }
+.content { padding: 2rem 3rem 4rem; }
 
 /* --- SECTIONS --- */
 .report-section {
@@ -341,7 +341,7 @@ body {
 }
 
 .section-header.collapsed .section-toggle { transform: rotate(-90deg); }
-.section-body { padding: 1.5rem; }
+.section-body { padding: 1.75rem 2rem; }
 .section-header.collapsed + .section-body { display: none; }
 
 /* --- SECTION BODY TYPOGRAPHY --- */
@@ -360,6 +360,7 @@ body {
 
 /* --- TABLES --- */
 .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: var(--r-md); }
+.table-wrap table { min-width: 100%; }
 
 .data-table {
   width: 100%;
@@ -413,7 +414,7 @@ body {
 /* --- GAUGE GRID (Forensic Dashboard) --- */
 .gauge-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
 }
 
@@ -489,22 +490,27 @@ body {
 /* --- CHARTS --- */
 .chart-container {
   margin: 1.25rem 0;
-  padding: 1.25rem;
+  padding: 1.5rem 1.75rem;
   background: var(--s2);
-  border-radius: var(--r-md);
+  border-radius: var(--r-lg);
   border: 1px solid var(--b1);
   color: var(--t2);
 }
+.chart-container svg { width: 100%; height: auto; display: block; }
 
 .chart-title {
   font-family: var(--font-display);
-  font-size: 0.95rem;
+  font-size: 1rem;
   color: var(--t1);
-  margin-bottom: 0.75rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--b1);
 }
 
-.axis-label { font-size: 11px; fill: var(--t3); font-family: 'IBM Plex Mono', monospace; }
-.bar-value { font-size: 12px; font-weight: 600; font-family: 'IBM Plex Mono', monospace; fill: var(--t1); }
+.axis-label { font-size: 12px; fill: var(--t2); font-family: 'IBM Plex Mono', monospace; }
+.chart-legend { display: flex; gap: 1.5rem; margin-top: 1rem; font-size: 0.82rem; color: var(--t2); align-items: center; }
+.chart-legend span { display: flex; align-items: center; }
+.bar-value { font-size: 13px; font-weight: 600; font-family: 'IBM Plex Mono', monospace; fill: var(--t1); }
 
 /* ============================================================
    AGENT 4: CONTENT & FLOW — Insights, Reading Experience
@@ -542,7 +548,7 @@ body {
 .two-col {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 2rem;
+  gap: 2.5rem;
 }
 
 /* --- METHOD GRID --- */
@@ -783,7 +789,7 @@ body {
       <div class="kpi-change neg">-43.5% YoY</div>
     </div>
     <div class="kpi-card">
-      <div class="kpi-label">Gross Margin</div>
+      <div class="kpi-label"><span style="display:inline-block;width:12px;height:3px;background:var(--t1);border-radius:2px;margin-right:6px;vertical-align:middle;"></span>Gross Margin</div>
       <div class="kpi-value" style="color:var(--t1);">42.7%</div>
       <div class="kpi-change neg">-190bps</div>
     </div>
@@ -885,8 +891,8 @@ body {
 
         <!-- Revenue & NI Chart -->
         <div class="chart-container">
-          <div class="chart-title">Revenue &amp; Net Income ($B)</div>
-          <svg viewBox="0 0 640 260" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:640px;">
+          <div class="chart-title">Revenue &amp; <span style="display:inline-block;width:12px;height:3px;background:var(--green);border-radius:2px;margin-right:6px;vertical-align:middle;"></span>Net Income ($B)</div>
+          <svg viewBox="0 0 740 280" xmlns="http://www.w3.org/2000/svg" style="width:100%;">
             <!-- Grid lines -->
             <line x1="60" y1="30" x2="620" y2="30" stroke="var(--b1)" stroke-width="0.5"/>
             <line x1="60" y1="75" x2="620" y2="75" stroke="var(--b1)" stroke-width="0.5"/>
@@ -917,7 +923,7 @@ body {
             <text x="468" y="37" text-anchor="middle" class="bar-value" fill="#f0f0f3">51.4</text>
             <!-- FY25: 46.3 => 151.5 => y=58 -->
             <rect x="540" y="58" width="40" height="152" rx="3" fill="var(--red)"/>
-            <text x="560" y="53" text-anchor="middle" class="bar-value" fill="var(--red)">46.3</text>
+            <text x="560" y="53" text-anchor="middle" class="bar-value" fill="var(--red)" font-size="13" font-weight="600">46.3</text>
             <!-- NI line (scale: 0-7B mapped to 210-30) -->
             <!-- FY20:2.54 => y=210-(2.54/7)*180=144.6 -->
             <!-- FY21:5.73 => y=210-(5.73/7)*180=62.6 -->
@@ -927,19 +933,19 @@ body {
             <!-- FY25:3.22 => y=210-(3.22/7)*180=127.2 -->
             <polyline points="100,145 192,63 284,54 376,80 468,63 560,127"
                       fill="none" stroke="var(--green)" stroke-width="2.5" stroke-linejoin="round"/>
-            <circle cx="100" cy="145" r="4" fill="var(--green)"/>
-            <circle cx="192" cy="63" r="4" fill="var(--green)"/>
-            <circle cx="284" cy="54" r="4" fill="var(--green)"/>
-            <circle cx="376" cy="80" r="4" fill="var(--green)"/>
-            <circle cx="468" cy="63" r="4" fill="var(--green)"/>
-            <circle cx="560" cy="127" r="4" fill="var(--green)"/>
+            <circle cx="100" cy="145" r="5" fill="var(--green)" stroke="var(--s2)" stroke-width="2"/>
+            <circle cx="192" cy="63" r="5" fill="var(--green)" stroke="var(--s2)" stroke-width="2"/>
+            <circle cx="284" cy="54" r="5" fill="var(--green)" stroke="var(--s2)" stroke-width="2"/>
+            <circle cx="376" cy="80" r="5" fill="var(--green)" stroke="var(--s2)" stroke-width="2"/>
+            <circle cx="468" cy="63" r="5" fill="var(--green)" stroke="var(--s2)" stroke-width="2"/>
+            <circle cx="560" cy="127" r="5" fill="var(--green)" stroke="var(--s2)" stroke-width="2"/>
             <!-- NI labels -->
             <text x="100" y="139" text-anchor="middle" class="bar-value" fill="#c49b0e">2.5</text>
             <text x="192" y="57" text-anchor="middle" class="bar-value" fill="#c49b0e">5.7</text>
             <text x="284" y="48" text-anchor="middle" class="bar-value" fill="#c49b0e">6.0</text>
             <text x="376" y="74" text-anchor="middle" class="bar-value" fill="#c49b0e">5.1</text>
             <text x="468" y="57" text-anchor="middle" class="bar-value" fill="#c49b0e">5.7</text>
-            <text x="560" y="121" text-anchor="middle" class="bar-value" fill="var(--red)">3.2</text>
+            <text x="560" y="121" text-anchor="middle" class="bar-value" fill="var(--red)" font-size="13" font-weight="600">3.2</text>
             <!-- X-axis -->
             <text x="100" y="228" text-anchor="middle" class="bar-label">FY20</text>
             <text x="192" y="228" text-anchor="middle" class="bar-label">FY21</text>
@@ -949,8 +955,8 @@ body {
             <text x="560" y="228" text-anchor="middle" class="bar-label">FY25</text>
           </svg>
           <div class="chart-legend">
-            <div class="legend-item"><div class="legend-dot" style="background:var(--s2);"></div> Revenue ($B)</div>
-            <div class="legend-item"><div class="legend-dot" style="background:var(--gold);"></div> Net Income ($B)</div>
+            <div class="legend-item"><div class="legend-dot" style="background:var(--s2);"></div> <span style="display:inline-block;width:12px;height:12px;background:var(--blue);border-radius:2px;margin-right:6px;vertical-align:middle;"></span>Revenue ($B)</div>
+            <div class="legend-item"><div class="legend-dot" style="background:var(--gold);"></div> <span style="display:inline-block;width:12px;height:3px;background:var(--green);border-radius:2px;margin-right:6px;vertical-align:middle;"></span>Net Income ($B)</div>
           </div>
         </div>
 
@@ -1021,9 +1027,9 @@ body {
             <text x="560" y="202" text-anchor="middle" class="bar-label">FY25</text>
           </svg>
           <div class="chart-legend">
-            <div class="legend-item"><div class="legend-dot" style="background:var(--s2);"></div> Gross Margin</div>
-            <div class="legend-item"><div class="legend-dot" style="background:var(--gold);"></div> SGA % (dashed)</div>
-            <div class="legend-item"><div class="legend-dot" style="background:var(--blue);"></div> Net Margin</div>
+            <div class="legend-item"><div class="legend-dot" style="background:var(--s2);"></div> <span style="display:inline-block;width:12px;height:3px;background:var(--t1);border-radius:2px;margin-right:6px;vertical-align:middle;"></span>Gross Margin</div>
+            <div class="legend-item"><div class="legend-dot" style="background:var(--gold);"></div> <span style="display:inline-block;width:12px;height:3px;background:var(--green);border-radius:2px;margin-right:6px;vertical-align:middle;border:1px dashed var(--green);background:none;"></span>SGA %</div>
+            <div class="legend-item"><div class="legend-dot" style="background:var(--blue);"></div> <span style="display:inline-block;width:12px;height:3px;background:var(--blue);border-radius:2px;margin-right:6px;vertical-align:middle;"></span>Net Margin</div>
           </div>
         </div>
 
@@ -1040,7 +1046,7 @@ body {
             <tr><td>Revenue</td><td>37,403</td><td>44,538</td><td>46,710</td><td>51,217</td><td>51,362</td><td class="neg">46,309</td></tr>
             <tr><td>COGS</td><td>21,162</td><td>24,576</td><td>25,231</td><td>28,925</td><td>28,475</td><td>26,519</td></tr>
             <tr class="row-highlight"><td>Gross Profit</td><td>16,241</td><td>19,962</td><td>21,479</td><td>22,292</td><td>22,887</td><td>19,790</td></tr>
-            <tr><td>Gross Margin</td><td>43.4%</td><td>44.8%</td><td>46.0%</td><td>43.5%</td><td>44.6%</td><td class="neg">42.7%</td></tr>
+            <tr><td><span style="display:inline-block;width:12px;height:3px;background:var(--t1);border-radius:2px;margin-right:6px;vertical-align:middle;"></span>Gross Margin</td><td>43.4%</td><td>44.8%</td><td>46.0%</td><td>43.5%</td><td>44.6%</td><td class="neg">42.7%</td></tr>
             <tr><td>SGA</td><td>13,126</td><td>13,025</td><td>14,804</td><td>16,377</td><td>16,576</td><td>16,088</td></tr>
             <tr><td>SGA % Rev</td><td>35.1%</td><td>29.2%</td><td>31.7%</td><td>32.0%</td><td>32.3%</td><td class="neg">34.7%</td></tr>
             <tr class="row-highlight"><td>Net Income</td><td>2,539</td><td>5,727</td><td>6,046</td><td>5,070</td><td>5,700</td><td class="neg">3,219</td></tr>
@@ -1199,7 +1205,7 @@ body {
           </thead>
           <tbody>
             <tr><td>DSRI</td><td>1.182</td><td>Days Sales in Receivables</td><td class="neg">Elevated &mdash; rising AR vs revenue</td></tr>
-            <tr><td>GMI</td><td>1.043</td><td>Gross Margin Index</td><td class="neg">Margin deterioration</td></tr>
+            <tr><td>GMI</td><td>1.043</td><td><span style="display:inline-block;width:12px;height:3px;background:var(--t1);border-radius:2px;margin-right:6px;vertical-align:middle;"></span>Gross Margin Index</td><td class="neg">Margin deterioration</td></tr>
             <tr><td>AQI</td><td>0.971</td><td>Asset Quality Index</td><td class="pos">Normal</td></tr>
             <tr><td>SGI</td><td>0.902</td><td>Sales Growth Index</td><td class="neg">Revenue decline signal</td></tr>
             <tr><td>DEPI</td><td>0.993</td><td>Depreciation Index</td><td class="pos">Normal</td></tr>
@@ -1507,7 +1513,7 @@ body {
             <!-- UAA: -452 => bar going left from 0 line, width=452/2200*440=90 -->
             <text x="65" y="131" text-anchor="end" class="bar-label" font-weight="700">UAA</text>
             <rect x="10" y="118" width="90" height="22" rx="3" fill="var(--red)"/>
-            <text x="105" y="133" class="bar-value" fill="var(--red)">-$452M</text>
+            <text x="105" y="133" class="bar-value" fill="var(--red)" font-size="13" font-weight="600">-$452M</text>
 
             <!-- Zero line -->
             <line x1="100" y1="15" x2="100" y2="145" stroke="#374151" stroke-width="1" stroke-dasharray="3,2"/>
