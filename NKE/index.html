@@ -8,30 +8,30 @@
 <style>
 :root {
   --navy: #0c0c14;
-  --navy-light: #101018;
-  --navy-mid: #16161f;
+  --navy-light: #111119;
+  --navy-mid: #1a1a24;
   --gold: #e2b714;
   --gold-light: #f5d45e;
   --gold-dark: #c49b0e;
-  --white: #e8e8ec;
-  --off-white: #08080c;
-  --gray-50: #101018;
-  --gray-100: rgba(255,255,255,0.06);
-  --gray-200: rgba(255,255,255,0.08);
-  --gray-300: #55555f;
-  --gray-400: #8b8b96;
-  --gray-500: #8b8b96;
-  --gray-600: #a0a0a8;
-  --gray-700: #c0c0c8;
-  --gray-800: #e8e8ec;
+  --white: #f0f0f3;
+  --off-white: #09090e;
+  --gray-50: #13131b;
+  --gray-100: rgba(255,255,255,0.07);
+  --gray-200: rgba(255,255,255,0.10);
+  --gray-300: #9898a3;
+  --gray-400: #acacb5;
+  --gray-500: #b8b8c0;
+  --gray-600: #cdcdd4;
+  --gray-700: #dddde2;
+  --gray-800: #f0f0f3;
   --red: #f87171;
-  --red-bg: rgba(248,113,113,0.08);
+  --red-bg: rgba(248,113,113,0.12);
   --red-border: rgba(248,113,113,0.2);
   --green: #34d399;
-  --green-bg: rgba(52,211,153,0.08);
+  --green-bg: rgba(52,211,153,0.12);
   --green-border: rgba(52,211,153,0.2);
   --amber: #fbbf24;
-  --amber-bg: rgba(251,191,36,0.08);
+  --amber-bg: rgba(251,191,36,0.12);
   --amber-border: rgba(251,191,36,0.2);
   --blue: #60a5fa;
   --sidebar-w: 260px;
@@ -305,7 +305,7 @@ body {
 }
 
 .data-table th {
-  background: #0a0a12;
+  background: #0e0e16;
   color: var(--gray-500);
   padding: 0.6rem 0.75rem;
   text-align: right;
@@ -886,22 +886,22 @@ p.body-text {
             <text x="55" y="214" text-anchor="end" class="axis-label">$0</text>
             <!-- Revenue bars -->
             <!-- FY20: 37.4/55*180=122.4 => h=122, y=210-122=88 -->
-            <rect x="80" y="87" width="40" height="123" rx="3" fill="#1e1e2e" opacity="0.85"/>
+            <rect x="80" y="87" width="40" height="123" rx="3" fill="#cdcdd4" opacity="0.85"/>
             <text x="100" y="82" text-anchor="middle" class="bar-value">37.4</text>
             <!-- FY21: 44.5/55*180=145.6 => y=64 -->
-            <rect x="172" y="64" width="40" height="146" rx="3" fill="#1e1e2e" opacity="0.85"/>
+            <rect x="172" y="64" width="40" height="146" rx="3" fill="#cdcdd4" opacity="0.85"/>
             <text x="192" y="59" text-anchor="middle" class="bar-value">44.5</text>
             <!-- FY22: 46.7 => 152.8 => y=57 -->
-            <rect x="264" y="57" width="40" height="153" rx="3" fill="#1e1e2e" opacity="0.85"/>
+            <rect x="264" y="57" width="40" height="153" rx="3" fill="#cdcdd4" opacity="0.85"/>
             <text x="284" y="52" text-anchor="middle" class="bar-value">46.7</text>
             <!-- FY23: 51.2 => 167.6 => y=42 -->
-            <rect x="356" y="42" width="40" height="168" rx="3" fill="#1e1e2e" opacity="0.85"/>
+            <rect x="356" y="42" width="40" height="168" rx="3" fill="#cdcdd4" opacity="0.85"/>
             <text x="376" y="37" text-anchor="middle" class="bar-value">51.2</text>
             <!-- FY24: 51.4 => 168.2 => y=42 -->
-            <rect x="448" y="42" width="40" height="168" rx="3" fill="#1e1e2e" opacity="0.85"/>
+            <rect x="448" y="42" width="40" height="168" rx="3" fill="#cdcdd4" opacity="0.85"/>
             <text x="468" y="37" text-anchor="middle" class="bar-value">51.4</text>
             <!-- FY25: 46.3 => 151.5 => y=58 -->
-            <rect x="540" y="58" width="40" height="152" rx="3" fill="#1e1e2e" opacity="0.6"/>
+            <rect x="540" y="58" width="40" height="152" rx="3" fill="#cdcdd4" opacity="0.6"/>
             <text x="560" y="53" text-anchor="middle" class="bar-value" fill="#ef4444">46.3</text>
             <!-- NI line (scale: 0-7B mapped to 210-30) -->
             <!-- FY20:2.54 => y=210-(2.54/7)*180=144.6 -->
@@ -963,12 +963,12 @@ p.body-text {
             <!-- FY25:42.7 => 20+(50-42.7)*4=49.2 -->
             <polyline points="100,46 192,41 284,36 376,46 468,42 560,49"
                       fill="none" stroke="#1a1a2e" stroke-width="2.5" stroke-linejoin="round"/>
-            <circle cx="100" cy="46" r="3.5" fill="#1e1e2e"/>
-            <circle cx="192" cy="41" r="3.5" fill="#1e1e2e"/>
-            <circle cx="284" cy="36" r="3.5" fill="#1e1e2e"/>
-            <circle cx="376" cy="46" r="3.5" fill="#1e1e2e"/>
-            <circle cx="468" cy="42" r="3.5" fill="#1e1e2e"/>
-            <circle cx="560" cy="49" r="3.5" fill="#1e1e2e"/>
+            <circle cx="100" cy="46" r="3.5" fill="#cdcdd4"/>
+            <circle cx="192" cy="41" r="3.5" fill="#cdcdd4"/>
+            <circle cx="284" cy="36" r="3.5" fill="#cdcdd4"/>
+            <circle cx="376" cy="46" r="3.5" fill="#cdcdd4"/>
+            <circle cx="468" cy="42" r="3.5" fill="#cdcdd4"/>
+            <circle cx="560" cy="49" r="3.5" fill="#cdcdd4"/>
             <!-- SGA% -->
             <!-- FY20:35.1 => 20+(50-35.1)*4=79.6 -->
             <!-- FY21:29.2 => 20+(50-29.2)*4=103.2 -->
@@ -1247,15 +1247,15 @@ p.body-text {
             <!-- Horizontal bars -->
             <!-- N.America: 19572. Scale max=20000. Bar max width=420 -->
             <text x="120" y="35" text-anchor="end" class="bar-label" font-weight="600">N. America</text>
-            <rect x="125" y="22" width="411" height="22" rx="3" fill="#1e1e2e"/>
+            <rect x="125" y="22" width="411" height="22" rx="3" fill="#cdcdd4"/>
             <text x="540" y="37" class="bar-value">$19,572 (42.3%)</text>
 
             <text x="120" y="70" text-anchor="end" class="bar-label" font-weight="600">EMEA</text>
-            <rect x="125" y="57" width="257" height="22" rx="3" fill="#222233"/>
+            <rect x="125" y="57" width="257" height="22" rx="3" fill="#252530"/>
             <text x="387" y="72" class="bar-value">$12,257 (26.5%)</text>
 
             <text x="120" y="105" text-anchor="end" class="bar-label" font-weight="600">Gr. China</text>
-            <rect x="125" y="92" width="138" height="22" rx="3" fill="#2a2a3e"/>
+            <rect x="125" y="92" width="138" height="22" rx="3" fill="#252530"/>
             <text x="268" y="107" class="bar-value">$6,586 (14.2%)</text>
 
             <text x="120" y="140" text-anchor="end" class="bar-label" font-weight="600">APLA</text>
@@ -1305,17 +1305,17 @@ p.body-text {
             <!-- Scale: 0-6000 mapped to y200-y20. 1unit = 180/6000=0.03px -->
             <!-- N.America group x=70 -->
             <!-- FY23:5454 => y=200-5454*0.03=36.4 h=163.6 -->
-            <rect x="70" y="36" width="25" height="164" rx="2" fill="#1e1e2e" opacity="0.6"/>
+            <rect x="70" y="36" width="25" height="164" rx="2" fill="#cdcdd4" opacity="0.6"/>
             <!-- FY24:5822 => y=200-5822*0.03=25.3 h=174.7 -->
-            <rect x="97" y="25" width="25" height="175" rx="2" fill="#1e1e2e" opacity="0.8"/>
+            <rect x="97" y="25" width="25" height="175" rx="2" fill="#cdcdd4" opacity="0.8"/>
             <!-- FY25:4735 => y=200-4735*0.03=57.9 h=142.1 -->
-            <rect x="124" y="58" width="25" height="142" rx="2" fill="#1e1e2e"/>
+            <rect x="124" y="58" width="25" height="142" rx="2" fill="#cdcdd4"/>
             <text x="107" y="218" text-anchor="middle" class="bar-label">N.Am</text>
 
             <!-- EMEA group x=180 -->
-            <rect x="180" y="94" width="25" height="106" rx="2" fill="#2a2a3e" opacity="0.6"/>
-            <rect x="207" y="98" width="25" height="102" rx="2" fill="#2a2a3e" opacity="0.8"/>
-            <rect x="234" y="123" width="25" height="77" rx="2" fill="#2a2a3e"/>
+            <rect x="180" y="94" width="25" height="106" rx="2" fill="#252530" opacity="0.6"/>
+            <rect x="207" y="98" width="25" height="102" rx="2" fill="#252530" opacity="0.8"/>
+            <rect x="234" y="123" width="25" height="77" rx="2" fill="#252530"/>
             <text x="217" y="218" text-anchor="middle" class="bar-label">EMEA</text>
 
             <!-- China group x=290 -->
@@ -1395,13 +1395,13 @@ p.body-text {
             <rect x="80" y="45" width="94" height="30" rx="2" fill="#3b82f6"/>
             <text x="127" y="64" text-anchor="middle" fill="white" font-size="10" font-weight="600">DSO 31.5d</text>
             <!-- DIO -->
-            <rect x="174" y="45" width="289" height="30" rx="2" fill="#1e1e2e"/>
+            <rect x="174" y="45" width="289" height="30" rx="2" fill="#cdcdd4"/>
             <text x="318" y="64" text-anchor="middle" fill="white" font-size="10" font-weight="600">DIO 96.4d</text>
             <!-- DPO offset -->
             <rect x="80" y="82" width="110" height="24" rx="2" fill="#22c55e" opacity="0.8"/>
             <text x="135" y="98" text-anchor="middle" fill="white" font-size="10" font-weight="600">DPO 36.5d</text>
             <!-- CCC label -->
-            <text x="480" y="64" class="bar-value" font-size="12" fill="#1e1e2e">CCC = 91.4 days</text>
+            <text x="480" y="64" class="bar-value" font-size="12" fill="#cdcdd4">CCC = 91.4 days</text>
 
             <!-- FY25 -->
             <text x="200" y="140" text-anchor="middle" class="bar-label" font-weight="700" font-size="12">FY2025</text>
@@ -1409,7 +1409,7 @@ p.body-text {
             <rect x="80" y="155" width="112" height="30" rx="2" fill="#3b82f6"/>
             <text x="136" y="174" text-anchor="middle" fill="white" font-size="10" font-weight="600">DSO 37.2d</text>
             <!-- DIO -->
-            <rect x="192" y="155" width="309" height="30" rx="2" fill="#1e1e2e"/>
+            <rect x="192" y="155" width="309" height="30" rx="2" fill="#cdcdd4"/>
             <text x="346" y="174" text-anchor="middle" fill="white" font-size="10" font-weight="600">DIO 103.1d</text>
             <!-- DPO offset -->
             <rect x="80" y="192" width="144" height="24" rx="2" fill="#22c55e" opacity="0.8"/>
@@ -1476,12 +1476,12 @@ p.body-text {
             <!-- Scale: -500 to 2200, mapped horizontally. 0 line at x=100 -->
             <!-- NKE: 2039 => bar width = 2039/2200 * 440 = 408 -->
             <text x="65" y="35" text-anchor="end" class="bar-label" font-weight="700">NKE</text>
-            <rect x="100" y="22" width="408" height="22" rx="3" fill="#1e1e2e"/>
+            <rect x="100" y="22" width="408" height="22" rx="3" fill="#cdcdd4"/>
             <text x="514" y="37" class="bar-value">$2,039M</text>
 
             <!-- LULU: 1579 => 316 -->
             <text x="65" y="67" text-anchor="end" class="bar-label" font-weight="700">LULU</text>
-            <rect x="100" y="54" width="316" height="22" rx="3" fill="#2a2a3e"/>
+            <rect x="100" y="54" width="316" height="22" rx="3" fill="#252530"/>
             <text x="421" y="69" class="bar-value">$1,579M</text>
 
             <!-- DECK: 889 => 178 -->
@@ -1679,11 +1679,11 @@ p.body-text {
             <!-- Outflow bars stacked -->
             <text x="15" y="80" class="bar-label" font-weight="700">Deployments</text>
             <!-- Buybacks: 2985/3698 = 80.7% of 370 = 299 -->
-            <rect x="115" y="65" width="299" height="28" rx="4" fill="#1e1e2e"/>
+            <rect x="115" y="65" width="299" height="28" rx="4" fill="#cdcdd4"/>
             <text x="264" y="84" text-anchor="middle" fill="white" font-size="10" font-weight="600">Buybacks $2,985M</text>
             <!-- Dividends: 2300/3698 = 62.2% of 370 = 230 -->
             <rect x="115" y="100" width="230" height="28" rx="4" fill="#e2b714"/>
-            <text x="230" y="119" text-anchor="middle" fill="var(--navy)" font-size="10" font-weight="600">Dividends $2,300M</text>
+            <text x="230" y="119" text-anchor="middle" fill="#f0f0f3" font-size="10" font-weight="600">Dividends $2,300M</text>
             <!-- CapEx: 430/3698 = 11.6% of 370 = 43 -->
             <rect x="115" y="135" width="43" height="28" rx="4" fill="#3b82f6"/>
             <text x="165" y="154" class="bar-value">CapEx $430M</text>
@@ -1741,8 +1741,8 @@ p.body-text {
           </div>
         </div>
 
-        <div style="margin-top:1.5rem;padding:1rem;background:var(--gray-50);border-radius:6px;border:1px solid var(--gray-200);font-size:0.75rem;color:var(--gray-600);line-height:1.6;">
-          <strong style="color:var(--navy);">Disclaimer:</strong> This report is for informational and educational purposes only. It does not constitute investment advice, a recommendation, or solicitation to buy or sell any security. The forensic models employed are academic screening tools with known limitations and false-positive rates. All data is derived from public SEC filings and may contain errors or omissions. Past financial performance is not indicative of future results. Readers should conduct their own due diligence and consult qualified financial advisors before making investment decisions.
+        <div style="margin-top:1.5rem;padding:1rem;background:var(--gray-50);border-radius:6px;color:var(--gray-600);border:1px solid var(--gray-200);font-size:0.75rem;color:var(--gray-600);line-height:1.6;">
+          <strong style="color:var(--gold);">Disclaimer:</strong> This report is for informational and educational purposes only. It does not constitute investment advice, a recommendation, or solicitation to buy or sell any security. The forensic models employed are academic screening tools with known limitations and false-positive rates. All data is derived from public SEC filings and may contain errors or omissions. Past financial performance is not indicative of future results. Readers should conduct their own due diligence and consult qualified financial advisors before making investment decisions.
         </div>
       </div>
     </section>
