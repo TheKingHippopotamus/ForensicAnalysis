@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forensic Financial Research</title>
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #12121a;
+    --border: #1e1e2e;
+    --gold: #e2b714;
+    --gold-dim: #b8960f;
+    --text: #e4e4e7;
+    --text-dim: #71717a;
+    --navy: #1a1a2e;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 4rem 2rem;
+  }
+  .header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+  .header h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 2.5rem;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+  }
+  .header p {
+    color: var(--text-dim);
+    font-size: 1rem;
+    max-width: 600px;
+    line-height: 1.6;
+  }
+  .header .badge {
+    display: inline-block;
+    background: rgba(226, 183, 20, 0.1);
+    border: 1px solid rgba(226, 183, 20, 0.2);
+    color: var(--gold);
+    padding: 0.25rem 0.75rem;
+    border-radius: 100px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+  }
+  .reports {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+    max-width: 900px;
+    width: 100%;
+  }
+  .report-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .report-card:hover {
+    border-color: var(--gold-dim);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+  }
+  .report-card .ticker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--gold);
+  }
+  .report-card .company {
+    font-size: 1rem;
+    color: var(--text);
+  }
+  .report-card .meta {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.8rem;
+    color: var(--text-dim);
+  }
+  .report-card .meta span {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+  .report-card .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+  .report-card .tag {
+    background: rgba(226, 183, 20, 0.08);
+    color: var(--gold-dim);
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .footer {
+    margin-top: 4rem;
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 0.8rem;
+  }
+  .footer a { color: var(--gold-dim); text-decoration: none; }
+  .footer a:hover { text-decoration: underline; }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Playfair+Display:wght@700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="header">
+    <div class="badge">MCP-Powered Research</div>
+    <h1>Forensic Financial Research</h1>
+    <p>Institutional-grade forensic analysis of SEC filings and earnings call transcripts. Powered by arelle-mcp, Claude Code multi-agent orchestration, and 200+ MCP tool calls per report.</p>
+  </div>
+
+  <div class="reports" id="reports">
+    <a href="./NKE/" class="report-card">
+      <span class="ticker">NKE</span>
+      <span class="company">NIKE, Inc.</span>
+      <div class="meta">
+        <span>📊 Phase 1-6 Complete</span>
+        <span>📅 2026</span>
+      </div>
+      <div class="tags">
+        <span class="tag">Beneish M-Score</span>
+        <span class="tag">Altman Z-Score</span>
+        <span class="tag">Piotroski F-Score</span>
+        <span class="tag">5Y Trends</span>
+      </div>
+    </a>
+
+    <!-- Future reports will be added here -->
+    <!--
+    <a href="./RDDT/" class="report-card">
+      <span class="ticker">RDDT</span>
+      <span class="company">Reddit, Inc.</span>
+      <div class="meta">
+        <span>📊 Phase 1-8 Complete</span>
+        <span>📅 2026</span>
+      </div>
+      <div class="tags">
+        <span class="tag">Forensic Analysis</span>
+        <span class="tag">Transcript Intelligence</span>
+        <span class="tag">10 Investigation Layers</span>
+      </div>
+    </a>
+    -->
+  </div>
+
+  <div class="footer">
+    <p>Built with <a href="https://pypi.org/project/arelle-mcp/" target="_blank">arelle-mcp</a> · <a href="https://github.com/TheKingHippopotamus" target="_blank">TheKingHippopotamus</a></p>
+  </div>
+</body>
+</html>
