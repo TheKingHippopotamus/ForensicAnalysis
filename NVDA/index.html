@@ -1,0 +1,1596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NVIDIA Corporation (NVDA) - SEC Forensic Analysis Report</title>
+<style>
+:root {
+  --bg-primary: #0a0e1a;
+  --bg-secondary: #111827;
+  --bg-card: #1a2234;
+  --bg-card-hover: #1f2a40;
+  --border: #2a3550;
+  --text-primary: #e8edf5;
+  --text-secondary: #8b99b0;
+  --text-muted: #5a6880;
+  --accent-green: #22c55e;
+  --accent-green-dim: rgba(34,197,94,0.15);
+  --accent-yellow: #eab308;
+  --accent-yellow-dim: rgba(234,179,8,0.15);
+  --accent-red: #ef4444;
+  --accent-red-dim: rgba(239,68,68,0.15);
+  --accent-blue: #3b82f6;
+  --accent-blue-dim: rgba(59,130,246,0.12);
+  --accent-purple: #a855f7;
+  --accent-cyan: #06b6d4;
+  --accent-orange: #f97316;
+  --nav-width: 240px;
+  --header-height: 80px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  font-size: 14px;
+}
+a { color: var(--accent-blue); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* Header */
+.site-header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: var(--header-height);
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 32px;
+}
+.header-left { display: flex; align-items: center; gap: 20px; }
+.company-name { font-size: 24px; font-weight: 700; letter-spacing: -0.5px; }
+.ticker-badge {
+  background: var(--accent-blue-dim); color: var(--accent-blue);
+  padding: 4px 12px; border-radius: 6px; font-weight: 600; font-size: 14px;
+  border: 1px solid rgba(59,130,246,0.3);
+}
+.header-right { display: flex; align-items: center; gap: 12px; }
+.verdict-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 14px; border-radius: 8px; font-size: 12px; font-weight: 600;
+  letter-spacing: 0.3px;
+}
+.verdict-badge .label { opacity: 0.7; font-weight: 400; }
+.badge-green { background: var(--accent-green-dim); color: var(--accent-green); border: 1px solid rgba(34,197,94,0.3); }
+.badge-yellow { background: var(--accent-yellow-dim); color: var(--accent-yellow); border: 1px solid rgba(234,179,8,0.3); }
+.badge-red { background: var(--accent-red-dim); color: var(--accent-red); border: 1px solid rgba(239,68,68,0.3); }
+.badge-blue { background: var(--accent-blue-dim); color: var(--accent-blue); border: 1px solid rgba(59,130,246,0.3); }
+
+/* Sidebar Nav */
+.sidebar {
+  position: fixed; top: var(--header-height); left: 0; bottom: 0;
+  width: var(--nav-width); background: var(--bg-secondary);
+  border-right: 1px solid var(--border);
+  overflow-y: auto; padding: 16px 0; z-index: 90;
+}
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+.nav-link {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 20px; color: var(--text-secondary);
+  font-size: 13px; cursor: pointer; transition: all 0.2s;
+  border-left: 3px solid transparent;
+}
+.nav-link:hover { background: var(--bg-card); color: var(--text-primary); text-decoration: none; }
+.nav-link.active { color: var(--accent-blue); border-left-color: var(--accent-blue); background: var(--accent-blue-dim); }
+.nav-icon { width: 18px; text-align: center; font-size: 14px; }
+
+/* Main Content */
+.main-content {
+  margin-left: var(--nav-width); margin-top: var(--header-height);
+  padding: 32px; max-width: 1200px;
+}
+.section { margin-bottom: 48px; scroll-margin-top: 100px; }
+.section-title {
+  font-size: 22px; font-weight: 700; margin-bottom: 20px;
+  padding-bottom: 12px; border-bottom: 2px solid var(--border);
+  display: flex; align-items: center; gap: 10px;
+}
+.section-title .icon { font-size: 20px; }
+
+/* Cards */
+.card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 24px; margin-bottom: 16px;
+}
+.card-title { font-size: 16px; font-weight: 600; margin-bottom: 12px; }
+
+/* Collapsible */
+.collapsible { cursor: pointer; user-select: none; }
+.collapsible::after { content: ' \25BC'; font-size: 10px; opacity: 0.5; }
+.collapsible.collapsed::after { content: ' \25B6'; }
+.collapse-content { overflow: hidden; transition: max-height 0.3s ease; }
+.collapse-content.hidden { max-height: 0 !important; padding: 0; }
+
+/* Tables */
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th {
+  background: var(--bg-secondary); color: var(--text-secondary);
+  padding: 10px 12px; text-align: left; font-weight: 600;
+  border-bottom: 2px solid var(--border); position: sticky; top: 0;
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;
+}
+td { padding: 10px 12px; border-bottom: 1px solid var(--border); }
+tr:nth-child(even) { background: rgba(255,255,255,0.02); }
+tr:hover { background: var(--bg-card-hover); }
+.num { text-align: right; font-variant-numeric: tabular-nums; }
+.positive { color: var(--accent-green); }
+.negative { color: var(--accent-red); }
+.neutral { color: var(--accent-yellow); }
+
+/* Gauges */
+.gauge-container { display: flex; flex-wrap: wrap; gap: 20px; }
+.gauge-card {
+  flex: 1; min-width: 280px; background: var(--bg-card);
+  border: 1px solid var(--border); border-radius: 12px; padding: 20px;
+}
+.gauge-title { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+.gauge-subtitle { font-size: 11px; color: var(--text-secondary); margin-bottom: 16px; }
+.gauge-bar {
+  height: 24px; background: var(--bg-secondary); border-radius: 12px;
+  overflow: hidden; position: relative; margin-bottom: 8px;
+}
+.gauge-fill { height: 100%; border-radius: 12px; transition: width 0.5s ease; position: relative; }
+.gauge-zones {
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  display: flex;
+}
+.gauge-zone { height: 100%; opacity: 0.15; }
+.gauge-marker {
+  position: absolute; top: -4px; width: 4px; height: 32px;
+  background: var(--text-primary); border-radius: 2px;
+  transform: translateX(-50%);
+}
+.gauge-labels { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted); }
+.gauge-score { font-size: 28px; font-weight: 700; margin: 8px 0; }
+.gauge-vars { font-size: 12px; color: var(--text-secondary); line-height: 1.8; }
+
+/* Grid layouts */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+@media (max-width: 1024px) {
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  .sidebar { display: none; }
+  .main-content { margin-left: 0; }
+  .header-right { display: none; }
+}
+
+/* Red flag cards */
+.flag-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 20px; margin-bottom: 12px;
+  border-left: 4px solid;
+}
+.flag-card.high { border-left-color: var(--accent-red); }
+.flag-card.moderate { border-left-color: var(--accent-yellow); }
+.flag-card.low { border-left-color: var(--accent-green); }
+.severity-badge {
+  display: inline-block; padding: 2px 8px; border-radius: 4px;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.5px;
+}
+.severity-HIGH { background: var(--accent-red-dim); color: var(--accent-red); }
+.severity-MODERATE { background: var(--accent-yellow-dim); color: var(--accent-yellow); }
+.severity-LOW { background: var(--accent-green-dim); color: var(--accent-green); }
+.severity-LOW-MODERATE { background: var(--accent-yellow-dim); color: var(--accent-orange); }
+
+/* Timeline */
+.timeline { position: relative; padding-left: 24px; }
+.timeline::before {
+  content: ''; position: absolute; left: 8px; top: 0; bottom: 0;
+  width: 2px; background: var(--border);
+}
+.timeline-item { position: relative; margin-bottom: 20px; }
+.timeline-dot {
+  position: absolute; left: -20px; top: 6px;
+  width: 12px; height: 12px; border-radius: 50%;
+  border: 2px solid; background: var(--bg-primary);
+}
+.timeline-dot.positive { border-color: var(--accent-green); }
+.timeline-dot.negative { border-color: var(--accent-red); }
+.timeline-date { font-size: 11px; color: var(--text-muted); margin-bottom: 4px; }
+.timeline-title { font-weight: 600; margin-bottom: 4px; }
+.timeline-detail { font-size: 13px; color: var(--text-secondary); }
+
+/* Watchlist */
+.watchlist-item {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 16px; background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 10px; margin-bottom: 10px;
+}
+.priority-dot {
+  width: 8px; height: 8px; border-radius: 50%; margin-top: 6px; flex-shrink: 0;
+}
+.priority-CRITICAL { background: var(--accent-red); box-shadow: 0 0 8px var(--accent-red); }
+.priority-HIGH { background: var(--accent-orange); }
+.priority-MODERATE { background: var(--accent-yellow); }
+.priority-LOW { background: var(--accent-green); }
+
+/* Bar chart using CSS */
+.bar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+.bar-label { width: 140px; font-size: 12px; text-align: right; color: var(--text-secondary); flex-shrink: 0; }
+.bar-track { flex: 1; height: 22px; background: var(--bg-secondary); border-radius: 4px; overflow: hidden; position: relative; }
+.bar-fill { height: 100%; border-radius: 4px; display: flex; align-items: center; padding-left: 8px; font-size: 11px; font-weight: 600; color: #fff; min-width: 40px; }
+.bar-value { width: 80px; font-size: 12px; text-align: right; font-variant-numeric: tabular-nums; flex-shrink: 0; }
+
+/* Prediction cards */
+.prediction-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 20px; margin-bottom: 12px;
+}
+.confidence-bar {
+  height: 6px; background: var(--bg-secondary); border-radius: 3px;
+  overflow: hidden; margin-top: 8px;
+}
+.confidence-fill { height: 100%; border-radius: 3px; }
+
+/* Footer */
+.site-footer {
+  margin-left: var(--nav-width); padding: 24px 32px;
+  border-top: 1px solid var(--border);
+  color: var(--text-muted); font-size: 12px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+
+/* Summary stats row */
+.stats-row { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 24px; }
+.stat-box {
+  flex: 1; min-width: 150px; background: var(--bg-card);
+  border: 1px solid var(--border); border-radius: 10px; padding: 16px;
+  text-align: center;
+}
+.stat-value { font-size: 24px; font-weight: 700; }
+.stat-label { font-size: 11px; color: var(--text-secondary); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* Entrenchment visual */
+.entrenchment-track {
+  height: 32px; background: linear-gradient(to right, var(--accent-green), var(--accent-yellow), var(--accent-red));
+  border-radius: 16px; position: relative; margin: 16px 0;
+  opacity: 0.3;
+}
+.entrenchment-marker {
+  position: absolute; top: -4px; width: 40px; height: 40px;
+  background: var(--bg-card); border: 3px solid var(--accent-green);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 16px;
+  transform: translateX(-50%);
+}
+
+/* Exec summary */
+.exec-summary { font-size: 15px; line-height: 1.8; color: var(--text-primary); }
+.exec-summary p { margin-bottom: 16px; text-align: justify; }
+
+/* Sortable indicator */
+th.sortable { cursor: pointer; }
+th.sortable:hover { color: var(--accent-blue); }
+th.sortable::after { content: ' \2195'; font-size: 10px; opacity: 0.4; }
+
+/* Stacked bar */
+.stacked-bar { display: flex; height: 28px; border-radius: 6px; overflow: hidden; margin-bottom: 4px; }
+.stacked-seg { display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 600; color: #fff; min-width: 20px; }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="site-header">
+  <div class="header-left">
+    <div>
+      <div class="company-name">NVIDIA Corporation</div>
+      <div style="font-size:12px;color:var(--text-muted);">SEC Forensic Analysis Report &middot; April 5, 2026</div>
+    </div>
+    <span class="ticker-badge">NVDA</span>
+    <span style="font-size:12px;color:var(--text-muted);">Nasdaq &middot; SIC 3674</span>
+  </div>
+  <div class="header-right">
+    <span class="verdict-badge badge-green"><span class="label">Business</span> EXCEPTIONAL</span>
+    <span class="verdict-badge badge-green"><span class="label">Management</span> STRONG</span>
+    <span class="verdict-badge badge-yellow"><span class="label">Trajectory</span> IMPROVING BUT DECELERATING</span>
+  </div>
+</header>
+
+<!-- Sidebar -->
+<nav class="sidebar" id="sidebar">
+  <a class="nav-link active" href="#executive-summary"><span class="nav-icon">&#9670;</span> Executive Summary</a>
+  <a class="nav-link" href="#verdicts"><span class="nav-icon">&#9733;</span> Verdicts &amp; Predictions</a>
+  <a class="nav-link" href="#financials"><span class="nav-icon">&#9635;</span> Financial Overview</a>
+  <a class="nav-link" href="#forensic"><span class="nav-icon">&#9878;</span> Forensic Analysis</a>
+  <a class="nav-link" href="#segments"><span class="nav-icon">&#9638;</span> Segment Analysis</a>
+  <a class="nav-link" href="#quarterly"><span class="nav-icon">&#9637;</span> Quarterly Trends</a>
+  <a class="nav-link" href="#governance"><span class="nav-icon">&#9881;</span> Governance</a>
+  <a class="nav-link" href="#insiders"><span class="nav-icon">&#9650;</span> Insider Activity</a>
+  <a class="nav-link" href="#institutional"><span class="nav-icon">&#9679;</span> Institutional Holdings</a>
+  <a class="nav-link" href="#peers"><span class="nav-icon">&#9646;</span> Peer Comparison</a>
+  <a class="nav-link" href="#red-flags"><span class="nav-icon">&#9888;</span> Red Flags</a>
+  <a class="nav-link" href="#events"><span class="nav-icon">&#9200;</span> Events &amp; Catalysts</a>
+  <a class="nav-link" href="#advanced"><span class="nav-icon">&#9830;</span> Advanced Analysis</a>
+  <a class="nav-link" href="#watchlist"><span class="nav-icon">&#9745;</span> Monitoring Watchlist</a>
+</nav>
+
+<!-- Main Content -->
+<main class="main-content">
+
+<!-- Executive Summary -->
+<section class="section" id="executive-summary">
+  <h2 class="section-title"><span class="icon">&#9670;</span> Executive Summary</h2>
+  <div class="stats-row">
+    <div class="stat-box"><div class="stat-value positive">$215.9B</div><div class="stat-label">FY2026 Revenue</div></div>
+    <div class="stat-box"><div class="stat-value positive">$120.1B</div><div class="stat-label">FY2026 Net Income</div></div>
+    <div class="stat-box"><div class="stat-value positive">$102.7B</div><div class="stat-label">FY2026 Cash from Ops</div></div>
+    <div class="stat-box"><div class="stat-value">75.0%</div><div class="stat-label">Q4 FY2026 Gross Margin</div></div>
+    <div class="stat-box"><div class="stat-value positive">$78.0B</div><div class="stat-label">Q1 FY2027 Guidance</div></div>
+  </div>
+  <div class="card exec-summary">
+    <p>NVIDIA has undergone the most dramatic corporate transformation in modern business history, evolving from a diversified GPU company into the dominant infrastructure provider for the artificial intelligence revolution. Over four fiscal years (FY2021-FY2025), revenue grew from $16.7 billion to $130.5 billion -- a 67% compound annual growth rate -- while net income surged from $4.3 billion to $72.9 billion, a 103% CAGR. The company's FY2026 results (ending January 2026) were even more extraordinary: $215.9 billion in revenue and $120.1 billion in net income, making NVIDIA the most profitable or second-most profitable public company in the world.</p>
+    <p>The engine of this transformation is the Data Center segment, which grew from 39% of revenue in FY2022 to 90% by FY2026 Q3. Within Data Center, compute (GPU accelerators) represents 78% of total revenue, with networking contributing another 10%. The company's Blackwell architecture, launched in FY2025, drove a second wave of acceleration after the initial Hopper-driven surge. Gross margins, which compressed to 60.5% in FY2026 Q1 during the Blackwell production ramp, recovered to 75% by Q4 FY2026 -- demonstrating NVIDIA's ability to maintain extraordinary pricing power even through product transitions.</p>
+    <p>The financial quality underpinning these results is exceptional. Operating cash flow of $64.1 billion in FY2025 and $102.7 billion in FY2026 backs the reported earnings with genuine cash generation. The balance sheet is fortress-grade: $62.6 billion in liquid assets against only $8.5 billion in debt (all fixed-rate, with 500x+ interest coverage). NVIDIA returned $49 billion to shareholders in FY2026 through buybacks and dividends while still growing its cash position. The Piotroski F-Score of 8/9 and Altman Z-Score of 6.57 confirm textbook financial strength.</p>
+    <p>However, this extraordinary performance carries material risks that require clear-eyed assessment. First, concentration risk is severe: Data Center is 90% of revenue, and the top four hyperscaler customers (Microsoft, Amazon, Google, Meta) likely represent over 50% of Data Center revenue. Second, the April 2025 H20 export ban permanently eliminated approximately $8 billion per quarter in China Data Center compute revenue -- a $32+ billion annual hit that NVIDIA has thus far more than offset with growth elsewhere. Third, Singapore's explosive revenue growth (from $2.3 billion to $23.7 billion in three years) warrants scrutiny as potential indirect China exposure. Fourth, the Beneish M-Score flags as 'Likely Manipulator' due to the extreme sales growth index -- a known false-positive pattern for hypergrowth companies, but the elevated receivables growth deserves ongoing monitoring.</p>
+    <p>Governance is strong. The board is 92% independent with a single-class share structure, no poison pill, annual elections, and an active lead independent director. CEO compensation growth (27% CAGR) dramatically trails value creation (67-103% CAGRs). Looking forward, the demand pipeline remains robust. Hyperscaler CapEx shows a 0.96 correlation with NVIDIA revenue at a one-year lag. The Vera Rubin platform promises 10x inference cost reduction and already has commitments from AWS, Google, Azure, and Oracle. The single most important thing to watch next quarter is whether Q1 FY2027 revenue meets or exceeds the $78 billion guidance.</p>
+  </div>
+</section>
+
+<!-- Verdicts & Predictions -->
+<section class="section" id="verdicts">
+  <h2 class="section-title"><span class="icon">&#9733;</span> Verdicts &amp; Predictions</h2>
+
+  <div class="grid-3" style="margin-bottom:24px;">
+    <div class="card" style="border-top:3px solid var(--accent-green);">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+        <div class="card-title">Business Quality</div>
+        <span class="verdict-badge badge-green">EXCEPTIONAL</span>
+      </div>
+      <div style="font-size:12px;color:var(--text-secondary);margin-bottom:8px;">Confidence: 95%</div>
+      <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;">NVIDIA is one of the highest-quality businesses in the history of public markets. It combines a 75% gross margin with 56% net margins at $216 billion in revenue -- a profitability profile unprecedented for a hardware company at this scale. The CUDA software ecosystem creates a durable competitive moat. ROIC exceeding 89% indicates extraordinary capital efficiency.</p>
+      <div style="margin-top:12px;">
+        <div style="font-size:11px;font-weight:600;color:var(--text-muted);margin-bottom:6px;text-transform:uppercase;">Key Evidence</div>
+        <ul style="font-size:12px;color:var(--text-secondary);padding-left:16px;line-height:1.8;">
+          <li>Revenue CAGR 67% over 4 years; Net income CAGR 103%</li>
+          <li>FY2026: $215.9B revenue, $120.1B net income</li>
+          <li>ROIC 89%, ROE 92% in FY2025</li>
+          <li>Fortress balance sheet: $62.6B liquid vs $8.5B debt</li>
+          <li>0.96 correlation hyperscaler CapEx to revenue</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card" style="border-top:3px solid var(--accent-green);">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+        <div class="card-title">Management Quality</div>
+        <span class="verdict-badge badge-green">STRONG</span>
+      </div>
+      <div style="font-size:12px;color:var(--text-secondary);margin-bottom:8px;">Confidence: 85%</div>
+      <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;">Jensen Huang is a visionary founder-CEO who has steered NVIDIA through multiple platform transitions over 32 years. CEO compensation growth (27% CAGR) dramatically trails value creation. Board is 92% independent with strong governance structures.</p>
+      <div style="margin-top:12px;">
+        <div style="font-size:11px;font-weight:600;color:var(--text-muted);margin-bottom:6px;text-transform:uppercase;">Key Evidence</div>
+        <ul style="font-size:12px;color:var(--text-secondary);padding-left:16px;line-height:1.8;">
+          <li>CEO comp CAGR 27% vs revenue CAGR 67%</li>
+          <li>SBC declining 7.4% to 3.0% of revenue</li>
+          <li>No golden parachutes or severance packages</li>
+          <li>Entrenchment score 2/10 (shareholder friendly)</li>
+          <li>4 consecutive conservative guidance beats (+4.2% avg)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card" style="border-top:3px solid var(--accent-yellow);">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+        <div class="card-title">Trajectory</div>
+        <span class="verdict-badge badge-yellow">IMPROVING BUT DECELERATING</span>
+      </div>
+      <div style="font-size:12px;color:var(--text-secondary);margin-bottom:8px;">Confidence: 80%</div>
+      <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;">Business is unambiguously improving in absolute terms. However, growth is mathematically decelerating (114% to 65% YoY). China compute revenue permanently lost. Vera Rubin and sovereign AI provide next growth vectors.</p>
+      <div style="margin-top:12px;">
+        <div style="font-size:11px;font-weight:600;color:var(--text-muted);margin-bottom:6px;text-transform:uppercase;">Key Evidence</div>
+        <ul style="font-size:12px;color:var(--text-secondary);padding-left:16px;line-height:1.8;">
+          <li>FY2026 revenue $215.9B (+65% YoY)</li>
+          <li>Q4 FY2026 $68.1B (+73% YoY) -- reacceleration</li>
+          <li>Q1 FY2027 guidance $78B (+14.5% QoQ)</li>
+          <li>H20 ban eliminated ~$8B/qtr China revenue</li>
+          <li>Hyperscaler CapEx growing ~68% in CY2025</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="card-title collapsible" onclick="toggleCollapse(this)" style="margin-bottom:12px;">Forward Predictions</h3>
+  <div class="collapse-content">
+    <div class="prediction-card">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div style="font-weight:600;">FY2027 revenue will exceed $300 billion</div>
+        <span style="color:var(--accent-blue);font-weight:600;">70% confidence</span>
+      </div>
+      <p style="font-size:13px;color:var(--text-secondary);margin-top:8px;">Q1 FY2027 guidance of $78B implies $312B annualized. Vera Rubin ramp, continued Blackwell Ultra demand, and sovereign AI buildout support this trajectory.</p>
+      <div style="font-size:11px;color:var(--text-muted);margin-top:8px;">Trigger: Q1 FY2027 revenue below $76B would reduce confidence to 50% &middot; Timeframe: FY2027</div>
+      <div class="confidence-bar"><div class="confidence-fill" style="width:70%;background:var(--accent-blue);"></div></div>
+    </div>
+    <div class="prediction-card">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div style="font-weight:600;">Gross margins will stabilize in the 73-76% range</div>
+        <span style="color:var(--accent-green);font-weight:600;">75% confidence</span>
+      </div>
+      <p style="font-size:13px;color:var(--text-secondary);margin-top:8px;">FY2026 Q4 gross margin of 75% with Blackwell in full production. Vera Rubin transition may cause temporary 2-3pp compression. Competition from AMD MI400 creates gradual headwind.</p>
+      <div style="font-size:11px;color:var(--text-muted);margin-top:8px;">Trigger: Two consecutive quarters below 72% = structural compression &middot; Timeframe: Through FY2027</div>
+      <div class="confidence-bar"><div class="confidence-fill" style="width:75%;background:var(--accent-green);"></div></div>
+    </div>
+    <div class="prediction-card">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div style="font-weight:600;">Data Center concentration will remain above 88% of revenue</div>
+        <span style="color:var(--accent-green);font-weight:600;">90% confidence</span>
+      </div>
+      <p style="font-size:13px;color:var(--text-secondary);margin-top:8px;">Gaming and Automotive are growing but at single-digit shares. No credible diversification vector will shift the mix meaningfully in 12 months.</p>
+      <div style="font-size:11px;color:var(--text-muted);margin-top:8px;">Trigger: Emergence of a new $10B+ product line outside Data Center &middot; Timeframe: 12 months</div>
+      <div class="confidence-bar"><div class="confidence-fill" style="width:90%;background:var(--accent-green);"></div></div>
+    </div>
+    <div class="prediction-card">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div style="font-weight:600;">Export controls will not materially worsen from current H20 ban levels</div>
+        <span style="color:var(--accent-yellow);font-weight:600;">55% confidence</span>
+      </div>
+      <p style="font-size:13px;color:var(--text-secondary);margin-top:8px;">Trump administration generally favors business; NVIDIA producing Blackwell at TSMC Arizona. However, geopolitical escalation around Taiwan could trigger new restrictions.</p>
+      <div style="font-size:11px;color:var(--text-muted);margin-top:8px;">Trigger: Any new product-specific export ban or expansion of restricted countries &middot; Timeframe: 12 months</div>
+      <div class="confidence-bar"><div class="confidence-fill" style="width:55%;background:var(--accent-yellow);"></div></div>
+    </div>
+    <div class="prediction-card">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div style="font-weight:600;">Share count will decline 1-2% annually through FY2028</div>
+        <span style="color:var(--accent-green);font-weight:600;">85% confidence</span>
+      </div>
+      <p style="font-size:13px;color:var(--text-secondary);margin-top:8px;">$58.5B remaining buyback authorization plus $60B additional approved. FY2026 repurchased 282M shares. Cash generation far exceeds capital needs.</p>
+      <div style="font-size:11px;color:var(--text-muted);margin-top:8px;">Trigger: Reduction in buyback pace or large stock-based acquisition &middot; Timeframe: FY2027-FY2028</div>
+      <div class="confidence-bar"><div class="confidence-fill" style="width:85%;background:var(--accent-green);"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Financial Overview -->
+<section class="section" id="financials">
+  <h2 class="section-title"><span class="icon">&#9635;</span> Financial Overview</h2>
+
+  <h3 class="card-title collapsible" onclick="toggleCollapse(this)" style="margin-bottom:12px;">Income Statement (5-Year)</h3>
+  <div class="collapse-content">
+  <div class="card" style="overflow-x:auto;">
+    <table>
+      <thead>
+        <tr>
+          <th>Metric</th><th class="num">FY2021</th><th class="num">FY2022</th><th class="num">FY2023</th><th class="num">FY2024</th><th class="num">FY2025</th><th class="num">FY2026</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Revenue ($B)</strong></td>
+          <td class="num">$16.7</td><td class="num">$26.9</td><td class="num">$27.0</td><td class="num">$60.9</td><td class="num">$130.5</td><td class="num">$215.9</td>
+        </tr>
+        <tr>
+          <td style="padding-left:20px;color:var(--text-secondary);">YoY Growth</td>
+          <td class="num">--</td><td class="num positive">+61.4%</td><td class="num neutral">+0.2%</td><td class="num positive">+125.9%</td><td class="num positive">+114.2%</td><td class="num positive">+65.5%</td>
+        </tr>
+        <tr>
+          <td><strong>Net Income ($B)</strong></td>
+          <td class="num">$4.3</td><td class="num">$9.8</td><td class="num">$4.4</td><td class="num">$29.8</td><td class="num">$72.9</td><td class="num">$120.1</td>
+        </tr>
+        <tr>
+          <td style="padding-left:20px;color:var(--text-secondary);">YoY Growth</td>
+          <td class="num">--</td><td class="num positive">+125.1%</td><td class="num negative">-55.2%</td><td class="num positive">+581.3%</td><td class="num positive">+144.9%</td><td class="num positive">+64.7%</td>
+        </tr>
+        <tr>
+          <td><strong>Operating Cash Flow ($B)</strong></td>
+          <td class="num">$5.8</td><td class="num">$9.1</td><td class="num">$5.6</td><td class="num">$28.1</td><td class="num">$64.1</td><td class="num">$102.7</td>
+        </tr>
+        <tr>
+          <td><strong>EPS (Diluted, Split-Adj)</strong></td>
+          <td class="num">$0.17</td><td class="num">$0.39</td><td class="num">$0.17</td><td class="num">$1.19</td><td class="num">$2.94</td><td class="num">$4.90</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  </div>
+
+  <h3 class="card-title collapsible" onclick="toggleCollapse(this)" style="margin:20px 0 12px;">Key Ratios &amp; Margins</h3>
+  <div class="collapse-content">
+  <div class="card" style="overflow-x:auto;">
+    <table>
+      <thead>
+        <tr><th>Ratio</th><th class="num">FY2022</th><th class="num">FY2023</th><th class="num">FY2024</th><th class="num">FY2025</th><th class="num">FY2026</th><th>Trend</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Gross Margin</td><td class="num">64.9%</td><td class="num negative">56.9%</td><td class="num positive">72.7%</td><td class="num positive">75.0%</td><td class="num">71.1%</td><td><span style="color:var(--accent-green);">&#9650; &#9650; &#9650; &#9660;</span></td></tr>
+        <tr><td>Operating Margin</td><td class="num">37.3%</td><td class="num negative">15.7%</td><td class="num positive">54.1%</td><td class="num positive">62.4%</td><td class="num">60.4%</td><td><span style="color:var(--accent-green);">&#9650; &#9650; &#9650; &#9660;</span></td></tr>
+        <tr><td>Net Margin</td><td class="num">36.2%</td><td class="num negative">16.2%</td><td class="num positive">48.9%</td><td class="num positive">55.9%</td><td class="num">55.6%</td><td><span style="color:var(--accent-green);">&#9650; &#9650; &#9650; &#9644;</span></td></tr>
+        <tr><td>ROE</td><td class="num">36.7%</td><td class="num negative">19.8%</td><td class="num positive">69.2%</td><td class="num positive">91.9%</td><td class="num">76.3%</td><td><span style="color:var(--accent-green);">&#9650; &#9650; &#9650; &#9660;</span></td></tr>
+        <tr><td>ROA</td><td class="num">22.1%</td><td class="num negative">10.6%</td><td class="num positive">45.3%</td><td class="num positive">65.3%</td><td class="num">58.1%</td><td><span style="color:var(--accent-green);">&#9650; &#9650; &#9650; &#9660;</span></td></tr>
+        <tr><td>Current Ratio</td><td class="num">--</td><td class="num">3.52x</td><td class="num positive">4.17x</td><td class="num positive">4.44x</td><td class="num">--</td><td><span style="color:var(--accent-green);">&#9650; &#9650; &#9650;</span></td></tr>
+        <tr><td>Debt/Equity</td><td class="num">--</td><td class="num">0.86x</td><td class="num positive">0.53x</td><td class="num positive">0.41x</td><td class="num positive">0.05x</td><td><span style="color:var(--accent-green);">&#9650; &#9650; &#9650; &#9650;</span></td></tr>
+        <tr><td>Interest Coverage</td><td class="num">--</td><td class="num">16.1x</td><td class="num positive">128.3x</td><td class="num positive">329.8x</td><td class="num positive">502.2x</td><td><span style="color:var(--accent-green);">&#9650; &#9650; &#9650; &#9650;</span></td></tr>
+        <tr><td>R&D Intensity</td><td class="num">19.6%</td><td class="num">27.2%</td><td class="num">14.2%</td><td class="num">9.9%</td><td class="num">8.6%</td><td><span style="color:var(--text-muted);">Declining % (absolute $ growing)</span></td></tr>
+        <tr><td>DSO (Days)</td><td class="num">--</td><td class="num">51.8</td><td class="num neutral">59.9</td><td class="num neutral">64.5</td><td class="num">--</td><td><span style="color:var(--accent-yellow);">&#9650; &#9650; &#9650; Monitor</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  </div>
+
+  <h3 class="card-title collapsible" onclick="toggleCollapse(this)" style="margin:20px 0 12px;">Balance Sheet Snapshot (FY2026)</h3>
+  <div class="collapse-content">
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Assets</div>
+      <table>
+        <tr><td>Total Assets</td><td class="num"><strong>$206.8B</strong></td></tr>
+        <tr><td>Cash &amp; Equivalents</td><td class="num">$10.6B</td></tr>
+        <tr><td>Marketable Securities</td><td class="num">$52.0B</td></tr>
+        <tr><td>Total Liquid Assets</td><td class="num positive">$62.6B</td></tr>
+        <tr><td>Goodwill</td><td class="num neutral">$20.8B</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <div class="card-title">Liabilities &amp; Equity</div>
+      <table>
+        <tr><td>Stockholders' Equity</td><td class="num"><strong>$157.3B</strong></td></tr>
+        <tr><td>Long-term Debt</td><td class="num">$7.5B</td></tr>
+        <tr><td>Short-term Debt</td><td class="num">$1.0B</td></tr>
+        <tr><td>Net Cash Position</td><td class="num positive">$54.1B</td></tr>
+        <tr><td>Debt/Equity</td><td class="num positive">0.05x</td></tr>
+      </table>
+    </div>
+  </div>
+  </div>
+
+  <h3 class="card-title collapsible" onclick="toggleCollapse(this)" style="margin:20px 0 12px;">5-Year Growth (CAGRs FY2021-FY2025)</h3>
+  <div class="collapse-content">
+  <div class="card">
+    <div class="bar-row"><div class="bar-label">Revenue</div><div class="bar-track"><div class="bar-fill" style="width:67%;background:linear-gradient(90deg,var(--accent-blue),var(--accent-cyan));">67.3%</div></div></div>
+    <div class="bar-row"><div class="bar-label">Net Income</div><div class="bar-track"><div class="bar-fill" style="width:100%;background:linear-gradient(90deg,var(--accent-green),var(--accent-cyan));">103.0%</div></div></div>
+    <div class="bar-row"><div class="bar-label">EPS</div><div class="bar-track"><div class="bar-fill" style="width:100%;background:linear-gradient(90deg,var(--accent-green),var(--accent-purple));">103.0%</div></div></div>
+    <div class="bar-row"><div class="bar-label">Cash from Ops</div><div class="bar-track"><div class="bar-fill" style="width:82%;background:linear-gradient(90deg,var(--accent-blue),var(--accent-green));">82.2%</div></div></div>
+    <div class="bar-row"><div class="bar-label">Equity</div><div class="bar-track"><div class="bar-fill" style="width:47%;background:linear-gradient(90deg,var(--accent-purple),var(--accent-blue));">47.2%</div></div></div>
+  </div>
+  </div>
+</section>
+
+<!-- Forensic Analysis -->
+<section class="section" id="forensic">
+  <h2 class="section-title"><span class="icon">&#9878;</span> Forensic Analysis</h2>
+  <div class="card" style="margin-bottom:20px;background:var(--accent-blue-dim);border-color:rgba(59,130,246,0.3);">
+    <p style="font-size:13px;"><strong>Synthesis:</strong> Forensic models paint a nuanced picture. The Beneish M-Score flags due to extreme growth velocity (SGI), not traditional manipulation. Altman Z-Score and Piotroski F-Score are overwhelmingly positive. Cash conversion confirms earnings are cash-backed. Overall: <strong style="color:var(--accent-green);">HIGH QUALITY EARNINGS</strong> with DSO creep as the one item requiring monitoring.</p>
+  </div>
+
+  <div class="gauge-container">
+    <!-- Beneish M-Score -->
+    <div class="gauge-card">
+      <div class="gauge-title">Beneish M-Score</div>
+      <div class="gauge-subtitle">Earnings manipulation detection</div>
+      <div class="gauge-score" style="color:var(--accent-yellow);">-0.948</div>
+      <div class="gauge-bar">
+        <div class="gauge-zones">
+          <div class="gauge-zone" style="width:40%;background:var(--accent-red);"></div>
+          <div class="gauge-zone" style="width:20%;background:var(--accent-yellow);"></div>
+          <div class="gauge-zone" style="width:40%;background:var(--accent-green);"></div>
+        </div>
+        <div class="gauge-marker" style="left:38%;"></div>
+      </div>
+      <div class="gauge-labels"><span>-1.78 (Safe)</span><span>-0.948</span><span>+2.0</span></div>
+      <div style="margin-top:10px;">
+        <span class="severity-badge severity-MODERATE">LIKELY MANIPULATOR (FALSE POSITIVE)</span>
+      </div>
+      <div class="gauge-vars" style="margin-top:8px;">
+        <div>SGI = 2.14 (extreme growth drives flag)</div>
+        <div>DSRI = 1.08 (mild AR growth)</div>
+        <div>TATA = +0.08 (near zero)</div>
+        <div style="color:var(--accent-green);margin-top:4px;">CFO/NI = 0.88 confirms cash backing</div>
+      </div>
+    </div>
+
+    <!-- Altman Z-Score -->
+    <div class="gauge-card">
+      <div class="gauge-title">Altman Z-Score</div>
+      <div class="gauge-subtitle">Bankruptcy risk assessment</div>
+      <div class="gauge-score" style="color:var(--accent-green);">6.574</div>
+      <div class="gauge-bar">
+        <div class="gauge-zones">
+          <div class="gauge-zone" style="width:18%;background:var(--accent-red);"></div>
+          <div class="gauge-zone" style="width:12%;background:var(--accent-yellow);"></div>
+          <div class="gauge-zone" style="width:70%;background:var(--accent-green);"></div>
+        </div>
+        <div class="gauge-marker" style="left:82%;"></div>
+      </div>
+      <div class="gauge-labels"><span>1.8 (Distress)</span><span>3.0 (Safe)</span><span>6.57</span></div>
+      <div style="margin-top:10px;">
+        <span class="severity-badge severity-LOW" style="background:var(--accent-green-dim);color:var(--accent-green);">SAFE ZONE</span>
+      </div>
+      <div class="gauge-vars" style="margin-top:8px;">
+        <div>FY2023: 2.52 (Grey Zone)</div>
+        <div>FY2024: 4.97 (Safe)</div>
+        <div>FY2025: 6.57 (Safe)</div>
+        <div style="color:var(--accent-green);">Nearly tripled from FY2023 trough</div>
+      </div>
+    </div>
+
+    <!-- Piotroski F-Score -->
+    <div class="gauge-card">
+      <div class="gauge-title">Piotroski F-Score</div>
+      <div class="gauge-subtitle">Financial strength signal</div>
+      <div class="gauge-score" style="color:var(--accent-green);">8 / 9</div>
+      <div class="gauge-bar">
+        <div class="gauge-zones">
+          <div class="gauge-zone" style="width:33%;background:var(--accent-red);"></div>
+          <div class="gauge-zone" style="width:33%;background:var(--accent-yellow);"></div>
+          <div class="gauge-zone" style="width:34%;background:var(--accent-green);"></div>
+        </div>
+        <div class="gauge-marker" style="left:89%;"></div>
+      </div>
+      <div class="gauge-labels"><span>0-3 (Weak)</span><span>4-6 (Moderate)</span><span>7-9 (Strong)</span></div>
+      <div style="margin-top:10px;">
+        <span class="severity-badge severity-LOW" style="background:var(--accent-green-dim);color:var(--accent-green);">STRONG BUY</span>
+      </div>
+      <div class="gauge-vars" style="margin-top:8px;">
+        <div>Only missed signal: F4 (CFO &gt; NI)</div>
+        <div>Explained by working capital expansion</div>
+        <div>FY2023: 6/9, FY2024: 8/9, FY2025: 8/9</div>
+      </div>
+    </div>
+
+    <!-- Sloan Accrual Ratio -->
+    <div class="gauge-card">
+      <div class="gauge-title">Sloan Accrual Ratio</div>
+      <div class="gauge-subtitle">Earnings quality via accruals</div>
+      <div class="gauge-score" style="color:var(--accent-red);">0.330</div>
+      <div class="gauge-bar">
+        <div class="gauge-zones">
+          <div class="gauge-zone" style="width:50%;background:var(--accent-green);"></div>
+          <div class="gauge-zone" style="width:25%;background:var(--accent-yellow);"></div>
+          <div class="gauge-zone" style="width:25%;background:var(--accent-red);"></div>
+        </div>
+        <div class="gauge-marker" style="left:82%;"></div>
+      </div>
+      <div class="gauge-labels"><span>&lt;0.10 Safe</span><span>0.10-0.25 Caution</span><span>&gt;0.25 Danger</span></div>
+      <div style="margin-top:10px;">
+        <span class="severity-badge severity-MODERATE">DANGER (CONTEXT DEPENDENT)</span>
+      </div>
+      <div class="gauge-vars" style="margin-top:8px;">
+        <div>Driven by investment portfolio expansion</div>
+        <div>Simple NI-CFO/Assets = ~8% (acceptable)</div>
+        <div>Not operating accruals -- mitigated</div>
+      </div>
+    </div>
+
+    <!-- Cash Conversion -->
+    <div class="gauge-card">
+      <div class="gauge-title">Cash Conversion</div>
+      <div class="gauge-subtitle">CFO / Net Income ratio</div>
+      <div class="gauge-score" style="color:var(--accent-green);">0.856</div>
+      <div class="gauge-bar">
+        <div class="gauge-zones">
+          <div class="gauge-zone" style="width:30%;background:var(--accent-red);"></div>
+          <div class="gauge-zone" style="width:20%;background:var(--accent-yellow);"></div>
+          <div class="gauge-zone" style="width:50%;background:var(--accent-green);"></div>
+        </div>
+        <div class="gauge-marker" style="left:73%;"></div>
+      </div>
+      <div class="gauge-labels"><span>&lt;0.50 Poor</span><span>0.50-0.80 Adequate</span><span>&gt;0.80 Strong</span></div>
+      <div style="margin-top:10px;">
+        <span class="severity-badge severity-LOW" style="background:var(--accent-green-dim);color:var(--accent-green);">STRONG</span>
+      </div>
+      <div class="gauge-vars" style="margin-top:8px;">
+        <div>FY2023: 1.29 (Excellent)</div>
+        <div>FY2025: 0.88 (Strong)</div>
+        <div>FY2026: 0.86 (Strong)</div>
+        <div>Working capital drag from hypergrowth</div>
+      </div>
+    </div>
+
+    <!-- Stress Score -->
+    <div class="gauge-card">
+      <div class="gauge-title">Financial Stress Score</div>
+      <div class="gauge-subtitle">Composite stress assessment</div>
+      <div class="gauge-score" style="color:var(--accent-green);">0 / 10</div>
+      <div class="gauge-bar">
+        <div class="gauge-zones">
+          <div class="gauge-zone" style="width:30%;background:var(--accent-green);"></div>
+          <div class="gauge-zone" style="width:30%;background:var(--accent-yellow);"></div>
+          <div class="gauge-zone" style="width:40%;background:var(--accent-red);"></div>
+        </div>
+        <div class="gauge-marker" style="left:2%;"></div>
+      </div>
+      <div class="gauge-labels"><span>0 (No Stress)</span><span>5 (Moderate)</span><span>10 (Severe)</span></div>
+      <div style="margin-top:10px;">
+        <span class="severity-badge severity-LOW" style="background:var(--accent-green-dim);color:var(--accent-green);">MINIMAL STRESS</span>
+      </div>
+      <div class="gauge-vars" style="margin-top:8px;">
+        <div>Watchlist: Inventory +112% vs Revenue +66%</div>
+        <div>Mitigated by product transition context</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Segment Analysis -->
+<section class="section" id="segments">
+  <h2 class="section-title"><span class="icon">&#9638;</span> Segment Analysis</h2>
+
+  <div class="card" style="margin-bottom:20px;background:var(--accent-red-dim);border-color:rgba(239,68,68,0.3);">
+    <p style="font-size:13px;"><strong>Concentration Risk:</strong> Data Center gained 49 percentage points of revenue share in 3 years (FY2022-FY2025). Gaming went from 46.3% to 8.7%. By FY2025, Data Center is 10x Gaming revenue. Single segment (Compute &amp; Networking) represents 89% of revenue and 94% of segment operating income.</p>
+  </div>
+
+  <h3 class="card-title collapsible" onclick="toggleCollapse(this)" style="margin-bottom:12px;">Revenue by Product</h3>
+  <div class="collapse-content">
+  <div class="card">
+    <table>
+      <thead><tr><th>Product</th><th class="num">FY2022</th><th class="num">FY2023</th><th class="num">FY2024</th><th class="num">FY2025</th><th class="num">FY2025 Share</th><th class="num">CAGR</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Data Center</strong></td><td class="num">$10.6B</td><td class="num">$15.0B</td><td class="num">$47.5B</td><td class="num">$115.2B</td><td class="num positive">88.3%</td><td class="num positive">121.2%</td></tr>
+        <tr style="color:var(--text-secondary);font-size:12px;"><td style="padding-left:24px;">- Compute</td><td class="num">--</td><td class="num">$11.3B</td><td class="num">$39.0B</td><td class="num">$102.2B</td><td class="num">78.3%</td><td class="num">--</td></tr>
+        <tr style="color:var(--text-secondary);font-size:12px;"><td style="padding-left:24px;">- Networking</td><td class="num">--</td><td class="num">$3.7B</td><td class="num">$8.6B</td><td class="num">$13.0B</td><td class="num">10.0%</td><td class="num">--</td></tr>
+        <tr><td>Gaming</td><td class="num">$12.5B</td><td class="num">$9.1B</td><td class="num">$10.4B</td><td class="num">$11.4B</td><td class="num">8.7%</td><td class="num">--</td></tr>
+        <tr><td>Professional Visualization</td><td class="num">--</td><td class="num">--</td><td class="num">--</td><td class="num">$1.9B</td><td class="num">1.4%</td><td class="num">--</td></tr>
+        <tr><td>Automotive</td><td class="num">$0.6B</td><td class="num">--</td><td class="num">--</td><td class="num">$1.7B</td><td class="num">1.3%</td><td class="num positive">44.1%</td></tr>
+      </tbody>
+    </table>
+
+    <div style="margin-top:20px;">
+      <div style="font-size:12px;color:var(--text-muted);margin-bottom:8px;">Revenue Mix Evolution</div>
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;"><span style="width:50px;font-size:11px;color:var(--text-secondary);">FY2022</span>
+        <div class="stacked-bar" style="flex:1;">
+          <div class="stacked-seg" style="width:39.4%;background:var(--accent-blue);">DC 39%</div>
+          <div class="stacked-seg" style="width:46.3%;background:var(--accent-purple);">Gaming 46%</div>
+          <div class="stacked-seg" style="width:14.3%;background:var(--accent-cyan);">Other 14%</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;"><span style="width:50px;font-size:11px;color:var(--text-secondary);">FY2024</span>
+        <div class="stacked-bar" style="flex:1;">
+          <div class="stacked-seg" style="width:78%;background:var(--accent-blue);">DC 78%</div>
+          <div class="stacked-seg" style="width:17.1%;background:var(--accent-purple);">Gaming 17%</div>
+          <div class="stacked-seg" style="width:4.9%;background:var(--accent-cyan);">5%</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;"><span style="width:50px;font-size:11px;color:var(--text-secondary);">FY2025</span>
+        <div class="stacked-bar" style="flex:1;">
+          <div class="stacked-seg" style="width:88.3%;background:var(--accent-blue);">Data Center 88.3%</div>
+          <div class="stacked-seg" style="width:8.7%;background:var(--accent-purple);">8.7%</div>
+          <div class="stacked-seg" style="width:3%;background:var(--accent-cyan);">3%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <h3 class="card-title collapsible" onclick="toggleCollapse(this)" style="margin:20px 0 12px;">Geographic Breakdown</h3>
+  <div class="collapse-content">
+  <div class="card">
+    <table>
+      <thead><tr><th>Region</th><th class="num">FY2022</th><th class="num">FY2025</th><th class="num">FY2025 Share</th><th class="num">CAGR</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td><strong>United States</strong></td><td class="num">$4.3B</td><td class="num">$61.3B</td><td class="num positive">46.9%</td><td class="num positive">141.2%</td><td>--</td></tr>
+        <tr style="background:var(--accent-yellow-dim);"><td><strong>Singapore</strong> &#9888;</td><td class="num">--</td><td class="num">$23.7B</td><td class="num neutral">18.1%</td><td class="num" style="color:var(--accent-orange);">221.7%</td><td style="font-size:11px;color:var(--accent-yellow);">Explosive growth warrants scrutiny -- possible indirect China demand routing</td></tr>
+        <tr><td><strong>Taiwan</strong></td><td class="num">$8.5B</td><td class="num">$20.6B</td><td class="num">15.8%</td><td class="num">--</td><td>--</td></tr>
+        <tr style="background:var(--accent-red-dim);"><td><strong>China (incl. HK)</strong></td><td class="num">$7.1B</td><td class="num">$17.1B</td><td class="num">13.1%</td><td class="num">--</td><td style="font-size:11px;color:var(--accent-red);">Share halved from 26.4%. H20 ban will further reduce.</td></tr>
+        <tr><td>Other</td><td class="num">--</td><td class="num">$7.9B</td><td class="num">6.0%</td><td class="num">--</td><td>--</td></tr>
+      </tbody>
+    </table>
+  </div>
+  </div>
+
+  <h3 class="card-title collapsible" onclick="toggleCollapse(this)" style="margin:20px 0 12px;">Segment Operating Income &amp; Margins</h3>
+  <div class="collapse-content">
+  <div class="card">
+    <table>
+      <thead><tr><th>Segment</th><th class="num">FY2022</th><th class="num">FY2023</th><th class="num">FY2024</th><th class="num">FY2025</th><th class="num">FY2025 Margin</th></tr></thead>
+      <tbody>
+        <tr><td>Compute &amp; Networking</td><td class="num">$4.6B</td><td class="num">$5.1B</td><td class="num">$32.0B</td><td class="num">$82.9B</td><td class="num positive">71.3%</td></tr>
+        <tr><td>Graphics</td><td class="num">$8.5B</td><td class="num">$4.6B</td><td class="num">$5.8B</td><td class="num">$5.1B</td><td class="num">35.6%</td></tr>
+        <tr><td style="color:var(--text-muted);">Corporate / Unallocated</td><td class="num">--</td><td class="num">--</td><td class="num">--</td><td class="num negative">($6.5B)</td><td class="num">--</td></tr>
+      </tbody>
+    </table>
+  </div>
+  </div>
+</section>
+
+<!-- Quarterly Trends -->
+<section class="section" id="quarterly">
+  <h2 class="section-title"><span class="icon">&#9637;</span> Quarterly Trends</h2>
+  <div class="card" style="overflow-x:auto;">
+    <table>
+      <thead>
+        <tr>
+          <th>Quarter</th><th class="num">Revenue ($M)</th><th class="num">QoQ</th><th class="num">YoY</th><th class="num">Net Income ($M)</th><th class="num">EPS</th><th class="num">Gross Margin</th><th class="num">DC Revenue ($M)</th><th class="num">DC Mix</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>FY24 Q2</td><td class="num">$13,507</td><td class="num">--</td><td class="num">--</td><td class="num">$6,188</td><td class="num">$0.25</td><td class="num">70.1%</td><td class="num">$10,323</td><td class="num">76.4%</td></tr>
+        <tr><td>FY24 Q3</td><td class="num">$18,120</td><td class="num positive">+34.2%</td><td class="num">--</td><td class="num">$9,243</td><td class="num">$0.37</td><td class="num positive">74.0%</td><td class="num">$14,514</td><td class="num">80.1%</td></tr>
+        <tr><td>FY25 Q1</td><td class="num">$26,044</td><td class="num positive">+43.7%</td><td class="num">--</td><td class="num">$14,881</td><td class="num">$0.60</td><td class="num positive">78.4%</td><td class="num">$22,563</td><td class="num">86.6%</td></tr>
+        <tr><td>FY25 Q2</td><td class="num">$30,040</td><td class="num positive">+15.3%</td><td class="num positive">+122.4%</td><td class="num">$16,599</td><td class="num">$0.67</td><td class="num">75.1%</td><td class="num">$26,272</td><td class="num">87.5%</td></tr>
+        <tr><td>FY25 Q3</td><td class="num">$35,082</td><td class="num positive">+16.8%</td><td class="num positive">+93.6%</td><td class="num">$19,309</td><td class="num">$0.78</td><td class="num">74.6%</td><td class="num">$30,771</td><td class="num">87.7%</td></tr>
+        <tr style="background:var(--accent-yellow-dim);"><td>FY26 Q1 *</td><td class="num">$44,062</td><td class="num positive">+25.6%</td><td class="num positive">+69.2%</td><td class="num">$18,775</td><td class="num">$0.76</td><td class="num negative">60.5%</td><td class="num">$39,112</td><td class="num">88.8%</td></tr>
+        <tr><td>FY26 Q2</td><td class="num">$46,743</td><td class="num positive">+6.1%</td><td class="num positive">+55.6%</td><td class="num">$26,422</td><td class="num">$1.08</td><td class="num positive">72.4%</td><td class="num">$41,096</td><td class="num">87.9%</td></tr>
+        <tr><td>FY26 Q3</td><td class="num">$57,006</td><td class="num positive">+22.0%</td><td class="num positive">+62.5%</td><td class="num">$31,910</td><td class="num">$1.30</td><td class="num positive">73.4%</td><td class="num">$51,215</td><td class="num">89.8%</td></tr>
+        <tr style="background:var(--accent-green-dim);"><td><strong>FY26 Q4</strong></td><td class="num"><strong>$68,127</strong></td><td class="num positive"><strong>+19.5%</strong></td><td class="num positive"><strong>+73.0%**</strong></td><td class="num"><strong>$42,960</strong></td><td class="num"><strong>$1.76</strong></td><td class="num positive"><strong>75.0%</strong></td><td class="num"><strong>$62,300</strong></td><td class="num"><strong>91.4%</strong></td></tr>
+      </tbody>
+    </table>
+    <div style="margin-top:12px;font-size:11px;color:var(--text-muted);">
+      * FY26 Q1 includes Blackwell ramp costs + $4.5B H20 charge, explaining margin compression<br>
+      ** YoY estimates based on available prior-year quarterly data
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px;">
+    <div class="card-title">Margin Trajectory</div>
+    <p style="font-size:13px;color:var(--text-secondary);margin-bottom:12px;">V-shaped recovery pattern: FY2023 trough (15.7% operating margin) &#8594; FY2025 peak (62.4%) &#8594; FY2026 Q1 dip (60.5% gross from Blackwell ramp) &#8594; FY2026 Q4 recovery (75.0% gross margin). Confirms ability to maintain margins through product transitions.</p>
+    <div style="display:flex;align-items:flex-end;gap:4px;height:120px;padding:8px 0;">
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;">
+        <div style="font-size:10px;margin-bottom:4px;">70.1%</div>
+        <div style="width:100%;height:84px;background:var(--accent-blue);border-radius:4px 4px 0 0;"></div>
+        <div style="font-size:9px;color:var(--text-muted);margin-top:4px;">Q2'24</div>
+      </div>
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;">
+        <div style="font-size:10px;margin-bottom:4px;">74.0%</div>
+        <div style="width:100%;height:89px;background:var(--accent-blue);border-radius:4px 4px 0 0;"></div>
+        <div style="font-size:9px;color:var(--text-muted);margin-top:4px;">Q3'24</div>
+      </div>
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;">
+        <div style="font-size:10px;margin-bottom:4px;">78.4%</div>
+        <div style="width:100%;height:94px;background:var(--accent-green);border-radius:4px 4px 0 0;"></div>
+        <div style="font-size:9px;color:var(--text-muted);margin-top:4px;">Q1'25</div>
+      </div>
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;">
+        <div style="font-size:10px;margin-bottom:4px;">75.1%</div>
+        <div style="width:100%;height:90px;background:var(--accent-blue);border-radius:4px 4px 0 0;"></div>
+        <div style="font-size:9px;color:var(--text-muted);margin-top:4px;">Q2'25</div>
+      </div>
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;">
+        <div style="font-size:10px;margin-bottom:4px;">74.6%</div>
+        <div style="width:100%;height:90px;background:var(--accent-blue);border-radius:4px 4px 0 0;"></div>
+        <div style="font-size:9px;color:var(--text-muted);margin-top:4px;">Q3'25</div>
+      </div>
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;">
+        <div style="font-size:10px;color:var(--accent-red);margin-bottom:4px;">60.5%</div>
+        <div style="width:100%;height:73px;background:var(--accent-red);border-radius:4px 4px 0 0;"></div>
+        <div style="font-size:9px;color:var(--text-muted);margin-top:4px;">Q1'26</div>
+      </div>
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;">
+        <div style="font-size:10px;margin-bottom:4px;">72.4%</div>
+        <div style="width:100%;height:87px;background:var(--accent-blue);border-radius:4px 4px 0 0;"></div>
+        <div style="font-size:9px;color:var(--text-muted);margin-top:4px;">Q2'26</div>
+      </div>
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;">
+        <div style="font-size:10px;margin-bottom:4px;">73.4%</div>
+        <div style="width:100%;height:88px;background:var(--accent-blue);border-radius:4px 4px 0 0;"></div>
+        <div style="font-size:9px;color:var(--text-muted);margin-top:4px;">Q3'26</div>
+      </div>
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;">
+        <div style="font-size:10px;color:var(--accent-green);margin-bottom:4px;">75.0%</div>
+        <div style="width:100%;height:90px;background:var(--accent-green);border-radius:4px 4px 0 0;"></div>
+        <div style="font-size:9px;color:var(--text-muted);margin-top:4px;">Q4'26</div>
+      </div>
+    </div>
+    <div style="text-align:center;font-size:11px;color:var(--text-muted);margin-top:4px;">Gross Margin % by Quarter</div>
+  </div>
+</section>
+
+<!-- Governance -->
+<section class="section" id="governance">
+  <h2 class="section-title"><span class="icon">&#9881;</span> Governance &amp; Compensation</h2>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Entrenchment Score</div>
+      <div style="text-align:center;">
+        <div style="position:relative;height:48px;margin:20px 0;">
+          <div class="entrenchment-track"></div>
+          <div class="entrenchment-marker" style="left:20%;">2</div>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-muted);padding:0 10px;">
+          <span>0 (Best)</span><span>5 (Moderate)</span><span>10 (Worst)</span>
+        </div>
+        <div style="margin-top:12px;"><span class="severity-badge severity-LOW" style="background:var(--accent-green-dim);color:var(--accent-green);font-size:12px;padding:4px 12px;">SHAREHOLDER FRIENDLY (2/10)</span></div>
+      </div>
+      <table style="margin-top:16px;">
+        <tr><td>Long Board Tenure (&gt;10yr)</td><td class="num neutral">+1</td></tr>
+        <tr><td>Related Party Transactions</td><td class="num neutral">+1</td></tr>
+        <tr><td>CEO Chairman w/o Lead Independent</td><td class="num positive">0</td></tr>
+        <tr><td>Dual Class Shares</td><td class="num positive">0</td></tr>
+        <tr><td>Golden Parachutes</td><td class="num positive">0</td></tr>
+        <tr><td>Staggered Board</td><td class="num positive">0</td></tr>
+        <tr><td>No Clawback Policy</td><td class="num positive">0</td></tr>
+        <tr><td>Low Say-on-Pay</td><td class="num positive">0</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Compensation Alignment</div>
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;">
+        <span style="font-size:36px;font-weight:700;color:var(--accent-green);">B+</span>
+        <span style="font-size:13px;color:var(--text-secondary);">CEO comp growth dramatically trails value creation</span>
+      </div>
+      <table>
+        <tr><td>CEO Comp CAGR</td><td class="num">26.7%</td></tr>
+        <tr><td>Revenue CAGR</td><td class="num positive">67.3%</td></tr>
+        <tr><td>Net Income CAGR</td><td class="num positive">103.0%</td></tr>
+        <tr><td>CEO Summary Comp (FY2025)</td><td class="num">$49.9M</td></tr>
+        <tr><td>CEO Comp Actually Paid (FY2025)</td><td class="num">$344.2M</td></tr>
+        <tr><td>SBC % Revenue (FY2025)</td><td class="num">3.63%</td></tr>
+        <tr><td>SBC % Revenue (FY2026)</td><td class="num positive">2.95%</td></tr>
+      </table>
+      <div style="margin-top:12px;padding:10px;background:var(--accent-yellow-dim);border-radius:8px;font-size:12px;color:var(--accent-yellow);">
+        &#9888; All performance targets paid at maximum for 2 consecutive years -- targets need recalibration
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px;">
+    <div class="card-title">Board Composition</div>
+    <div class="grid-3" style="gap:24px;">
+      <div>
+        <table>
+          <tr><td>Total Directors</td><td class="num">13</td></tr>
+          <tr><td>Independent</td><td class="num positive">12 (92.3%)</td></tr>
+          <tr><td>CEO is Chairman</td><td class="num neutral">Yes</td></tr>
+          <tr><td>Lead Independent Director</td><td class="num positive">Stephen C. Neal</td></tr>
+        </table>
+      </div>
+      <div>
+        <table>
+          <tr><td>Women Directors</td><td class="num">5 (38.5%)</td></tr>
+          <tr><td>Median Tenure</td><td class="num neutral">12 years</td></tr>
+          <tr><td>Directors &gt;10yr Tenure</td><td class="num neutral">53.8%</td></tr>
+          <tr><td>New Since 2020</td><td class="num">4</td></tr>
+        </table>
+      </div>
+      <div>
+        <div style="font-size:12px;font-weight:600;margin-bottom:8px;">Shareholder Rights: <span style="color:var(--accent-green);">Grade A</span></div>
+        <div style="font-size:12px;color:var(--text-secondary);line-height:1.8;">
+          &#10003; Single class shares<br>
+          &#10003; No poison pill<br>
+          &#10003; Annual elections (no staggered board)<br>
+          &#10003; Majority voting<br>
+          &#10003; Proxy access<br>
+          &#10003; Special meeting rights<br>
+          &#10003; Supermajority removal (board-sponsored)
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Insider Activity -->
+<section class="section" id="insiders">
+  <h2 class="section-title"><span class="icon">&#9650;</span> Insider &amp; Institutional Activity</h2>
+
+  <div class="card" style="margin-bottom:16px;background:var(--accent-yellow-dim);border-color:rgba(234,179,8,0.3);">
+    <p style="font-size:13px;"><strong>Net Sentiment: SELLING.</strong> 601 sale transactions from 17 unique insiders, zero open market purchases. All selling via 10b5-1 pre-planned programs. Selling persisted through both positive and negative catalysts -- consistent with diversification, not bearish signaling.</p>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">CEO: Jensen Huang</div>
+      <table>
+        <tr><td>Shares Sold</td><td class="num">55.2M</td></tr>
+        <tr><td>Sale Value</td><td class="num negative">$1.00B</td></tr>
+        <tr><td>Shares Gifted</td><td class="num">119.2M</td></tr>
+        <tr><td>Net Share Change</td><td class="num negative">-45.1M</td></tr>
+        <tr><td>10b5-1 Plan</td><td class="num">Yes</td></tr>
+        <tr><td>Trade Dates</td><td class="num">83</td></tr>
+        <tr><td>% of Holdings Sold</td><td class="num">~5%</td></tr>
+      </table>
+      <div style="margin-top:8px;font-size:12px;color:var(--text-secondary);">Systematic selling via 10b5-1. Large absolute numbers but small relative to ~852M share position.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">CFO: Colette Kress</div>
+      <table>
+        <tr><td>Shares Sold</td><td class="num">449.5K</td></tr>
+        <tr><td>Sale Value</td><td class="num negative">$81.2M</td></tr>
+        <tr><td>Net Share Change</td><td class="num negative">-458.5K</td></tr>
+        <tr><td>10b5-1 Plan</td><td class="num">Yes</td></tr>
+        <tr><td>Transactions</td><td class="num">144 (15 trade dates)</td></tr>
+      </table>
+      <div style="margin-top:8px;font-size:12px;color:var(--text-secondary);">Regular 10b5-1 sales. Systematic, not event-driven.</div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px;">
+    <div class="card-title">Selling Clusters</div>
+    <table>
+      <thead><tr><th>Period</th><th>Direction</th><th class="num">Unique Insiders</th></tr></thead>
+      <tbody>
+        <tr><td>Nov 2025 - Mar 2026</td><td><span class="negative">Sell</span></td><td class="num">7</td></tr>
+        <tr><td>Jul 2025 - Dec 2025</td><td><span class="negative">Sell</span></td><td class="num">6</td></tr>
+        <tr><td>Aug 2025 - Oct 2025</td><td><span class="negative">Sell</span></td><td class="num">5</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card" style="margin-top:16px;">
+    <div class="card-title">Aggregate Insider Summary</div>
+    <div class="grid-2" style="gap:24px;">
+      <table>
+        <tr><td>Total Open Market Sales</td><td class="num">601 transactions</td></tr>
+        <tr><td>Total Shares Sold</td><td class="num">10.36M</td></tr>
+        <tr><td>Total Sale Value</td><td class="num negative">$1.83B</td></tr>
+      </table>
+      <table>
+        <tr><td>Total Open Market Purchases</td><td class="num">0</td></tr>
+        <tr><td>Buy/Sell Ratio</td><td class="num neutral">0 (infinite selling)</td></tr>
+        <tr><td>10b5-1 Plan Users</td><td class="num">8 of 17 sellers</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- Institutional Holdings -->
+<section class="section" id="institutional">
+  <h2 class="section-title"><span class="icon">&#9679;</span> Institutional Holdings</h2>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Top 10 Holders</div>
+      <table>
+        <thead><tr><th>#</th><th>Institution</th><th class="num">Ownership %</th><th>Type</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>Vanguard Group</td><td class="num">9.23%</td><td><span style="color:var(--accent-blue);">Index</span></td></tr>
+          <tr><td>2</td><td>BlackRock</td><td class="num">7.47%</td><td><span style="color:var(--accent-blue);">Index</span></td></tr>
+          <tr><td>3</td><td>State Street</td><td class="num">4.03%</td><td><span style="color:var(--accent-blue);">Index</span></td></tr>
+          <tr><td>4</td><td>FMR / Fidelity</td><td class="num">3.95%</td><td><span style="color:var(--accent-purple);">Active</span></td></tr>
+          <tr><td>5</td><td>Geode Capital</td><td class="num">2.39%</td><td><span style="color:var(--accent-blue);">Index</span></td></tr>
+          <tr><td>6</td><td>JPMorgan Chase</td><td class="num">1.85%</td><td><span style="color:var(--accent-cyan);">Mixed</span></td></tr>
+          <tr><td>7</td><td>Norges Bank</td><td class="num">1.36%</td><td><span style="color:var(--accent-orange);">Sovereign</span></td></tr>
+          <tr><td>8</td><td>Morgan Stanley</td><td class="num">1.32%</td><td><span style="color:var(--accent-cyan);">Mixed</span></td></tr>
+          <tr><td>9</td><td>Northern Trust</td><td class="num">1.03%</td><td><span style="color:var(--accent-blue);">Index</span></td></tr>
+          <tr><td>10</td><td>Goldman Sachs</td><td class="num">0.91%</td><td><span style="color:var(--accent-purple);">Active</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <div class="card-title">Ownership Summary</div>
+      <table>
+        <tr><td>Total Institutional</td><td class="num">65.6%</td></tr>
+        <tr><td>Total Insider</td><td class="num">4.33%</td></tr>
+        <tr><td>Institutional Holders</td><td class="num">5,413</td></tr>
+        <tr><td>Top 5 Combined</td><td class="num">27.07%</td></tr>
+        <tr><td>Estimated Passive %</td><td class="num">~35%</td></tr>
+        <tr><td>Estimated Active %</td><td class="num">~30%</td></tr>
+        <tr><td>S&P 500 Weight</td><td class="num">~7.4%</td></tr>
+        <tr><td>Q4 2025 Net Direction</td><td class="num positive">Net Buying (1.21x)</td></tr>
+        <tr><td>Activist Threat</td><td class="num positive">None</td></tr>
+        <tr><td>Crowded Trade Risk</td><td class="num neutral">MODERATE</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- Peer Comparison -->
+<section class="section" id="peers">
+  <h2 class="section-title"><span class="icon">&#9646;</span> Peer Comparison</h2>
+  <div style="font-size:12px;color:var(--text-muted);margin-bottom:16px;">Data: NVDA FY2026, AMD &amp; INTC FY2025 (latest available)</div>
+
+  <div class="card" style="overflow-x:auto;">
+    <table>
+      <thead>
+        <tr><th>Metric</th><th class="num">NVDA</th><th class="num">AMD</th><th class="num">INTC</th><th>NVDA Rank</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Revenue</td><td class="num positive"><strong>$215.9B</strong></td><td class="num">$34.6B</td><td class="num">$52.9B</td><td><span style="color:var(--accent-green);">#1</span> (6.2x AMD, 4.1x INTC)</td></tr>
+        <tr><td>Net Income</td><td class="num positive"><strong>$120.1B</strong></td><td class="num">$4.3B</td><td class="num negative">-$0.3B</td><td><span style="color:var(--accent-green);">#1</span> (27.7x AMD)</td></tr>
+        <tr><td>Gross Margin</td><td class="num positive"><strong>71.1%</strong></td><td class="num">49.5%</td><td class="num">34.8%</td><td><span style="color:var(--accent-green);">#1</span></td></tr>
+        <tr><td>Operating Margin</td><td class="num positive"><strong>60.4%</strong></td><td class="num">10.7%</td><td class="num negative">-4.2%</td><td><span style="color:var(--accent-green);">#1</span></td></tr>
+        <tr><td>Net Margin</td><td class="num positive"><strong>55.6%</strong></td><td class="num">12.5%</td><td class="num negative">-0.5%</td><td><span style="color:var(--accent-green);">#1</span></td></tr>
+        <tr><td>R&D % Revenue</td><td class="num"><strong>8.6%</strong></td><td class="num">23.4%</td><td class="num">26.1%</td><td><span style="color:var(--accent-green);">#1</span> (lowest = most efficient)</td></tr>
+        <tr><td>ROE</td><td class="num positive"><strong>76.3%</strong></td><td class="num">6.9%</td><td class="num negative">-0.2%</td><td><span style="color:var(--accent-green);">#1</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card" style="margin-top:16px;">
+    <div class="card-title">Margin Comparison</div>
+    <div style="margin-top:12px;">
+      <div style="font-size:11px;color:var(--text-muted);margin-bottom:8px;">Gross Margin</div>
+      <div class="bar-row"><div class="bar-label">NVDA</div><div class="bar-track"><div class="bar-fill" style="width:71.1%;background:var(--accent-green);">71.1%</div></div></div>
+      <div class="bar-row"><div class="bar-label">AMD</div><div class="bar-track"><div class="bar-fill" style="width:49.5%;background:var(--accent-blue);">49.5%</div></div></div>
+      <div class="bar-row"><div class="bar-label">INTC</div><div class="bar-track"><div class="bar-fill" style="width:34.8%;background:var(--accent-yellow);">34.8%</div></div></div>
+      <div style="font-size:11px;color:var(--text-muted);margin:16px 0 8px;">Operating Margin</div>
+      <div class="bar-row"><div class="bar-label">NVDA</div><div class="bar-track"><div class="bar-fill" style="width:60.4%;background:var(--accent-green);">60.4%</div></div></div>
+      <div class="bar-row"><div class="bar-label">AMD</div><div class="bar-track"><div class="bar-fill" style="width:10.7%;background:var(--accent-blue);">10.7%</div></div></div>
+      <div class="bar-row"><div class="bar-label">INTC</div><div class="bar-track"><div class="bar-fill" style="width:1%;background:var(--accent-red);">-4.2%</div></div></div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px;">
+    <div class="card-title">Competitor Filing Insights</div>
+    <table>
+      <tr><td style="width:80px;font-weight:600;">AMD</td><td style="font-size:13px;color:var(--text-secondary);">Explicitly acknowledges NVIDIA as "discrete GPU market share leader." Cites CUDA ecosystem as competitive barrier. Flags NVDA-Intel partnership as risk factor.</td></tr>
+      <tr><td style="font-weight:600;">Intel</td><td style="font-size:13px;color:var(--text-secondary);">Sold $5B equity to NVIDIA. Now co-developing custom products rather than competing in AI accelerators. Explicitly states NVIDIA GPUs have "highest demand in the market."</td></tr>
+    </table>
+    <div style="margin-top:12px;padding:10px;background:var(--accent-blue-dim);border-radius:8px;font-size:12px;color:var(--accent-blue);">
+      <strong>Key Insight:</strong> NVIDIA-Intel partnership represents structural industry reshaping. Intel effectively conceded AI accelerator competition. AMD is increasingly isolated.
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:16px;">
+    <div class="card">
+      <div class="card-title">Industry Ranking</div>
+      <table>
+        <tr><td>Revenue Rank (CY2024)</td><td class="num">19th (99.2nd percentile)</td></tr>
+        <tr><td>Net Income Rank (CY2024)</td><td class="num">5th (99.9th percentile)</td></tr>
+        <tr><td>FY2026 Projected</td><td class="num">~11th revenue, #1-2 net income</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <div class="card-title">Hyperscaler CapEx Correlation</div>
+      <table>
+        <tr><td>R-Squared</td><td class="num positive">0.96</td></tr>
+        <tr><td>Lag</td><td class="num">CapEx(t) vs NVDA Revenue(t+1)</td></tr>
+        <tr><td>CY2025 3-Hyperscaler CapEx</td><td class="num">~$260B (+68%)</td></tr>
+      </table>
+      <div style="margin-top:8px;font-size:12px;color:var(--accent-green);">Strong quantifiable demand pipeline supports continued growth.</div>
+    </div>
+  </div>
+</section>
+
+<!-- Red Flags -->
+<section class="section" id="red-flags">
+  <h2 class="section-title"><span class="icon">&#9888;</span> Red Flags &amp; Risk Factors</h2>
+
+  <div class="flag-card high">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+      <strong>Concentration Risk</strong>
+      <span class="severity-badge severity-HIGH">HIGH</span>
+    </div>
+    <p style="font-size:13px;color:var(--text-secondary);">Data Center represents 89-90% of revenue. Top 3 customers = 34% of revenue. Single-segment dependency creates extreme cyclical vulnerability.</p>
+    <div style="font-size:11px;color:var(--text-muted);margin-top:8px;">Evidence: 10-K segment data, customer concentration XBRL, quarterly DC share &gt;87% | Confidence: 95%</div>
+  </div>
+
+  <div class="flag-card high">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+      <strong>Export Controls</strong>
+      <span class="severity-badge severity-HIGH">HIGH</span>
+    </div>
+    <p style="font-size:13px;color:var(--text-secondary);">H20 ban permanently eliminated ~$32B annual China DC compute revenue. AI Diffusion IFR creates worldwide licensing framework. Further restrictions possible.</p>
+    <div style="font-size:11px;color:var(--text-muted);margin-top:8px;">Evidence: 8-K filing Apr 15 2025, Q1 FY26 $4.5B charge | Confidence: 95%</div>
+  </div>
+
+  <div class="flag-card moderate">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+      <strong>Geographic Anomaly -- Singapore</strong>
+      <span class="severity-badge severity-MODERATE">MODERATE</span>
+    </div>
+    <p style="font-size:13px;color:var(--text-secondary);">Singapore revenue grew from $2.3B to $23.7B in 3 years (CAGR 222%). This exceeds any plausible organic data center buildout rate for a city-state. Possible indirect China demand routing.</p>
+    <div style="font-size:11px;color:var(--text-muted);margin-top:8px;">Evidence: 10-K geographic breakdowns, Singapore surges correlated with China restrictions | Confidence: 70%</div>
+  </div>
+
+  <div class="flag-card moderate">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+      <strong>Goodwill Surge (Groq Acquisition)</strong>
+      <span class="severity-badge severity-MODERATE">MODERATE</span>
+    </div>
+    <p style="font-size:13px;color:var(--text-secondary);">Goodwill jumped from $5.2B to $20.8B (4x) in FY2026, primarily from Groq acquisition (~$13B). Now represents 10% of assets. Impairment risk if inference market thesis does not play out.</p>
+    <div style="font-size:11px;color:var(--text-muted);margin-top:8px;">Evidence: FY2026 10-K balance sheet, acquisition disclosures | Confidence: 75%</div>
+  </div>
+
+  <div class="flag-card low">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+      <strong>Beneish M-Score Flag</strong>
+      <span class="severity-badge severity-LOW">LOW (FALSE POSITIVE)</span>
+    </div>
+    <p style="font-size:13px;color:var(--text-secondary);">M-Score flags as 'Likely Manipulator' in FY2024 and FY2025, but driven by Sales Growth Index (SGI &gt; 2.0). Known false positive for hypergrowth. Cash conversion ratios confirm earnings quality.</p>
+    <div style="font-size:11px;color:var(--text-muted);margin-top:8px;">Evidence: Forensic outputs, CFO/NI 0.86-0.88 | Confidence: 90%</div>
+  </div>
+
+  <div class="flag-card low">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+      <strong>DSO Creep</strong>
+      <span class="severity-badge severity-LOW-MODERATE">LOW-MODERATE</span>
+    </div>
+    <p style="font-size:13px;color:var(--text-secondary);">Days Sales Outstanding increased from 51.8 (FY2023) to 65.0 (FY2026). Explained by large enterprise customer mix but sustained increases could indicate loosened credit.</p>
+    <div style="font-size:11px;color:var(--text-muted);margin-top:8px;">Evidence: AR growth vs revenue growth | Confidence: 75%</div>
+  </div>
+
+  <div class="flag-card low">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+      <strong>Insider Selling Breadth</strong>
+      <span class="severity-badge severity-LOW-MODERATE">LOW-MODERATE</span>
+    </div>
+    <p style="font-size:13px;color:var(--text-secondary);">Universal insider selling with zero purchases across 17 insiders. CEO sold $1.0B. All via 10b5-1 plans -- consistent with diversification, not directional bets.</p>
+    <div style="font-size:11px;color:var(--text-muted);margin-top:8px;">Evidence: Form 4 analysis, cluster analysis | Confidence: 70%</div>
+  </div>
+
+  <div class="flag-card low">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+      <strong>Inventory Risk</strong>
+      <span class="severity-badge severity-LOW-MODERATE">LOW-MODERATE</span>
+    </div>
+    <p style="font-size:13px;color:var(--text-secondary);">Inventory grew 112% in FY2026 vs 66% revenue growth. Provisions of $3.7B (FY2025) and H20 charge of $4.5B show real write-down risk during transitions.</p>
+    <div style="font-size:11px;color:var(--text-muted);margin-top:8px;">Evidence: Balance sheet inventory, H20 charge 8-K | Confidence: 80%</div>
+  </div>
+
+  <div class="flag-card low">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+      <strong>Compensation Target Setting</strong>
+      <span class="severity-badge severity-LOW">LOW</span>
+    </div>
+    <p style="font-size:13px;color:var(--text-secondary);">All executive performance metrics paid at maximum for two consecutive years (FY2024-FY2025). Targets raised but still not enough. Systematic under-estimation.</p>
+    <div style="font-size:11px;color:var(--text-muted);margin-top:8px;">Evidence: DEF 14A proxy analysis | Confidence: 85%</div>
+  </div>
+</section>
+
+<!-- Events & Catalysts -->
+<section class="section" id="events">
+  <h2 class="section-title"><span class="icon">&#9200;</span> Events &amp; Catalysts</h2>
+
+  <div class="card">
+    <div class="card-title">Event Timeline</div>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot positive"></div>
+        <div class="timeline-date">February 25, 2026</div>
+        <div class="timeline-title positive">Q4 FY2026 Earnings</div>
+        <div class="timeline-detail">Record $68.1B revenue, $78B Q1 FY27 guidance, Vera Rubin unveiled.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot positive"></div>
+        <div class="timeline-date">November 19, 2025</div>
+        <div class="timeline-title positive">Q3 FY2026 Earnings</div>
+        <div class="timeline-detail">$57B revenue, "Blackwell sales off the charts," OpenAI 10GW, Anthropic 1GW partnerships.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot positive"></div>
+        <div class="timeline-date">September 15, 2025</div>
+        <div class="timeline-title">NVDA-Intel Partnership</div>
+        <div class="timeline-detail">NVIDIA invested $5B in Intel equity. Co-developing custom products. Strategic industry realignment.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot negative"></div>
+        <div class="timeline-date">April 9, 2025</div>
+        <div class="timeline-title negative">H20 Export Ban</div>
+        <div class="timeline-detail">US gov required license for H20 exports to China. Permanent loss of ~$8B/quarter China DC compute revenue. $5.5B charge.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot negative"></div>
+        <div class="timeline-date">January 15, 2025</div>
+        <div class="timeline-title neutral">AI Diffusion IFR</div>
+        <div class="timeline-detail">Worldwide licensing requirement on advanced AI chips. Precursor to H20 ban.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:16px;">
+    <div class="card">
+      <div class="card-title">Guidance Track Record</div>
+      <table>
+        <tr><td>Consecutive Revenue Beats</td><td class="num positive">4</td></tr>
+        <tr><td>Average Beat Magnitude</td><td class="num positive">+4.2%</td></tr>
+        <tr><td>Philosophy</td><td class="num">Consistently Conservative</td></tr>
+        <tr><td>China Assumption</td><td class="num">Zero DC compute since Q1 FY26</td></tr>
+      </table>
+      <div style="margin-top:12px;padding:10px;background:var(--accent-blue-dim);border-radius:8px;">
+        <div style="font-size:12px;font-weight:600;color:var(--accent-blue);margin-bottom:4px;">Latest Guidance: Q1 FY2027</div>
+        <div style="font-size:13px;">Revenue: <strong>$78.0B</strong> +/- 2% &middot; Gross Margin: <strong>75.0%</strong> +/- 50bps</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Key Strategic Events</div>
+      <ul style="font-size:13px;color:var(--text-secondary);padding-left:16px;line-height:2;">
+        <li>Vera Rubin platform: 6 new chips, 10x inference cost reduction vs Blackwell</li>
+        <li>Non-GAAP methodology change: Including SBC starting Q1 FY27</li>
+        <li>$60B additional buyback authorization (Aug 2025)</li>
+        <li>Stargate Project key partner ($500B AI infrastructure)</li>
+        <li>First Blackwell wafer on US soil at TSMC Arizona</li>
+        <li>NVIDIA invested $5B in Intel equity</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Advanced Analysis -->
+<section class="section" id="advanced">
+  <h2 class="section-title"><span class="icon">&#9830;</span> Advanced Analysis</h2>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Tax Analysis</div>
+      <table>
+        <thead><tr><th>Year</th><th class="num">Effective Tax Rate</th></tr></thead>
+        <tbody>
+          <tr><td>FY2022</td><td class="num">1.9%</td></tr>
+          <tr><td>FY2023</td><td class="num">-4.5%</td></tr>
+          <tr><td>FY2024</td><td class="num">12.0%</td></tr>
+          <tr><td>FY2025</td><td class="num">13.3%</td></tr>
+          <tr><td>FY2026</td><td class="num">15.1%</td></tr>
+        </tbody>
+      </table>
+      <div style="margin-top:12px;font-size:12px;color:var(--text-secondary);">
+        <strong>Rising ETR explained:</strong> Income growth outpaces fixed-dollar tax benefits. Not a deterioration -- mathematically expected.
+      </div>
+      <div style="margin-top:8px;font-size:12px;color:var(--text-secondary);">
+        <strong>Key Benefits (FY2026):</strong> FDDEI $4.2B, Israel reduced rate $3.1B (NEW), R&D credits $1.9B, SBC benefit $1.5B
+      </div>
+      <div style="margin-top:8px;padding:8px;background:var(--accent-green-dim);border-radius:6px;font-size:12px;color:var(--accent-green);">
+        Assessment: HEALTHY. No aggressive tax strategies.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Stock-Based Compensation</div>
+      <table>
+        <thead><tr><th>Year</th><th class="num">SBC % Revenue</th></tr></thead>
+        <tbody>
+          <tr><td>FY2022</td><td class="num">7.4%</td></tr>
+          <tr><td>FY2023</td><td class="num">10.0%</td></tr>
+          <tr><td>FY2024</td><td class="num">5.8%</td></tr>
+          <tr><td>FY2025</td><td class="num positive">3.6%</td></tr>
+          <tr><td>FY2026</td><td class="num positive">3.0%</td></tr>
+        </tbody>
+      </table>
+      <div style="margin-top:12px;font-size:12px;color:var(--text-secondary);">
+        SBC CAGR: 33.6% vs Revenue CAGR: 68.3% -- declining share<br>
+        Net dilution: ANTI-DILUTIVE (buybacks exceed issuances)<br>
+        Unrecognized SBC: $14.8B<br>
+        Grant volume declining: 140M &#8594; 89M &#8594; 70M shares/year
+      </div>
+      <div style="margin-top:8px;padding:8px;background:var(--accent-green-dim);border-radius:6px;font-size:12px;color:var(--accent-green);">
+        Assessment: WELL MANAGED. No red flags.
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:16px;">
+    <div class="card">
+      <div class="card-title">Debt Structure</div>
+      <table>
+        <tr><td>Total Debt (FY2026)</td><td class="num">$8.5B</td></tr>
+        <tr><td>Debt/Equity</td><td class="num positive">0.054x</td></tr>
+        <tr><td>Interest Coverage</td><td class="num positive">502.2x</td></tr>
+        <tr><td>All Fixed Rate</td><td class="num positive">Yes</td></tr>
+        <tr><td>Financial Covenants</td><td class="num positive">None</td></tr>
+        <tr><td>Net Cash Position</td><td class="num positive">$54.1B</td></tr>
+        <tr><td>Commercial Paper Program</td><td class="num">$25B (zero outstanding)</td></tr>
+      </table>
+      <div style="margin-top:12px;font-size:11px;color:var(--text-muted);">
+        Maturity: 12% in 1yr | 32% in 1-5yr | 15% in 5-10yr | 41% in 10yr+
+      </div>
+      <div style="margin-top:8px;padding:8px;background:var(--accent-green-dim);border-radius:6px;font-size:12px;color:var(--accent-green);">
+        Assessment: FORTRESS. Essentially debt-free on a relative basis.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Other Notable Items</div>
+      <table>
+        <tr><td>Goodwill Jump</td><td class="num neutral">$5.2B &#8594; $20.8B (Groq acquisition). Now 10% of assets.</td></tr>
+        <tr><td>Net Interest Income</td><td class="num positive">$2.0B in FY2026 -- earns more on cash than pays in interest</td></tr>
+        <tr><td>Commercial Paper</td><td class="num">$25B facility (up from $575M) -- strategic liquidity</td></tr>
+        <tr><td>H20 Impact</td><td class="num negative">$4.5B Q1 charge + permanent ~$8B/qtr China revenue loss</td></tr>
+        <tr><td>Buybacks (FY2026)</td><td class="num positive">$40.1B returned to shareholders</td></tr>
+        <tr><td>OBBBA Impact</td><td class="num">One Big Beautiful Bill Act enacted Jul 2025. Effects being evaluated.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px;">
+    <div class="card-title">Cross-Pollination Insights</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+      <div style="padding:12px;background:var(--bg-secondary);border-radius:8px;">
+        <div style="font-size:12px;font-weight:600;color:var(--accent-blue);margin-bottom:6px;">Management Claims vs Financial Reality</div>
+        <div style="font-size:12px;color:var(--text-secondary);">Guidance consistently conservative (4 beats avg +4.2%). Q1 FY2027 $78B guide, if beat by 4%, implies ~$81B quarter.</div>
+      </div>
+      <div style="padding:12px;background:var(--bg-secondary);border-radius:8px;">
+        <div style="font-size:12px;font-weight:600;color:var(--accent-blue);margin-bottom:6px;">Insider Behavior vs Outlook</div>
+        <div style="font-size:12px;color:var(--text-secondary);">Insiders selling while outlook is extremely positive. All via 10b5-1 plans. Rate did not accelerate before/after H20 ban.</div>
+      </div>
+      <div style="padding:12px;background:var(--bg-secondary);border-radius:8px;">
+        <div style="font-size:12px;font-weight:600;color:var(--accent-blue);margin-bottom:6px;">Peer Positioning vs Competitive Language</div>
+        <div style="font-size:12px;color:var(--text-secondary);">AMD cites CUDA as barrier. Intel conceded AI accelerator competition. Unprecedented competitive capitulation validates moat thesis.</div>
+      </div>
+      <div style="padding:12px;background:var(--bg-secondary);border-radius:8px;">
+        <div style="font-size:12px;font-weight:600;color:var(--accent-green);margin-bottom:6px;">Opportunity: Vera Rubin Platform</div>
+        <div style="font-size:12px;color:var(--text-secondary);">10x inference cost reduction + R&D +49% YoY to $18.5B + AWS/Google/Azure/Oracle committed = STRONG OPPORTUNITY signal.</div>
+      </div>
+      <div style="padding:12px;background:var(--bg-secondary);border-radius:8px;">
+        <div style="font-size:12px;font-weight:600;color:var(--accent-cyan);margin-bottom:6px;">Customer CapEx vs Revenue Pipeline</div>
+        <div style="font-size:12px;color:var(--text-secondary);">0.96 R-squared hyperscaler CapEx correlation. CY2025 $260B from 3 hyperscalers supports $300B+ FY2027.</div>
+      </div>
+      <div style="padding:12px;background:var(--bg-secondary);border-radius:8px;">
+        <div style="font-size:12px;font-weight:600;color:var(--accent-yellow);margin-bottom:6px;">Hidden Stress Detection (FY26 Q1)</div>
+        <div style="font-size:12px;color:var(--text-secondary);">Insiders selling + inventory building + margin compression = product transition, NOT stress. Margins recovered to 75% by Q4. Was a BUY signal.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Monitoring Watchlist -->
+<section class="section" id="watchlist">
+  <h2 class="section-title"><span class="icon">&#9745;</span> Monitoring Watchlist</h2>
+
+  <div class="watchlist-item">
+    <div class="priority-dot priority-CRITICAL"></div>
+    <div style="flex:1;">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <strong>Q1 FY2027 Revenue vs $78B Guidance</strong>
+        <span class="severity-badge severity-HIGH">CRITICAL</span>
+      </div>
+      <p style="font-size:13px;color:var(--text-secondary);margin-top:4px;">Largest sequential step-up in NVIDIA history. Tests Vera Rubin ramp and ROW demand offsetting China loss.</p>
+      <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">Trigger: Below $76B = growth deceleration concern; Above $81B = demand acceleration confirmation</div>
+    </div>
+  </div>
+
+  <div class="watchlist-item">
+    <div class="priority-dot priority-HIGH"></div>
+    <div style="flex:1;">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <strong>Gross Margin Through Vera Rubin Transition</strong>
+        <span class="severity-badge severity-MODERATE">HIGH</span>
+      </div>
+      <p style="font-size:13px;color:var(--text-secondary);margin-top:4px;">Each generation transition temporarily compresses margins. Vera Rubin should follow the Blackwell pattern (dip then recover).</p>
+      <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">Trigger: Two consecutive quarters below 72% = structural margin compression</div>
+    </div>
+  </div>
+
+  <div class="watchlist-item">
+    <div class="priority-dot priority-HIGH"></div>
+    <div style="flex:1;">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <strong>Singapore Revenue Trajectory</strong>
+        <span class="severity-badge severity-MODERATE">HIGH</span>
+      </div>
+      <p style="font-size:13px;color:var(--text-secondary);margin-top:4px;">222% CAGR from a city-state exceeds credible organic growth. Cross-reference with Singapore data center construction permits.</p>
+      <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">Trigger: Continued exponential growth despite H20 ban = potential transshipment concern</div>
+    </div>
+  </div>
+
+  <div class="watchlist-item">
+    <div class="priority-dot priority-HIGH"></div>
+    <div style="flex:1;">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <strong>Hyperscaler CapEx Trajectory</strong>
+        <span class="severity-badge severity-MODERATE">HIGH</span>
+      </div>
+      <p style="font-size:13px;color:var(--text-secondary);margin-top:4px;">0.96 correlation means NVDA revenue is highly levered to hyperscaler spending decisions.</p>
+      <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">Trigger: Any major hyperscaler announcing CapEx reduction &gt;15% = demand deceleration risk</div>
+    </div>
+  </div>
+
+  <div class="watchlist-item">
+    <div class="priority-dot priority-HIGH"></div>
+    <div style="flex:1;">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <strong>Export Control Evolution</strong>
+        <span class="severity-badge severity-MODERATE">HIGH</span>
+      </div>
+      <p style="font-size:13px;color:var(--text-secondary);margin-top:4px;">H20 ban eliminated $32B/year revenue. Further restrictions could target other markets.</p>
+      <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">Trigger: Any new product-specific ban, country expansion, or AI Diffusion framework modification</div>
+    </div>
+  </div>
+
+  <div class="watchlist-item">
+    <div class="priority-dot priority-MODERATE"></div>
+    <div style="flex:1;">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <strong>Days Sales Outstanding (DSO)</strong>
+        <span class="severity-badge severity-LOW-MODERATE">MODERATE</span>
+      </div>
+      <p style="font-size:13px;color:var(--text-secondary);margin-top:4px;">DSO crept from 52 to 65 days over 3 years. Explained by customer mix but needs monitoring.</p>
+      <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">Trigger: DSO exceeding 75 days = collection deterioration or channel stuffing risk</div>
+    </div>
+  </div>
+
+  <div class="watchlist-item">
+    <div class="priority-dot priority-MODERATE"></div>
+    <div style="flex:1;">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <strong>Custom Silicon Market Share</strong>
+        <span class="severity-badge severity-LOW-MODERATE">MODERATE</span>
+      </div>
+      <p style="font-size:13px;color:var(--text-secondary);margin-top:4px;">All major customers developing alternatives. Currently &lt;10% impact but growing.</p>
+      <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">Trigger: Google TPU, Amazon Trainium, or Microsoft Maia capturing &gt;15% of internal AI compute</div>
+    </div>
+  </div>
+
+  <div class="watchlist-item">
+    <div class="priority-dot priority-MODERATE"></div>
+    <div style="flex:1;">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <strong>Goodwill Impairment (Groq)</strong>
+        <span class="severity-badge severity-LOW-MODERATE">MODERATE</span>
+      </div>
+      <p style="font-size:13px;color:var(--text-secondary);margin-top:4px;">Groq acquisition added $15.6B in goodwill. Inference market must develop as expected to justify valuation.</p>
+      <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">Trigger: Goodwill exceeds 15% of total assets or impairment testing language changes</div>
+    </div>
+  </div>
+
+  <div class="watchlist-item">
+    <div class="priority-dot priority-LOW"></div>
+    <div style="flex:1;">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <strong>Compensation Target Setting FY2027</strong>
+        <span class="severity-badge severity-LOW">LOW</span>
+      </div>
+      <p style="font-size:13px;color:var(--text-secondary);margin-top:4px;">Two years of universal max payout suggests targets need recalibration.</p>
+      <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">Trigger: Third consecutive year of all metrics at maximum payout = governance escalation</div>
+    </div>
+  </div>
+
+  <div class="watchlist-item">
+    <div class="priority-dot priority-LOW"></div>
+    <div style="flex:1;">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <strong>Board Composition Post-Departures</strong>
+        <span class="severity-badge severity-LOW">LOW</span>
+      </div>
+      <p style="font-size:13px;color:var(--text-secondary);margin-top:4px;">Two directors resigned in 2025-2026. Monitor for further attrition or replacement quality.</p>
+      <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">Trigger: Board falls below 11 members or independence drops below 90%</div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div>Generated by SEC Forensic Analysis Pipeline &middot; Protocol v1.0 &middot; April 5, 2026</div>
+  <div>Phases: 13/13 completed &middot; Filings: 6x 10-K, 8x 10-Q, 2x DEF14A, 12x 8-K, 99x Form 4, 6x 13F/13G</div>
+</footer>
+
+<script>
+// Collapsible sections
+function toggleCollapse(el) {
+  el.classList.toggle('collapsed');
+  const content = el.nextElementSibling;
+  if (content) content.classList.toggle('hidden');
+}
+
+// Active nav link on scroll
+const sections = document.querySelectorAll('.section');
+const navLinks = document.querySelectorAll('.nav-link');
+
+function updateActiveNav() {
+  let current = '';
+  sections.forEach(section => {
+    const rect = section.getBoundingClientRect();
+    if (rect.top <= 120) current = section.id;
+  });
+  navLinks.forEach(link => {
+    link.classList.remove('active');
+    if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+  });
+}
+
+window.addEventListener('scroll', updateActiveNav);
+
+// Smooth scroll for nav links
+navLinks.forEach(link => {
+  link.addEventListener('click', function(e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+
+// Sortable tables
+document.querySelectorAll('th.sortable').forEach(th => {
+  th.addEventListener('click', function() {
+    const table = this.closest('table');
+    const tbody = table.querySelector('tbody');
+    const rows = Array.from(tbody.querySelectorAll('tr'));
+    const col = Array.from(this.parentNode.children).indexOf(this);
+    const asc = this.dataset.sort !== 'asc';
+    this.dataset.sort = asc ? 'asc' : 'desc';
+    rows.sort((a, b) => {
+      const aVal = a.children[col]?.textContent.trim() || '';
+      const bVal = b.children[col]?.textContent.trim() || '';
+      const aNum = parseFloat(aVal.replace(/[$,%Bx]/g, ''));
+      const bNum = parseFloat(bVal.replace(/[$,%Bx]/g, ''));
+      if (!isNaN(aNum) && !isNaN(bNum)) return asc ? aNum - bNum : bNum - aNum;
+      return asc ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+    });
+    rows.forEach(r => tbody.appendChild(r));
+  });
+});
+</script>
+</body>
+</html>
