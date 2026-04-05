@@ -918,6 +918,69 @@ body {
   .vs-count { font-size: 2.2rem; }
 }
 
+
+/* --- MARGIN TREND CARDS --- */
+.margin-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+
+.margin-card {
+  background: var(--s2);
+  border: 1px solid var(--b1);
+  border-radius: var(--r-lg);
+  padding: 1.25rem;
+  transition: border-color 0.2s;
+}
+.margin-card:hover { border-color: var(--b3); }
+
+.margin-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.5rem;
+}
+
+.margin-card-name {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--t3);
+}
+
+.margin-card-change {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+}
+
+.margin-card-change.neg { color: var(--red); background: var(--red-bg); }
+.margin-card-change.pos { color: var(--green); background: var(--green-bg); }
+.margin-card-change.neu { color: var(--amber); background: var(--amber-bg); }
+
+.margin-card-value {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--t1);
+  line-height: 1;
+  margin-bottom: 0.75rem;
+}
+
+.margin-card-sparkline { display: block; width: 100%; }
+
+.margin-card-range {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--t4);
+}
+
+@media (max-width: 900px) {
+  .margin-cards { grid-template-columns: 1fr; }
+}
+
 </style>
 </head>
 <body>
@@ -1152,77 +1215,93 @@ body {
           </svg>
         </div>
 
-        <!-- Margin Chart -->
-        <div class="chart-container">
-          <div class="chart-title">Margin Trends (%)</div>
-          <svg viewBox="0 0 640 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:640px;">
-            <!-- Grid -->
-            <line x1="60" y1="20" x2="620" y2="20" stroke="var(--b1)" stroke-width="0.5"/>
-            <line x1="60" y1="60" x2="620" y2="60" stroke="var(--b1)" stroke-width="0.5"/>
-            <line x1="60" y1="100" x2="620" y2="100" stroke="var(--b1)" stroke-width="0.5"/>
-            <line x1="60" y1="140" x2="620" y2="140" stroke="var(--b1)" stroke-width="0.5"/>
-            <line x1="60" y1="180" x2="620" y2="180" stroke="var(--b1)" stroke-width="0.5"/>
-            <text x="55" y="24" text-anchor="end" class="axis-label">50%</text>
-            <text x="55" y="64" text-anchor="end" class="axis-label">40%</text>
-            <text x="55" y="104" text-anchor="end" class="axis-label">30%</text>
-            <text x="55" y="144" text-anchor="end" class="axis-label">20%</text>
-            <text x="55" y="184" text-anchor="end" class="axis-label">10%</text>
-            <!-- GP Margin: scale 10-50% => 180-20, 1%=4px -->
-            <!-- FY20:43.4 => 20+(50-43.4)*4=46.4 -->
-            <!-- FY21:44.8 => 20+(50-44.8)*4=40.8 -->
-            <!-- FY22:46.0 => 20+(50-46)*4=36 -->
-            <!-- FY23:43.5 => 20+(50-43.5)*4=46 -->
-            <!-- FY24:44.6 => 20+(50-44.6)*4=41.6 -->
-            <!-- FY25:42.7 => 20+(50-42.7)*4=49.2 -->
-            <polyline points="100,46 192,41 284,36 376,46 468,42 560,49"
-                      fill="none" stroke="#1a1a2e" stroke-width="2.5" stroke-linejoin="round"/>
-            <circle cx="100" cy="46" r="3.5" fill="#6e8aad"/>
-            <circle cx="192" cy="41" r="3.5" fill="#6e8aad"/>
-            <circle cx="284" cy="36" r="3.5" fill="#6e8aad"/>
-            <circle cx="376" cy="46" r="3.5" fill="#6e8aad"/>
-            <circle cx="468" cy="42" r="3.5" fill="#6e8aad"/>
-            <circle cx="560" cy="49" r="3.5" fill="#6e8aad"/>
-            <!-- SGA% -->
-            <!-- FY20:35.1 => 20+(50-35.1)*4=79.6 -->
-            <!-- FY21:29.2 => 20+(50-29.2)*4=103.2 -->
-            <!-- FY22:31.7 => 20+(50-31.7)*4=93.2 -->
-            <!-- FY23:32.0 => 20+(50-32)*4=92 -->
-            <!-- FY24:32.3 => 20+(50-32.3)*4=90.8 -->
-            <!-- FY25:34.7 => 20+(50-34.7)*4=81.2 -->
-            <polyline points="100,80 192,103 284,93 376,92 468,91 560,81"
-                      fill="none" stroke="var(--green)" stroke-width="2.5" stroke-linejoin="round" stroke-dasharray="6,3"/>
-            <circle cx="100" cy="80" r="3.5" fill="#e2b714"/>
-            <circle cx="192" cy="103" r="3.5" fill="#e2b714"/>
-            <circle cx="284" cy="93" r="3.5" fill="#e2b714"/>
-            <circle cx="376" cy="92" r="3.5" fill="#e2b714"/>
-            <circle cx="468" cy="91" r="3.5" fill="#e2b714"/>
-            <circle cx="560" cy="81" r="3.5" fill="#e2b714"/>
-            <!-- NI Margin: 2539/37403=6.8, 5727/44538=12.9, 6046/46710=12.9, 5070/51217=9.9, 5700/51362=11.1, 3219/46309=7.0 -->
-            <!-- FY20:6.8 => 20+(50-6.8)*4=192.8 => clamp to 180 area -->
-            <!-- scale adjusted: NI margin ~5-15%, let's use same scale -->
-            <!-- FY20:6.8 => 20+(50-6.8)*4=192.8 -> off chart. Let's just annotate near bottom -->
-            <!-- Using same scale: -->
-            <polyline points="100,193 192,159 284,159 376,170 468,164 560,192"
-                      fill="none" stroke="#3b82f6" stroke-width="2" stroke-linejoin="round"/>
-            <circle cx="100" cy="193" r="3" fill="var(--blue)"/>
-            <circle cx="192" cy="159" r="3" fill="var(--blue)"/>
-            <circle cx="284" cy="159" r="3" fill="var(--blue)"/>
-            <circle cx="376" cy="170" r="3" fill="var(--blue)"/>
-            <circle cx="468" cy="164" r="3" fill="var(--blue)"/>
-            <circle cx="560" cy="192" r="3" fill="var(--blue)"/>
-            <!-- Labels -->
-            <text x="100" y="202" text-anchor="middle" class="bar-label">FY20</text>
-            <text x="192" y="202" text-anchor="middle" class="bar-label">FY21</text>
-            <text x="284" y="202" text-anchor="middle" class="bar-label">FY22</text>
-            <text x="376" y="202" text-anchor="middle" class="bar-label">FY23</text>
-            <text x="468" y="202" text-anchor="middle" class="bar-label">FY24</text>
-            <text x="560" y="202" text-anchor="middle" class="bar-label">FY25</text>
-          </svg>
-          <div class="chart-legend">
-            <div class="legend-item"><div class="legend-dot" style="background:#58a6ff;"></div> <span style="display:inline-block;width:12px;height:3px;background:var(--t1);border-radius:2px;margin-right:6px;vertical-align:middle;"></span>Gross Margin</div>
-            <div class="legend-item"><div class="legend-dot" style="background:var(--gold);"></div> <span style="display:inline-block;width:12px;height:3px;background:var(--green);border-radius:2px;margin-right:6px;vertical-align:middle;border:1px dashed var(--green);background:none;"></span>SGA %</div>
-            <div class="legend-item"><div class="legend-dot" style="background:var(--blue);"></div> <span style="display:inline-block;width:12px;height:3px;background:var(--blue);border-radius:2px;margin-right:6px;vertical-align:middle;"></span>Net Margin</div>
+        <!-- Margin Trends — Card Layout with Sparklines -->
+        <div class="margin-cards">
+
+          <!-- GROSS MARGIN -->
+          <div class="margin-card">
+            <div class="margin-card-header">
+              <div class="margin-card-name">Gross Margin</div>
+              <div class="margin-card-change neg">-190 bps</div>
+            </div>
+            <div class="margin-card-value">42.7%</div>
+            <svg class="margin-card-sparkline" viewBox="0 0 200 50" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="gm-fill" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#58a6ff" stop-opacity="0.15"/>
+                  <stop offset="100%" stop-color="#58a6ff" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+              <!-- GP: 43.4,44.8,46.0,43.5,44.6,42.7 mapped to y: 0=47, 50=42 -->
+              <!-- 43.4→36, 44.8→22, 46.0→10, 43.5→35, 44.6→24, 42.7→43 -->
+              <path d="M0,36 L40,22 L80,10 L120,35 L160,24 L200,43 L200,50 L0,50 Z" fill="url(#gm-fill)"/>
+              <polyline points="0,36 40,22 80,10 120,35 160,24 200,43" fill="none" stroke="#58a6ff" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+              <circle cx="200" cy="43" r="3" fill="#58a6ff"/>
+              <circle cx="80" cy="10" r="2.5" fill="#58a6ff" opacity="0.5"/>
+            </svg>
+            <div class="margin-card-range">
+              <span>FY20: 43.4%</span>
+              <span style="color:var(--green);">Peak: 46.0%</span>
+              <span>FY25: 42.7%</span>
+            </div>
           </div>
+
+          <!-- SGA % -->
+          <div class="margin-card">
+            <div class="margin-card-header">
+              <div class="margin-card-name">SG&A % of Revenue</div>
+              <div class="margin-card-change neg">+240 bps</div>
+            </div>
+            <div class="margin-card-value">34.7%</div>
+            <svg class="margin-card-sparkline" viewBox="0 0 200 50" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="sga-fill" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#d29922" stop-opacity="0.15"/>
+                  <stop offset="100%" stop-color="#d29922" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+              <!-- SGA: 35.1,29.2,31.7,32.0,32.3,34.7 mapped: 0=36, 50=28 -->
+              <!-- 35.1→6, 29.2→43, 31.7→27, 32.0→25, 32.3→23, 34.7→8 -->
+              <path d="M0,6 L40,43 L80,27 L120,25 L160,23 L200,8 L200,50 L0,50 Z" fill="url(#sga-fill)"/>
+              <polyline points="0,6 40,43 80,27 120,25 160,23 200,8" fill="none" stroke="#d29922" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+              <circle cx="200" cy="8" r="3" fill="#d29922"/>
+              <circle cx="40" cy="43" r="2.5" fill="#d29922" opacity="0.5"/>
+            </svg>
+            <div class="margin-card-range">
+              <span>FY20: 35.1%</span>
+              <span style="color:var(--green);">Low: 29.2%</span>
+              <span>FY25: 34.7%</span>
+            </div>
+          </div>
+
+          <!-- NET MARGIN -->
+          <div class="margin-card">
+            <div class="margin-card-header">
+              <div class="margin-card-name">Net Margin</div>
+              <div class="margin-card-change neg">-410 bps</div>
+            </div>
+            <div class="margin-card-value">7.0%</div>
+            <svg class="margin-card-sparkline" viewBox="0 0 200 50" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="nm-fill" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#f85149" stop-opacity="0.15"/>
+                  <stop offset="100%" stop-color="#f85149" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+              <!-- NI: 6.8,12.9,12.9,9.9,11.1,7.0 mapped: 0=14, 50=6 -->
+              <!-- 6.8→45, 12.9→7, 12.9→7, 9.9→26, 11.1→18, 7.0→44 -->
+              <path d="M0,45 L40,7 L80,7 L120,26 L160,18 L200,44 L200,50 L0,50 Z" fill="url(#nm-fill)"/>
+              <polyline points="0,45 40,7 80,7 120,26 160,18 200,44" fill="none" stroke="#f85149" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+              <circle cx="200" cy="44" r="3" fill="#f85149"/>
+              <circle cx="40" cy="7" r="2.5" fill="#3fb950" opacity="0.5"/>
+            </svg>
+            <div class="margin-card-range">
+              <span>FY20: 6.8%</span>
+              <span style="color:var(--green);">Peak: 12.9%</span>
+              <span style="color:var(--red);">FY25: 7.0%</span>
+            </div>
+          </div>
+
         </div>
 
         <!-- FULL P&L TABLE -->
