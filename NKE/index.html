@@ -13,6 +13,12 @@
   --gold: #e2b714;
   --gold-light: #f5d45e;
   --gold-dark: #c49b0e;
+  --teal: #2dd4bf;
+  --teal-soft: rgba(45,212,191,0.10);
+  --teal-dim: #14b8a6;
+  --lavender: #a78bfa;
+  --lavender-soft: rgba(167,139,250,0.10);
+  --blue-bright: #818cf8;
   --white: #f0f0f3;
   --off-white: #09090e;
   --gray-50: #13131b;
@@ -90,7 +96,7 @@ body {
   font-size: 0.68rem;
   text-transform: uppercase;
   letter-spacing: 2px;
-  color: var(--gold);
+  color: var(--teal);
   padding: 1.25rem 1.25rem 0.5rem;
   font-weight: 700;
 }
@@ -111,14 +117,14 @@ body {
 .sidebar nav a:hover,
 .sidebar nav a.active {
   background: rgba(255,255,255,0.05);
-  color: var(--gold-light);
-  border-left-color: var(--gold);
+  color: var(--teal);
+  border-left-color: var(--teal);
 }
 
 .sidebar nav a .nav-num {
   font-size: 0.65rem;
   font-weight: 700;
-  color: var(--gold-dark);
+  color: var(--teal-dim);
   min-width: 1.2rem;
 }
 
@@ -196,7 +202,7 @@ body {
 }
 
 .hero-meta span { display: flex; align-items: center; gap: 0.4rem; }
-.hero-meta .label { color: var(--gold); font-weight: 600; }
+.hero-meta .label { color: var(--teal); font-weight: 600; }
 
 /* KPI STRIP */
 .kpi-strip {
@@ -214,10 +220,10 @@ body {
 }
 
 .kpi-card .kpi-label {
-  font-size: 0.65rem;
+  font-size: 0.68rem;
   text-transform: uppercase;
   letter-spacing: 1.5px;
-  color: var(--gray-500);
+  color: var(--teal-dim);
   margin-bottom: 0.35rem;
 }
 
@@ -269,7 +275,7 @@ body {
   font-family: 'Playfair Display', serif;
   font-size: 1.25rem;
   font-weight: 800;
-  color: var(--gold);
+  color: var(--teal);
   min-width: 2rem;
 }
 
@@ -292,8 +298,8 @@ body {
 .section-header.collapsed .section-toggle { transform: rotate(-90deg); }
 
 .section-body { padding: 1.5rem; font-size: 1rem; line-height: 1.75; color: var(--gray-600); }
-.section-body h3, .section-body h4 { color: var(--white); }
-.section-body strong { color: var(--gold); }
+.section-body h3, .section-body h4 { color: var(--teal); }
+.section-body strong { color: var(--white); font-weight: 600; }
 .section-body p { color: var(--gray-600); }
 .section-header.collapsed + .section-body { display: none; }
 
@@ -306,7 +312,7 @@ body {
 
 .data-table th {
   background: #0e0e16;
-  color: var(--gray-500);
+  color: var(--teal-dim);
   padding: 0.6rem 0.75rem;
   text-align: right;
   font-weight: 600;
@@ -333,7 +339,7 @@ body {
   color: var(--gold);
 }
 
-.data-table tr:hover td { background: rgba(226,183,20,0.04); }
+.data-table tr:hover td { background: rgba(45,212,191,0.04); }
 .data-table tr:last-child td { border-bottom: none; }
 
 .data-table .row-highlight td { background: var(--amber-bg); font-weight: 600; color: var(--amber); }
@@ -356,15 +362,15 @@ body {
   transition: all 0.2s;
 }
 .gauge-card:hover {
-  border-color: rgba(226,183,20,0.25);
-  box-shadow: 0 0 20px rgba(226,183,20,0.05);
+  border-color: rgba(45,212,191,0.25);
+  box-shadow: 0 0 24px rgba(45,212,191,0.06);
 }
 
 .gauge-card h4 {
   font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 1.5px;
-  color: var(--gold);
+  color: var(--white);
   margin-bottom: 0.75rem;
 }
 
@@ -468,7 +474,7 @@ body {
 .insight-box.info { background: #eff6ff; border-color: var(--blue); }
 .insight-box.safe { background: var(--green-bg); border-color: var(--green); }
 
-.insight-box strong { color: var(--gold); }
+.insight-box strong { color: var(--lavender); }
 
 /* TWO-COL */
 .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
@@ -832,31 +838,31 @@ p.body-text {
           <div>
             <h3 class="sub-heading">Identity</h3>
             <div class="table-wrap"><table class="data-table">
-              <tr><td style="font-weight:600;color:var(--gold);text-align:left;">Legal Name</td><td style="text-align:left;">NIKE, Inc.</td></tr>
-              <tr><td style="font-weight:600;color:var(--gold);text-align:left;">Ticker</td><td style="text-align:left;">NYSE: NKE</td></tr>
-              <tr><td style="font-weight:600;color:var(--gold);text-align:left;">CIK</td><td style="text-align:left;">0000320187</td></tr>
-              <tr><td style="font-weight:600;color:var(--gold);text-align:left;">SIC Code</td><td style="text-align:left;">3021 &mdash; Rubber &amp; Plastics Footwear</td></tr>
-              <tr><td style="font-weight:600;color:var(--gold);text-align:left;">Headquarters</td><td style="text-align:left;">Beaverton, Oregon</td></tr>
-              <tr><td style="font-weight:600;color:var(--gold);text-align:left;">Fiscal Year End</td><td style="text-align:left;">May 31</td></tr>
-              <tr><td style="font-weight:600;color:var(--gold);text-align:left;">Auditor</td><td style="text-align:left;">PricewaterhouseCoopers LLP</td></tr>
+              <tr><td style="font-weight:600;color:#818cf8;text-align:left;">Legal Name</td><td style="text-align:left;">NIKE, Inc.</td></tr>
+              <tr><td style="font-weight:600;color:#818cf8;text-align:left;">Ticker</td><td style="text-align:left;">NYSE: NKE</td></tr>
+              <tr><td style="font-weight:600;color:#818cf8;text-align:left;">CIK</td><td style="text-align:left;">0000320187</td></tr>
+              <tr><td style="font-weight:600;color:#818cf8;text-align:left;">SIC Code</td><td style="text-align:left;">3021 &mdash; Rubber &amp; Plastics Footwear</td></tr>
+              <tr><td style="font-weight:600;color:#818cf8;text-align:left;">Headquarters</td><td style="text-align:left;">Beaverton, Oregon</td></tr>
+              <tr><td style="font-weight:600;color:#818cf8;text-align:left;">Fiscal Year End</td><td style="text-align:left;">May 31</td></tr>
+              <tr><td style="font-weight:600;color:#818cf8;text-align:left;">Auditor</td><td style="text-align:left;">PricewaterhouseCoopers LLP</td></tr>
             </table></div>
           </div>
           <div>
             <h3 class="sub-heading">Market Profile</h3>
             <div class="table-wrap"><table class="data-table">
-              <tr><td style="font-weight:600;color:var(--gold);text-align:left;">Shares Outstanding</td><td style="text-align:left;">1.188 Billion</td></tr>
-              <tr><td style="font-weight:600;color:var(--gold);text-align:left;">Public Float</td><td style="text-align:left;">$92.66 Billion</td></tr>
-              <tr><td style="font-weight:600;color:var(--gold);text-align:left;">Filer Status</td><td style="text-align:left;">Large Accelerated</td></tr>
-              <tr><td style="font-weight:600;color:var(--gold);text-align:left;">Goodwill</td><td style="text-align:left;">$240M (minimal)</td></tr>
-              <tr><td style="font-weight:600;color:var(--gold);text-align:left;">Brands</td><td style="text-align:left;">Nike, Jordan, Converse</td></tr>
-              <tr><td style="font-weight:600;color:var(--gold);text-align:left;">Channels</td><td style="text-align:left;">Wholesale 57.9% / DTC 42.1%</td></tr>
+              <tr><td style="font-weight:600;color:#818cf8;text-align:left;">Shares Outstanding</td><td style="text-align:left;">1.188 Billion</td></tr>
+              <tr><td style="font-weight:600;color:#818cf8;text-align:left;">Public Float</td><td style="text-align:left;">$92.66 Billion</td></tr>
+              <tr><td style="font-weight:600;color:#818cf8;text-align:left;">Filer Status</td><td style="text-align:left;">Large Accelerated</td></tr>
+              <tr><td style="font-weight:600;color:#818cf8;text-align:left;">Goodwill</td><td style="text-align:left;">$240M (minimal)</td></tr>
+              <tr><td style="font-weight:600;color:#818cf8;text-align:left;">Brands</td><td style="text-align:left;">Nike, Jordan, Converse</td></tr>
+              <tr><td style="font-weight:600;color:#818cf8;text-align:left;">Channels</td><td style="text-align:left;">Wholesale 57.9% / DTC 42.1%</td></tr>
             </table></div>
 
             <h3 class="sub-heading">Revenue Mix FY2025</h3>
             <!-- PIE-LIKE DISPLAY -->
             <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.5rem;">
-              <span style="background:var(--navy);color:var(--white);padding:0.3rem 0.6rem;border-radius:4px;font-size:0.72rem;font-weight:600;">Footwear 66.9%</span>
-              <span style="background:var(--navy-mid);color:var(--white);padding:0.3rem 0.6rem;border-radius:4px;font-size:0.72rem;font-weight:600;">Apparel 28.2%</span>
+              <span style="background:rgba(129,140,248,0.15);color:#818cf8;padding:0.3rem 0.6rem;border-radius:4px;font-size:0.72rem;font-weight:600;border:1px solid rgba(129,140,248,0.25);">Footwear 66.9%</span>
+              <span style="background:var(--teal-soft);color:var(--teal);padding:0.3rem 0.6rem;border-radius:4px;font-size:0.72rem;font-weight:600;border:1px solid rgba(45,212,191,0.25);">Apparel 28.2%</span>
               <span style="background:var(--gold);color:var(--navy);padding:0.3rem 0.6rem;border-radius:4px;font-size:0.72rem;font-weight:600;">Equipment 4.8%</span>
             </div>
           </div>

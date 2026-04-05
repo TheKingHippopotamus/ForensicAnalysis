@@ -13,10 +13,10 @@
   --surface: #101018;
   --surface-hover: #16161f;
   --border: rgba(255,255,255,0.06);
-  --border-hover: rgba(226,183,20,0.3);
+  --border-hover: rgba(45,212,191,0.3);
   --gold: #e2b714;
   --gold-soft: rgba(226,183,20,0.12);
-  --gold-glow: rgba(226,183,20,0.04);
+  --gold-glow: rgba(45,212,191,0.04);
   --text: #e8e8ec;
   --text-secondary: #8b8b96;
   --text-tertiary: #55555f;
@@ -145,7 +145,7 @@ header p {
 .section-header svg {
   width: 20px;
   height: 20px;
-  color: var(--gold);
+  color: var(--teal);
   flex-shrink: 0;
 }
 
@@ -290,15 +290,15 @@ header p {
 }
 
 .tag {
-  background: rgba(226,183,20,0.06);
-  color: var(--text-secondary);
+  background: var(--teal-soft);
+  color: var(--teal);
   padding: 0.2rem 0.55rem;
   border-radius: 5px;
   font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   font-weight: 500;
-  border: 1px solid rgba(226,183,20,0.08);
+  border: 1px solid rgba(45,212,191,0.15);
 }
 
 .card-arrow {
@@ -322,11 +322,11 @@ header p {
 }
 
 .card:hover .card-arrow {
-  border-color: var(--gold);
-  background: var(--gold-soft);
+  border-color: var(--teal);
+  background: var(--teal-soft);
 }
 
-.card:hover .card-arrow svg { color: var(--gold); }
+.card:hover .card-arrow svg { color: var(--teal); }
 
 /* Disabled card */
 .card.disabled {
@@ -383,7 +383,7 @@ header p {
 .method-item-title svg {
   width: 16px;
   height: 16px;
-  color: var(--gold);
+  color: var(--teal);
 }
 
 .method-item p {
