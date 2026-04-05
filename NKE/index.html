@@ -1099,74 +1099,57 @@ body {
       <div class="section-body">
 
         <!-- Revenue & NI Chart -->
-        <div class="chart-container">
-          <div class="chart-title">Revenue &amp; <span style="display:inline-block;width:12px;height:3px;background:var(--green);border-radius:2px;margin-right:6px;vertical-align:middle;"></span>Net Income ($B)</div>
-          <svg viewBox="0 0 740 280" xmlns="http://www.w3.org/2000/svg" style="width:100%;">
-            <!-- Grid lines -->
-            <line x1="60" y1="30" x2="620" y2="30" stroke="var(--b1)" stroke-width="0.5"/>
-            <line x1="60" y1="75" x2="620" y2="75" stroke="var(--b1)" stroke-width="0.5"/>
-            <line x1="60" y1="120" x2="620" y2="120" stroke="var(--b1)" stroke-width="0.5"/>
-            <line x1="60" y1="165" x2="620" y2="165" stroke="var(--b1)" stroke-width="0.5"/>
-            <line x1="60" y1="210" x2="620" y2="210" stroke="var(--b1)" stroke-width="0.5"/>
-            <!-- Y-axis labels (Revenue scale 0-55B) -->
-            <text x="55" y="34" text-anchor="end" class="axis-label">$55B</text>
-            <text x="55" y="79" text-anchor="end" class="axis-label">$41B</text>
-            <text x="55" y="124" text-anchor="end" class="axis-label">$27B</text>
-            <text x="55" y="169" text-anchor="end" class="axis-label">$14B</text>
-            <text x="55" y="214" text-anchor="end" class="axis-label">$0</text>
-            <!-- Revenue bars -->
-            <!-- FY20: 37.4/55*180=122.4 => h=122, y=210-122=88 -->
-            <rect x="80" y="87" width="40" height="123" rx="3" fill="var(--blue)"/>
-            <text x="100" y="82" text-anchor="middle" class="bar-value" fill="#f0f0f3">37.4</text>
-            <!-- FY21: 44.5/55*180=145.6 => y=64 -->
-            <rect x="172" y="64" width="40" height="146" rx="3" fill="var(--blue)"/>
-            <text x="192" y="59" text-anchor="middle" class="bar-value" fill="#f0f0f3">44.5</text>
-            <!-- FY22: 46.7 => 152.8 => y=57 -->
-            <rect x="264" y="57" width="40" height="153" rx="3" fill="var(--blue)"/>
-            <text x="284" y="52" text-anchor="middle" class="bar-value" fill="#f0f0f3">46.7</text>
-            <!-- FY23: 51.2 => 167.6 => y=42 -->
-            <rect x="356" y="42" width="40" height="168" rx="3" fill="var(--blue)"/>
-            <text x="376" y="37" text-anchor="middle" class="bar-value" fill="#f0f0f3">51.2</text>
-            <!-- FY24: 51.4 => 168.2 => y=42 -->
-            <rect x="448" y="42" width="40" height="168" rx="3" fill="var(--blue)"/>
-            <text x="468" y="37" text-anchor="middle" class="bar-value" fill="#f0f0f3">51.4</text>
-            <!-- FY25: 46.3 => 151.5 => y=58 -->
-            <rect x="540" y="58" width="40" height="152" rx="3" fill="var(--red)"/>
-            <text x="560" y="53" text-anchor="middle" class="bar-value" fill="var(--red)" font-size="13" font-weight="600">46.3</text>
-            <!-- NI line (scale: 0-7B mapped to 210-30) -->
-            <!-- FY20:2.54 => y=210-(2.54/7)*180=144.6 -->
-            <!-- FY21:5.73 => y=210-(5.73/7)*180=62.6 -->
-            <!-- FY22:6.05 => y=210-(6.05/7)*180=54.3 -->
-            <!-- FY23:5.07 => y=210-(5.07/7)*180=79.6 -->
-            <!-- FY24:5.70 => y=210-(5.70/7)*180=63.4 -->
-            <!-- FY25:3.22 => y=210-(3.22/7)*180=127.2 -->
-            <polyline points="100,145 192,63 284,54 376,80 468,63 560,127"
-                      fill="none" stroke="var(--green)" stroke-width="2.5" stroke-linejoin="round"/>
-            <circle cx="100" cy="145" r="5" fill="var(--green)" stroke="var(--s2)" stroke-width="2"/>
-            <circle cx="192" cy="63" r="5" fill="var(--green)" stroke="var(--s2)" stroke-width="2"/>
-            <circle cx="284" cy="54" r="5" fill="var(--green)" stroke="var(--s2)" stroke-width="2"/>
-            <circle cx="376" cy="80" r="5" fill="var(--green)" stroke="var(--s2)" stroke-width="2"/>
-            <circle cx="468" cy="63" r="5" fill="var(--green)" stroke="var(--s2)" stroke-width="2"/>
-            <circle cx="560" cy="127" r="5" fill="var(--green)" stroke="var(--s2)" stroke-width="2"/>
-            <!-- NI labels -->
-            <text x="100" y="139" text-anchor="middle" class="bar-value" fill="#c49b0e">2.5</text>
-            <text x="192" y="57" text-anchor="middle" class="bar-value" fill="#c49b0e">5.7</text>
-            <text x="284" y="48" text-anchor="middle" class="bar-value" fill="#c49b0e">6.0</text>
-            <text x="376" y="74" text-anchor="middle" class="bar-value" fill="#c49b0e">5.1</text>
-            <text x="468" y="57" text-anchor="middle" class="bar-value" fill="#c49b0e">5.7</text>
-            <text x="560" y="121" text-anchor="middle" class="bar-value" fill="var(--red)" font-size="13" font-weight="600">3.2</text>
-            <!-- X-axis -->
-            <text x="100" y="228" text-anchor="middle" class="bar-label">FY20</text>
-            <text x="192" y="228" text-anchor="middle" class="bar-label">FY21</text>
-            <text x="284" y="228" text-anchor="middle" class="bar-label">FY22</text>
-            <text x="376" y="228" text-anchor="middle" class="bar-label">FY23</text>
-            <text x="468" y="228" text-anchor="middle" class="bar-label">FY24</text>
-            <text x="560" y="228" text-anchor="middle" class="bar-label">FY25</text>
-          </svg>
-          <div class="chart-legend">
-            <div class="legend-item"><div class="legend-dot" style="background:#58a6ff;"></div> <span style="display:inline-block;width:12px;height:12px;background:var(--blue);border-radius:2px;margin-right:6px;vertical-align:middle;"></span>Revenue ($B)</div>
-            <div class="legend-item"><div class="legend-dot" style="background:var(--gold);"></div> <span style="display:inline-block;width:12px;height:3px;background:var(--green);border-radius:2px;margin-right:6px;vertical-align:middle;"></span>Net Income ($B)</div>
+        <div class="chart-container" style="padding:1.5rem 1rem 1rem;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem;padding:0 0.5rem;">
+            <div class="chart-title" style="border:none;margin:0;padding:0;">Revenue & Net Income</div>
+            <div style="display:flex;gap:1.25rem;font-size:0.75rem;color:var(--t3);">
+              <span style="display:flex;align-items:center;gap:0.4rem;"><span style="width:12px;height:12px;background:var(--blue);border-radius:3px;opacity:0.85;"></span> Revenue ($B)</span>
+              <span style="display:flex;align-items:center;gap:0.4rem;"><span style="width:16px;height:3px;background:var(--green);border-radius:2px;"></span> Net Income ($B)</span>
+            </div>
           </div>
+          <svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;" preserveAspectRatio="xMidYMid meet">
+            <line x1="65" y1="40" x2="670" y2="40" stroke="var(--b1)" stroke-width="0.5"/>
+            <line x1="65" y1="90" x2="670" y2="90" stroke="var(--b1)" stroke-width="0.5"/>
+            <line x1="65" y1="140" x2="670" y2="140" stroke="var(--b1)" stroke-width="0.5"/>
+            <line x1="65" y1="190" x2="670" y2="190" stroke="var(--b1)" stroke-width="0.5"/>
+            <line x1="65" y1="240" x2="670" y2="240" stroke="var(--b2)" stroke-width="1"/>
+            <text x="58" y="44" text-anchor="end" class="axis-label">$55B</text>
+            <text x="58" y="94" text-anchor="end" class="axis-label">$41B</text>
+            <text x="58" y="144" text-anchor="end" class="axis-label">$27B</text>
+            <text x="58" y="194" text-anchor="end" class="axis-label">$14B</text>
+            <text x="58" y="244" text-anchor="end" class="axis-label">$0</text>
+            <rect x="85" y="104" width="60" height="136" rx="4" fill="var(--blue)" opacity="0.85"/>
+            <text x="115" y="96" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="13" font-weight="600" fill="var(--t1)">37.4</text>
+            <rect x="185" y="78" width="60" height="162" rx="4" fill="var(--blue)" opacity="0.85"/>
+            <text x="215" y="70" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="13" font-weight="600" fill="var(--t1)">44.5</text>
+            <rect x="285" y="70" width="60" height="170" rx="4" fill="var(--blue)" opacity="0.85"/>
+            <text x="315" y="62" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="13" font-weight="600" fill="var(--t1)">46.7</text>
+            <rect x="385" y="54" width="60" height="186" rx="4" fill="var(--blue)" opacity="0.85"/>
+            <text x="415" y="46" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="13" font-weight="600" fill="var(--t1)">51.2</text>
+            <rect x="485" y="53" width="60" height="187" rx="4" fill="var(--blue)" opacity="0.85"/>
+            <text x="515" y="45" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="13" font-weight="600" fill="var(--t1)">51.4</text>
+            <rect x="585" y="72" width="60" height="168" rx="4" fill="var(--red)" opacity="0.85"/>
+            <text x="615" y="64" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="13" font-weight="700" fill="var(--red)">46.3</text>
+            <polyline points="115,167 215,76 315,67 415,95 515,77 615,148" fill="none" stroke="var(--green)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+            <circle cx="115" cy="167" r="5" fill="var(--green)" stroke="var(--s2)" stroke-width="2.5"/>
+            <circle cx="215" cy="76" r="5" fill="var(--green)" stroke="var(--s2)" stroke-width="2.5"/>
+            <circle cx="315" cy="67" r="5" fill="var(--green)" stroke="var(--s2)" stroke-width="2.5"/>
+            <circle cx="415" cy="95" r="5" fill="var(--green)" stroke="var(--s2)" stroke-width="2.5"/>
+            <circle cx="515" cy="77" r="5" fill="var(--green)" stroke="var(--s2)" stroke-width="2.5"/>
+            <circle cx="615" cy="148" r="5" fill="var(--red)" stroke="var(--s2)" stroke-width="2.5"/>
+            <text x="138" y="171" font-family="'IBM Plex Mono',monospace" font-size="11" font-weight="600" fill="var(--green)" paint-order="stroke" stroke="var(--s2)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">2.5B</text>
+            <text x="238" y="72" font-family="'IBM Plex Mono',monospace" font-size="11" font-weight="600" fill="var(--green)" paint-order="stroke" stroke="var(--s2)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">5.7B</text>
+            <text x="338" y="63" font-family="'IBM Plex Mono',monospace" font-size="11" font-weight="600" fill="var(--green)" paint-order="stroke" stroke="var(--s2)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">6.0B</text>
+            <text x="438" y="91" font-family="'IBM Plex Mono',monospace" font-size="11" font-weight="600" fill="var(--green)" paint-order="stroke" stroke="var(--s2)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">5.1B</text>
+            <text x="538" y="73" font-family="'IBM Plex Mono',monospace" font-size="11" font-weight="600" fill="var(--green)" paint-order="stroke" stroke="var(--s2)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">5.7B</text>
+            <text x="638" y="144" font-family="'IBM Plex Mono',monospace" font-size="11" font-weight="700" fill="var(--red)" paint-order="stroke" stroke="var(--s2)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">3.2B</text>
+            <text x="115" y="262" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="12" fill="var(--t3)">FY20</text>
+            <text x="215" y="262" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="12" fill="var(--t3)">FY21</text>
+            <text x="315" y="262" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="12" fill="var(--t3)">FY22</text>
+            <text x="415" y="262" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="12" fill="var(--t3)">FY23</text>
+            <text x="515" y="262" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="12" fill="var(--t3)">FY24</text>
+            <text x="615" y="262" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="12" fill="var(--t3)">FY25</text>
+          </svg>
         </div>
 
         <!-- Margin Chart -->
