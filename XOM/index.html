@@ -186,8 +186,6 @@ tr:hover { background: var(--bg-card-hover); }
 @media (max-width: 1024px) {
   .grid-2, .grid-3 { grid-template-columns: 1fr; }
   .header-right { display: none; }
-  .main-content { padding: 24px; }
-  .gauge-card { min-width: 220px; }
 }
 
 /* Red flag cards */
@@ -204,10 +202,9 @@ tr:hover { background: var(--bg-card-hover); }
   font-size: 10px; font-weight: 700; letter-spacing: 0.5px;
 }
 .severity-HIGH { background: var(--accent-red-dim); color: var(--accent-red); }
-.severity-CRITICAL { background: var(--accent-red-dim); color: var(--accent-red); }
-.severity-MODERATE { background: var(--accent-yellow-dim); color: var(--accent-yellow); }
+.severity-MEDIUM { background: var(--accent-yellow-dim); color: var(--accent-yellow); }
 .severity-LOW { background: var(--accent-green-dim); color: var(--accent-green); }
-.severity-LOW-MODERATE { background: var(--accent-yellow-dim); color: var(--accent-orange); }
+.severity-CRITICAL { background: var(--accent-red-dim); color: var(--accent-red); }
 
 /* Timeline */
 .timeline { position: relative; padding-left: 24px; }
@@ -296,14 +293,25 @@ tr:hover { background: var(--bg-card-hover); }
 .exec-summary { font-size: 15px; line-height: 1.8; color: var(--text-primary); }
 .exec-summary p { margin-bottom: 16px; text-align: justify; }
 
-/* Sortable indicator */
-th.sortable { cursor: pointer; }
-th.sortable:hover { color: var(--accent-blue); }
-th.sortable::after { content: ' \2195'; font-size: 10px; opacity: 0.4; }
-
 /* Stacked bar */
 .stacked-bar { display: flex; height: 28px; border-radius: 6px; overflow: hidden; margin-bottom: 4px; }
 .stacked-seg { display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 600; color: #fff; min-width: 20px; }
+
+/* Crash analysis hero (optional — use if relevant) */
+.crash-hero {
+  background: linear-gradient(135deg, rgba(34,197,94,0.08) 0%, rgba(59,130,246,0.08) 100%);
+  border: 2px solid rgba(34,197,94,0.3);
+  border-radius: 16px; padding: 32px; margin-bottom: 24px;
+}
+.crash-hero h3 { font-size: 20px; margin-bottom: 12px; color: var(--accent-green); }
+.crash-metric { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 600; margin: 4px; }
+
+
+/* ============ TABLET (<1024px) ============ */
+@media (max-width: 1024px) {
+  .main-content { padding: 24px; }
+  .gauge-card { min-width: 220px; }
+}
 
 /* ============ PHONE (<768px) ============ */
 @media (max-width: 768px) {
@@ -358,6 +366,7 @@ th.sortable::after { content: ' \2195'; font-size: 10px; opacity: 0.4; }
   .bar-value { width: 50px; font-size: 10px; }
   .section-title { font-size: 16px; gap: 6px; }
 }
+
 
 /* ===== MOBILE V2 FIXES (smartphone-specific) ===== */
 
@@ -437,6 +446,7 @@ th.sortable::after { content: ' \2195'; font-size: 10px; opacity: 0.4; }
   .gauge-labels span:nth-child(2) { display: none; }
   .gauge-vars { font-size: 11px !important; }
 }
+
 </style>
 </head>
 <body>
@@ -463,1369 +473,1114 @@ th.sortable::after { content: ' \2195'; font-size: 10px; opacity: 0.4; }
 <!-- Sidebar -->
 <nav class="sidebar" id="sidebar">
   <a class="nav-link active" href="#executive-summary"><span class="nav-icon">&#9670;</span> Executive Summary</a>
-  <a class="nav-link" href="#verdicts"><span class="nav-icon">&#9733;</span> Verdicts &amp; Predictions</a>
+  <a class="nav-link" href="#verdicts"><span class="nav-icon">&#9733;</span> Verdicts</a>
   <a class="nav-link" href="#financials"><span class="nav-icon">&#9635;</span> Financial Overview</a>
-  <a class="nav-link" href="#forensic"><span class="nav-icon">&#9878;</span> Forensic Scorecard</a>
-  <a class="nav-link" href="#ratios"><span class="nav-icon">&#9636;</span> Financial Ratios</a>
-  <a class="nav-link" href="#segments"><span class="nav-icon">&#9638;</span> Segment Analysis</a>
-  <a class="nav-link" href="#pioneer"><span class="nav-icon">&#9830;</span> Pioneer Acquisition</a>
+  <a class="nav-link" href="#forensic"><span class="nav-icon">&#9878;</span> Forensic Models</a>
+  <a class="nav-link" href="#segments"><span class="nav-icon">&#9638;</span> Revenue &amp; Segments</a>
+  <a class="nav-link" href="#quarterly"><span class="nav-icon">&#9637;</span> Quarterly Trends</a>
   <a class="nav-link" href="#governance"><span class="nav-icon">&#9881;</span> Governance</a>
-  <a class="nav-link" href="#insiders"><span class="nav-icon">&#9650;</span> Insider Activity</a>
-  <a class="nav-link" href="#institutional"><span class="nav-icon">&#9679;</span> Institutional Holdings</a>
-  <a class="nav-link" href="#transcript-intelligence"><span class="nav-icon">&#127897;</span> Transcript Intelligence</a>
-  <a class="nav-link" href="#red-flags"><span class="nav-icon">&#9888;</span> Red Flags Dashboard</a>
-  <a class="nav-link" href="#events"><span class="nav-icon">&#9200;</span> Material Events</a>
-  <a class="nav-link" href="#advanced"><span class="nav-icon">&#9830;</span> Debt Stress &amp; Scenarios</a>
+  <a class="nav-link" href="#insiders"><span class="nav-icon">&#9650;</span> Insider &amp; Institutional</a>
+  <a class="nav-link" href="#text-analysis"><span class="nav-icon">&#9998;</span> Text Analysis</a>
+  <a class="nav-link" href="#advanced"><span class="nav-icon">&#9830;</span> Advanced Analysis</a>
+  <a class="nav-link" href="#transcript-intel"><span class="nav-icon">&#9835;</span> Transcript Intelligence</a>
+  <a class="nav-link" href="#convergence"><span class="nav-icon">&#9733;</span> Cross-Pollination</a>
+  <a class="nav-link" href="#red-flags"><span class="nav-icon">&#9888;</span> Red Flags</a>
   <a class="nav-link" href="#watchlist"><span class="nav-icon">&#9745;</span> Monitoring Watchlist</a>
+  <a class="nav-link" href="#predictions"><span class="nav-icon">&#9200;</span> Forward Predictions</a>
 </nav>
 
 <!-- Main Content -->
 <main class="main-content">
 
-<!-- ==================== SECTION 1: EXECUTIVE SUMMARY ==================== -->
+<!-- ==================== EXECUTIVE SUMMARY ==================== -->
 <section class="section" id="executive-summary">
-  <h2 class="section-title"><span class="icon">&#9670;</span> Executive Summary</h2>
-  <div class="stats-row">
-    <div class="stat-box"><div class="stat-value">$332.2B</div><div class="stat-label">FY2025 Revenue</div></div>
-    <div class="stat-box"><div class="stat-value">$28.8B</div><div class="stat-label">FY2025 Net Income</div></div>
-    <div class="stat-box"><div class="stat-value">$52.0B</div><div class="stat-label">FY2025 Cash from Ops</div></div>
-    <div class="stat-box"><div class="stat-value">4,736</div><div class="stat-label">kBOE/d Production</div></div>
-    <div class="stat-box"><div class="stat-value negative">$10.7B</div><div class="stat-label">Cash (down from $23B)</div></div>
-  </div>
-  <div class="card exec-summary">
-    <p>Exxon Mobil Corporation enters 2026 as the world's largest publicly traded oil company by production volume, having completed the transformational $60 billion acquisition of Pioneer Natural Resources in May 2024 and integrated it in record time. Over the past two fiscal years, XOM has delivered exceptional operational execution: Permian Basin production surged from 1.2 million to 1.8 million barrels per day, Guyana's Yellowtail FPSO was delivered four months early, total oil-equivalent production grew 27% to 4,736 thousand barrels of oil equivalent per day, and structural cost savings reached $12.1 billion cumulative versus the 2019 baseline &mdash; all while holding operating costs essentially flat at $44 billion despite 30% higher production volumes. On operational execution alone, this is an A-grade management team.</p>
-    <p>However, a significant and widening gap has opened between operational excellence and financial results. Revenue declined from $414 billion (FY2022) to $332 billion (FY2025), a 19.7% drop driven by commodity price normalization from the 2022 energy supercycle. Net income fell even faster, declining 48% from $55.7 billion to $28.8 billion. Every profitability metric is in retreat: net margin compressed from 13.5% to 8.7%, return on equity halved from 28.6% to 11.1%, and return on average capital employed fell from 24.9% to 9.3%. Earnings per share dropped from $13.26 to $6.70, with the Pioneer share issuance (545 million new shares) adding dilutive pressure.</p>
-    <p>The most concerning finding from this forensic analysis is the unsustainability of XOM's current capital allocation framework. Total shareholder distributions in FY2025 &mdash; $20.3 billion in buybacks plus an estimated $16.7 billion in dividends &mdash; totaled $37 billion, far exceeding the $23.6 billion in free cash flow. This $13.4 billion gap was funded by drawing down the cash reserve, which halved from $23.0 billion to $10.7 billion in a single year. Remarkably, this $12.3 billion cash drawdown was not discussed in any of the five earnings calls reviewed. The buyback-to-free-cash-flow ratio surged from 53% to 86% in just two years, approaching the threshold where a reduction becomes inevitable unless commodity prices recover.</p>
-    <p>Transcript intelligence analysis across five quarters reveals management confidence at a five-quarter high (0.87 score in Q4-2025), featuring absolutist claims such as &quot;no company can match&quot; on AI capabilities and &quot;only viable option at scale&quot; on carbon capture. This confidence escalation coincides with declining financials, producing a text-versus-tone alignment score of 0.43 &mdash; well below the 0.55 to 0.65 benchmark for large-cap companies. The $2.9 billion gap between the $15 billion in cost savings claimed in earnings calls and the $12.1 billion reported in SEC filings is the only financial metric where management's public statements exceed what the XBRL data confirms.</p>
-    <p>Governance is a genuine bright spot. XOM features no employment contracts, no severance agreements, no change-in-control provisions, 94% of CEO compensation at-risk, 80% stock-based delivery with 5-10 year restriction periods, 90% board independence, and a full clawback policy. No discretionary insider selling was detected across 100 Form 4 filings over two years. The 2021 Engine No. 1 activist campaign resulted in 8 new directors since then, fundamentally refreshing the board. XOM's five-year total shareholder return of 97% outperformed its peer group's 33% by a wide margin.</p>
-    <p>The forward trajectory is bifurcated: operationally improving but financially deteriorating. Resolution depends almost entirely on commodity prices &mdash; something outside management's control. At $85+ Brent, operational improvements translate to financial outperformance. Below $70, the buyback program becomes untenable and capital allocation must be recalibrated. XOM remains a well-run oil company with world-class assets, but the narrative has outrun the numbers, and the capital return structure is borrowing from the balance sheet to maintain appearances.</p>
-  </div>
+<h2 class="section-title"><span class="icon">&#9670;</span> Executive Summary</h2>
+
+<div class="stats-row">
+  <div class="stat-box"><div class="stat-value neutral">$332.2B</div><div class="stat-label">FY2025 Revenue</div></div>
+  <div class="stat-box"><div class="stat-value neutral">$28.8B</div><div class="stat-label">Net Income</div></div>
+  <div class="stat-box"><div class="stat-value positive">$52.0B</div><div class="stat-label">Cash from Operations</div></div>
+  <div class="stat-box"><div class="stat-value negative">$10.7B</div><div class="stat-label">Cash &amp; Equivalents</div></div>
+  <div class="stat-box"><div class="stat-value neutral">$28.4B</div><div class="stat-label">Capital Expenditures</div></div>
+</div>
+
+<div class="card">
+<div class="exec-summary">
+<p>Exxon Mobil Corporation enters 2026 as the world's largest publicly traded oil company by production volume, having completed the transformational $60 billion acquisition of Pioneer Natural Resources in May 2024 and integrated it in record time. Over the past two fiscal years, XOM has delivered exceptional operational execution: Permian Basin production surged from 1.2 million to 1.8 million barrels per day, Guyana's Yellowtail FPSO was delivered four months early, total oil-equivalent production grew 27% to 4,736 thousand barrels of oil equivalent per day, and structural cost savings reached $12.1 billion cumulative versus the 2019 baseline &mdash; all while holding operating costs essentially flat at $44 billion despite 30% higher production volumes. On operational execution alone, this is an A-grade management team.</p>
+
+<p>However, a significant and widening gap has opened between operational excellence and financial results. Revenue declined from $414 billion (FY2022) to $332 billion (FY2025), a 19.7% drop driven by commodity price normalization from the 2022 energy supercycle. Net income fell even faster, declining 48% from $55.7 billion to $28.8 billion. Every profitability metric is in retreat: net margin compressed from 13.5% to 8.7%, return on equity halved from 28.6% to 11.1%, and return on average capital employed fell from 24.9% to 9.3%. Earnings per share dropped from $13.26 to $6.70, with the Pioneer share issuance (545 million new shares) adding dilutive pressure.</p>
+
+<p>The most concerning finding from this forensic analysis is the unsustainability of XOM's current capital allocation framework. Total shareholder distributions in FY2025 &mdash; $20.3 billion in buybacks plus an estimated $16.7 billion in dividends &mdash; totaled $37 billion, far exceeding the $23.6 billion in free cash flow. This $13.4 billion gap was funded by drawing down the cash reserve, which halved from $23.0 billion to $10.7 billion in a single year. Remarkably, this $12.3 billion cash drawdown was not discussed in any of the five earnings calls reviewed. The buyback-to-free-cash-flow ratio surged from 53% to 86% in just two years, approaching the threshold where a reduction becomes inevitable unless commodity prices recover.</p>
+
+<p>Transcript intelligence analysis across five quarters reveals management confidence at a five-quarter high (0.87 score in Q4-2025), featuring absolutist claims such as &ldquo;no company can match&rdquo; on AI capabilities and &ldquo;only viable option at scale&rdquo; on carbon capture. This confidence escalation coincides with declining financials, producing a text-versus-tone alignment score of 0.43 &mdash; well below the 0.55 to 0.65 benchmark for large-cap companies. The $2.9 billion gap between the $15 billion in cost savings claimed in earnings calls and the $12.1 billion reported in SEC filings is the only financial metric where management's public statements exceed what the XBRL data confirms.</p>
+
+<p>Governance is a genuine bright spot. XOM features no employment contracts, no severance agreements, no change-in-control provisions, 94% of CEO compensation at-risk, 80% stock-based delivery with 5-10 year restriction periods, 90% board independence, and a full clawback policy. No discretionary insider selling was detected across 100 Form 4 filings over two years. The 2021 Engine No. 1 activist campaign resulted in 8 new directors since then, fundamentally refreshing the board. XOM's five-year total shareholder return of 97% outperformed its peer group's 33% by a wide margin.</p>
+
+<p>The forward trajectory is bifurcated: operationally improving but financially deteriorating. Resolution depends almost entirely on commodity prices &mdash; something outside management's control. At $85+ Brent, operational improvements translate to financial outperformance. Below $70, the buyback program becomes untenable and capital allocation must be recalibrated. XOM remains a well-run oil company with world-class assets, but the narrative has outrun the numbers, and the capital return structure is borrowing from the balance sheet to maintain appearances.</p>
+</div>
+</div>
 </section>
 
-<!-- ==================== SECTION 2: VERDICTS & PREDICTIONS ==================== -->
+<!-- ==================== VERDICTS ==================== -->
 <section class="section" id="verdicts">
-  <h2 class="section-title"><span class="icon">&#9733;</span> Verdicts &amp; Predictions</h2>
+<h2 class="section-title"><span class="icon">&#9733;</span> Verdicts</h2>
 
-  <div class="grid-3" style="margin-bottom:24px;">
-    <div class="card" style="border-top:3px solid var(--accent-yellow);">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-        <div class="card-title">Business Quality</div>
-        <span class="verdict-badge badge-yellow">GOOD &mdash; WITH CAVEATS</span>
-      </div>
-      <div style="font-size:12px;color:var(--text-secondary);margin-bottom:8px;">Score: 72/100 &middot; Confidence: 82%</div>
-      <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;">World-class Permian and Guyana assets with industry-leading production growth (27% in 2 years). Specialty Products delivers 35.4% ROCE. CFO of $52B even in weak commodity environment. However, 72% of earnings from upstream oil &amp; gas makes the business overwhelmingly commodity-dependent. Emerging businesses (CCUS, lithium) generate zero revenue and are 5-10 years from materiality. Chemical Products at 2.7% ROCE is below cost of capital.</p>
-      <div style="margin-top:12px;">
-        <div style="font-size:11px;font-weight:600;color:var(--text-muted);margin-bottom:6px;text-transform:uppercase;">Key Evidence</div>
-        <ul style="font-size:12px;color:var(--text-secondary);padding-left:16px;line-height:1.8;">
-          <li>Production grew 27% to 4,736 kBOE/d (FY2023-FY2025)</li>
-          <li>Structural cost savings of $12.1B versus 2019 baseline</li>
-          <li>Specialty Products ROCE 35.4% &mdash; hidden gem</li>
-          <li>Chemical Products ROCE collapsed to 2.7%</li>
-          <li>Revenue per BOE declining 22% over 2 years</li>
-        </ul>
-      </div>
-    </div>
+<div class="grid-3">
 
-    <div class="card" style="border-top:3px solid var(--accent-yellow);">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-        <div class="card-title">Management Quality</div>
-        <span class="verdict-badge badge-yellow">COMPETENT OPERATORS</span>
-      </div>
-      <div style="font-size:12px;color:var(--text-secondary);margin-bottom:8px;">Score: 72/100 &middot; Confidence: 85%</div>
-      <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;">CEO Darren Woods has delivered exceptional operational execution &mdash; production targets consistently exceeded, Pioneer integrated in record time, Yellowtail FPSO delivered 4 months early. Best-in-class governance with no employment contracts, no severance, 94% at-risk comp. However, text-vs-tone alignment at 0.43 reveals systematic narrative overreach as confidence escalates while financials decline.</p>
-      <div style="margin-top:12px;">
-        <div style="font-size:11px;font-weight:600;color:var(--text-muted);margin-bottom:6px;text-transform:uppercase;">Key Evidence</div>
-        <ul style="font-size:12px;color:var(--text-secondary);padding-left:16px;line-height:1.8;">
-          <li>Say-do alignment 0.82 on capital allocation</li>
-          <li>Buyback execution perfect (1.0 precision)</li>
-          <li>Entrenchment score 1/10 (shareholder-friendly)</li>
-          <li>$2.9B cost savings gap (transcript vs XBRL)</li>
-          <li>$12.3B cash drawdown undiscussed in 5 earnings calls</li>
-        </ul>
-      </div>
-    </div>
+<div class="card">
+<div class="card-title">Business Quality</div>
+<div class="gauge-score neutral">B &mdash; 72/100</div>
+<div class="gauge-bar">
+  <div class="gauge-fill" style="width:72%;background:var(--accent-yellow);"></div>
+</div>
+<div class="gauge-labels"><span>0</span><span>50</span><span>100</span></div>
+<p style="font-size:13px;color:var(--text-secondary);margin-top:12px;">World-class Permian and Guyana assets with industry-leading production growth (27% in 2 years). Specialty Products delivers 35.4% ROCE. CFO of $52B even in weak commodity environment. Structural cost savings of $12.1B verified. However, 72% of earnings from upstream oil &amp; gas makes the business overwhelmingly commodity-dependent. Chemical Products at 2.7% ROCE is below cost of capital. Revenue per barrel of oil equivalent declining 22% over 2 years.</p>
+</div>
 
-    <div class="card" style="border-top:3px solid var(--accent-red);">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-        <div class="card-title">Current Trajectory</div>
-        <span class="verdict-badge badge-red">FINANCIALLY DETERIORATING</span>
-      </div>
-      <div style="font-size:12px;color:var(--text-secondary);margin-bottom:8px;">Score: 58/100 &middot; Confidence: 80%</div>
-      <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;">Operationally improving but financially deteriorating. Production grew 27% while revenue declined 7% CAGR, net income declined 20% CAGR, and EPS declined 20% CAGR. Cash halved from $23B to $10.7B. Resolution depends entirely on commodity prices &mdash; outside management's control.</p>
-      <div style="margin-top:12px;">
-        <div style="font-size:11px;font-weight:600;color:var(--text-muted);margin-bottom:6px;text-transform:uppercase;">Key Evidence</div>
-        <ul style="font-size:12px;color:var(--text-secondary);padding-left:16px;line-height:1.8;">
-          <li>Revenue 3yr CAGR: -7.1%</li>
-          <li>Net income 3yr CAGR: -19.7%</li>
-          <li>FCF coverage of distributions dropped from 103% to 64%</li>
-          <li>Current ratio declining: 1.48 to 1.15</li>
-          <li>At $85+ Brent: positive. Below $70: buyback untenable</li>
-        </ul>
-      </div>
-    </div>
-  </div>
+<div class="card">
+<div class="card-title">Management Quality</div>
+<div class="gauge-score neutral">B &mdash; 72/100</div>
+<div class="gauge-bar">
+  <div class="gauge-fill" style="width:72%;background:var(--accent-yellow);"></div>
+</div>
+<div class="gauge-labels"><span>0</span><span>50</span><span>100</span></div>
+<p style="font-size:13px;color:var(--text-secondary);margin-top:12px;">Say-do alignment score of 0.82 on capital allocation. Buyback execution perfect (1.0). Production targets consistently exceeded with sandbagging score of 0.85. Yellowtail delivered 4 months early. Pioneer integrated in record time. Best-in-class governance: no contracts, no severance, 94% at-risk comp, 90% board independence. However, text-vs-tone alignment at 0.43 (below 0.55-0.65 benchmark). $12.3B cash drawdown not discussed in any earnings call. $2.9B cost savings gap between transcript ($15B) and XBRL ($12.1B).</p>
+</div>
 
-  <!-- Predictions -->
-  <h3 class="card-title" style="margin:24px 0 16px;">Forensic Predictions</h3>
+<div class="card">
+<div class="card-title">Current Trajectory</div>
+<div class="gauge-score negative">C+ &mdash; 58/100</div>
+<div class="gauge-bar">
+  <div class="gauge-fill" style="width:58%;background:var(--accent-red);"></div>
+</div>
+<div class="gauge-labels"><span>0</span><span>50</span><span>100</span></div>
+<p style="font-size:13px;color:var(--text-secondary);margin-top:12px;">Production grew 27% (3,738 to 4,736 kboed) over FY2023-FY2025. Permian technology extending well EUR and reducing costs. Guyana FPSOs consistently outperforming design capacity. But revenue 3yr CAGR -7.1%, net income 3yr CAGR -19.7%, EPS 3yr CAGR -20.5%, CFO 3yr CAGR -12.2%. Cash halved from $23.0B to $10.7B. Buyback-to-FCF ratio at 0.86 approaching unsustainability. FCF/distributions coverage dropped from 103% (FY2023) to 64% (FY2025).</p>
+</div>
 
-  <div class="prediction-card">
-    <div style="display:flex;justify-content:space-between;align-items:center;">
-      <strong>Buyback Reduction Forced if Brent &lt; $75</strong>
-      <span style="font-size:12px;color:var(--accent-yellow);">65% confidence</span>
-    </div>
-    <p style="font-size:13px;color:var(--text-secondary);margin-top:8px;">XOM will be forced to reduce $20B annual buyback pace within 3-4 quarters if Brent crude remains below $75/bbl. FY2025 FCF barely covers buybacks. Cash halved. At current depletion rate, cash reaches critically low by mid-2027.</p>
-    <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">Timeframe: Q1-2026 through Q4-2026</div>
-    <div class="confidence-bar"><div class="confidence-fill" style="width:65%;background:var(--accent-yellow);"></div></div>
-  </div>
-
-  <div class="prediction-card">
-    <div style="display:flex;justify-content:space-between;align-items:center;">
-      <strong>Cost Savings Gap Will Not Be Reconciled</strong>
-      <span style="font-size:12px;color:var(--accent-yellow);">70% confidence</span>
-    </div>
-    <p style="font-size:13px;color:var(--text-secondary);margin-top:8px;">The $15B vs $12.1B XBRL gap will not be publicly reconciled. Management will shift to $18B forward target without addressing the discrepancy. XOM's narrative pattern is progressive elevation.</p>
-    <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">Timeframe: Next 2 quarters</div>
-    <div class="confidence-bar"><div class="confidence-fill" style="width:70%;background:var(--accent-yellow);"></div></div>
-  </div>
-
-  <div class="prediction-card">
-    <div style="display:flex;justify-content:space-between;align-items:center;">
-      <strong>Permian Production Exceeds 2.0M bbl/d</strong>
-      <span style="font-size:12px;color:var(--accent-green);">80% confidence</span>
-    </div>
-    <p style="font-size:13px;color:var(--text-secondary);margin-top:8px;">Trajectory: 1.2M to 1.8M bbl/d over 5 quarters. Proppant at 25% penetration targeting 50%. Management consistently under-guides and over-delivers on production targets.</p>
-    <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">Timeframe: Q4-2026</div>
-    <div class="confidence-bar"><div class="confidence-fill" style="width:80%;background:var(--accent-green);"></div></div>
-  </div>
-
-  <div class="prediction-card">
-    <div style="display:flex;justify-content:space-between;align-items:center;">
-      <strong>CCUS Contract Announcement &mdash; Minimal Revenue</strong>
-      <span style="font-size:12px;color:var(--accent-yellow);">55% confidence</span>
-    </div>
-    <p style="font-size:13px;color:var(--text-secondary);margin-top:8px;">XOM will announce at least one signed CCUS customer contract by Q4-2026, but revenue materiality will be minimal. Q4-2025 management stated &quot;hopefully by year end.&quot; Hyperscaler conversations described as &quot;very serious.&quot;</p>
-    <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">Timeframe: Q2-2026 through Q4-2026</div>
-    <div class="confidence-bar"><div class="confidence-fill" style="width:55%;background:var(--accent-yellow);"></div></div>
-  </div>
-
-  <div class="prediction-card">
-    <div style="display:flex;justify-content:space-between;align-items:center;">
-      <strong>Narrative Confidence Tempering Expected</strong>
-      <span style="font-size:12px;color:var(--text-muted);">50% confidence</span>
-    </div>
-    <p style="font-size:13px;color:var(--text-secondary);margin-top:8px;">Management will begin tempering absolutist competitive claims by Q2-Q3 2026 as financials force recalibration. VL4 alignment score 0.43 already below benchmark. Narrative corrections typically lag financial deterioration by 2-3 quarters.</p>
-    <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">Timeframe: Q2-2026 through Q3-2026</div>
-    <div class="confidence-bar"><div class="confidence-fill" style="width:50%;background:var(--text-muted);"></div></div>
-  </div>
+</div>
 </section>
 
-<!-- ==================== SECTION 3: FINANCIAL OVERVIEW ==================== -->
+<!-- ==================== FINANCIAL OVERVIEW ==================== -->
 <section class="section" id="financials">
-  <h2 class="section-title"><span class="icon">&#9635;</span> Financial Overview</h2>
+<h2 class="section-title"><span class="icon">&#9635;</span> Financial Overview</h2>
 
-  <!-- Revenue & Net Income Bar Charts -->
-  <div class="grid-2" style="margin-bottom:24px;">
-    <div class="card">
-      <div class="card-title">Revenue (4-Year Trend)</div>
-      <div class="bar-row">
-        <div class="bar-label">FY2022</div>
-        <div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--accent-blue);">$413.7B</div></div>
-      </div>
-      <div class="bar-row">
-        <div class="bar-label">FY2023</div>
-        <div class="bar-track"><div class="bar-fill" style="width:83%;background:var(--accent-blue);">$344.6B</div></div>
-      </div>
-      <div class="bar-row">
-        <div class="bar-label">FY2024</div>
-        <div class="bar-track"><div class="bar-fill" style="width:85%;background:var(--accent-blue);">$349.6B</div></div>
-      </div>
-      <div class="bar-row">
-        <div class="bar-label">FY2025</div>
-        <div class="bar-track"><div class="bar-fill" style="width:80%;background:var(--accent-blue);">$332.2B</div></div>
-      </div>
-      <div style="font-size:11px;color:var(--text-muted);margin-top:8px;">3-Year CAGR: <span class="negative">-7.1%</span> | Declining from FY2022 commodity supercycle peak</div>
-    </div>
-    <div class="card">
-      <div class="card-title">Net Income (4-Year Trend)</div>
-      <div class="bar-row">
-        <div class="bar-label">FY2022</div>
-        <div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--accent-green);">$55.7B</div></div>
-      </div>
-      <div class="bar-row">
-        <div class="bar-label">FY2023</div>
-        <div class="bar-track"><div class="bar-fill" style="width:65%;background:var(--accent-green);">$36.0B</div></div>
-      </div>
-      <div class="bar-row">
-        <div class="bar-label">FY2024</div>
-        <div class="bar-track"><div class="bar-fill" style="width:60%;background:var(--accent-yellow);">$33.7B</div></div>
-      </div>
-      <div class="bar-row">
-        <div class="bar-label">FY2025</div>
-        <div class="bar-track"><div class="bar-fill" style="width:52%;background:var(--accent-yellow);">$28.8B</div></div>
-      </div>
-      <div style="font-size:11px;color:var(--text-muted);margin-top:8px;">3-Year CAGR: <span class="negative">-19.7%</span> | Commodity normalization + Pioneer dilution</div>
-    </div>
-  </div>
+<div class="card">
+<h3 class="card-title collapsible" onclick="toggleCollapse(this)">Income Statement</h3>
+<div class="collapse-content">
+<div class="table-wrap">
+<table>
+<thead><tr><th>Metric</th><th class="num">FY2025</th><th class="num">FY2024</th><th class="num">FY2023</th><th class="num">FY2022</th></tr></thead>
+<tbody>
+<tr><td>Revenue</td><td class="num">$332.2B</td><td class="num">$349.6B</td><td class="num">$344.6B</td><td class="num">$413.7B</td></tr>
+<tr><td>Net Income</td><td class="num negative">$28.8B</td><td class="num">$33.7B</td><td class="num">$36.0B</td><td class="num">$55.7B</td></tr>
+<tr><td>Net Income (XOM attr.)</td><td class="num negative">$27.9B</td><td class="num">$32.3B</td><td class="num">$34.7B</td><td class="num">$53.9B</td></tr>
+<tr><td>EPS (Diluted)</td><td class="num negative">$6.70</td><td class="num">$7.84</td><td class="num">$8.89</td><td class="num">$13.26</td></tr>
+<tr><td>Income Tax Expense</td><td class="num">$11.5B</td><td class="num">$13.8B</td><td class="num">$15.4B</td><td class="num">&mdash;</td></tr>
+<tr><td>DD&amp;A</td><td class="num">$26.0B</td><td class="num">$23.4B</td><td class="num">$20.6B</td><td class="num">&mdash;</td></tr>
+<tr><td>R&amp;D Spending</td><td class="num positive">$1.23B</td><td class="num">$987M</td><td class="num">$879M</td><td class="num">$824M</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
 
-  <!-- Key Financial Table -->
-  <div class="card">
-    <div class="card-title collapsible" onclick="toggleCollapse(this)">Comprehensive Financial Data (FY2022&ndash;FY2025)</div>
-    <div class="collapse-content">
-      <div style="overflow-x:auto;">
-      <table>
-        <thead>
-          <tr>
-            <th class="sortable">Metric</th>
-            <th class="sortable num">FY2022</th>
-            <th class="sortable num">FY2023</th>
-            <th class="sortable num">FY2024</th>
-            <th class="sortable num">FY2025</th>
-            <th class="sortable num">YoY Change</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>Revenue</td><td class="num">$413.7B</td><td class="num">$344.6B</td><td class="num">$349.6B</td><td class="num">$332.2B</td><td class="num negative">-5.0%</td></tr>
-          <tr><td>Net Income</td><td class="num">$55.7B</td><td class="num">$36.0B</td><td class="num">$33.7B</td><td class="num">$28.8B</td><td class="num negative">-14.4%</td></tr>
-          <tr><td>EPS (Diluted)</td><td class="num">$13.26</td><td class="num">$8.89</td><td class="num">$7.84</td><td class="num">$6.70</td><td class="num negative">-14.5%</td></tr>
-          <tr><td>Cash from Operations</td><td class="num">$76.8B</td><td class="num">$55.4B</td><td class="num">$55.0B</td><td class="num">$52.0B</td><td class="num negative">-5.6%</td></tr>
-          <tr><td>Capital Expenditures</td><td class="num">&mdash;</td><td class="num">$21.9B</td><td class="num">$24.3B</td><td class="num">$28.4B</td><td class="num neutral">+16.7%</td></tr>
-          <tr><td>Free Cash Flow</td><td class="num">&mdash;</td><td class="num">$33.5B</td><td class="num">$30.7B</td><td class="num">$23.6B</td><td class="num negative">-23.1%</td></tr>
-          <tr><td>Buybacks</td><td class="num">&mdash;</td><td class="num">$17.7B</td><td class="num">$19.6B</td><td class="num">$20.3B</td><td class="num">+3.3%</td></tr>
-          <tr><td>Dividends/Share</td><td class="num">&mdash;</td><td class="num">$3.68</td><td class="num">$3.84</td><td class="num">$4.00</td><td class="num positive">+4.2%</td></tr>
-          <tr><td>Total Assets</td><td class="num">$369.1B</td><td class="num">$376.3B</td><td class="num">$453.5B</td><td class="num">$449.0B</td><td class="num">-1.0%</td></tr>
-          <tr><td>Cash &amp; Equivalents</td><td class="num">&mdash;</td><td class="num">&mdash;</td><td class="num">$23.0B</td><td class="num">$10.7B</td><td class="num negative">-53.6%</td></tr>
-          <tr><td>Long-Term Debt</td><td class="num">$40.6B</td><td class="num">$37.5B</td><td class="num">$36.8B</td><td class="num">$34.2B</td><td class="num positive">-6.9%</td></tr>
-          <tr><td>Stockholders' Equity</td><td class="num">$195.0B</td><td class="num">$204.8B</td><td class="num">$263.7B</td><td class="num">$259.4B</td><td class="num">-1.6%</td></tr>
-          <tr><td>Shares Outstanding</td><td class="num">4,082M</td><td class="num">3,971M</td><td class="num">4,353M</td><td class="num">4,179M</td><td class="num positive">-4.0%</td></tr>
-          <tr><td>R&amp;D Spending</td><td class="num">$824M</td><td class="num">$879M</td><td class="num">$987M</td><td class="num">$1,228M</td><td class="num positive">+24.4%</td></tr>
-          <tr><td>Employees</td><td class="num">62,300</td><td class="num">61,500</td><td class="num">60,900</td><td class="num">57,900</td><td class="num">-4.9%</td></tr>
-        </tbody>
-      </table>
-      </div>
-    </div>
-  </div>
+<div class="card">
+<h3 class="card-title collapsible" onclick="toggleCollapse(this)">Balance Sheet</h3>
+<div class="collapse-content">
+<div class="table-wrap">
+<table>
+<thead><tr><th>Metric</th><th class="num">FY2025</th><th class="num">FY2024</th><th class="num">FY2023</th><th class="num">FY2022</th></tr></thead>
+<tbody>
+<tr><td>Total Assets</td><td class="num">$449.0B</td><td class="num">$453.5B</td><td class="num">$376.3B</td><td class="num">$369.1B</td></tr>
+<tr><td>Cash &amp; Equivalents</td><td class="num negative">$10.7B</td><td class="num">$23.0B</td><td class="num">&mdash;</td><td class="num">&mdash;</td></tr>
+<tr><td>PP&amp;E (Net)</td><td class="num">$299.4B</td><td class="num">$294.3B</td><td class="num">$214.9B</td><td class="num">$204.7B</td></tr>
+<tr><td>Total Liabilities</td><td class="num">$182.4B</td><td class="num">$182.9B</td><td class="num">&mdash;</td><td class="num">&mdash;</td></tr>
+<tr><td>Long-Term Debt</td><td class="num positive">$34.2B</td><td class="num">$36.8B</td><td class="num">$37.5B</td><td class="num">$40.6B</td></tr>
+<tr><td>Stockholders' Equity</td><td class="num">$259.4B</td><td class="num">$263.7B</td><td class="num">$204.8B</td><td class="num">$195.0B</td></tr>
+<tr><td>Retained Earnings</td><td class="num">$482.5B</td><td class="num">$470.9B</td><td class="num">&mdash;</td><td class="num">&mdash;</td></tr>
+<tr><td>Shares Outstanding</td><td class="num positive">4,179M</td><td class="num">4,353M</td><td class="num">3,971M</td><td class="num">4,082M</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
 
-  <!-- Production Metrics -->
-  <div class="card">
-    <div class="card-title">Production Metrics</div>
-    <div class="grid-3" style="margin-top:12px;">
-      <div class="stat-box"><div class="stat-value positive">4,736</div><div class="stat-label">kBOE/d Total (FY2025)</div></div>
-      <div class="stat-box"><div class="stat-value positive">3,329</div><div class="stat-label">Liquids kbd (FY2025)</div></div>
-      <div class="stat-box"><div class="stat-value">8,442</div><div class="stat-label">Nat Gas mmcf/d (FY2025)</div></div>
-    </div>
-    <div style="margin-top:16px;">
-      <div class="bar-row">
-        <div class="bar-label">FY2023</div>
-        <div class="bar-track"><div class="bar-fill" style="width:79%;background:var(--accent-cyan);">3,738 kBOE/d</div></div>
-      </div>
-      <div class="bar-row">
-        <div class="bar-label">FY2024</div>
-        <div class="bar-track"><div class="bar-fill" style="width:91%;background:var(--accent-cyan);">4,333 kBOE/d</div></div>
-      </div>
-      <div class="bar-row">
-        <div class="bar-label">FY2025</div>
-        <div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--accent-green);">4,736 kBOE/d</div></div>
-      </div>
-      <div style="font-size:11px;color:var(--text-muted);margin-top:8px;">2-Year Growth: <span class="positive">+26.7%</span> | Liquids +35.9%, Natural Gas +9.2% | Permian Q4-2025: 1.8M bbl/d</div>
-    </div>
-  </div>
+<div class="card">
+<h3 class="card-title collapsible" onclick="toggleCollapse(this)">Cash Flow</h3>
+<div class="collapse-content">
+<div class="table-wrap">
+<table>
+<thead><tr><th>Metric</th><th class="num">FY2025</th><th class="num">FY2024</th><th class="num">FY2023</th><th class="num">FY2022</th></tr></thead>
+<tbody>
+<tr><td>Cash from Operations</td><td class="num negative">$52.0B</td><td class="num">$55.0B</td><td class="num">$55.4B</td><td class="num">$76.8B</td></tr>
+<tr><td>Cash from Investing</td><td class="num">-$25.9B</td><td class="num">-$19.9B</td><td class="num">-$19.3B</td><td class="num">-$14.7B</td></tr>
+<tr><td>Cash from Financing</td><td class="num">-$39.1B</td><td class="num">-$42.8B</td><td class="num">-$34.3B</td><td class="num">-$39.1B</td></tr>
+<tr><td>Capital Expenditures</td><td class="num">$28.4B</td><td class="num">$24.3B</td><td class="num">$21.9B</td><td class="num">&mdash;</td></tr>
+<tr><td>Share Buybacks</td><td class="num">$20.3B</td><td class="num">$19.6B</td><td class="num">$17.7B</td><td class="num">&mdash;</td></tr>
+<tr><td>Free Cash Flow</td><td class="num negative">$23.6B</td><td class="num">$30.7B</td><td class="num">$33.5B</td><td class="num">&mdash;</td></tr>
+<tr><td>Dividends/Share</td><td class="num positive">$4.00</td><td class="num">$3.84</td><td class="num">$3.68</td><td class="num">&mdash;</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
 
-  <!-- Cash Flow Waterfall -->
-  <div class="card">
-    <div class="card-title">FY2025 Cash Flow Allocation</div>
-    <div class="bar-row">
-      <div class="bar-label">CFO</div>
-      <div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--accent-green);">$52.0B</div></div>
-    </div>
-    <div class="bar-row">
-      <div class="bar-label">CapEx</div>
-      <div class="bar-track"><div class="bar-fill" style="width:55%;background:var(--accent-orange);">-$28.4B</div></div>
-    </div>
-    <div class="bar-row">
-      <div class="bar-label">Buybacks</div>
-      <div class="bar-track"><div class="bar-fill" style="width:39%;background:var(--accent-purple);">-$20.3B</div></div>
-    </div>
-    <div class="bar-row">
-      <div class="bar-label">Dividends (est.)</div>
-      <div class="bar-track"><div class="bar-fill" style="width:32%;background:var(--accent-blue);">-$16.7B</div></div>
-    </div>
-    <div style="font-size:12px;color:var(--accent-red);margin-top:12px;font-weight:600;">Gap: Total distributions ($37B) exceed FCF ($23.6B) by $13.4B &mdash; funded by cash reserve drawdown</div>
-  </div>
+<div class="card">
+<h3 class="card-title collapsible" onclick="toggleCollapse(this)">Growth &amp; Profitability Metrics</h3>
+<div class="collapse-content">
+<div class="table-wrap">
+<table>
+<thead><tr><th>Metric</th><th class="num">FY2025</th><th class="num">FY2024</th><th class="num">FY2023</th><th class="num">FY2022</th></tr></thead>
+<tbody>
+<tr><td>Net Margin (%)</td><td class="num negative">8.68%</td><td class="num">9.63%</td><td class="num">10.45%</td><td class="num">13.48%</td></tr>
+<tr><td>ROA (%)</td><td class="num negative">6.42%</td><td class="num">7.43%</td><td class="num">9.57%</td><td class="num">15.10%</td></tr>
+<tr><td>ROE (%)</td><td class="num negative">11.12%</td><td class="num">12.77%</td><td class="num">17.58%</td><td class="num">28.57%</td></tr>
+<tr><td>ROCE (%)</td><td class="num negative">9.3%</td><td class="num">12.7%</td><td class="num">15.0%</td><td class="num">24.9%</td></tr>
+<tr><td>Current Ratio</td><td class="num negative">1.15</td><td class="num">1.31</td><td class="num">1.48</td><td class="num">1.41</td></tr>
+<tr><td>Debt-to-Equity</td><td class="num positive">0.132</td><td class="num">0.139</td><td class="num">0.183</td><td class="num">&mdash;</td></tr>
+<tr><td>Asset Turnover</td><td class="num negative">0.74</td><td class="num">0.77</td><td class="num">0.92</td><td class="num">1.12</td></tr>
+<tr><td>Buyback/FCF Ratio</td><td class="num negative">0.86</td><td class="num">0.64</td><td class="num">0.53</td><td class="num">&mdash;</td></tr>
+</tbody>
+</table>
+</div>
+
+<div style="margin-top:16px;">
+<div class="bar-row"><div class="bar-label">Revenue 3yr CAGR</div><div class="bar-track"><div class="bar-fill" style="width:30%;background:var(--accent-red);">-7.1%</div></div><div class="bar-value negative">-7.1%</div></div>
+<div class="bar-row"><div class="bar-label">Net Income 3yr CAGR</div><div class="bar-track"><div class="bar-fill" style="width:40%;background:var(--accent-red);">-19.7%</div></div><div class="bar-value negative">-19.7%</div></div>
+<div class="bar-row"><div class="bar-label">EPS 3yr CAGR</div><div class="bar-track"><div class="bar-fill" style="width:42%;background:var(--accent-red);">-20.5%</div></div><div class="bar-value negative">-20.5%</div></div>
+<div class="bar-row"><div class="bar-label">CFO 3yr CAGR</div><div class="bar-track"><div class="bar-fill" style="width:35%;background:var(--accent-red);">-12.2%</div></div><div class="bar-value negative">-12.2%</div></div>
+<div class="bar-row"><div class="bar-label">Production 2yr Growth</div><div class="bar-track"><div class="bar-fill" style="width:54%;background:var(--accent-green);">+26.7%</div></div><div class="bar-value positive">+26.7%</div></div>
+<div class="bar-row"><div class="bar-label">CapEx 2yr CAGR</div><div class="bar-track"><div class="bar-fill" style="width:45%;background:var(--accent-yellow);">+13.7%</div></div><div class="bar-value neutral">+13.7%</div></div>
+</div>
+
+</div>
+</div>
+
 </section>
 
-<!-- ==================== SECTION 4: FORENSIC SCORECARD ==================== -->
+<!-- ==================== FORENSIC MODELS ==================== -->
 <section class="section" id="forensic">
-  <h2 class="section-title"><span class="icon">&#9878;</span> Forensic Scorecard</h2>
+<h2 class="section-title"><span class="icon">&#9878;</span> Forensic Models</h2>
 
-  <div class="gauge-container">
-    <!-- Beneish M-Score -->
-    <div class="gauge-card">
-      <div class="gauge-title">Beneish M-Score (Partial: 6 of 8 Variables)</div>
-      <div class="gauge-subtitle">Earnings Manipulation Detection &middot; FY2025 vs FY2024</div>
-      <div class="gauge-bar">
-        <div class="gauge-zones">
-          <div class="gauge-zone" style="width:60%;background:var(--accent-green);"></div>
-          <div class="gauge-zone" style="width:40%;background:var(--accent-red);"></div>
-        </div>
-        <div class="gauge-marker" style="left:25%;"></div>
-      </div>
-      <div class="gauge-labels"><span>Safe Zone</span><span>Threshold: -1.78</span><span>Manipulation Zone</span></div>
-      <div class="gauge-score positive">LOW RISK</div>
-      <div class="gauge-vars">
-        <strong>DSRI:</strong> 1.066 (slight DSO increase, normal)<br>
-        <strong>AQI:</strong> 0.995 (asset quality unchanged)<br>
-        <strong>SGI:</strong> 0.950 (revenue declined &mdash; less manipulation incentive)<br>
-        <strong>DEPI:</strong> 0.924 (accelerating depreciation &mdash; opposite of manipulation)<br>
-        <strong>TATA:</strong> -0.052 (strongly negative &mdash; excellent cash quality)<br>
-        <strong>LVGI:</strong> 1.007 (leverage unchanged)<br>
-        <span style="color:var(--text-muted);">Missing: GMI (no CostOfRevenue), SGAI (no SGA) &mdash; industry characteristic, not evasion</span>
-      </div>
-    </div>
+<div class="gauge-container">
 
-    <!-- Altman Z-Score -->
-    <div class="gauge-card">
-      <div class="gauge-title">Altman Z-Score</div>
-      <div class="gauge-subtitle">Bankruptcy Probability &middot; FY2025</div>
-      <div class="gauge-bar">
-        <div class="gauge-zones">
-          <div class="gauge-zone" style="width:30%;background:var(--accent-red);"></div>
-          <div class="gauge-zone" style="width:20%;background:var(--accent-yellow);"></div>
-          <div class="gauge-zone" style="width:50%;background:var(--accent-green);"></div>
-        </div>
-        <div class="gauge-marker" style="left:72%;"></div>
-      </div>
-      <div class="gauge-labels"><span>&lt;1.81 Distress</span><span>1.81-2.99 Grey</span><span>&gt;2.99 Safe</span></div>
-      <div class="gauge-score positive">3.43</div>
-      <div class="gauge-vars">
-        <strong>X1 (WC/Assets):</strong> 0.025<br>
-        <strong>X2 (RE/Assets):</strong> 1.075 (massive retained earnings $482B)<br>
-        <strong>X3 (EBIT/Assets):</strong> 0.093<br>
-        <strong>X4 (Equity/Liabilities):</strong> 1.422<br>
-        <strong>X5 (Revenue/Assets):</strong> 0.740<br>
-        <span style="color:var(--accent-green);">SAFE ZONE &mdash; Even 80% EBIT decline maintains adequate coverage</span>
-      </div>
-    </div>
+<div class="gauge-card">
+<div class="gauge-title">Beneish M-Score</div>
+<div class="gauge-subtitle">Earnings Manipulation Detection (Partial &mdash; 6 of 8 variables)</div>
+<div class="gauge-score positive">LOW RISK</div>
+<div class="gauge-bar">
+  <div class="gauge-zones">
+    <div class="gauge-zone" style="width:60%;background:var(--accent-green);"></div>
+    <div class="gauge-zone" style="width:20%;background:var(--accent-yellow);"></div>
+    <div class="gauge-zone" style="width:20%;background:var(--accent-red);"></div>
   </div>
+  <div class="gauge-marker" style="left:25%;"></div>
+</div>
+<div class="gauge-labels"><span>Low Risk</span><span>-1.78 Threshold</span><span>High Risk</span></div>
+<div class="gauge-vars">
+DSRI: 1.066 (slight DSO increase, normal range)<br>
+AQI: 0.995 (asset quality unchanged)<br>
+SGI: 0.95 (revenue declined 5%)<br>
+DEPI: 0.924 (depreciation rate increased &mdash; anti-manipulation)<br>
+TATA: -0.052 (cash flow exceeds net income, strong quality)<br>
+LVGI: 1.007 (leverage unchanged)<br>
+<em>Missing: GMI, SGAI (integrated cost model)</em>
+</div>
+</div>
 
-  <div class="gauge-container" style="margin-top:20px;">
-    <!-- Piotroski F-Score -->
-    <div class="gauge-card">
-      <div class="gauge-title">Piotroski F-Score</div>
-      <div class="gauge-subtitle">Financial Strength (9 binary signals) &middot; FY2025 vs FY2024</div>
-      <div class="gauge-bar">
-        <div class="gauge-zones">
-          <div class="gauge-zone" style="width:33%;background:var(--accent-red);"></div>
-          <div class="gauge-zone" style="width:34%;background:var(--accent-yellow);"></div>
-          <div class="gauge-zone" style="width:33%;background:var(--accent-green);"></div>
-        </div>
-        <div class="gauge-marker" style="left:56%;"></div>
-      </div>
-      <div class="gauge-labels"><span>0-3 Weak</span><span>4-6 Neutral</span><span>7-9 Strong</span></div>
-      <div class="gauge-score neutral">5 / 9</div>
-      <div class="gauge-vars">
-        <span class="positive">&#10003;</span> F1: Positive net income ($28.8B)<br>
-        <span class="positive">&#10003;</span> F2: Positive CFO ($52.0B)<br>
-        <span class="negative">&#10007;</span> F3: ROA declining (6.42% vs 7.43%)<br>
-        <span class="positive">&#10003;</span> F4: CFO exceeds NI ($52B &gt; $28.8B)<br>
-        <span class="positive">&#10003;</span> F5: Leverage decreasing (7.63% vs 8.10%)<br>
-        <span class="negative">&#10007;</span> F6: Current ratio declining (1.15 vs 1.31)<br>
-        <span class="positive">&#10003;</span> F7: Shares decreased via buybacks<br>
-        <span class="negative">&#10007;</span> F8: Net margin declining (8.68% vs 9.63%)<br>
-        <span class="negative">&#10007;</span> F9: Asset turnover declining (0.740 vs 0.771)<br>
-        <span style="color:var(--text-muted);">Failures reflect cyclical commodity normalization, not business deterioration</span>
-      </div>
-    </div>
-
-    <!-- Sloan Accrual + Cash Conversion -->
-    <div class="gauge-card">
-      <div class="gauge-title">Sloan Accrual Ratio &amp; Cash Conversion</div>
-      <div class="gauge-subtitle">Earnings Quality Assessment &middot; FY2025</div>
-      <div class="gauge-bar">
-        <div class="gauge-zones">
-          <div class="gauge-zone" style="width:70%;background:var(--accent-green);"></div>
-          <div class="gauge-zone" style="width:30%;background:var(--accent-red);"></div>
-        </div>
-        <div class="gauge-marker" style="left:6%;"></div>
-      </div>
-      <div class="gauge-labels"><span>Low Accruals (Good)</span><span>Threshold: 0.10</span><span>High Accruals (Bad)</span></div>
-      <div class="gauge-score positive">0.006</div>
-      <div class="gauge-vars">
-        <strong>Sloan Ratio:</strong> 0.006 (near-zero &mdash; earnings almost entirely cash-backed)<br>
-        <strong>CFO/NI:</strong> 1.80x (FY2025) | 1.63x (FY2024) | 1.54x (FY2023) &mdash; IMPROVING<br>
-        <strong>FCF/NI:</strong> 0.82 (FY2025) | 0.91 (FY2024) | 0.93 (FY2023) &mdash; slightly declining<br>
-        <span style="color:var(--accent-green);">EXCELLENT &mdash; Every $1 of reported income backed by $1.80 of operating cash</span>
-      </div>
-    </div>
+<div class="gauge-card">
+<div class="gauge-title">Altman Z-Score</div>
+<div class="gauge-subtitle">Bankruptcy Risk Assessment</div>
+<div class="gauge-score positive">3.43 &mdash; SAFE</div>
+<div class="gauge-bar">
+  <div class="gauge-zones">
+    <div class="gauge-zone" style="width:30%;background:var(--accent-red);"></div>
+    <div class="gauge-zone" style="width:20%;background:var(--accent-yellow);"></div>
+    <div class="gauge-zone" style="width:50%;background:var(--accent-green);"></div>
   </div>
+  <div class="gauge-marker" style="left:78%;"></div>
+</div>
+<div class="gauge-labels"><span>&lt;1.81 Distress</span><span>1.81-2.99 Grey</span><span>&gt;2.99 Safe</span></div>
+<div class="gauge-vars">
+X1 Working Capital/Assets: 0.025<br>
+X2 Retained Earnings/Assets: 1.075 (dominant driver)<br>
+X3 EBIT/Assets: 0.093<br>
+X4 Equity/Liabilities: 1.422<br>
+X5 Revenue/Assets: 0.740<br>
+<em>Even 80% EBIT decline maintains adequate coverage</em>
+</div>
+</div>
 
-  <!-- Benford's Law -->
-  <div class="card" style="margin-top:20px;">
-    <div class="card-title">Benford's Law &mdash; First-Digit Distribution Test</div>
-    <div class="grid-2">
-      <div>
-        <table>
-          <thead><tr><th>Digit</th><th class="num">Observed %</th><th class="num">Expected %</th><th class="num">Deviation</th></tr></thead>
-          <tbody>
-            <tr><td>1</td><td class="num">27.8%</td><td class="num">30.1%</td><td class="num">-2.3</td></tr>
-            <tr><td>2</td><td class="num">20.3%</td><td class="num">17.6%</td><td class="num">+2.7</td></tr>
-            <tr><td>3</td><td class="num">16.0%</td><td class="num">12.5%</td><td class="num">+3.5</td></tr>
-            <tr><td>4</td><td class="num">9.6%</td><td class="num">9.7%</td><td class="num">-0.1</td></tr>
-            <tr><td>5</td><td class="num">6.4%</td><td class="num">7.9%</td><td class="num">-1.5</td></tr>
-            <tr><td>6</td><td class="num">6.4%</td><td class="num">6.7%</td><td class="num">-0.3</td></tr>
-            <tr><td>7</td><td class="num">4.8%</td><td class="num">5.8%</td><td class="num">-1.0</td></tr>
-            <tr><td>8</td><td class="num">4.8%</td><td class="num">5.1%</td><td class="num">-0.3</td></tr>
-            <tr><td>9</td><td class="num">3.7%</td><td class="num">4.6%</td><td class="num">-0.9</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div style="display:flex;flex-direction:column;justify-content:center;padding:20px;">
-        <div class="stat-value positive" style="font-size:20px;">PASS</div>
-        <div style="font-size:13px;color:var(--text-secondary);margin-top:8px;">Chi-Square: 4.16 (critical value: 15.507 at 0.05)</div>
-        <div style="font-size:13px;color:var(--text-secondary);">Sample size: 187 financial values</div>
-        <div style="font-size:13px;color:var(--text-secondary);">p-value: &gt; 0.75</div>
-        <div style="font-size:12px;color:var(--accent-green);margin-top:8px;">No evidence of digit manipulation in reported financials</div>
-      </div>
-    </div>
+<div class="gauge-card">
+<div class="gauge-title">Piotroski F-Score</div>
+<div class="gauge-subtitle">Financial Strength Signals (9 binary tests)</div>
+<div class="gauge-score neutral">5/9 &mdash; NEUTRAL</div>
+<div class="gauge-bar">
+  <div class="gauge-zones">
+    <div class="gauge-zone" style="width:33%;background:var(--accent-red);"></div>
+    <div class="gauge-zone" style="width:34%;background:var(--accent-yellow);"></div>
+    <div class="gauge-zone" style="width:33%;background:var(--accent-green);"></div>
   </div>
+  <div class="gauge-marker" style="left:56%;"></div>
+</div>
+<div class="gauge-labels"><span>0-3 Weak</span><span>4-6 Neutral</span><span>7-9 Strong</span></div>
+<div class="gauge-vars">
+<span class="positive">&#10003;</span> Positive NI ($28.8B) | <span class="positive">&#10003;</span> Positive CFO ($52.0B)<br>
+<span class="negative">&#10007;</span> ROA declining (6.42% vs 7.43%) | <span class="positive">&#10003;</span> CFO &gt; NI<br>
+<span class="positive">&#10003;</span> Leverage decreasing | <span class="negative">&#10007;</span> Current ratio declining (1.15 vs 1.31)<br>
+<span class="positive">&#10003;</span> No dilution (share buybacks) | <span class="negative">&#10007;</span> Margin declining<br>
+<span class="negative">&#10007;</span> Asset turnover declining (0.74 vs 0.77)
+</div>
+</div>
+
+<div class="gauge-card">
+<div class="gauge-title">Sloan Accrual Ratio</div>
+<div class="gauge-subtitle">Earnings Quality &mdash; Cash vs Accrual</div>
+<div class="gauge-score positive">0.006 &mdash; EXCELLENT</div>
+<div class="gauge-bar">
+  <div class="gauge-zones">
+    <div class="gauge-zone" style="width:60%;background:var(--accent-green);"></div>
+    <div class="gauge-zone" style="width:25%;background:var(--accent-yellow);"></div>
+    <div class="gauge-zone" style="width:15%;background:var(--accent-red);"></div>
+  </div>
+  <div class="gauge-marker" style="left:3%;"></div>
+</div>
+<div class="gauge-labels"><span>0.00 Best</span><span>0.10 Concern</span><span>0.25+ Red Flag</span></div>
+<div class="gauge-vars">
+Near-zero accrual ratio: earnings almost entirely cash-backed.<br>
+Formula: (NI - CFO - CFI) / Average Total Assets<br>
+Values above 0.10 are concerning. XOM's 0.006 is exceptional.
+</div>
+</div>
+
+<div class="gauge-card">
+<div class="gauge-title">Benford's Law Test</div>
+<div class="gauge-subtitle">First-Digit Distribution Analysis (187 data points)</div>
+<div class="gauge-score positive">PASS</div>
+<div class="gauge-bar">
+  <div class="gauge-zones">
+    <div class="gauge-zone" style="width:70%;background:var(--accent-green);"></div>
+    <div class="gauge-zone" style="width:30%;background:var(--accent-red);"></div>
+  </div>
+  <div class="gauge-marker" style="left:27%;"></div>
+</div>
+<div class="gauge-labels"><span>Natural Distribution</span><span>Critical: 15.507</span><span>Manipulated</span></div>
+<div class="gauge-vars">
+Chi-Square: 4.16 (well below critical value 15.507)<br>
+p-value: above 0.75<br>
+No evidence of digit manipulation in financial data.
+</div>
+</div>
+
+<div class="gauge-card">
+<div class="gauge-title">Cash Conversion Quality</div>
+<div class="gauge-subtitle">CFO-to-Net Income Ratio</div>
+<div class="gauge-score positive">1.80x &mdash; EXCELLENT</div>
+<div class="gauge-bar">
+  <div class="gauge-zones">
+    <div class="gauge-zone" style="width:20%;background:var(--accent-red);"></div>
+    <div class="gauge-zone" style="width:30%;background:var(--accent-yellow);"></div>
+    <div class="gauge-zone" style="width:50%;background:var(--accent-green);"></div>
+  </div>
+  <div class="gauge-marker" style="left:80%;"></div>
+</div>
+<div class="gauge-labels"><span>&lt;0.8x Weak</span><span>1.0-1.5x Good</span><span>&gt;1.5x Excellent</span></div>
+<div class="gauge-vars">
+FY2025: 1.80x | FY2024: 1.63x | FY2023: 1.54x | FY2022: 1.38x<br>
+Trend: <span class="positive">IMPROVING</span> &mdash; each dollar of income backed by more cash.<br>
+FCF/NI: 0.82x (FY2025), 0.91x (FY2024), 0.93x (FY2023) &mdash; still healthy.
+</div>
+</div>
+
+</div>
 </section>
 
-<!-- ==================== SECTION 5: FINANCIAL RATIOS ==================== -->
-<section class="section" id="ratios">
-  <h2 class="section-title"><span class="icon">&#9636;</span> Financial Ratios &amp; Trends</h2>
-
-  <div class="grid-2">
-    <!-- Profitability -->
-    <div class="card">
-      <div class="card-title">Profitability Ratios</div>
-      <table>
-        <thead><tr><th>Metric</th><th class="num">FY2022</th><th class="num">FY2023</th><th class="num">FY2024</th><th class="num">FY2025</th></tr></thead>
-        <tbody>
-          <tr><td>Net Margin</td><td class="num positive">13.48%</td><td class="num">10.45%</td><td class="num">9.63%</td><td class="num negative">8.68%</td></tr>
-          <tr><td>ROA</td><td class="num positive">15.10%</td><td class="num">9.57%</td><td class="num">7.43%</td><td class="num negative">6.42%</td></tr>
-          <tr><td>ROE</td><td class="num positive">28.57%</td><td class="num">17.58%</td><td class="num">12.77%</td><td class="num negative">11.12%</td></tr>
-          <tr><td>ROCE</td><td class="num positive">24.9%</td><td class="num">15.0%</td><td class="num">12.7%</td><td class="num negative">9.3%</td></tr>
-          <tr><td>Effective Tax Rate</td><td class="num">&mdash;</td><td class="num">30.0%</td><td class="num">29.1%</td><td class="num">28.5%</td></tr>
-        </tbody>
-      </table>
-      <div style="font-size:11px;color:var(--accent-red);margin-top:8px;">All profitability metrics in sustained decline from FY2022 peak. Net margin compressed 480bps, ROE halved.</div>
-    </div>
-
-    <!-- Liquidity & Leverage -->
-    <div class="card">
-      <div class="card-title">Liquidity &amp; Leverage</div>
-      <table>
-        <thead><tr><th>Metric</th><th class="num">FY2022</th><th class="num">FY2023</th><th class="num">FY2024</th><th class="num">FY2025</th></tr></thead>
-        <tbody>
-          <tr><td>Current Ratio</td><td class="num">1.41</td><td class="num positive">1.48</td><td class="num">1.31</td><td class="num negative">1.15</td></tr>
-          <tr><td>Cash Ratio</td><td class="num">&mdash;</td><td class="num">&mdash;</td><td class="num">0.328</td><td class="num negative">0.148</td></tr>
-          <tr><td>Debt-to-Equity</td><td class="num">&mdash;</td><td class="num">0.183</td><td class="num">0.139</td><td class="num positive">0.132</td></tr>
-          <tr><td>Debt-to-Capital</td><td class="num">16.9%</td><td class="num">16.4%</td><td class="num">13.4%</td><td class="num positive">14.0%</td></tr>
-          <tr><td>Net Debt/Capital</td><td class="num">5.4%</td><td class="num positive">4.5%</td><td class="num positive">6.5%</td><td class="num negative">11.0%</td></tr>
-          <tr><td>Interest Coverage</td><td class="num">&mdash;</td><td class="num">&mdash;</td><td class="num positive">37.5x</td><td class="num">34.6x</td></tr>
-          <tr><td>Working Capital</td><td class="num">&mdash;</td><td class="num">$31.3B</td><td class="num">$21.7B</td><td class="num negative">$11.1B</td></tr>
-        </tbody>
-      </table>
-      <div style="font-size:11px;color:var(--accent-red);margin-top:8px;">Working capital compressed $20B in 2 years. Cash ratio halved. Net debt doubling.</div>
-    </div>
-  </div>
-
-  <div class="grid-2" style="margin-top:16px;">
-    <!-- Efficiency -->
-    <div class="card">
-      <div class="card-title">Efficiency &amp; Per-Share Metrics</div>
-      <table>
-        <thead><tr><th>Metric</th><th class="num">FY2022</th><th class="num">FY2023</th><th class="num">FY2024</th><th class="num">FY2025</th></tr></thead>
-        <tbody>
-          <tr><td>Asset Turnover</td><td class="num positive">1.121</td><td class="num">0.916</td><td class="num">0.771</td><td class="num negative">0.740</td></tr>
-          <tr><td>DSO (days)</td><td class="num">&mdash;</td><td class="num">&mdash;</td><td class="num">36.8</td><td class="num">39.3</td></tr>
-          <tr><td>Capex Intensity</td><td class="num">&mdash;</td><td class="num">6.36%</td><td class="num">6.95%</td><td class="num">8.54%</td></tr>
-          <tr><td>Book Value/Share</td><td class="num">$47.78</td><td class="num">$51.57</td><td class="num">$60.58</td><td class="num positive">$62.07</td></tr>
-          <tr><td>FCF/Share</td><td class="num">&mdash;</td><td class="num">$8.43</td><td class="num">$7.06</td><td class="num negative">$5.65</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- Capital Returns -->
-    <div class="card">
-      <div class="card-title">Capital Returns</div>
-      <table>
-        <thead><tr><th>Metric</th><th class="num">FY2023</th><th class="num">FY2024</th><th class="num">FY2025</th></tr></thead>
-        <tbody>
-          <tr><td>Buyback/CFO</td><td class="num">32%</td><td class="num">36%</td><td class="num neutral">39%</td></tr>
-          <tr><td>Buyback/FCF</td><td class="num">53%</td><td class="num">64%</td><td class="num negative">86%</td></tr>
-          <tr><td>Distribution/CFO</td><td class="num">&mdash;</td><td class="num">&mdash;</td><td class="num negative">94%</td></tr>
-          <tr><td>FCF Coverage</td><td class="num positive">103%</td><td class="num">85%</td><td class="num negative">64%</td></tr>
-          <tr><td>Consecutive Div Increases</td><td class="num" colspan="3" style="text-align:center;">42 years</td></tr>
-        </tbody>
-      </table>
-      <div style="font-size:11px;color:var(--accent-red);margin-top:8px;">FCF coverage of distributions dropped from 103% to 64% in 2 years. $13.4B gap funded by balance sheet.</div>
-    </div>
-  </div>
-
-  <!-- Peer Comparison -->
-  <div class="card" style="margin-top:16px;">
-    <div class="card-title">Peer Comparison (FY2025)</div>
-    <table>
-      <thead><tr><th>Metric</th><th class="num">XOM</th><th class="num">CVX</th><th class="num">COP</th></tr></thead>
-      <tbody>
-        <tr><td>Net Margin</td><td class="num">8.68%</td><td class="num">6.51%</td><td class="num positive">13.55%</td></tr>
-        <tr><td>ROE</td><td class="num">11.12%</td><td class="num">6.60%</td><td class="num positive">12.39%</td></tr>
-        <tr><td>EPS</td><td class="num">$6.70</td><td class="num">$6.63</td><td class="num">$6.35</td></tr>
-      </tbody>
-    </table>
-    <div style="font-size:11px;color:var(--text-muted);margin-top:8px;">XOM margins between integrated peer CVX and pure-play upstream COP. Scale advantage shows in absolute earnings ($28.8B vs COP $8.0B).</div>
-  </div>
-</section>
-
-<!-- ==================== SECTION 6: SEGMENT ANALYSIS ==================== -->
+<!-- ==================== SEGMENTS ==================== -->
 <section class="section" id="segments">
-  <h2 class="section-title"><span class="icon">&#9638;</span> Segment Analysis</h2>
+<h2 class="section-title"><span class="icon">&#9638;</span> Revenue &amp; Segments</h2>
 
-  <div class="card" style="margin-bottom:16px;">
-    <div style="font-size:13px;color:var(--text-secondary);margin-bottom:12px;">XOM reorganized from 3 segments to 4 in FY2024, carving out Specialty Products. FY2023 restated for comparability.</div>
+<div class="card">
+<h3 class="card-title">Segment Earnings Breakdown (FY2025)</h3>
+<div class="stacked-bar">
+  <div class="stacked-seg" style="width:66%;background:var(--accent-blue);">Upstream 66%</div>
+  <div class="stacked-seg" style="width:23%;background:var(--accent-cyan);">Energy Products 23%</div>
+  <div class="stacked-seg" style="width:2.5%;background:var(--accent-orange);">Chem 2.5%</div>
+  <div class="stacked-seg" style="width:8.5%;background:var(--accent-purple);">Specialty 8.8%</div>
+</div>
+<p style="font-size:11px;color:var(--text-muted);margin-top:8px;">Upstream dominates with $21.4B (66%). Chemical Products collapsed to $0.8B (2.5%). Specialty Products steady at $2.9B (8.8%) with highest ROCE at 35.4%.</p>
+</div>
 
-    <!-- Segment Earnings -->
-    <div class="card-title">Segment Earnings ($M)</div>
-    <table>
-      <thead>
-        <tr><th class="sortable">Segment</th><th class="sortable num">FY2023</th><th class="sortable num">FY2024</th><th class="sortable num">FY2025</th><th class="sortable num">% of Total</th><th class="sortable num">YoY</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>Upstream</td><td class="num">$21,308</td><td class="num">$25,390</td><td class="num">$21,354</td><td class="num">65.8%</td><td class="num negative">-15.9%</td></tr>
-        <tr><td>Energy Products</td><td class="num">$12,142</td><td class="num">$4,033</td><td class="num">$7,423</td><td class="num">22.9%</td><td class="num positive">+84.1%</td></tr>
-        <tr><td>Chemical Products</td><td class="num">$1,637</td><td class="num">$2,577</td><td class="num">$800</td><td class="num">2.5%</td><td class="num negative">-69.0%</td></tr>
-        <tr><td>Specialty Products</td><td class="num">$2,714</td><td class="num">$3,052</td><td class="num">$2,857</td><td class="num">8.8%</td><td class="num">-6.4%</td></tr>
-        <tr><td style="color:var(--text-muted);">Corporate &amp; Financing</td><td class="num negative">($1,791)</td><td class="num negative">($1,372)</td><td class="num negative">($3,590)</td><td class="num">&mdash;</td><td class="num negative">-161.7%</td></tr>
-      </tbody>
-    </table>
-  </div>
+<div class="card">
+<h3 class="card-title collapsible" onclick="toggleCollapse(this)">Segment Earnings Detail</h3>
+<div class="collapse-content">
+<div class="table-wrap">
+<table>
+<thead><tr><th>Segment</th><th class="num">FY2025</th><th class="num">FY2024</th><th class="num">FY2023</th><th class="num">YoY Change</th></tr></thead>
+<tbody>
+<tr><td>Upstream</td><td class="num">$21.4B</td><td class="num">$25.4B</td><td class="num">$21.3B</td><td class="num negative">-15.9%</td></tr>
+<tr><td>Energy Products</td><td class="num">$7.4B</td><td class="num">$4.0B</td><td class="num">$12.1B</td><td class="num positive">+84.1%</td></tr>
+<tr><td>Chemical Products</td><td class="num">$0.8B</td><td class="num">$2.6B</td><td class="num">$1.6B</td><td class="num negative">-69.0%</td></tr>
+<tr><td>Specialty Products</td><td class="num">$2.9B</td><td class="num">$3.1B</td><td class="num">$2.7B</td><td class="num negative">-6.4%</td></tr>
+<tr><td>Corporate &amp; Financing</td><td class="num">-$3.6B</td><td class="num">-$1.4B</td><td class="num">-$1.8B</td><td class="num negative">-161.7%</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
 
-  <!-- Segment Earnings Visual -->
-  <div class="card">
-    <div class="card-title">FY2025 Segment Earnings Mix</div>
-    <div class="stacked-bar" style="height:36px;">
-      <div class="stacked-seg" style="width:65.8%;background:var(--accent-blue);" title="Upstream 65.8%">Upstream 65.8%</div>
-      <div class="stacked-seg" style="width:22.9%;background:var(--accent-cyan);" title="Energy Products 22.9%">EP 22.9%</div>
-      <div class="stacked-seg" style="width:2.5%;background:var(--accent-red);" title="Chemical Products 2.5%"></div>
-      <div class="stacked-seg" style="width:8.8%;background:var(--accent-green);" title="Specialty Products 8.8%">SP 8.8%</div>
-    </div>
-    <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">Upstream dominates at 66%. Chemical Products (red) collapsed to 2.5%. Specialty Products punches above its weight.</div>
-  </div>
+<div class="card">
+<h3 class="card-title collapsible" onclick="toggleCollapse(this)">Segment ROCE</h3>
+<div class="collapse-content">
+<div class="table-wrap">
+<table>
+<thead><tr><th>Segment</th><th class="num">FY2025</th><th class="num">FY2024</th><th class="num">FY2023</th></tr></thead>
+<tbody>
+<tr><td>Upstream</td><td class="num negative">10.2%</td><td class="num">14.2%</td><td class="num">14.9%</td></tr>
+<tr><td>Energy Products</td><td class="num positive">19.7%</td><td class="num">11.7%</td><td class="num">37.3%</td></tr>
+<tr><td>Chemical Products</td><td class="num negative">2.7%</td><td class="num">8.9%</td><td class="num">5.7%</td></tr>
+<tr><td>Specialty Products</td><td class="num positive">35.4%</td><td class="num">37.1%</td><td class="num">31.9%</td></tr>
+<tr><td style="font-weight:600;">Corporate Total</td><td class="num negative" style="font-weight:600;">9.3%</td><td class="num" style="font-weight:600;">12.7%</td><td class="num" style="font-weight:600;">15.0%</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
 
-  <!-- Segment ROCE -->
-  <div class="card" style="margin-top:16px;">
-    <div class="card-title">Segment ROCE (Return on Capital Employed)</div>
-    <table>
-      <thead><tr><th>Segment</th><th class="num">FY2023</th><th class="num">FY2024</th><th class="num">FY2025</th><th>Assessment</th></tr></thead>
-      <tbody>
-        <tr><td>Specialty Products</td><td class="num positive">31.9%</td><td class="num positive">37.1%</td><td class="num positive">35.4%</td><td><span class="positive">Hidden gem &mdash; highest margins, capital-light</span></td></tr>
-        <tr><td>Energy Products</td><td class="num positive">37.3%</td><td class="num">11.7%</td><td class="num">19.7%</td><td><span class="neutral">Most volatile &mdash; refining margin dependent</span></td></tr>
-        <tr><td>Upstream</td><td class="num">14.9%</td><td class="num">14.2%</td><td class="num">10.2%</td><td><span class="neutral">Earnings engine declining on price</span></td></tr>
-        <tr><td>Chemical Products</td><td class="num">5.7%</td><td class="num">8.9%</td><td class="num negative">2.7%</td><td><span class="negative">Below cost of capital &mdash; overcapacity</span></td></tr>
-        <tr><td style="font-weight:600;">Corporate Total</td><td class="num">15.0%</td><td class="num">12.7%</td><td class="num negative">9.3%</td><td><span class="negative">Declining from 24.9% (FY2022)</span></td></tr>
-      </tbody>
-    </table>
-  </div>
+<div class="card">
+<h3 class="card-title">Geographic Revenue Breakdown (FY2025)</h3>
+<div class="stacked-bar">
+  <div class="stacked-seg" style="width:39%;background:var(--accent-blue);">US 39%</div>
+  <div class="stacked-seg" style="width:53%;background:var(--accent-cyan);">Non-US 53%</div>
+  <div class="stacked-seg" style="width:8%;background:var(--accent-purple);">Canada 8%</div>
+</div>
+<div class="table-wrap" style="margin-top:12px;">
+<table>
+<thead><tr><th>Region</th><th class="num">FY2025</th><th class="num">FY2024</th><th class="num">FY2023</th></tr></thead>
+<tbody>
+<tr><td>United States</td><td class="num">$137.6B</td><td class="num">$138.7B</td><td class="num">$127.4B</td></tr>
+<tr><td>Non-US</td><td class="num">$186.3B</td><td class="num">$200.6B</td><td class="num">$207.3B</td></tr>
+<tr><td>Canada</td><td class="num">$27.4B</td><td class="num">$29.7B</td><td class="num">$29.0B</td></tr>
+</tbody>
+</table>
+</div>
+</div>
 
-  <!-- Segment Assets & CapEx -->
-  <div class="grid-2" style="margin-top:16px;">
-    <div class="card">
-      <div class="card-title">Segment Assets (FY2025)</div>
-      <div class="bar-row">
-        <div class="bar-label">Upstream</div>
-        <div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--accent-blue);">$154.9B</div></div>
-      </div>
-      <div class="bar-row">
-        <div class="bar-label">Energy Products</div>
-        <div class="bar-track"><div class="bar-fill" style="width:31%;background:var(--accent-cyan);">$47.3B</div></div>
-      </div>
-      <div class="bar-row">
-        <div class="bar-label">Chemical Products</div>
-        <div class="bar-track"><div class="bar-fill" style="width:12%;background:var(--accent-red);">$18.0B</div></div>
-      </div>
-      <div class="bar-row">
-        <div class="bar-label">Specialty Products</div>
-        <div class="bar-track"><div class="bar-fill" style="width:5%;background:var(--accent-green);">$8.0B</div></div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-title">Revenue by Geography (FY2025)</div>
-      <div class="stacked-bar" style="height:32px;">
-        <div class="stacked-seg" style="width:39.2%;background:var(--accent-blue);" title="US 39.2%">US 39.2%</div>
-        <div class="stacked-seg" style="width:52.3%;background:var(--accent-purple);" title="Non-US 52.3%">Non-US 52.3%</div>
-        <div class="stacked-seg" style="width:8.5%;background:var(--accent-cyan);" title="Canada 8.5%">CAN 8.5%</div>
-      </div>
-      <div style="font-size:11px;color:var(--text-muted);margin-top:8px;">US: $137.6B | Non-US: $186.3B | Canada: $27.4B<br>US share growing (38% to 39%) post-Pioneer. Non-US declining faster.</div>
-    </div>
-  </div>
 </section>
 
-<!-- ==================== SECTION 7: PIONEER ACQUISITION ==================== -->
-<section class="section" id="pioneer">
-  <h2 class="section-title"><span class="icon">&#9830;</span> Pioneer Natural Resources Acquisition Impact</h2>
-  <div class="card">
-    <div class="grid-3" style="margin-bottom:16px;">
-      <div class="stat-box"><div class="stat-value">~$60B</div><div class="stat-label">Deal Value (All-Stock)</div></div>
-      <div class="stat-box"><div class="stat-value">545M</div><div class="stat-label">New Shares Issued</div></div>
-      <div class="stat-box"><div class="stat-value positive">+22%</div><div class="stat-label">Liquids Production Increase</div></div>
-    </div>
-    <table>
-      <thead><tr><th>Impact Area</th><th>Detail</th><th>Assessment</th></tr></thead>
-      <tbody>
-        <tr><td>PP&amp;E</td><td>~$80B added to property, plant &amp; equipment</td><td><span class="neutral">Inflated asset base, compressed ROA</span></td></tr>
-        <tr><td>DDA</td><td>$23.4B to $26.0B annual depreciation</td><td><span class="neutral">Compresses net margin but stabilizes cash flow</span></td></tr>
-        <tr><td>EPS Dilution</td><td>8.2% dilutive in FY2024 from new shares</td><td><span class="negative">Being offset by $20B/year buybacks</span></td></tr>
-        <tr><td>Asset Turnover</td><td>0.92 to 0.74 compression</td><td><span class="negative">Inflated asset base reduces efficiency ratios</span></td></tr>
-        <tr><td>ROE Compression</td><td>17.6% to 12.8%</td><td><span class="negative">Higher equity base dilutes returns</span></td></tr>
-        <tr><td>Strategic Value</td><td>Largest Permian Basin producer, 25+ years inventory</td><td><span class="positive">Low-cost unconventional acreage, US tax benefits</span></td></tr>
-        <tr><td>Integration Status</td><td>Production growing, cost savings accelerating</td><td><span class="positive">Proceeding smoothly, no impairments</span></td></tr>
-      </tbody>
-    </table>
-  </div>
+<!-- ==================== QUARTERLY TRENDS ==================== -->
+<section class="section" id="quarterly">
+<h2 class="section-title"><span class="icon">&#9637;</span> Quarterly Trends &amp; Operations</h2>
+
+<div class="card">
+<h3 class="card-title">Pioneer Acquisition Impact</h3>
+<p style="color:var(--text-secondary);margin-bottom:12px;">Completed May 2024 for ~$60B all-stock. 545M new shares issued. Integrated in record time.</p>
+<div class="grid-2">
+<div>
+<div class="bar-row"><div class="bar-label">Liquids Production</div><div class="bar-track"><div class="bar-fill" style="width:72%;background:var(--accent-green);">+36% (2yr)</div></div><div class="bar-value positive">3,329 kbd</div></div>
+<div class="bar-row"><div class="bar-label">Oil-Equiv. Production</div><div class="bar-track"><div class="bar-fill" style="width:65%;background:var(--accent-green);">+27% (2yr)</div></div><div class="bar-value positive">4,736 kboed</div></div>
+<div class="bar-row"><div class="bar-label">Natural Gas</div><div class="bar-track"><div class="bar-fill" style="width:45%;background:var(--accent-blue);">+9.2% (2yr)</div></div><div class="bar-value positive">8,442 mmcfd</div></div>
+</div>
+<div>
+<div class="bar-row"><div class="bar-label">PP&amp;E Net</div><div class="bar-track"><div class="bar-fill" style="width:68%;background:var(--accent-yellow);">+$95B</div></div><div class="bar-value">$299.4B</div></div>
+<div class="bar-row"><div class="bar-label">Permian Q4-2025</div><div class="bar-track"><div class="bar-fill" style="width:80%;background:var(--accent-green);">1.8M bbl/d</div></div><div class="bar-value positive">1,800 kbd</div></div>
+<div class="bar-row"><div class="bar-label">Employees</div><div class="bar-track"><div class="bar-fill" style="width:50%;background:var(--accent-cyan);">57,900</div></div><div class="bar-value">-5.8% (2yr)</div></div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<h3 class="card-title collapsible" onclick="toggleCollapse(this)">Material Events Timeline</h3>
+<div class="collapse-content">
+<div class="timeline">
+<div class="timeline-item">
+<div class="timeline-dot positive"></div>
+<div class="timeline-date">May 2024</div>
+<div class="timeline-title">Pioneer Natural Resources Acquisition Completed</div>
+<div class="timeline-detail">~$60B all-stock deal. 545M shares issued. +22% liquids production. Made XOM largest Permian Basin producer with 25+ years of low-cost inventory.</div>
+</div>
+<div class="timeline-item">
+<div class="timeline-dot positive"></div>
+<div class="timeline-date">FY2024-FY2025</div>
+<div class="timeline-title">Production Milestones &mdash; Permian Basin Leadership</div>
+<div class="timeline-detail">Total production grew 27% to 4,736 kboed. Permian reached 1.8M bbl/d. Guyana 4th FPSO online (Yellowtail), 5th under construction (Uaru).</div>
+</div>
+<div class="timeline-item">
+<div class="timeline-dot neutral"></div>
+<div class="timeline-date">FY2024</div>
+<div class="timeline-title">Segment Reorganization (3 to 4 Segments)</div>
+<div class="timeline-detail">Carved out Specialty Products (35.4% ROCE) from former Downstream/Chemical segments. FY2023 restated. Increased transparency.</div>
+</div>
+<div class="timeline-item">
+<div class="timeline-dot neutral"></div>
+<div class="timeline-date">Q4-2025</div>
+<div class="timeline-title">CFO Transition &mdash; Mikells to Mehta</div>
+<div class="timeline-detail">Kathy Mikells replaced by Neil Mehta. Planned succession. Monitor Q1-2026 for any unusual charges or accounting policy changes.</div>
+</div>
+<div class="timeline-item">
+<div class="timeline-dot negative"></div>
+<div class="timeline-date">FY2025</div>
+<div class="timeline-title">Chemical Products Earnings Collapse</div>
+<div class="timeline-detail">Chemical earnings fell 69% to $0.8B. ROCE at 2.7%. Non-US posted $103M loss. Industry-wide overcapacity from Asia/Middle East expansion.</div>
+</div>
+<div class="timeline-item">
+<div class="timeline-dot negative"></div>
+<div class="timeline-date">FY2025</div>
+<div class="timeline-title">Record Shareholder Returns &mdash; Funded by Cash Drawdown</div>
+<div class="timeline-detail">$37B total returns ($20.3B buybacks + ~$16.7B dividends) exceeded FCF ($23.6B) by $13.4B. Cash halved from $23.0B to $10.7B. 94% of CFO distributed.</div>
+</div>
+<div class="timeline-item">
+<div class="timeline-dot neutral"></div>
+<div class="timeline-date">FY2024-FY2025</div>
+<div class="timeline-title">Golden Pass LNG Delays</div>
+<div class="timeline-detail">18 mtpa LNG terminal delayed 1-2 years after contractor (Zachry Group) bankruptcy. Revised startup 2026-2027. XOM holds 30% JV stake.</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<h3 class="card-title">Operational Metrics</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Metric</th><th class="num">FY2025</th><th class="num">FY2024</th><th class="num">FY2023</th></tr></thead>
+<tbody>
+<tr><td>Oil-Equivalent Production (kboed)</td><td class="num positive">4,736</td><td class="num">4,333</td><td class="num">3,738</td></tr>
+<tr><td>Net Liquids Production (kbd)</td><td class="num positive">3,329</td><td class="num">2,987</td><td class="num">2,449</td></tr>
+<tr><td>Natural Gas (mmcf/d)</td><td class="num">8,442</td><td class="num">8,078</td><td class="num">7,734</td></tr>
+<tr><td>Refinery Throughput (kbd)</td><td class="num">3,979</td><td class="num">3,900</td><td class="num">&mdash;</td></tr>
+<tr><td>Chemical Sales (kt)</td><td class="num">21,303</td><td class="num">19,392</td><td class="num">&mdash;</td></tr>
+<tr><td>Specialty Sales (kt)</td><td class="num">7,791</td><td class="num">7,666</td><td class="num">&mdash;</td></tr>
+<tr><td>Employees (thousands)</td><td class="num">57.9</td><td class="num">60.9</td><td class="num">61.5</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
 </section>
 
-<!-- ==================== SECTION 8: GOVERNANCE ==================== -->
+<!-- ==================== GOVERNANCE ==================== -->
 <section class="section" id="governance">
-  <h2 class="section-title"><span class="icon">&#9881;</span> Governance &amp; Compensation</h2>
+<h2 class="section-title"><span class="icon">&#9881;</span> Governance</h2>
 
-  <div class="grid-2">
-    <div class="card">
-      <div class="card-title">CEO Compensation &mdash; Darren W. Woods</div>
-      <table>
-        <thead><tr><th>Year</th><th class="num">Summary Comp</th><th class="num">Comp Actually Paid</th></tr></thead>
-        <tbody>
-          <tr><td>FY2020</td><td class="num">$15.6M</td><td class="num negative">($7.7M)</td></tr>
-          <tr><td>FY2021</td><td class="num">$23.6M</td><td class="num positive">$40.1M</td></tr>
-          <tr><td>FY2022</td><td class="num">$35.9M</td><td class="num positive">$89.7M</td></tr>
-          <tr><td>FY2023</td><td class="num">$36.9M</td><td class="num">$23.6M</td></tr>
-          <tr><td>FY2024</td><td class="num">$44.1M</td><td class="num">$48.8M</td></tr>
-        </tbody>
-      </table>
-      <div style="font-size:11px;color:var(--text-muted);margin-top:8px;">4-Year CAGR: 29.6% | Direct comp FY2024: $33.2M | 94% variable, 80% stock-based | Note: FY2020 negative CAP reflects XOM's stock decline &mdash; real accountability.</div>
-    </div>
+<div class="grid-2">
+<div class="card">
+<h3 class="card-title">Entrenchment Score</h3>
+<div class="gauge-score positive">1 / 10</div>
+<div class="entrenchment-track">
+  <div class="entrenchment-marker" style="left:10%;">1</div>
+</div>
+<div class="gauge-labels"><span>Minimal Risk</span><span>Moderate</span><span>High Entrenchment</span></div>
+<p style="font-size:13px;color:var(--text-secondary);margin-top:12px;">Only deduction: combined CEO/Chairman role (mitigated by Lead Independent Director Joseph L. Hooley). No dual-class shares, no staggered board, no golden parachutes, no related-party transactions, no poison pill.</p>
+</div>
 
-    <div class="card">
-      <div class="card-title">Compensation Alignment Score</div>
-      <div class="gauge-score positive" style="font-size:36px;">8 / 10</div>
-      <div style="font-size:13px;color:var(--text-secondary);margin-top:12px;">STRONG ALIGNMENT &mdash; XOM's comp design is among best in S&amp;P 500</div>
-      <table style="margin-top:12px;">
-        <tbody>
-          <tr><td>Variable Pay %</td><td class="num positive">94%</td><td class="num">2/2</td></tr>
-          <tr><td>Stock-Based Delivery</td><td class="num positive">80%</td><td class="num">2/2</td></tr>
-          <tr><td>No Guaranteed Comp</td><td class="num positive">Yes</td><td class="num">2/2</td></tr>
-          <tr><td>Clawback Policy</td><td class="num positive">Yes</td><td class="num">1/1</td></tr>
-          <tr><td>Anti-Hedging Policy</td><td class="num positive">Yes</td><td class="num">1/1</td></tr>
-          <tr><td>TSR Alignment</td><td class="num neutral">Comp growing faster than EPS</td><td class="num">0/1</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+<div class="card">
+<h3 class="card-title">Compensation Alignment Score</h3>
+<div class="gauge-score positive">8 / 10</div>
+<div class="gauge-bar">
+  <div class="gauge-fill" style="width:80%;background:var(--accent-green);"></div>
+</div>
+<div class="gauge-labels"><span>0 Poor</span><span>5 Average</span><span>10 Best-in-Class</span></div>
+<div class="gauge-vars" style="margin-top:12px;">
+Variable Pay: 94% (2/2) | Stock-Based: 80% (2/2)<br>
+No Guaranteed Comp (2/2) | Clawback Policy (1/1)<br>
+Anti-Hedging (1/1) | TSR Alignment (0/1 &mdash; comp growing faster than rev/EPS)
+</div>
+</div>
+</div>
 
-  <!-- Entrenchment Score -->
-  <div class="card" style="margin-top:16px;">
-    <div class="card-title">Management Entrenchment Score</div>
-    <div class="entrenchment-track">
-      <div class="entrenchment-marker" style="left:10%;">1</div>
-    </div>
-    <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-muted);">
-      <span>0 &mdash; Shareholder Friendly</span>
-      <span>5 &mdash; Moderate</span>
-      <span>10 &mdash; Entrenched</span>
-    </div>
-    <div style="font-size:13px;color:var(--text-secondary);margin-top:12px;"><strong>1/10</strong> &mdash; MINIMAL ENTRENCHMENT. Only deduction: combined CEO/Chairman role (mitigated by Lead Independent Director Joseph L. Hooley). No dual-class shares, no staggered board, no golden parachutes, no related-party transactions.</div>
-  </div>
+<div class="card">
+<h3 class="card-title collapsible" onclick="toggleCollapse(this)">CEO Compensation Trajectory &mdash; Darren W. Woods</h3>
+<div class="collapse-content">
+<div class="table-wrap">
+<table>
+<thead><tr><th>Year</th><th class="num">Summary Comp (SCT)</th><th class="num">Comp Actually Paid</th></tr></thead>
+<tbody>
+<tr><td>FY2024</td><td class="num">$44.1M</td><td class="num">$48.8M</td></tr>
+<tr><td>FY2023</td><td class="num">$36.9M</td><td class="num">$23.6M</td></tr>
+<tr><td>FY2022</td><td class="num">$35.9M</td><td class="num">$89.7M</td></tr>
+<tr><td>FY2021</td><td class="num">$23.6M</td><td class="num">$40.1M</td></tr>
+<tr><td>FY2020</td><td class="num">$15.6M</td><td class="num negative">-$7.7M</td></tr>
+</tbody>
+</table>
+</div>
+<p style="font-size:13px;color:var(--text-secondary);margin-top:12px;">Direct compensation $33.2M (FY2024). 4-year comp CAGR: 29.6%. <span class="positive">ALIGNED</span> &mdash; CEO comp grew 182% while shareholder TSR grew 208%. TSR growth exceeds comp growth. Bonus program was suspended in FY2020 for poor performance (accountability).</p>
+</div>
+</div>
 
-  <!-- Board & Governance Features -->
-  <div class="grid-2" style="margin-top:16px;">
-    <div class="card">
-      <div class="card-title">Board Independence</div>
-      <div class="stat-box" style="margin-bottom:12px;"><div class="stat-value positive">90%</div><div class="stat-label">Independent Directors</div></div>
-      <ul style="font-size:12px;color:var(--text-secondary);padding-left:16px;line-height:2.0;">
-        <li>Average tenure (non-employee): 4 years</li>
-        <li>8 new directors since 2021 (Engine No. 1 impact)</li>
-        <li>Lead Independent Director: Joseph L. Hooley</li>
-        <li>Director support range: 87% to 98%</li>
-        <li>Auditor: PricewaterhouseCoopers LLP</li>
-        <li>Annual director elections &mdash; no staggered board</li>
-      </ul>
-    </div>
-    <div class="card">
-      <div class="card-title">Key Governance Features</div>
-      <ul style="font-size:12px;color:var(--text-secondary);padding-left:16px;line-height:2.0;">
-        <li><span class="positive">&#10003;</span> No employment contracts for any NEO (rare for Fortune 10)</li>
-        <li><span class="positive">&#10003;</span> No severance agreements</li>
-        <li><span class="positive">&#10003;</span> No change-in-control arrangements</li>
-        <li><span class="positive">&#10003;</span> No guaranteed bonuses</li>
-        <li><span class="positive">&#10003;</span> 5-10 year performance share restriction (longest in industry)</li>
-        <li><span class="positive">&#10003;</span> Bonus program suspended in FY2020 for poor performance</li>
-        <li><span class="positive">&#10003;</span> No poison pill or anti-takeover provisions</li>
-        <li><span class="positive">&#10003;</span> NYSE Rule 10D-1 compliant clawback policy</li>
-      </ul>
-    </div>
-  </div>
+<div class="card">
+<h3 class="card-title">Board &amp; Governance Assessment</h3>
+<div class="grid-2" style="margin-top:12px;">
+<div>
+<p style="font-size:13px;color:var(--text-secondary);line-height:1.8;">
+<strong>Board Independence:</strong> 90%<br>
+<strong>Avg. Non-Employee Tenure:</strong> 4 years<br>
+<strong>New Directors Since 2021:</strong> 8 (post-Engine No. 1)<br>
+<strong>Lead Independent Director:</strong> Joseph L. Hooley<br>
+<strong>Director Support Range:</strong> 87% to 98%<br>
+<strong>Auditor:</strong> PricewaterhouseCoopers LLP<br>
+<strong>Safety LTIR:</strong> 0.02
+</p>
+</div>
+<div>
+<p style="font-size:13px;color:var(--text-secondary);line-height:1.8;">
+<strong>Key Features:</strong><br>
+No employment contracts (rare for Fortune 10)<br>
+No severance agreements<br>
+No change-in-control provisions<br>
+No guaranteed bonuses<br>
+5-10 year performance share restriction periods<br>
+Annual director elections<br>
+NYSE 10D-1 compliant clawback policy
+</p>
+</div>
+</div>
+</div>
 
-  <!-- TSR vs Peers -->
-  <div class="card" style="margin-top:16px;">
-    <div class="card-title">Total Shareholder Return vs Peer Group (Index: 2020 = 100)</div>
-    <table>
-      <thead><tr><th>Year</th><th class="num">XOM TSR Index</th><th class="num">Peer TSR Index</th><th class="num">Outperformance</th></tr></thead>
-      <tbody>
-        <tr><td>FY2020</td><td class="num">64</td><td class="num">69</td><td class="num negative">-5</td></tr>
-        <tr><td>FY2021</td><td class="num">101</td><td class="num">94</td><td class="num positive">+7</td></tr>
-        <tr><td>FY2022</td><td class="num">188</td><td class="num">136</td><td class="num positive">+52</td></tr>
-        <tr><td>FY2023</td><td class="num">176</td><td class="num">139</td><td class="num positive">+37</td></tr>
-        <tr><td>FY2024</td><td class="num">197</td><td class="num">133</td><td class="num positive">+64</td></tr>
-      </tbody>
-    </table>
-    <div style="font-size:11px;color:var(--accent-green);margin-top:8px;">5-Year Cumulative TSR: XOM +97% vs Peers +33% &mdash; outperformance of 64 index points</div>
-  </div>
+<div class="card">
+<h3 class="card-title">TSR vs Peer Group (Indexed to 100)</h3>
+<div class="bar-row"><div class="bar-label">XOM 5yr TSR</div><div class="bar-track"><div class="bar-fill" style="width:97%;background:var(--accent-green);">+97%</div></div><div class="bar-value positive">197 index</div></div>
+<div class="bar-row"><div class="bar-label">Peers 5yr TSR</div><div class="bar-track"><div class="bar-fill" style="width:33%;background:var(--accent-yellow);">+33%</div></div><div class="bar-value neutral">133 index</div></div>
+<p style="font-size:12px;color:var(--text-secondary);margin-top:8px;">XOM outperformed peer group by 64 index points over 5 years. 5-year cumulative distributions to shareholders: $125B.</p>
+</div>
+
 </section>
 
-<!-- ==================== SECTION 9: INSIDER ACTIVITY ==================== -->
+<!-- ==================== INSIDER & INSTITUTIONAL ==================== -->
 <section class="section" id="insiders">
-  <h2 class="section-title"><span class="icon">&#9650;</span> Insider Activity</h2>
-  <div class="card">
-    <div class="grid-3" style="margin-bottom:16px;">
-      <div class="stat-box"><div class="stat-value">100</div><div class="stat-label">Total Form 4 Filings</div></div>
-      <div class="stat-box"><div class="stat-value">NEUTRAL</div><div class="stat-label">Overall Sentiment</div></div>
-      <div class="stat-box"><div class="stat-value positive">CLEAN</div><div class="stat-label">Forensic Assessment</div></div>
-    </div>
-    <div style="font-size:13px;color:var(--text-secondary);line-height:1.8;">
-      <p><strong>Period:</strong> January 2024 to March 2026</p>
-      <p><strong>Pattern:</strong> Compensation-driven clusters. 10-13 Form 4 filings on same dates in January and November/December annually, consistent with long-term incentive plan vesting. No discretionary buying or selling detected across any insider.</p>
-      <p><strong>CEO Behavior:</strong> No notable discretionary transactions. All activity tied to compensation plan events.</p>
-      <p style="margin-top:12px;color:var(--accent-green);"><strong>Forensic Assessment: CLEAN</strong> &mdash; The complete absence of discretionary selling by any insider during a period of declining financials and aggressive buybacks is a positive signal. Insiders are not using company buybacks as exit liquidity.</p>
-    </div>
-    <div style="margin-top:16px;">
-      <div style="font-size:11px;font-weight:600;color:var(--text-muted);margin-bottom:8px;text-transform:uppercase;">Cluster Dates Identified</div>
-      <div style="display:flex;flex-wrap:wrap;gap:8px;">
-        <span class="ticker-badge">2024-01-03</span>
-        <span class="ticker-badge">2024-11-18</span>
-        <span class="ticker-badge">2024-12-17</span>
-        <span class="ticker-badge">2025-01-02</span>
-        <span class="ticker-badge">2025-11-17</span>
-        <span class="ticker-badge">2025-12-16</span>
-        <span class="ticker-badge">2026-01-02</span>
-        <span class="ticker-badge">2026-03-17</span>
-      </div>
-    </div>
-  </div>
+<h2 class="section-title"><span class="icon">&#9650;</span> Insider &amp; Institutional</h2>
+
+<div class="grid-2">
+<div class="card">
+<h3 class="card-title">Insider Activity (Jan 2024 &ndash; Mar 2026)</h3>
+<p style="font-size:13px;color:var(--text-secondary);margin-bottom:12px;"><span class="verdict-badge badge-yellow">NEUTRAL &mdash; Compensation-Driven</span></p>
+<p style="font-size:13px;color:var(--text-secondary);">100 Form 4 filings analyzed. All activity consists of compensation-driven clusters: 10-13 filings on same dates in January and November/December, consistent with long-term incentive plan vesting. <strong>No discretionary buying or selling detected across any insider.</strong></p>
+<p style="font-size:12px;color:var(--text-secondary);margin-top:8px;"><strong>Forensic Assessment:</strong> <span class="positive">CLEAN</span> &mdash; Complete absence of discretionary selling during a period of declining financials and aggressive buybacks is a positive signal. Insiders are not using company buybacks as exit liquidity.</p>
+</div>
+
+<div class="card">
+<h3 class="card-title">Institutional Ownership</h3>
+<p style="font-size:13px;color:var(--text-secondary);margin-bottom:12px;"><span class="verdict-badge badge-blue">66% Institutional</span></p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Holder</th><th class="num">Ownership %</th></tr></thead>
+<tbody>
+<tr><td>Vanguard Group</td><td class="num">10.2%</td></tr>
+<tr><td>BlackRock</td><td class="num">7.4%</td></tr>
+<tr><td>State Street</td><td class="num">5.1%</td></tr>
+<tr><td style="font-weight:600;">Top 3 Combined</td><td class="num" style="font-weight:600;">22.6%</td></tr>
+</tbody>
+</table>
+</div>
+<p style="font-size:12px;color:var(--text-secondary);margin-top:8px;">Concentration risk: <span class="positive">LOW</span>. Top 3 are passive index fund managers. No single active investor holds &gt;3%. Engine No. 1 campaign (2021) won 3 board seats &mdash; most significant recent activism.</p>
+</div>
+</div>
+
 </section>
 
-<!-- ==================== SECTION 10: INSTITUTIONAL HOLDINGS ==================== -->
-<section class="section" id="institutional">
-  <h2 class="section-title"><span class="icon">&#9679;</span> Institutional Holdings</h2>
-  <div class="card">
-    <div class="grid-2">
-      <div>
-        <div class="stat-box" style="margin-bottom:16px;"><div class="stat-value">66%</div><div class="stat-label">Total Institutional Ownership</div></div>
-        <table>
-          <thead><tr><th>Holder</th><th class="num">Ownership %</th></tr></thead>
-          <tbody>
-            <tr><td>Vanguard Group</td><td class="num">10.2%</td></tr>
-            <tr><td>BlackRock</td><td class="num">7.4%</td></tr>
-            <tr><td>State Street</td><td class="num">5.1%</td></tr>
-          </tbody>
-        </table>
-        <div style="font-size:11px;color:var(--text-muted);margin-top:8px;">Top 3 combined: 22.6% &mdash; all passive index fund managers</div>
-      </div>
-      <div style="padding:16px;">
-        <div style="font-size:13px;color:var(--text-secondary);line-height:1.8;">
-          <p><strong>Concentration Risk:</strong> LOW &mdash; Top 3 are passive index fund managers. No single active investor holds &gt;3%.</p>
-          <p><strong>Passive vs Active:</strong> Heavily passive. Top holders are index fund managers representing 22.6% of shares.</p>
-          <p><strong>Activist Positions:</strong> None current. Engine No. 1 campaign (2021) won 3 board seats &mdash; most significant recent activism. Board refresh resulted in 8 new directors.</p>
-        </div>
-      </div>
-    </div>
-  </div>
+<!-- ==================== TEXT ANALYSIS ==================== -->
+<section class="section" id="text-analysis">
+<h2 class="section-title"><span class="icon">&#9998;</span> Text Analysis</h2>
+
+<div class="card">
+<h3 class="card-title">MD&amp;A Key Themes</h3>
+<div class="bar-row"><div class="bar-label">Cost Efficiency</div><div class="bar-track"><div class="bar-fill" style="width:85%;background:var(--accent-green);">$12.1B savings (XBRL verified)</div></div><div class="bar-value positive">VERIFIED</div></div>
+<div class="bar-row"><div class="bar-label">Production Growth</div><div class="bar-track"><div class="bar-fill" style="width:90%;background:var(--accent-green);">+27% in 2 years</div></div><div class="bar-value positive">STRONG</div></div>
+<div class="bar-row"><div class="bar-label">Technology Claims</div><div class="bar-track"><div class="bar-fill" style="width:35%;background:var(--accent-red);">0.28% R&D intensity</div></div><div class="bar-value negative">WEAK</div></div>
+<div class="bar-row"><div class="bar-label">CCUS/Low-Carbon</div><div class="bar-track"><div class="bar-fill" style="width:25%;background:var(--accent-red);">Zero revenue, zero contracts</div></div><div class="bar-value negative">ASPIRATIONAL</div></div>
+</div>
+
+<div class="card">
+<h3 class="card-title">Risk Factor Analysis</h3>
+<p style="font-size:13px;color:var(--text-secondary);margin-bottom:12px;">Key risk disclosures from 10-K filings with forensic assessment of disclosure adequacy:</p>
+<div class="flag-card moderate">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><span>Commodity Price Dependency</span><span class="severity-badge severity-MEDIUM">ADEQUATELY DISCLOSED</span></div>
+<p style="font-size:13px;color:var(--text-secondary);">72% of segment earnings from upstream oil &amp; gas. Revenue per BOE declined 22% over 2 years. Management discloses commodity risk but does not connect it to buyback sustainability.</p>
+</div>
+<div class="flag-card moderate">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><span>Geographic Concentration</span><span class="severity-badge severity-MEDIUM">PARTIALLY DISCLOSED</span></div>
+<p style="font-size:13px;color:var(--text-secondary);">57% of production from two basins (Permian 38% + Guyana 19%). Deliberately increasing concentration to 65% &ldquo;advantaged&rdquo; assets by 2030. Concentration risk acknowledged generically but specific basin dependency not highlighted.</p>
+</div>
+<div class="flag-card low">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><span>Regulatory &amp; Policy Risk</span><span class="severity-badge severity-LOW">DISCLOSED</span></div>
+<p style="font-size:13px;color:var(--text-secondary);">CCUS strategy depends on IRA/45Q tax credits. Management claims policy independence (&ldquo;we'll invest regardless&rdquo;) while simultaneously admitting capex pacing below plan because &ldquo;market is not developing as fast as planned.&rdquo;</p>
+</div>
+</div>
+
+<div class="card">
+<h3 class="card-title">Revenue Recognition &amp; Accounting</h3>
+<p style="font-size:13px;color:var(--text-secondary);">XOM uses an integrated cost model that does not separately report Cost of Revenue or SG&A, which is standard for vertically integrated oil companies. This prevents computation of 2 of 8 Beneish M-Score variables (GMI, SGAI) but is an industry characteristic, not evasion. Segment reorganization from 3 to 4 segments in FY2024 increased transparency by separating high-ROCE Specialty Products from commodity-sensitive segments. FY2023 was restated for comparability. DD&A surged 26% ($20.6B to $26.0B) due to Pioneer asset base absorption. Structural cost savings of $12.1B is a non-GAAP metric with management-selected 2019 baseline.</p>
+</div>
+
 </section>
 
-<!-- ==================== SECTION 11: TRANSCRIPT INTELLIGENCE ==================== -->
-<section class="section" id="transcript-intelligence">
-  <h2 class="section-title"><span class="icon">&#127897;</span> Transcript Intelligence</h2>
-
-  <div class="stats-row">
-    <div class="stat-box"><div class="stat-value">5</div><div class="stat-label">Quarters Analyzed</div></div>
-    <div class="stat-box"><div class="stat-value">62</div><div class="stat-label">Q&amp;A Pairs Analyzed</div></div>
-    <div class="stat-box"><div class="stat-value neutral">72</div><div class="stat-label">Management Quality Score</div></div>
-    <div class="stat-box"><div class="stat-value neutral">61</div><div class="stat-label">Business Momentum Score</div></div>
-    <div class="stat-box"><div class="stat-value negative">63</div><div class="stat-label">Overall Transcript Score</div></div>
-  </div>
-
-  <!-- Composite Scores -->
-  <div class="grid-2">
-    <div class="card">
-      <div class="card-title">Management Quality Composite: 72/100</div>
-      <div style="margin-top:12px;">
-        <div class="bar-row">
-          <div class="bar-label">Credibility</div>
-          <div class="bar-track"><div class="bar-fill" style="width:79%;background:var(--accent-green);">0.79</div></div>
-        </div>
-        <div class="bar-row">
-          <div class="bar-label">Say-Do Alignment</div>
-          <div class="bar-track"><div class="bar-fill" style="width:82%;background:var(--accent-green);">0.82</div></div>
-        </div>
-        <div class="bar-row">
-          <div class="bar-label">Guidance Accuracy</div>
-          <div class="bar-track"><div class="bar-fill" style="width:72%;background:var(--accent-yellow);">0.72</div></div>
-        </div>
-        <div class="bar-row">
-          <div class="bar-label">Directness</div>
-          <div class="bar-track"><div class="bar-fill" style="width:71%;background:var(--accent-yellow);">0.71</div></div>
-        </div>
-      </div>
-      <div style="font-size:11px;color:var(--accent-yellow);margin-top:8px;">Adjustment: -4 pts for text-vs-tone alignment at 0.43 (below 0.55-0.65 benchmark)</div>
-    </div>
-    <div class="card">
-      <div class="card-title">Risk Composite: 58/100 (Higher = More Risk)</div>
-      <div style="margin-top:12px;">
-        <div class="bar-row">
-          <div class="bar-label">Dependency Concentration</div>
-          <div class="bar-track"><div class="bar-fill" style="width:65%;background:var(--accent-red);">0.65</div></div>
-        </div>
-        <div class="bar-row">
-          <div class="bar-label">Supply Chain Risk</div>
-          <div class="bar-track"><div class="bar-fill" style="width:55%;background:var(--accent-yellow);">0.55</div></div>
-        </div>
-        <div class="bar-row">
-          <div class="bar-label">Management Hedging</div>
-          <div class="bar-track"><div class="bar-fill" style="width:55%;background:var(--accent-yellow);">0.55</div></div>
-        </div>
-        <div class="bar-row">
-          <div class="bar-label">Competitive Threats</div>
-          <div class="bar-track"><div class="bar-fill" style="width:45%;background:var(--accent-green);">0.45</div></div>
-        </div>
-      </div>
-      <div style="font-size:11px;color:var(--accent-red);margin-top:8px;">Adjustment: +3 pts risk for $12.3B undisclosed cash drawdown</div>
-    </div>
-  </div>
-
-  <!-- Key Themes -->
-  <div class="card" style="margin-top:16px;">
-    <div class="card-title">Key Transcript Themes</div>
-    <table>
-      <thead><tr><th>Theme</th><th class="num">Quarters</th><th>Evidence Strength</th><th>Detail</th></tr></thead>
-      <tbody>
-        <tr><td>Permian Technology Superiority</td><td class="num">5</td><td><span class="positive">STRONG</span></td><td>Proppant, cube design, ERP consolidation. Production data validates claims.</td></tr>
-        <tr><td>Pioneer Integration Success</td><td class="num">4</td><td><span class="positive">STRONG</span></td><td>Synergies ahead of plan, production growing, costs under control.</td></tr>
-        <tr><td>Buyback Commitment</td><td class="num">5</td><td><span class="positive">STRONG</span></td><td>Executed to the dollar every quarter. $20B annual pace maintained.</td></tr>
-        <tr><td>Cost Structure Advantage</td><td class="num">5</td><td><span class="neutral">MODERATE</span></td><td>$12.1B XBRL-verified savings, but $2.9B gap with transcript claims.</td></tr>
-        <tr><td>CCUS/Data Center Growth</td><td class="num">5</td><td><span class="negative">WEAK</span></td><td>Zero revenue, zero contracts. Escalating claims but &quot;market not developing as fast as planned.&quot;</td></tr>
-        <tr><td>Technology Company Positioning</td><td class="num">3</td><td><span class="negative">WEAK</span></td><td>Narrative escalation from &quot;executing well&quot; to &quot;no company can match.&quot; R&amp;D at 0.28% contradicts tech framing.</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <!-- Credibility Metrics -->
-  <div class="grid-2" style="margin-top:16px;">
-    <div class="card">
-      <div class="card-title">Credibility Metrics</div>
-      <table>
-        <tbody>
-          <tr><td>Overall Credibility Score</td><td class="num">0.79</td></tr>
-          <tr><td>Narrative Drift Score</td><td class="num neutral">0.55</td></tr>
-          <tr><td>Text-vs-Tone Alignment</td><td class="num negative">0.43</td></tr>
-          <tr><td>CEO Deflection Rate</td><td class="num positive">0.12</td></tr>
-          <tr><td>CFO Deflection Rate</td><td class="num positive">0.10</td></tr>
-          <tr><td>Production Sandbagging</td><td class="num positive">0.85</td></tr>
-          <tr><td>Buyback Precision</td><td class="num positive">1.00</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="card">
-      <div class="card-title">Analyst Concerns (Recurring)</div>
-      <ul style="font-size:13px;color:var(--text-secondary);padding-left:16px;line-height:2.0;">
-        <li><span class="negative">&#9888;</span> Dividend growth called &quot;pedestrian&quot; by multiple analysts</li>
-        <li><span class="negative">&#9888;</span> CCUS commercial viability questioned in 4 separate Q&amp;A pairs</li>
-        <li><span class="neutral">&#9888;</span> Chemical margin bottom: 3 quarters of recurring concern</li>
-        <li><span class="neutral">&#9888;</span> LNG FID timeline sliding with increasingly hedged language</li>
-        <li><span class="negative">&#9888;</span> Base decline rate &amp; reserve replacement ratio both withheld</li>
-        <li><span class="neutral">&#9888;</span> No analyst asked about $12.3B cash drawdown (blind spot)</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- ==================== SECTION 12: RED FLAGS DASHBOARD ==================== -->
-<section class="section" id="red-flags">
-  <h2 class="section-title"><span class="icon">&#9888;</span> Red Flags Dashboard</h2>
-
-  <!-- CRITICAL -->
-  <div class="flag-card high">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-      <strong>CRITICAL-001: Cash Drawdown of $12.3B Not Discussed in Any Earnings Call</strong>
-      <span class="severity-badge severity-CRITICAL">CRITICAL</span>
-    </div>
-    <p style="font-size:13px;color:var(--text-secondary);">Cash: $23.0B (FY2024) to $10.7B (FY2025). Total distributions ($37B) exceed FCF ($23.6B) by $13.4B. Gap funded by cash reserve depletion. Neither management nor analysts raised this in 62 QA pairs across 5 quarters. Confirmed across 4 investigation layers (L7, VL1, VL2, VL4).</p>
-    <div style="font-size:11px;color:var(--text-muted);margin-top:8px;">Implication: At current depletion rate, cash reaches critically low levels by FY2027 unless commodity prices recover or buybacks are reduced.</div>
-  </div>
-
-  <div class="flag-card high">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-      <strong>CRITICAL-002: Cost Savings Gap &mdash; $15B Claimed vs $12.1B XBRL-Reported</strong>
-      <span class="severity-badge severity-CRITICAL">CRITICAL</span>
-    </div>
-    <p style="font-size:13px;color:var(--text-secondary);">$2.9B unexplained gap. This is the ONLY financial metric where transcript claims exceed XBRL data. Every other metric (production, buybacks, capex) either matches or is conservatively guided. Confirmed across 4 investigation layers (L2, L4, VL1, VL2).</p>
-    <div style="font-size:11px;color:var(--text-muted);margin-top:8px;">Implication: Undermines credibility of $18B by 2030 target. If true base is $12.1B not $15B, remaining gap to $18B is $5.9B (97% larger than claimed $3B).</div>
-  </div>
-
-  <div class="flag-card high">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-      <strong>CRITICAL-003: Buyback Sustainability at Risk &mdash; 86% of FCF Consumed</strong>
-      <span class="severity-badge severity-CRITICAL">CRITICAL</span>
-    </div>
-    <p style="font-size:13px;color:var(--text-secondary);">Buyback-to-FCF: 0.53 (FY2023) to 0.64 (FY2024) to 0.86 (FY2025). After $20.3B buybacks, only $3.3B FCF remains &mdash; far short of ~$16B needed for dividends. Gap funded by cash drawdown.</p>
-    <div style="font-size:11px;color:var(--text-muted);margin-top:8px;">Implication: The $20B annual buyback &mdash; centerpiece of capital return narrative &mdash; is mathematically untenable without commodity recovery or capex reduction.</div>
-  </div>
-
-  <!-- HIGH -->
-  <div class="flag-card high">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-      <strong>HIGH-001: Management Confidence at 5-Quarter High While All Metrics Declining</strong>
-      <span class="severity-badge severity-HIGH">HIGH</span>
-    </div>
-    <p style="font-size:13px;color:var(--text-secondary);">Confidence score: 0.78 (Q2-2024) to 0.87 (Q4-2025). Q4-2025 includes superlative claims: &quot;no company can match,&quot; &quot;only viable option at scale.&quot; Meanwhile: net margin 8.68% (3yr low), ROE 11.12% (3yr low), FCF $23.6B (3yr low).</p>
-    <div style="font-size:11px;color:var(--text-muted);margin-top:8px;">Implication: Widening narrative-reality gap creates downside risk. When confidence adjusts downward to match reality, repricing is more severe.</div>
-  </div>
-
-  <div class="flag-card high">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-      <strong>HIGH-002: Technology Company Claims at 0.28% R&amp;D Intensity</strong>
-      <span class="severity-badge severity-HIGH">HIGH</span>
-    </div>
-    <p style="font-size:13px;color:var(--text-secondary);">R&amp;D spending $987M (FY2024) &mdash; 0.28% of revenue. Management claims &quot;no company can match&quot; on AI/ERP. R&amp;D below peer IOCs (SLB ~2%, CVX ~0.5%). 72% of earnings from upstream oil &amp; gas.</p>
-    <div style="font-size:11px;color:var(--text-muted);margin-top:8px;">Implication: Technology narrative creates expectations XOM cannot meet. CCUS and advanced materials require significant R&amp;D for commercial viability.</div>
-  </div>
-
-  <div class="flag-card high">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-      <strong>HIGH-003: Hess/Chevron Arbitration for Guyana JV &mdash; Never Discussed</strong>
-      <span class="severity-badge severity-HIGH">HIGH</span>
-    </div>
-    <p style="font-size:13px;color:var(--text-secondary);">Guyana is XOM's most valuable growth asset (875K bbl/d). Complete absence from 62 QA pairs over 5 quarters. Neither management nor analysts raised the arbitration.</p>
-    <div style="font-size:11px;color:var(--text-muted);margin-top:8px;">Implication: If arbitration results in Chevron becoming Stabroek Block JV partner, could change operational dynamics of XOM's most profitable asset.</div>
-  </div>
-
-  <div class="flag-card high">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-      <strong>HIGH-004: CCUS Commercial Viability Unproven Despite Escalating Claims</strong>
-      <span class="severity-badge severity-HIGH">HIGH</span>
-    </div>
-    <p style="font-size:13px;color:var(--text-secondary);">Five quarters of escalating claims. Zero revenue. Zero signed contracts. Blue hydrogen quietly abandoned. &quot;Market not developing as fast as planned.&quot; Multiple analysts pressing on viability.</p>
-    <div style="font-size:11px;color:var(--text-muted);margin-top:8px;">Implication: If CCUS stalls (as hydrogen did), XOM's growth story becomes purely oil &amp; gas volume &mdash; strong but already priced in.</div>
-  </div>
-
-  <!-- MODERATE -->
-  <div class="flag-card moderate">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-      <strong>MODERATE-001: Chemical Products ROCE at 2.7% &mdash; Below Cost of Capital</strong>
-      <span class="severity-badge severity-MODERATE">MODERATE</span>
-    </div>
-    <p style="font-size:13px;color:var(--text-secondary);">Earnings collapsed from $2.6B to $0.8B. Non-US posted $103M loss. $18B in assets earning near-zero returns. Global chemical overcapacity from China expansion.</p>
-    <div style="font-size:11px;color:var(--text-muted);margin-top:8px;">Implication: If sustained, may trigger impairment. New capacity investments may worsen near-term overcapacity.</div>
-  </div>
-
-  <div class="flag-card moderate">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-      <strong>MODERATE-002: Working Capital Compressed $20B in 2 Years</strong>
-      <span class="severity-badge severity-MODERATE">MODERATE</span>
-    </div>
-    <p style="font-size:13px;color:var(--text-secondary);">Working capital: $31.3B (FY2023) to $11.1B (FY2025). Current ratio 1.48 to 1.15. At current trajectory, hits near-zero by mid-2026.</p>
-    <div style="font-size:11px;color:var(--text-muted);margin-top:8px;">Implication: Thin liquidity cushion provides little margin for unexpected events. Management has levers but current trajectory is unsustainable.</div>
-  </div>
-
-  <div class="flag-card moderate">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-      <strong>MODERATE-003: Corporate &amp; Financing Costs Surged $2.2B</strong>
-      <span class="severity-badge severity-MODERATE">MODERATE</span>
-    </div>
-    <p style="font-size:13px;color:var(--text-secondary);">161.7% increase in corporate drag from -$1.4B to -$3.6B. Largest C&amp;F charge in data period. No detailed breakdown available. Represents 8% of consolidated net income.</p>
-    <div style="font-size:11px;color:var(--text-muted);margin-top:8px;">Implication: May include Pioneer integration costs, unfavorable FX, higher interest expense. Needs investigation.</div>
-  </div>
-
-  <div class="flag-card moderate">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-      <strong>MODERATE-004: Base Decline Rate &amp; Reserve Replacement Ratio Withheld</strong>
-      <span class="severity-badge severity-MODERATE">MODERATE</span>
-    </div>
-    <p style="font-size:13px;color:var(--text-secondary);">CEO refuses to disclose base decline rate despite direct analyst question (Q4-2025). Both metrics are standard upstream valuation metrics. Dual avoidance is unusual for a major IOC.</p>
-    <div style="font-size:11px;color:var(--text-muted);margin-top:8px;">Implication: May indicate higher-than-comfortable decline rates masked by heavy reinvestment.</div>
-  </div>
-
-  <div class="flag-card moderate">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-      <strong>MODERATE-005: Dividend Growth Inadequacy &mdash; Buyback-Favoring Comp Structure</strong>
-      <span class="severity-badge severity-MODERATE">MODERATE</span>
-    </div>
-    <p style="font-size:13px;color:var(--text-secondary);">Buybacks grew ~14% while dividends grew ~4%/year ($0.16/share). CEO comp 94% at-risk, 80% stock-based, TSR-linked. Comp structure creates rational incentive to favor buybacks. Analysts call dividend growth &quot;pedestrian.&quot;</p>
-    <div style="font-size:11px;color:var(--text-muted);margin-top:8px;">Implication: Income-oriented investors should understand buyback preference is structural (tied to CEO comp), not temporary. 42-year streak maintained but growth will remain modest.</div>
-  </div>
-
-  <!-- LOW -->
-  <div class="flag-card low">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-      <strong>LOW-001: All Profitability Metrics Declining from FY2022 Peak</strong>
-      <span class="severity-badge severity-LOW">LOW</span>
-    </div>
-    <p style="font-size:13px;color:var(--text-secondary);">Net margin: 13.48% to 8.68%. ROA: 15.10% to 6.42%. ROE: 28.57% to 11.12%. ROCE: 24.9% to 9.3%. EPS: $13.26 to $6.70. Cyclical normalization from 2022 energy price spike, not business deterioration. Production volumes growing 27% over same period.</p>
-  </div>
-
-  <div class="flag-card low">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-      <strong>LOW-002: Beneish M-Score Partially Computable (6 of 8 Variables)</strong>
-      <span class="severity-badge severity-LOW">LOW</span>
-    </div>
-    <p style="font-size:13px;color:var(--text-secondary);">XOM's integrated cost model doesn't report standard CostOfRevenue or SGA. Industry characteristic, not evasion. 6 available variables all show benign signals.</p>
-  </div>
-
-  <div class="flag-card low">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-      <strong>LOW-003: Golden Pass LNG Delays</strong>
-      <span class="severity-badge severity-LOW">LOW</span>
-    </div>
-    <p style="font-size:13px;color:var(--text-secondary);">Contractor (Zachry Group) bankruptcy delayed project 1-2 years. Revised startup 2026-2027. XOM holds 30% JV stake (QatarEnergy 70%). Limited direct impact.</p>
-  </div>
-</section>
-
-<!-- ==================== SECTION 13: MATERIAL EVENTS ==================== -->
-<section class="section" id="events">
-  <h2 class="section-title"><span class="icon">&#9200;</span> Material Events &amp; Catalysts</h2>
-  <div class="timeline">
-    <div class="timeline-item">
-      <div class="timeline-dot positive"></div>
-      <div class="timeline-date">May 2024</div>
-      <div class="timeline-title">Pioneer Natural Resources Acquisition Completed (~$60B)</div>
-      <div class="timeline-detail">All-stock deal. 545M shares issued. +22% liquids production. Made XOM largest Permian Basin producer with 25+ years of low-cost inventory.</div>
-    </div>
-    <div class="timeline-item">
-      <div class="timeline-dot positive"></div>
-      <div class="timeline-date">FY2024&ndash;FY2025</div>
-      <div class="timeline-title">Production Milestones &mdash; Permian Basin Leadership</div>
-      <div class="timeline-detail">Total production grew 27% in 2 years to 4,736 kBOE/d. Liquids +36%. Permian reached 1.8M bbl/d. Guyana 4th FPSO online, 5th under construction.</div>
-    </div>
-    <div class="timeline-item">
-      <div class="timeline-dot neutral"></div>
-      <div class="timeline-date">FY2024</div>
-      <div class="timeline-title">Segment Reorganization (3 to 4 Segments)</div>
-      <div class="timeline-detail">Carved out Specialty Products (35.4% ROCE) from former Downstream/Chemical. FY2023 restated. Increased transparency &mdash; Chemical weakness now more visible.</div>
-    </div>
-    <div class="timeline-item">
-      <div class="timeline-dot neutral"></div>
-      <div class="timeline-date">Q4-2025</div>
-      <div class="timeline-title">CFO Transition &mdash; Mikells to Mehta</div>
-      <div class="timeline-detail">Kathy Mikells replaced by Neil Mehta. Appears to be planned succession. New CFOs sometimes implement accounting cleanups &mdash; monitor Q1-2026.</div>
-    </div>
-    <div class="timeline-item">
-      <div class="timeline-dot neutral"></div>
-      <div class="timeline-date">FY2024&ndash;FY2025</div>
-      <div class="timeline-title">Golden Pass LNG Progress</div>
-      <div class="timeline-detail">18 mtpa LNG terminal. 30% XOM / 70% QatarEnergy. Delayed 1-2 years after contractor bankruptcy. Revised startup 2026-2027.</div>
-    </div>
-    <div class="timeline-item">
-      <div class="timeline-dot negative"></div>
-      <div class="timeline-date">FY2025</div>
-      <div class="timeline-title">Record Shareholder Returns &mdash; Unsustainable Pace</div>
-      <div class="timeline-detail">$20.3B buybacks + ~$16.7B dividends = $37B total returns. Exceeds FCF ($23.6B) by $13.4B. Cash halved from $23B to $10.7B. 42 consecutive dividend increases.</div>
-    </div>
-    <div class="timeline-item">
-      <div class="timeline-dot negative"></div>
-      <div class="timeline-date">FY2025</div>
-      <div class="timeline-title">Chemical Products Earnings Collapse</div>
-      <div class="timeline-detail">Earnings fell 69% to $0.8B. ROCE at 2.7%. Non-US posted $103M loss. Industry-wide overcapacity from Asia/Middle East expansion.</div>
-    </div>
-    <div class="timeline-item">
-      <div class="timeline-dot positive"></div>
-      <div class="timeline-date">FY2025</div>
-      <div class="timeline-title">Structural Cost Savings Milestone &mdash; $12.1B Cumulative</div>
-      <div class="timeline-detail">Cash opex flat at $44B despite 30% production growth. Workforce reduced 5.8% in 2 years. Note: $2.9B gap between transcript claims ($15B) and XBRL figure ($12.1B).</div>
-    </div>
-  </div>
-</section>
-
-<!-- ==================== SECTION 14: DEBT STRESS & SCENARIOS ==================== -->
+<!-- ==================== ADVANCED ANALYSIS ==================== -->
 <section class="section" id="advanced">
-  <h2 class="section-title"><span class="icon">&#9830;</span> Debt Stress &amp; Scenario Analysis</h2>
+<h2 class="section-title"><span class="icon">&#9830;</span> Advanced Analysis</h2>
 
-  <div class="card">
-    <div class="grid-2" style="margin-bottom:16px;">
-      <div>
-        <div class="card-title">Debt Stress Score</div>
-        <div class="gauge-score positive" style="font-size:36px;">27 / 100</div>
-        <div style="font-size:13px;color:var(--accent-green);">Healthy (borderline Fortress)</div>
-      </div>
-      <div>
-        <table>
-          <thead><tr><th>Factor</th><th class="num">Score</th><th class="num">Max</th></tr></thead>
-          <tbody>
-            <tr><td>Leverage</td><td class="num positive">1</td><td class="num">10</td></tr>
-            <tr><td>Interest Coverage</td><td class="num positive">0</td><td class="num">10</td></tr>
-            <tr><td>Liquidity</td><td class="num">4</td><td class="num">10</td></tr>
-            <tr><td>Cash Burn</td><td class="num neutral">5</td><td class="num">10</td></tr>
-            <tr><td>FCF Adequacy</td><td class="num">4</td><td class="num">10</td></tr>
-            <tr><td>Commodity Sensitivity</td><td class="num negative">6</td><td class="num">10</td></tr>
-            <tr><td>Capital Allocation Flex</td><td class="num">3</td><td class="num">10</td></tr>
-            <tr><td>Debt Maturity</td><td class="num positive">1</td><td class="num">10</td></tr>
-            <tr><td>Pension Obligations</td><td class="num positive">1</td><td class="num">10</td></tr>
-            <tr><td>Deferred Tax</td><td class="num">2</td><td class="num">10</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
+<div class="grid-2">
+<div class="card">
+<h3 class="card-title">Tax Analysis</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Metric</th><th class="num">FY2025</th><th class="num">FY2024</th><th class="num">FY2023</th></tr></thead>
+<tbody>
+<tr><td>Effective Tax Rate</td><td class="num">28.5%</td><td class="num">29.1%</td><td class="num">30.0%</td></tr>
+<tr><td>Income Tax Expense</td><td class="num">$11.5B</td><td class="num">$13.8B</td><td class="num">$15.4B</td></tr>
+<tr><td>Deferred Tax Liabilities</td><td class="num">$40.2B</td><td class="num">$39.0B</td><td class="num">&mdash;</td></tr>
+</tbody>
+</table>
+</div>
+<p style="font-size:12px;color:var(--text-secondary);margin-top:8px;">ETR stable at 28-30%, slightly below US statutory rate (21% federal + state + international). Deferred tax liabilities of $40.2B reflect accelerated depreciation on massive PP&E base ($299B net).</p>
+</div>
 
-  <div class="card" style="margin-top:16px;">
-    <div class="card-title">Oil Price Scenario Analysis</div>
-    <table>
-      <thead><tr><th>Scenario</th><th>Oil Price</th><th class="num">CFO</th><th class="num">FCF</th><th>Outcome</th></tr></thead>
-      <tbody>
-        <tr style="background:var(--accent-green-dim);">
-          <td><strong>Bull Case</strong></td><td>$85&ndash;90/bbl</td><td class="num">$60&ndash;65B</td><td class="num positive">$32&ndash;37B</td><td>FCF surplus, working capital rebuilds, potential accelerated buybacks</td>
-        </tr>
-        <tr>
-          <td><strong>Base Case</strong></td><td>$70&ndash;75/bbl</td><td class="num">$50&ndash;53B</td><td class="num">$22&ndash;25B</td><td>Current allocation continues, working capital thins further</td>
-        </tr>
-        <tr style="background:var(--accent-yellow-dim);">
-          <td><strong>Bear Case</strong></td><td>$50&ndash;55/bbl</td><td class="num">$33&ndash;38B</td><td class="num negative">$5&ndash;10B</td><td>Buybacks cut to $5&ndash;10B, capex reviewed, dividend maintained but frozen</td>
-        </tr>
-        <tr style="background:var(--accent-red-dim);">
-          <td><strong>Severe Case</strong></td><td>$40/bbl sustained</td><td class="num">$20&ndash;25B</td><td class="num negative">-$3B to +$2B</td><td>Buybacks suspended, capex cut to $18&ndash;22B, dividend freezes, may draw credit facilities</td>
-        </tr>
-      </tbody>
-    </table>
-    <div style="font-size:11px;color:var(--text-muted);margin-top:8px;">Interest Coverage: 34.6x (FY2025). Even 80% EBIT decline yields 6.9x &mdash; above distress threshold. Pension liabilities declining: $9.7B to $8.8B.</div>
-  </div>
+<div class="card">
+<h3 class="card-title">Debt &amp; Leverage Analysis</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Metric</th><th class="num">FY2025</th><th class="num">FY2024</th></tr></thead>
+<tbody>
+<tr><td>Long-Term Debt</td><td class="num positive">$34.2B</td><td class="num">$36.8B</td></tr>
+<tr><td>Debt-to-Capital</td><td class="num">14.0%</td><td class="num">13.4%</td></tr>
+<tr><td>Net Debt-to-Capital</td><td class="num negative">11.0%</td><td class="num">6.5%</td></tr>
+<tr><td>Interest Coverage</td><td class="num positive">34.6x</td><td class="num">37.5x</td></tr>
+<tr><td>Pension Liabilities</td><td class="num">$8.8B</td><td class="num">$9.7B</td></tr>
+</tbody>
+</table>
+</div>
+<p style="font-size:12px;color:var(--text-secondary);margin-top:8px;">Leverage genuinely conservative. Long-term debt reduced from $40.6B (FY2022) to $34.2B. Net debt-to-capital doubled from 6.5% to 11.0% due to cash drawdown, not debt increase. Even 80% EBIT decline yields 6.9x interest coverage.</p>
+</div>
+</div>
 
-  <!-- Tax Analysis -->
-  <div class="card" style="margin-top:16px;">
-    <div class="card-title">Tax Analysis</div>
-    <div class="grid-2">
-      <div>
-        <table>
-          <thead><tr><th>Metric</th><th class="num">FY2023</th><th class="num">FY2024</th><th class="num">FY2025</th></tr></thead>
-          <tbody>
-            <tr><td>Effective Tax Rate</td><td class="num">30.0%</td><td class="num">29.1%</td><td class="num">28.5%</td></tr>
-            <tr><td>Deferred Tax Liabilities</td><td class="num">&mdash;</td><td class="num">$39.0B</td><td class="num">$40.2B</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div style="font-size:12px;color:var(--text-secondary);padding:12px;">
-        <p>ETR declining slightly &mdash; Pioneer acquisition shifted earnings toward lower-tax US Permian operations.</p>
-        <p style="margin-top:8px;">Growing DTL ($40.2B) suggests book tax exceeds cash tax &mdash; XOM deferring tax through accelerated depreciation of Pioneer assets.</p>
-      </div>
-    </div>
-  </div>
+<div class="card">
+<h3 class="card-title collapsible" onclick="toggleCollapse(this)">Stress Testing &mdash; Scenario Analysis</h3>
+<div class="collapse-content">
+<div class="table-wrap">
+<table>
+<thead><tr><th>Scenario</th><th>Oil Price</th><th class="num">Est. CFO</th><th class="num">Est. FCF</th><th>Outcome</th></tr></thead>
+<tbody>
+<tr><td class="positive">Bull Case</td><td>$85-90/bbl</td><td class="num">$60-65B</td><td class="num">$32-37B</td><td>FCF surplus, working capital rebuilds, potential accelerated buybacks</td></tr>
+<tr><td>Base Case</td><td>$70-75/bbl</td><td class="num">$50-53B</td><td class="num">$22-25B</td><td>Current allocation continues, working capital thins further</td></tr>
+<tr><td class="negative">Bear Case</td><td>$50-55/bbl</td><td class="num">$33-38B</td><td class="num">$5-10B</td><td>Buybacks cut to $5-10B, capex reviewed, dividend maintained but frozen</td></tr>
+<tr><td class="negative">Severe Case</td><td>&lt;$45/bbl</td><td class="num">&lt;$30B</td><td class="num">&lt;$2B</td><td>Buybacks suspended, capex cut 30%+, dividend at risk for first time in 42 years</td></tr>
+</tbody>
+</table>
+</div>
+<p style="font-size:12px;color:var(--text-secondary);margin-top:8px;">Stress score: 27/100 (Healthy, borderline Fortress). Strongest factors: low leverage (1/10), excellent interest coverage (0/10). Weakest factors: commodity sensitivity (6/10), cash burn rate (5/10).</p>
+</div>
+</div>
 
-  <!-- R&D Analysis -->
-  <div class="card" style="margin-top:16px;">
-    <div class="card-title">R&amp;D Analysis</div>
-    <div class="bar-row">
-      <div class="bar-label">FY2022</div>
-      <div class="bar-track"><div class="bar-fill" style="width:67%;background:var(--accent-purple);">$824M (0.20%)</div></div>
-    </div>
-    <div class="bar-row">
-      <div class="bar-label">FY2023</div>
-      <div class="bar-track"><div class="bar-fill" style="width:72%;background:var(--accent-purple);">$879M (0.26%)</div></div>
-    </div>
-    <div class="bar-row">
-      <div class="bar-label">FY2024</div>
-      <div class="bar-track"><div class="bar-fill" style="width:80%;background:var(--accent-purple);">$987M (0.28%)</div></div>
-    </div>
-    <div class="bar-row">
-      <div class="bar-label">FY2025</div>
-      <div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--accent-purple);">$1,228M (0.37%)</div></div>
-    </div>
-    <div style="font-size:11px;color:var(--text-muted);margin-top:8px;">3-Year CAGR: +14.2%. Nearly doubled from 0.20% to 0.37% of revenue. Still extremely low vs tech companies. XOM's $1.2B is the largest among oil majors by absolute value.</div>
-  </div>
+<div class="card">
+<h3 class="card-title">Working Capital Compression</h3>
+<div class="bar-row"><div class="bar-label">FY2023</div><div class="bar-track"><div class="bar-fill" style="width:90%;background:var(--accent-green);">$31.3B</div></div><div class="bar-value positive">$31.3B</div></div>
+<div class="bar-row"><div class="bar-label">FY2024</div><div class="bar-track"><div class="bar-fill" style="width:62%;background:var(--accent-yellow);">$21.7B</div></div><div class="bar-value neutral">$21.7B</div></div>
+<div class="bar-row"><div class="bar-label">FY2025</div><div class="bar-track"><div class="bar-fill" style="width:32%;background:var(--accent-red);">$11.1B</div></div><div class="bar-value negative">$11.1B</div></div>
+<p style="font-size:12px;color:var(--text-secondary);margin-top:8px;">Working capital compressed $20B (-64.7%) in 2 years. Current ratio declined from 1.48 to 1.15. Cash ratio halved from 0.328 to 0.148. At current trajectory, working capital approaches zero by mid-2026.</p>
+</div>
+
+<div class="card">
+<h3 class="card-title">Peer Comparison</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Metric</th><th class="num">XOM</th><th class="num">CVX</th><th class="num">COP</th></tr></thead>
+<tbody>
+<tr><td>Net Margin</td><td class="num positive">8.68%</td><td class="num">6.51%</td><td class="num">13.55%</td></tr>
+<tr><td>ROE</td><td class="num">11.12%</td><td class="num">6.60%</td><td class="num positive">12.39%</td></tr>
+<tr><td>EPS</td><td class="num positive">$6.70</td><td class="num">$6.63</td><td class="num">$6.35</td></tr>
+</tbody>
+</table>
+</div>
+<p style="font-size:12px;color:var(--text-secondary);margin-top:8px;">XOM margins between integrated peer CVX and pure-play upstream COP. XOM's scale advantage shows in absolute earnings ($28.8B vs COP $8.0B).</p>
+</div>
+
 </section>
 
-<!-- ==================== SECTION 15: MONITORING WATCHLIST ==================== -->
+<!-- ==================== TRANSCRIPT INTELLIGENCE ==================== -->
+<section class="section" id="transcript-intel">
+<h2 class="section-title"><span class="icon">&#9835;</span> Transcript Intelligence</h2>
+
+<div class="card">
+<h3 class="card-title">Composite Scores (5 Quarters: Q2-2024 through Q4-2025)</h3>
+<div class="grid-2" style="margin-bottom:16px;">
+<div>
+<div class="bar-row"><div class="bar-label">Management Quality</div><div class="bar-track"><div class="bar-fill" style="width:72%;background:var(--accent-yellow);">72</div></div><div class="bar-value neutral">72/100</div></div>
+<div class="bar-row"><div class="bar-label">Business Momentum</div><div class="bar-track"><div class="bar-fill" style="width:61%;background:var(--accent-yellow);">61</div></div><div class="bar-value neutral">61/100</div></div>
+<div class="bar-row"><div class="bar-label">Risk Composite</div><div class="bar-track"><div class="bar-fill" style="width:58%;background:var(--accent-red);">58</div></div><div class="bar-value negative">58/100</div></div>
+<div class="bar-row"><div class="bar-label">Overall Transcript</div><div class="bar-track"><div class="bar-fill" style="width:63%;background:var(--accent-yellow);">63</div></div><div class="bar-value neutral">63/100</div></div>
+</div>
+<div>
+<p style="font-size:13px;color:var(--text-secondary);line-height:1.8;">
+<strong>Credibility Score:</strong> 0.79<br>
+<strong>Narrative Drift:</strong> 0.55<br>
+<strong>Text-vs-Tone Alignment:</strong> 0.43 (below 0.55-0.65 benchmark)<br>
+<strong>QA Pairs Analyzed:</strong> 62 across 5 quarters<br>
+<strong>Say-Do Alignment:</strong> 0.82<br>
+<strong>Sandbagging Score:</strong> 0.85 (production)
+</p>
+</div>
+</div>
+</div>
+
+<div class="card">
+<h3 class="card-title">Score Component Breakdown</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Component</th><th class="num">Raw Score</th><th class="num">Weight</th><th>Source &amp; Key Finding</th></tr></thead>
+<tbody>
+<tr><td>Credibility</td><td class="num">0.79</td><td class="num">35%</td><td>Production 0.95, buybacks 1.0, timelines 0.82. Pulled down by cost savings gap (0.78) and financial targets headwind (0.65)</td></tr>
+<tr><td>Directness</td><td class="num">0.71</td><td class="num">20%</td><td>Woods avg 0.71 across 5 quarters. Deflection rate low at 0.12. Mikells at 0.80 (fewer responses)</td></tr>
+<tr><td>Guidance Accuracy</td><td class="num">0.72</td><td class="num">25%</td><td>Production exceeded every quarter (0.95). Cost savings problematic (0.50). $2.9B XBRL gap only category where transcript exceeds filings</td></tr>
+<tr><td>Say-Do Alignment</td><td class="num">0.82</td><td class="num">20%</td><td>Capex 0.95, buybacks 1.0, production 0.90, low-carbon 0.45. Overall weighted 0.82</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div class="card">
+<h3 class="card-title">Key Themes Across 5 Quarters</h3>
+<div class="flag-card low">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><span>Permian Technology Superiority</span><span class="severity-badge severity-LOW" style="background:var(--accent-green-dim);color:var(--accent-green);">STRONG EVIDENCE &mdash; 5/5 Quarters</span></div>
+<p style="font-size:13px;color:var(--text-secondary);">Proppant, cube design, ERP consolidation. Production data validates claims. Proppant deployed in 25% of wells, targeting 50%.</p>
+</div>
+<div class="flag-card low">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><span>Buyback Commitment</span><span class="severity-badge severity-LOW" style="background:var(--accent-green-dim);color:var(--accent-green);">STRONG EVIDENCE &mdash; 5/5 Quarters</span></div>
+<p style="font-size:13px;color:var(--text-secondary);">Executed to the dollar every quarter. $20B annual pace maintained. Perfect 1.0 say-do alignment.</p>
+</div>
+<div class="flag-card low">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><span>Pioneer Integration Success</span><span class="severity-badge severity-LOW" style="background:var(--accent-green-dim);color:var(--accent-green);">STRONG EVIDENCE &mdash; 4/5 Quarters</span></div>
+<p style="font-size:13px;color:var(--text-secondary);">Synergies ahead of plan, production growing, costs under control. Quantification gradually dropped from narrative.</p>
+</div>
+<div class="flag-card moderate">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><span>Cost Structure Advantage</span><span class="severity-badge severity-MEDIUM">MODERATE EVIDENCE &mdash; 5/5 Quarters</span></div>
+<p style="font-size:13px;color:var(--text-secondary);">$12.1B XBRL-verified savings vs 2019 baseline. But $2.9B gap with transcript claims ($15B). Only metric where transcript exceeds XBRL.</p>
+</div>
+<div class="flag-card high">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><span>CCUS/Data Center Growth Engine</span><span class="severity-badge severity-HIGH">WEAK EVIDENCE &mdash; 5/5 Quarters</span></div>
+<p style="font-size:13px;color:var(--text-secondary);">Zero revenue, zero contracts. Escalating claims but &ldquo;market not developing as fast as planned.&rdquo; Blue hydrogen quietly abandoned.</p>
+</div>
+<div class="flag-card high">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><span>Technology Company Positioning</span><span class="severity-badge severity-HIGH">WEAK EVIDENCE &mdash; 3/5 Quarters</span></div>
+<p style="font-size:13px;color:var(--text-secondary);">Narrative escalation from &ldquo;executing well&rdquo; to &ldquo;no company can match.&rdquo; R&D at 0.28% of revenue contradicts tech company framing.</p>
+</div>
+</div>
+
+</section>
+
+<!-- ==================== CROSS-POLLINATION ==================== -->
+<section class="section" id="convergence">
+<h2 class="section-title"><span class="icon">&#9733;</span> Cross-Pollination &amp; Convergence</h2>
+
+<div class="card">
+<h3 class="card-title">Cross-Layer Red Flag Amplification</h3>
+<p style="font-size:13px;color:var(--text-secondary);margin-bottom:16px;">Red flags appearing across multiple investigation layers are severity-amplified. 1 layer = base severity, 2 layers = +1, 3+ layers = CRITICAL.</p>
+
+<div class="flag-card high">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><span>$12.3B Cash Drawdown Undiscussed</span><span class="severity-badge severity-CRITICAL">CRITICAL &mdash; 4 Layers</span></div>
+<p style="font-size:13px;color:var(--text-secondary);">Cash balance halved from $23.0B to $10.7B in one year. Total distributions ($37B) exceeded FCF ($23.6B) by $13.4B. Gap funded by cash reserve depletion. Neither management nor analysts raised this in 62 QA pairs. Detected by: L7-Capital Allocation, VL1-Forensic vs Transcript, VL2-Ratios vs Guidance, VL4-Text vs Tone. Capital allocation text-vs-tone alignment at 0.35 &mdash; worst of any category.</p>
+</div>
+
+<div class="flag-card high">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><span>$2.9B Cost Savings Gap ($15B vs $12.1B XBRL)</span><span class="severity-badge severity-CRITICAL">CRITICAL &mdash; 4 Layers</span></div>
+<p style="font-size:13px;color:var(--text-secondary);">The only financial metric where transcript claims exceed XBRL data. Every other metric matches or is conservatively guided. If true base is $12.1B, remaining gap to $18B target is $5.9B (97% larger than claimed $3B). Detected by: L2-Credibility, L4-Guidance Forensics, VL1-Forensic vs Transcript, VL2-Ratios vs Guidance.</p>
+</div>
+
+<div class="flag-card high">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><span>Buyback Unsustainability</span><span class="severity-badge severity-CRITICAL">CRITICAL &mdash; 3 Layers</span></div>
+<p style="font-size:13px;color:var(--text-secondary);">Buyback-to-FCF ratio surged from 53% (FY2023) to 86% (FY2025). After $20.3B buybacks, only $3.3B FCF remains &mdash; far short of ~$16B needed for dividends. At current depletion rate, cash reaches critically low levels by FY2027. Detected by: L7-Capital Allocation, VL1-Forensic vs Transcript, VL2-Ratios vs Guidance.</p>
+</div>
+
+<div class="flag-card high">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><span>Confidence vs Declining Metrics</span><span class="severity-badge severity-HIGH">HIGH &mdash; 3 Layers</span></div>
+<p style="font-size:13px;color:var(--text-secondary);">Management confidence at 5-quarter high (0.87) while ALL profitability metrics at 3-year lows. Superlative claims including &ldquo;no company can match&rdquo; at R&D intensity of 0.28%. Text-vs-tone alignment 0.43 (below 0.55-0.65 benchmark). Detected by: L1-Management Decoder, VL1-Forensic vs Transcript, VL4-Text vs Tone.</p>
+</div>
+
+<div class="flag-card high">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><span>CCUS Monopoly Claims Without Revenue</span><span class="severity-badge severity-HIGH">HIGH &mdash; 4 Layers</span></div>
+<p style="font-size:13px;color:var(--text-secondary);">Five quarters of escalating claims from &ldquo;optionality&rdquo; to &ldquo;only viable option at scale.&rdquo; Zero revenue, zero contracts, &ldquo;market not developing as fast as planned.&rdquo; Blue hydrogen quietly abandoned. Detected by: L2-Credibility, L3-Analyst Intelligence, L5-Competitive Radar, L9-Narrative Drift.</p>
+</div>
+</div>
+
+<div class="card">
+<h3 class="card-title">XBRL Cross-Validation Summary</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Claim</th><th>XBRL Data</th><th>Verdict</th></tr></thead>
+<tbody>
+<tr><td>Permian production 1.8M bbl/d</td><td>Production trajectory fully supported</td><td class="positive">VERIFIED</td></tr>
+<tr><td>$20B share buyback FY2025</td><td>$20,273M exactly</td><td class="positive">FULLY VERIFIED</td></tr>
+<tr><td>42+ years consecutive dividend increases</td><td>No dividend cuts detected</td><td class="positive">CONSISTENT</td></tr>
+<tr><td>13% ROCE (Q4-2024)</td><td>12.7% &mdash; rounds to 13%</td><td class="positive">APPROX. VERIFIED</td></tr>
+<tr><td>Capex within $27-29B guidance</td><td>$28,358M</td><td class="positive">FULLY VERIFIED</td></tr>
+<tr><td>Conservative balance sheet</td><td>D/E 0.13, net D/C 6.5%</td><td class="positive">FULLY VERIFIED</td></tr>
+<tr><td>Pioneer +22% liquids production</td><td>2,987 vs 2,449 kbd = +22%</td><td class="positive">EXACTLY VERIFIED</td></tr>
+<tr><td style="font-weight:600;">$15B structural cost savings</td><td style="font-weight:600;">XBRL: $12.1B ($2.9B gap)</td><td class="negative" style="font-weight:600;">CONTRADICTED</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+</section>
+
+<!-- ==================== RED FLAGS ==================== -->
+<section class="section" id="red-flags">
+<h2 class="section-title"><span class="icon">&#9888;</span> Red Flags &amp; Green Flags</h2>
+
+<div class="card">
+<h3 class="card-title">Red Flags by Severity (3 Critical, 4 High, 5 Moderate, 3 Low)</h3>
+
+<div class="flag-card high">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><span>Cash drawdown of $12.3B in one year not discussed in any earnings call</span><span class="severity-badge severity-CRITICAL">CRITICAL</span></div>
+<p style="font-size:13px;color:var(--text-secondary);">Cash: $23.0B (FY2024) to $10.7B (FY2025). Total distributions ($37B) exceed FCF ($23.6B) by $13.4B. Gap funded by cash reserve depletion. At current depletion rate, cash reaches critically low levels by FY2027 unless commodity prices recover or buybacks are reduced.</p>
+</div>
+
+<div class="flag-card high">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><span>Cost savings gap &mdash; $15B claimed in transcripts vs $12.1B reported in XBRL</span><span class="severity-badge severity-CRITICAL">CRITICAL</span></div>
+<p style="font-size:13px;color:var(--text-secondary);">$2.9B unexplained gap. The ONLY financial metric where transcript claims exceed XBRL data. If true base is $12.1B not $15B, remaining gap to $18B target is $5.9B (97% larger than claimed $3B).</p>
+</div>
+
+<div class="flag-card high">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><span>Buyback sustainability at risk &mdash; 86% of FCF consumed, up from 53% in FY2023</span><span class="severity-badge severity-CRITICAL">CRITICAL</span></div>
+<p style="font-size:13px;color:var(--text-secondary);">After $20.3B buybacks, only $3.3B FCF remains &mdash; far short of ~$16B needed for dividends. Gap funded by cash drawdown. The $20B annual buyback is mathematically untenable without commodity recovery or capex reduction.</p>
+</div>
+
+<div class="flag-card high">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><span>Management confidence at 5-quarter high while all profitability metrics declining</span><span class="severity-badge severity-HIGH">HIGH</span></div>
+<p style="font-size:13px;color:var(--text-secondary);">Confidence 0.87 (Q4-2025). Net margin 8.68% (3yr low), ROE 11.12% (3yr low), FCF $23.6B (3yr low). Superlative claims: &ldquo;no company can match,&rdquo; &ldquo;only viable option at scale.&rdquo;</p>
+</div>
+
+<div class="flag-card high">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><span>Technology company claims at 0.28% R&D intensity</span><span class="severity-badge severity-HIGH">HIGH</span></div>
+<p style="font-size:13px;color:var(--text-secondary);">R&D $987M (FY2024), 0.28% of revenue. Below peer IOCs (SLB ~2%, CVX ~0.5%). 72% of earnings from upstream oil &amp; gas. Creates expectations XOM cannot meet on CCUS and advanced materials.</p>
+</div>
+
+<div class="flag-card high">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><span>Hess/Chevron arbitration for Guyana JV &mdash; material risk never discussed</span><span class="severity-badge severity-HIGH">HIGH</span></div>
+<p style="font-size:13px;color:var(--text-secondary);">Guyana is XOM's most valuable growth asset (875K bbl/d, $25.4B upstream earnings). Complete absence from 62 QA pairs over 5 quarters. Could change operational dynamics if Chevron becomes Stabroek Block JV partner.</p>
+</div>
+
+<div class="flag-card high">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><span>CCUS commercial viability unproven despite escalating monopoly claims</span><span class="severity-badge severity-HIGH">HIGH</span></div>
+<p style="font-size:13px;color:var(--text-secondary);">Five quarters of escalating claims. Zero revenue. Zero contracts. Blue hydrogen quietly abandoned. &ldquo;Market not developing as fast as planned.&rdquo; If CCUS stalls, growth story reverts to pure oil &amp; gas volume.</p>
+</div>
+
+<div class="flag-card moderate">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><span>Chemical Products ROCE at 2.7% &mdash; below cost of capital</span><span class="severity-badge severity-MEDIUM">MODERATE</span></div>
+<p style="font-size:13px;color:var(--text-secondary);">Earnings collapsed from $2.6B to $0.8B. Non-US posted $103M loss. $18B in assets earning near-zero returns. If sustained, may trigger impairment.</p>
+</div>
+
+<div class="flag-card moderate">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><span>Working capital compressed $20B in 2 years &mdash; approaching zero</span><span class="severity-badge severity-MEDIUM">MODERATE</span></div>
+<p style="font-size:13px;color:var(--text-secondary);">Working capital: $31.3B (FY2023) to $11.1B (FY2025). Current ratio 1.48 to 1.15. At current trajectory, hits zero by mid-2026.</p>
+</div>
+
+<div class="flag-card moderate">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><span>Corporate &amp; Financing costs surged $2.2B (from -$1.4B to -$3.6B)</span><span class="severity-badge severity-MEDIUM">MODERATE</span></div>
+<p style="font-size:13px;color:var(--text-secondary);">161.7% increase in corporate drag. Largest C&F charge in data period. No detailed breakdown available. Represents 8% of consolidated net income.</p>
+</div>
+
+<div class="flag-card moderate">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><span>Base decline rate and reserve replacement ratio both withheld</span><span class="severity-badge severity-MEDIUM">MODERATE</span></div>
+<p style="font-size:13px;color:var(--text-secondary);">CEO refuses to disclose base decline rate despite direct analyst question. Both are standard upstream valuation metrics. Dual avoidance is unusual for major IOC.</p>
+</div>
+
+<div class="flag-card moderate">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><span>Dividend growth inadequacy &mdash; comp structure favors buybacks</span><span class="severity-badge severity-MEDIUM">MODERATE</span></div>
+<p style="font-size:13px;color:var(--text-secondary);">Buybacks grew ~14% while dividends grew ~4%/year. CEO comp 94% at-risk, 80% stock-based, TSR-linked. Structural incentive to favor buybacks. Analysts call growth &ldquo;pedestrian.&rdquo;</p>
+</div>
+
+<div class="flag-card low">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><span>All profitability metrics declining from FY2022 peak</span><span class="severity-badge severity-LOW">LOW</span></div>
+<p style="font-size:13px;color:var(--text-secondary);">Net margin: 13.48% to 8.68%. ROA: 15.10% to 6.42%. ROE: 28.57% to 11.12%. Cyclical normalization from 2022 energy price spike, not business deterioration.</p>
+</div>
+
+<div class="flag-card low">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><span>Beneish M-Score partially computable (2 of 8 variables missing)</span><span class="severity-badge severity-LOW">LOW</span></div>
+<p style="font-size:13px;color:var(--text-secondary);">Industry characteristic (integrated cost model), not evasion. All 6 available variables show benign signals. LOW manipulation risk confirmed.</p>
+</div>
+
+<div class="flag-card low">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><span>Golden Pass LNG delays increase project risk</span><span class="severity-badge severity-LOW">LOW</span></div>
+<p style="font-size:13px;color:var(--text-secondary);">Contractor (Zachry Group) bankruptcy delayed project 1-2 years. XOM holds only 30% JV stake, limiting direct impact. Revised startup 2026-2027.</p>
+</div>
+
+</div>
+
+<div class="card">
+<h3 class="card-title">Green Flags</h3>
+
+<div class="flag-card low">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><span>Best-in-Class Governance Structure</span><span class="severity-badge severity-LOW" style="background:var(--accent-green-dim);color:var(--accent-green);">GREEN</span></div>
+<p style="font-size:13px;color:var(--text-secondary);">No employment contracts, no severance, no change-in-control, 94% variable pay, 90% board independence, annual elections, full clawback. Entrenchment score 1/10.</p>
+</div>
+
+<div class="flag-card low">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><span>No Discretionary Insider Selling</span><span class="severity-badge severity-LOW" style="background:var(--accent-green-dim);color:var(--accent-green);">GREEN</span></div>
+<p style="font-size:13px;color:var(--text-secondary);">100 Form 4 filings over 2 years: all compensation-driven. Zero discretionary selling during declining financials. Insiders not using buybacks as exit liquidity.</p>
+</div>
+
+<div class="flag-card low">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><span>Exceptional Cash Conversion Quality</span><span class="severity-badge severity-LOW" style="background:var(--accent-green-dim);color:var(--accent-green);">GREEN</span></div>
+<p style="font-size:13px;color:var(--text-secondary);">CFO/NI ratio: 1.80x (improving trend). Sloan accrual ratio: 0.006 (near-zero). Benford's Law: PASS. Earnings almost entirely cash-backed.</p>
+</div>
+
+<div class="flag-card low">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><span>Operational Execution Excellence</span><span class="severity-badge severity-LOW" style="background:var(--accent-green-dim);color:var(--accent-green);">GREEN</span></div>
+<p style="font-size:13px;color:var(--text-secondary);">Production +27% in 2 years. Yellowtail 4 months early. Pioneer integrated in record time. Permian proppant technology validated. Sandbagging score 0.85 on production guidance.</p>
+</div>
+
+<div class="flag-card low">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><span>TSR Outperformance</span><span class="severity-badge severity-LOW" style="background:var(--accent-green-dim);color:var(--accent-green);">GREEN</span></div>
+<p style="font-size:13px;color:var(--text-secondary);">5-year TSR: 97% vs peer group 33%. Outperformance of 64 index points. $125B in cumulative shareholder distributions over 5 years.</p>
+</div>
+</div>
+
+</section>
+
+<!-- ==================== WATCHLIST ==================== -->
 <section class="section" id="watchlist">
-  <h2 class="section-title"><span class="icon">&#9745;</span> Monitoring Watchlist</h2>
+<h2 class="section-title"><span class="icon">&#9745;</span> Monitoring Watchlist</h2>
 
-  <div class="watchlist-item">
-    <div class="priority-dot priority-CRITICAL"></div>
-    <div style="flex:1;">
-      <div style="display:flex;justify-content:space-between;align-items:center;">
-        <strong>Cash and Cash Equivalents</strong>
-        <span class="severity-badge severity-CRITICAL">CRITICAL</span>
-      </div>
-      <p style="font-size:13px;color:var(--text-secondary);margin-top:4px;">Current: $10.7B (FY2025) &larr; $23.0B (FY2024). Most material undisclosed balance sheet change.</p>
-      <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">
-        <span class="positive">Positive trigger:</span> Above $12B &mdash; distribution pace sustainable |
-        <span class="negative">Negative trigger:</span> Below $8B &mdash; buyback unsustainability signal
-      </div>
-    </div>
-  </div>
+<div class="watchlist-item">
+<div class="priority-dot priority-CRITICAL"></div>
+<div>
+<div style="font-weight:600;">Cash &amp; Cash Equivalents: $10.7B (down from $23.0B)</div>
+<div style="font-size:13px;color:var(--text-secondary);">Most material undisclosed balance sheet change. <span class="positive">Above $12B</span> = distribution pace sustainable. <span class="negative">Below $8B</span> = buyback unsustainability signal. Continued depletion likely triggers buyback reduction or leverage increase.</div>
+</div>
+</div>
 
-  <div class="watchlist-item">
-    <div class="priority-dot priority-CRITICAL"></div>
-    <div style="flex:1;">
-      <div style="display:flex;justify-content:space-between;align-items:center;">
-        <strong>Buyback-to-FCF Ratio</strong>
-        <span class="severity-badge severity-CRITICAL">CRITICAL</span>
-      </div>
-      <p style="font-size:13px;color:var(--text-secondary);margin-top:4px;">Current: 0.86 (FY2025) &larr; 0.64 (FY2024). Most precise indicator of buyback sustainability.</p>
-      <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">
-        <span class="positive">Positive trigger:</span> Below 0.75 &mdash; FCF recovery |
-        <span class="negative">Negative trigger:</span> Above 0.90 &mdash; buyback cut imminent
-      </div>
-    </div>
-  </div>
+<div class="watchlist-item">
+<div class="priority-dot priority-CRITICAL"></div>
+<div>
+<div style="font-weight:600;">Buyback-to-FCF Ratio: 0.86 (up from 0.64)</div>
+<div style="font-size:13px;color:var(--text-secondary);">Most precise indicator of $20B buyback program sustainability. <span class="positive">Below 0.75</span> = FCF recovery. <span class="negative">Above 0.90</span> = unsustainable, buyback cut imminent. Depends almost entirely on commodity prices.</div>
+</div>
+</div>
 
-  <div class="watchlist-item">
-    <div class="priority-dot priority-HIGH"></div>
-    <div style="flex:1;">
-      <div style="display:flex;justify-content:space-between;align-items:center;">
-        <strong>Cost Savings Reconciliation ($15B vs $12.1B)</strong>
-        <span class="severity-badge severity-HIGH">HIGH</span>
-      </div>
-      <p style="font-size:13px;color:var(--text-secondary);margin-top:4px;">$2.9B gap unresolved. Only metric where transcript exceeds XBRL. Resolution signals credibility trajectory.</p>
-      <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">
-        <span class="positive">Positive trigger:</span> Management provides methodology bridge |
-        <span class="negative">Negative trigger:</span> Shift to $18B forward target without addressing gap
-      </div>
-    </div>
-  </div>
+<div class="watchlist-item">
+<div class="priority-dot priority-HIGH"></div>
+<div>
+<div style="font-weight:600;">Cost Savings Reconciliation ($15B vs $12.1B)</div>
+<div style="font-size:13px;color:var(--text-secondary);">$2.9B gap unresolved. Only metric where transcript exceeds XBRL. <span class="positive">Positive</span>: management provides methodology bridge. <span class="negative">Negative</span>: shift entirely to $18B forward target without addressing gap.</div>
+</div>
+</div>
 
-  <div class="watchlist-item">
-    <div class="priority-dot priority-HIGH"></div>
-    <div style="flex:1;">
-      <div style="display:flex;justify-content:space-between;align-items:center;">
-        <strong>Chemical Products ROCE</strong>
-        <span class="severity-badge severity-HIGH">HIGH</span>
-      </div>
-      <p style="font-size:13px;color:var(--text-secondary);margin-top:4px;">Current: 2.7% (FY2025) &larr; 8.9% (FY2024). $18B assets earning below cost of capital.</p>
-      <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">
-        <span class="positive">Positive trigger:</span> Above 5% &mdash; cyclical recovery |
-        <span class="negative">Negative trigger:</span> Below 2% or sustained losses &mdash; impairment risk
-      </div>
-    </div>
-  </div>
+<div class="watchlist-item">
+<div class="priority-dot priority-HIGH"></div>
+<div>
+<div style="font-weight:600;">Chemical Products ROCE: 2.7% (down from 8.9%)</div>
+<div style="font-size:13px;color:var(--text-secondary);">$18B in assets earning below cost of capital. <span class="positive">Above 5%</span> = cyclical recovery. <span class="negative">Below 2% or sustained losses</span> = impairment risk. Structural vs cyclical distinction determines portfolio action.</div>
+</div>
+</div>
 
-  <div class="watchlist-item">
-    <div class="priority-dot priority-MODERATE"></div>
-    <div style="flex:1;">
-      <div style="display:flex;justify-content:space-between;align-items:center;">
-        <strong>CCUS Contract Announcements</strong>
-        <span class="severity-badge severity-MODERATE">MODERATE</span>
-      </div>
-      <p style="font-size:13px;color:var(--text-secondary);margin-top:4px;">Current: Zero contracts, zero revenue. Five quarters of narrative escalation without commercial proof.</p>
-      <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">
-        <span class="positive">Positive trigger:</span> Any signed customer contract with revenue terms |
-        <span class="negative">Negative trigger:</span> Another quarter with &quot;conversations ongoing&quot;
-      </div>
-    </div>
-  </div>
+<div class="watchlist-item">
+<div class="priority-dot priority-HIGH"></div>
+<div>
+<div style="font-weight:600;">CCUS Contract Announcements: Zero contracts, zero revenue</div>
+<div style="font-size:13px;color:var(--text-secondary);">Five quarters of narrative escalation without commercial proof. &ldquo;Hopefully by year end&rdquo; promise made Q4-2025. <span class="positive">Any signed contract</span> validates strategy. <span class="negative">Another quarter of &ldquo;conversations ongoing&rdquo;</span> = narrative fatigue.</div>
+</div>
+</div>
 
-  <div class="watchlist-item">
-    <div class="priority-dot priority-MODERATE"></div>
-    <div style="flex:1;">
-      <div style="display:flex;justify-content:space-between;align-items:center;">
-        <strong>Permian Production Trajectory</strong>
-        <span class="severity-badge severity-MODERATE">MODERATE</span>
-      </div>
-      <p style="font-size:13px;color:var(--text-secondary);margin-top:4px;">Current: 1.8M bbl/d (Q4-2025). XOM's most reliable growth engine.</p>
-      <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">
-        <span class="positive">Positive trigger:</span> Above 1.9M bbl/d &mdash; technology claims validated |
-        <span class="negative">Negative trigger:</span> Flat or declining &mdash; decline rate acceleration risk
-      </div>
-    </div>
-  </div>
+<div class="watchlist-item">
+<div class="priority-dot priority-MODERATE"></div>
+<div>
+<div style="font-weight:600;">Permian Production Trajectory: 1.8M bbl/d (Q4-2025)</div>
+<div style="font-size:13px;color:var(--text-secondary);">XOM's most reliable growth engine. <span class="positive">Above 1.9M bbl/d</span> = technology claims validated. <span class="negative">Flat or declining</span> = decline rate acceleration risk. Proppant at 25% penetration targeting 50%.</div>
+</div>
+</div>
 
-  <div class="watchlist-item">
-    <div class="priority-dot priority-MODERATE"></div>
-    <div style="flex:1;">
-      <div style="display:flex;justify-content:space-between;align-items:center;">
-        <strong>New CFO (Neil Mehta) Communication Quality</strong>
-        <span class="severity-badge severity-MODERATE">MODERATE</span>
-      </div>
-      <p style="font-size:13px;color:var(--text-secondary);margin-top:4px;">Zero QA responses so far (ceremonial Q4-2025). CFO transition during declining profitability is critical inflection.</p>
-      <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">
-        <span class="positive">Positive trigger:</span> Direct, numbers-driven responses matching Mikells quality |
-        <span class="negative">Negative trigger:</span> Vague, hedged responses or delegation back to Woods
-      </div>
-    </div>
-  </div>
+<div class="watchlist-item">
+<div class="priority-dot priority-MODERATE"></div>
+<div>
+<div style="font-weight:600;">New CFO (Neil Mehta) Communication Quality</div>
+<div style="font-size:13px;color:var(--text-secondary);">Zero QA responses so far (ceremonial Q4-2025). First substantive call performance sets tone for next 3-5 years. Watch for direct, numbers-driven responses vs vague delegation to Woods.</div>
+</div>
+</div>
 
-  <div class="watchlist-item">
-    <div class="priority-dot priority-MODERATE"></div>
-    <div style="flex:1;">
-      <div style="display:flex;justify-content:space-between;align-items:center;">
-        <strong>Current Ratio</strong>
-        <span class="severity-badge severity-MODERATE">MODERATE</span>
-      </div>
-      <p style="font-size:13px;color:var(--text-secondary);margin-top:4px;">Current: 1.15 (FY2025) &larr; 1.31 (FY2024). Working capital compressed $20B in 2 years.</p>
-      <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">
-        <span class="positive">Positive trigger:</span> Above 1.20 &mdash; liquidity stabilizing |
-        <span class="negative">Negative trigger:</span> Below 1.05 &mdash; approaching acute liquidity concern
-      </div>
-    </div>
-  </div>
+<div class="watchlist-item">
+<div class="priority-dot priority-MODERATE"></div>
+<div>
+<div style="font-weight:600;">Current Ratio: 1.15 (down from 1.31)</div>
+<div style="font-size:13px;color:var(--text-secondary);">Working capital compressed $20B in 2 years. <span class="positive">Above 1.20</span> = liquidity stabilizing. <span class="negative">Below 1.05</span> = approaching acute liquidity concern. Limited buffer for unexpected events.</div>
+</div>
+</div>
+
+</section>
+
+<!-- ==================== PREDICTIONS ==================== -->
+<section class="section" id="predictions">
+<h2 class="section-title"><span class="icon">&#9200;</span> Forward Predictions</h2>
+
+<div class="prediction-card">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><strong>Buyback Reduction Forced if Brent &lt;$75</strong><span class="verdict-badge badge-yellow">65% Confidence</span></div>
+<p style="font-size:13px;color:var(--text-secondary);">XOM will be forced to reduce the $20B annual buyback pace within 3-4 quarters if Brent crude remains below $75/bbl. FY2025 FCF barely covers buybacks. Cash halved. At current depletion rate, cash reaches critically low levels by mid-2027. Management will likely choose to reduce buybacks rather than increase leverage.</p>
+<div style="font-size:12px;color:var(--text-muted);margin-top:8px;"><strong>Timeframe:</strong> Q1-2026 through Q4-2026 | <strong>Triggers:</strong> Q1-2026 cash below $9B, Brent below $70 for full quarter, language shift from &ldquo;commitment&rdquo; to &ldquo;flexibility&rdquo;</div>
+<div class="confidence-bar"><div class="confidence-fill" style="width:65%;background:var(--accent-yellow);"></div></div>
+</div>
+
+<div class="prediction-card">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><strong>Cost Savings Gap Will Not Be Reconciled</strong><span class="verdict-badge badge-yellow">70% Confidence</span></div>
+<p style="font-size:13px;color:var(--text-secondary);">The $2.9B gap ($15B claimed vs $12.1B XBRL) will not be publicly reconciled. Management will shift to forward-looking $18B target language rather than defend the $15B achieved claim. XOM's narrative pattern is progressive elevation &mdash; moving from past achievements to future targets.</p>
+<div style="font-size:12px;color:var(--text-muted);margin-top:8px;"><strong>Timeframe:</strong> Next 2 quarters | <strong>Triggers:</strong> Analyst question on XBRL reconciliation, shift from &ldquo;$15B achieved&rdquo; to &ldquo;$18B target&rdquo; language</div>
+<div class="confidence-bar"><div class="confidence-fill" style="width:70%;background:var(--accent-yellow);"></div></div>
+</div>
+
+<div class="prediction-card">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><strong>CCUS Contract Announced, Minimal Revenue</strong><span class="verdict-badge badge-yellow">55% Confidence</span></div>
+<p style="font-size:13px;color:var(--text-secondary);">XOM will announce at least one signed CCUS customer contract by Q4-2026, but revenue materiality will be minimal ($100M-$500M annual run rate). The Denbury acquisition provides infrastructure. Hyperscaler conversations described as &ldquo;very serious.&rdquo; The narrative value exceeds the financial value.</p>
+<div style="font-size:12px;color:var(--text-muted);margin-top:8px;"><strong>Timeframe:</strong> Q2-2026 through Q4-2026 | <strong>Triggers:</strong> Any CCUS contract/MOU announcement, 45Q policy changes, Occidental CCUS benchmarks</div>
+<div class="confidence-bar"><div class="confidence-fill" style="width:55%;background:var(--accent-yellow);"></div></div>
+</div>
+
+<div class="prediction-card">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><strong>Permian Exceeds 2.0M bbl/d by Q4-2026</strong><span class="verdict-badge badge-green">80% Confidence</span></div>
+<p style="font-size:13px;color:var(--text-secondary);">Permian production will exceed 2.0M bbl/d by Q4-2026, validating management's technology claims on proppant and cube design. Trajectory: 1.2M to 1.8M bbl/d over 5 quarters. Proppant at 25% penetration targeting 50%. Management has consistently under-guided and over-delivered.</p>
+<div style="font-size:12px;color:var(--text-muted);margin-top:8px;"><strong>Timeframe:</strong> Q4-2026 | <strong>Triggers:</strong> Quarterly production reports, proppant deployment updates, well interference signals</div>
+<div class="confidence-bar"><div class="confidence-fill" style="width:80%;background:var(--accent-green);"></div></div>
+</div>
+
+<div class="prediction-card">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><strong>Narrative Recalibration by Mid-2026</strong><span class="verdict-badge badge-red">50% Confidence</span></div>
+<p style="font-size:13px;color:var(--text-secondary);">Management will begin tempering absolutist competitive claims by Q2-Q3 2026 as financial metrics force narrative recalibration. VL4 alignment score of 0.43 already below benchmark. The gap between tone and reality is abnormally wide. Narrative corrections typically lag financial deterioration by 2-3 quarters.</p>
+<div style="font-size:12px;color:var(--text-muted);margin-top:8px;"><strong>Timeframe:</strong> Q2-2026 through Q3-2026 | <strong>Triggers:</strong> Reduction in absolute language, introduction of qualifiers, acknowledgment of commodity headwinds</div>
+<div class="confidence-bar"><div class="confidence-fill" style="width:50%;background:var(--accent-red);"></div></div>
+</div>
+
 </section>
 
 </main>
 
 <!-- Footer -->
 <footer class="site-footer">
-  <div>Generated by SEC Forensic Analysis Pipeline &middot; Protocol v2.0 &middot; April 6, 2026</div>
-  <div>Phases: 15/15 completed &middot; Filings: 2x 10-K, 1x DEF14A, 100x Form 4 &middot; Transcripts: 5 quarters (Q2-2024 to Q4-2025), 10 analysis layers</div>
+  <div>SEC Forensic Analysis &middot; Exxon Mobil Corporation (XOM) &middot; Generated April 6, 2026</div>
+  <div>Data sources: SEC EDGAR (10-K, 10-Q, 8-K, DEF 14A, Form 4), XBRL/iXBRL via Arelle MCP, Earnings Call Transcripts &middot; Multi-phase forensic pipeline</div>
 </footer>
 
 <script>
+// Sidebar active link tracking via scroll spy
+const spySections = document.querySelectorAll('.section[id]');
+const spyLinks = document.querySelectorAll('.nav-link');
+function updateSpy() {
+  let cur = '';
+  spySections.forEach(s => { if (window.scrollY >= s.offsetTop - 140) cur = s.id; });
+  spyLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + cur));
+}
+window.addEventListener('scroll', updateSpy, { passive: true });
+updateSpy();
+
+// Smooth scrolling
+document.querySelectorAll('.nav-link').forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    const target = document.querySelector(link.getAttribute('href'));
+    if (target) { target.scrollIntoView({ behavior: 'smooth' }); }
+  });
+});
+
 // Collapsible sections
 function toggleCollapse(el) {
   el.classList.toggle('collapsed');
   const content = el.nextElementSibling;
   if (content) content.classList.toggle('hidden');
 }
-
-// Active nav link on scroll
-const sections = document.querySelectorAll('.section');
-const navLinks = document.querySelectorAll('.nav-link');
-
-function updateActiveNav() {
-  let current = '';
-  sections.forEach(section => {
-    const rect = section.getBoundingClientRect();
-    if (rect.top <= 120) current = section.id;
-  });
-  navLinks.forEach(link => {
-    link.classList.remove('active');
-    if (link.getAttribute('href') === '#' + current) link.classList.add('active');
-  });
-}
-
-window.addEventListener('scroll', updateActiveNav);
-
-// Smooth scroll for nav links
-navLinks.forEach(link => {
-  link.addEventListener('click', function(e) {
-    e.preventDefault();
-    const target = document.querySelector(this.getAttribute('href'));
-    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  });
-});
-
-// Sortable tables
-document.querySelectorAll('th.sortable').forEach(th => {
-  th.addEventListener('click', function() {
-    const table = this.closest('table');
-    const tbody = table.querySelector('tbody');
-    const rows = Array.from(tbody.querySelectorAll('tr'));
-    const col = Array.from(this.parentNode.children).indexOf(this);
-    const asc = this.dataset.sort !== 'asc';
-    this.dataset.sort = asc ? 'asc' : 'desc';
-    rows.sort((a, b) => {
-      const aVal = a.children[col]?.textContent.trim() || '';
-      const bVal = b.children[col]?.textContent.trim() || '';
-      const aNum = parseFloat(aVal.replace(/[$,%Bx]/g, ''));
-      const bNum = parseFloat(bVal.replace(/[$,%Bx]/g, ''));
-      if (!isNaN(aNum) && !isNaN(bNum)) return asc ? aNum - bNum : bNum - aNum;
-      return asc ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
-    });
-    rows.forEach(r => tbody.appendChild(r));
-  });
-});
 </script>
 </body>
 </html>
