@@ -153,13 +153,58 @@ footer { border-top: 1px solid var(--border); padding: 24px 0; text-align: cente
 .fl a:hover { color: var(--blue); }
 .fn { font-size: 11px; color: var(--t3); max-width: 440px; margin: 0 auto; line-height: 1.6; }
 
-@media (max-width:680px) {
+/* ============ TABLET (<768px) ============ */
+@media (max-width:768px) {
+  .wrap { padding: 0 16px; }
   .stats { grid-template-columns: repeat(2,1fr); }
   .mg { grid-template-columns: 1fr; }
   .card { grid-template-columns: 48px 1fr; padding: 16px; gap: 12px; }
   .card-arr { display: none; }
   header { padding: 40px 0 24px; }
   h1 { font-size: 24px; }
+  .card-co { font-size: 12px; }
+  .card-meta { flex-wrap: wrap; gap: 6px 12px; }
+  .verdicts { flex-wrap: wrap; }
+  .method { padding: 16px; }
+}
+
+/* ============ PHONE (<480px) ============ */
+@media (max-width:480px) {
+  .wrap { padding: 0 12px; }
+  header { padding: 32px 0 20px; }
+  h1 { font-size: 20px; }
+  header p { font-size: 13px; }
+  .badge { font-size: 10px; padding: 3px 10px; }
+  .stats { grid-template-columns: 1fr 1fr; gap: 0; border-radius: 10px; }
+  .stat { padding: 14px 10px; }
+  .stat-val { font-size: 22px; }
+  .stat-lbl { font-size: 9px; letter-spacing: 0.5px; }
+  .card { padding: 14px 12px; gap: 10px; border-radius: 10px; }
+  .card-logo { width: 42px; height: 42px; border-radius: 8px; }
+  .card-logo img { width: 24px; height: 24px; }
+  .card-ticker { font-size: 15px; }
+  .card-co { font-size: 11px; display: block; margin-top: 2px; }
+  .card-top { flex-direction: column; gap: 0; }
+  .card-meta { gap: 4px 8px; margin-top: 4px; }
+  .card-meta span { font-size: 10px; }
+  .card-tags { gap: 3px; margin-top: 6px; }
+  .tag { font-size: 9px; padding: 2px 6px; }
+  .vb { font-size: 9px; padding: 2px 8px; }
+  .method { padding: 14px; }
+  .mi-t { font-size: 13px; }
+  .method p { font-size: 12px; }
+  .sh h2 { font-size: 16px; }
+  footer { padding: 16px 0; }
+  .fl { gap: 12px; }
+  .fn { font-size: 10px; }
+}
+
+/* ============ TINY PHONE (<375px) ============ */
+@media (max-width:375px) {
+  h1 { font-size: 18px; }
+  .stat-val { font-size: 20px; }
+  .card-logo { width: 36px; height: 36px; }
+  .card { grid-template-columns: 36px 1fr; }
 }
 </style>
 </head>
