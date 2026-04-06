@@ -372,6 +372,86 @@ tr:hover { background: var(--bg-card-hover); }
   .section-title { font-size: 16px; gap: 6px; }
 }
 
+
+/* ===== MOBILE V2 FIXES (smartphone-specific) ===== */
+
+/* FIX 1: Red flags + cross-layer — more spacing, vertical badge stacking */
+@media (max-width: 768px) {
+  .flag-card { padding: 16px !important; margin-bottom: 16px !important; border-radius: 10px; }
+  .flag-card > div:first-child {
+    flex-direction: column !important; align-items: flex-start !important; gap: 8px !important;
+  }
+  .flag-card .severity-badge { font-size: 11px; }
+  .flag-card p { font-size: 13px; line-height: 1.6; margin-top: 8px; }
+}
+
+/* FIX 2: Insider/Ownership tables — card-style stacking */
+@media (max-width: 768px) {
+  #insiders table, #insiders thead, #insiders tbody, #insiders tr, #insiders th, #insiders td {
+    display: block; width: 100%;
+  }
+  #insiders thead { display: none; }
+  #insiders tr {
+    margin-bottom: 12px; padding: 12px; border-radius: 8px;
+    background: var(--bg-card, #1a2234); border: 1px solid var(--border, #2a3550);
+  }
+  #insiders td { padding: 4px 0; border-bottom: none; text-align: left; }
+  #insiders td.num { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+  #insiders td:last-child { font-size: 12px; color: var(--text-secondary, #8b99b0); line-height: 1.5; }
+}
+
+/* FIX 3: Table scroll hint */
+@media (max-width: 768px) {
+  .table-wrap { position: relative; }
+  .table-wrap::after {
+    content: '\2190 scroll \2192';
+    display: block; text-align: center; font-size: 10px;
+    color: var(--text-muted, #5a6880); padding: 6px 0 2px; opacity: 0.5;
+  }
+}
+
+/* FIX 4: Segments — stacked bar becomes vertical bars on phone */
+@media (max-width: 768px) {
+  .stacked-bar {
+    height: auto !important; flex-direction: column !important; gap: 4px;
+    border-radius: 0 !important;
+  }
+  .stacked-seg {
+    height: 32px !important; width: 100% !important;
+    border-radius: 6px !important;
+    justify-content: flex-start !important; padding-left: 12px !important;
+    font-size: 12px !important;
+  }
+}
+
+/* FIX 5: Forensic models — complete mobile redesign */
+@media (max-width: 768px) {
+  .gauge-container { gap: 16px; flex-direction: column; }
+  .gauge-card {
+    min-width: unset !important; padding: 20px 16px !important;
+    background: var(--bg-secondary, #111827) !important; border-radius: 12px;
+  }
+  .gauge-title { font-size: 16px !important; text-align: center; margin-bottom: 4px; }
+  .gauge-subtitle { font-size: 11px !important; text-align: center; }
+  .gauge-score { font-size: 32px !important; text-align: center; margin: 12px 0 !important; }
+  .gauge-bar { height: 14px !important; border-radius: 7px !important; margin-bottom: 6px; }
+  .gauge-marker { height: 22px !important; top: -4px !important; width: 3px !important; }
+  .gauge-zones .gauge-zone { opacity: 0.25 !important; }
+  .gauge-labels { font-size: 9px !important; padding: 0 2px; }
+  .gauge-labels span:nth-child(2) { opacity: 0.5; font-size: 8px; }
+  .gauge-vars {
+    font-size: 12px !important; line-height: 2.0 !important; margin-top: 12px;
+    padding-top: 12px; border-top: 1px solid var(--border, #2a3550);
+  }
+}
+@media (max-width: 480px) {
+  .flag-card { padding: 14px 12px !important; margin-bottom: 12px !important; border-radius: 8px; }
+  .gauge-score { font-size: 28px !important; }
+  .gauge-title { font-size: 15px !important; }
+  .gauge-labels span:nth-child(2) { display: none; }
+  .gauge-vars { font-size: 11px !important; }
+}
+
 </style>
 </head>
 <body>
@@ -484,7 +564,7 @@ tr:hover { background: var(--bg-card-hover); }
 
   <div class="card">
     <h3 class="card-title">Fortress Balance Sheet Metrics</h3>
-    <table>
+    <div class="table-wrap"><table>
       <thead>
         <tr><th>Metric</th><th>Value</th><th>Implication</th></tr>
       </thead>
@@ -500,12 +580,12 @@ tr:hover { background: var(--bg-card-hover); }
         <tr><td>Discretionary CapEx</td><td class="num">72%</td><td>$46.5B can be cut without impacting services</td></tr>
         <tr><td>Credit Quality</td><td class="num positive">AAA/Aaa (implied)</td><td>No financial maintenance covenants</td></tr>
       </tbody>
-    </table>
+    </table></div>
   </div>
 
   <div class="card">
     <h3 class="card-title">Stress Test Scenarios</h3>
-    <table>
+    <div class="table-wrap"><table>
       <thead>
         <tr><th>Scenario</th><th>Revenue</th><th>Op. Margin</th><th>FCF</th><th>Div. Coverage</th><th>Assessment</th></tr>
       </thead>
@@ -543,13 +623,13 @@ tr:hover { background: var(--bg-card-hover); }
           <td class="neutral">Survivable with adjustments &mdash; buybacks suspended, CapEx slashed 45%</td>
         </tr>
       </tbody>
-    </table>
+    </table></div>
     <p style="margin-top: 12px; font-size: 13px; color: var(--text-secondary);">Revenue would need to decline <strong>47.5%</strong> for FCF to reach zero, and <strong>41.4%</strong> for dividends to be at risk. Essentially impossible with 77% recurring revenue and $375B+ backlog.</p>
   </div>
 
   <div class="card">
     <h3 class="card-title">Z-Score Crash Sensitivity</h3>
-    <table>
+    <div class="table-wrap"><table>
       <thead>
         <tr><th>Stock Price</th><th>Decline</th><th>Z-Score</th><th>Zone</th></tr>
       </thead>
@@ -560,13 +640,13 @@ tr:hover { background: var(--bg-card-hover); }
         <tr><td>$100 (extreme)</td><td class="num negative">-71%</td><td class="num positive">3.40</td><td><span class="severity-badge severity-LOW">SAFE</span></td></tr>
         <tr><td>~$50 (grey zone)</td><td class="num negative">-86%</td><td class="num neutral">~2.99</td><td><span class="severity-badge severity-MEDIUM">GREY</span></td></tr>
       </tbody>
-    </table>
+    </table></div>
   </div>
 
   <div class="card">
     <h3 class="card-title">Capital Allocation Flexibility</h3>
     <p style="color: var(--text-secondary); margin-bottom: 16px;">Total OCF of $136.2B provides massive flexibility. Committed expenditures ~$49B. Discretionary available: ~$87B.</p>
-    <table>
+    <div class="table-wrap"><table>
       <thead>
         <tr><th>Lever</th><th>Cash Freed</th><th>Difficulty</th></tr>
       </thead>
@@ -576,14 +656,14 @@ tr:hover { background: var(--bg-card-hover); }
         <tr><td>Suspend acquisitions</td><td class="num">$6B</td><td><span class="severity-badge severity-LOW">EASY</span></td></tr>
         <tr><td><strong>All three combined</strong></td><td class="num positive"><strong>$59B</strong></td><td>&mdash;</td></tr>
       </tbody>
-    </table>
+    </table></div>
   </div>
 
   <div class="grid-2">
     <div class="card">
       <h3 class="card-title">FY2023 Precedent (Real-World Stress Test)</h3>
       <p style="color: var(--text-secondary); margin-bottom: 12px;">FY2023 provided a real stress test: post-pandemic normalization, enterprise budget tightening, tech layoffs.</p>
-      <table>
+      <div class="table-wrap"><table>
         <tbody>
           <tr><td>Revenue Growth FY2023</td><td class="num">6.9%</td></tr>
           <tr><td>Operating Margin</td><td class="num positive">41.8%</td></tr>
@@ -591,7 +671,7 @@ tr:hover { background: var(--bg-card-hover); }
           <tr><td>Cloud Growth (slowdown year)</td><td class="num positive">22.1%</td></tr>
           <tr><td>Re-acceleration FY2024</td><td class="num positive">15.7%</td></tr>
         </tbody>
-      </table>
+      </table></div>
       <p style="margin-top: 12px; font-size: 12px; color: var(--text-muted);">Current position is STRONGER ($375B RPO vs $275B, $136B OCF vs $87.6B) but CapEx cycle is NEW RISK not present in FY2023.</p>
     </div>
     <div class="card">
@@ -674,7 +754,7 @@ tr:hover { background: var(--bg-card-hover); }
   <div class="card">
     <h3 class="card-title collapsible" onclick="toggleCollapse(this)">Income Statement &amp; Profitability</h3>
     <div class="collapse-content">
-      <table>
+      <div class="table-wrap"><table>
         <thead>
           <tr><th>Metric</th><th class="num">FY2023</th><th class="num">FY2024</th><th class="num">FY2025</th><th>Trend</th></tr>
         </thead>
@@ -693,14 +773,14 @@ tr:hover { background: var(--bg-card-hover); }
           <tr><td>ROA</td><td class="num">&mdash;</td><td class="num">19.1%</td><td class="num">18.1%</td><td class="neutral">Stable despite asset expansion</td></tr>
           <tr><td>ROIC</td><td class="num">&mdash;</td><td class="num">30.4%</td><td class="num">27.3%</td><td class="neutral">Must stay >20% to validate cycle</td></tr>
         </tbody>
-      </table>
+      </table></div>
     </div>
   </div>
 
   <div class="card">
     <h3 class="card-title collapsible" onclick="toggleCollapse(this)">Balance Sheet &amp; Leverage</h3>
     <div class="collapse-content">
-      <table>
+      <div class="table-wrap"><table>
         <thead>
           <tr><th>Metric</th><th class="num">FY2024</th><th class="num">FY2025</th><th>Assessment</th></tr>
         </thead>
@@ -717,14 +797,14 @@ tr:hover { background: var(--bg-card-hover); }
           <tr><td>DSO</td><td class="num">84.7</td><td class="num neutral">90.6</td><td class="neutral">MONITOR &mdash; rising, watch for >95 days</td></tr>
           <tr><td>Implied Credit Rating</td><td class="num">&mdash;</td><td class="num positive">AAA/Aaa</td><td class="positive">No financial maintenance covenants</td></tr>
         </tbody>
-      </table>
+      </table></div>
     </div>
   </div>
 
   <div class="card">
     <h3 class="card-title collapsible" onclick="toggleCollapse(this)">Growth Metrics</h3>
     <div class="collapse-content">
-      <table>
+      <div class="table-wrap"><table>
         <thead>
           <tr><th>Metric</th><th class="num">Value</th><th>Assessment</th></tr>
         </thead>
@@ -741,14 +821,14 @@ tr:hover { background: var(--bg-card-hover); }
           <tr><td>H1 FY2026 Cloud Growth</td><td class="num positive">Q1: +26.2%, Q2: +25.9%</td><td class="positive">Sustained 25%+</td></tr>
           <tr><td>RPO (Dec 2025)</td><td class="num positive">$631B</td><td class="positive">~2 years revenue visibility</td></tr>
         </tbody>
-      </table>
+      </table></div>
     </div>
   </div>
 
   <div class="card">
     <h3 class="card-title collapsible" onclick="toggleCollapse(this)">Cash Flow Quality</h3>
     <div class="collapse-content">
-      <table>
+      <div class="table-wrap"><table>
         <thead>
           <tr><th>Metric</th><th class="num">FY2023</th><th class="num">FY2024</th><th class="num">FY2025</th><th>Verdict</th></tr>
         </thead>
@@ -757,7 +837,7 @@ tr:hover { background: var(--bg-card-hover); }
           <tr><td>CapEx/Depreciation</td><td class="num">&mdash;</td><td class="num">&mdash;</td><td class="num">2.93x</td><td>Massive capacity expansion, not maintenance</td></tr>
           <tr><td>Cash Conversion Cycle</td><td class="num" colspan="3">NEGATIVE</td><td class="positive">Customers prepay via subscriptions</td></tr>
         </tbody>
-      </table>
+      </table></div>
     </div>
   </div>
 </section>
@@ -904,7 +984,7 @@ tr:hover { background: var(--bg-card-hover); }
       <span style="color: var(--accent-purple);">Intelligent Cloud</span>
       <span style="color: var(--accent-cyan);">More Personal Computing</span>
     </div>
-    <table style="margin-top: 16px;">
+    <div class="table-wrap"><table style="margin-top: 16px;">
       <thead>
         <tr><th>Segment</th><th class="num">Revenue</th><th class="num">% of Total</th><th class="num">Growth</th><th class="num">Op. Margin</th></tr>
       </thead>
@@ -913,7 +993,7 @@ tr:hover { background: var(--bg-card-hover); }
         <tr><td>Intelligent Cloud</td><td class="num">$106.3B</td><td class="num">37.7%</td><td class="num positive">+21.5%</td><td class="num neutral">42.0% <span style="font-size:11px;color:var(--accent-yellow);">(-126bps)</span></td></tr>
         <tr><td>More Personal Computing</td><td class="num">$54.6B</td><td class="num">19.4%</td><td class="num positive">+7.5%</td><td class="num">25.9%</td></tr>
       </tbody>
-    </table>
+    </table></div>
   </div>
 
   <div class="card">
@@ -957,14 +1037,14 @@ tr:hover { background: var(--bg-card-hover); }
     </div>
     <div class="card">
       <h3 class="card-title">Revenue Split</h3>
-      <table>
+      <div class="table-wrap"><table>
         <tbody>
           <tr><td>Services (recurring)</td><td class="num positive">77.3%</td></tr>
           <tr><td>Products (one-time)</td><td class="num">22.7%</td></tr>
           <tr><td>US Revenue</td><td class="num">51.3%</td></tr>
           <tr><td>Non-US Revenue</td><td class="num">48.7%</td></tr>
         </tbody>
-      </table>
+      </table></div>
       <p style="margin-top: 8px; font-size: 12px; color: var(--text-secondary);">Top 2 product lines (Server+Cloud + M365) = 66% of revenue &mdash; both enterprise cloud/subscription (most resilient in downturn)</p>
     </div>
   </div>
@@ -987,7 +1067,7 @@ tr:hover { background: var(--bg-card-hover); }
       <div class="stat-box"><div class="stat-value positive">47.1%</div><div class="stat-label">Operating Margin</div></div>
       <div class="stat-box"><div class="stat-value positive">$5.16</div><div class="stat-label">EPS (+59.8% YoY)</div></div>
     </div>
-    <table>
+    <div class="table-wrap"><table>
       <thead>
         <tr><th>Metric</th><th class="num">Q1 FY2026</th><th class="num">Q2 FY2026</th><th>Trend</th></tr>
       </thead>
@@ -999,7 +1079,7 @@ tr:hover { background: var(--bg-card-hover); }
         <tr><td>RPO</td><td class="num">&mdash;</td><td class="num positive">$631B</td><td class="positive">~2 years revenue visibility</td></tr>
         <tr><td>Net Income</td><td class="num">&mdash;</td><td class="num">$38.5B</td><td class="neutral">Exceeds operating income &mdash; unusual</td></tr>
       </tbody>
-    </table>
+    </table></div>
     <div style="margin-top: 16px;">
       <h4 style="font-size: 14px; margin-bottom: 8px;">Forensic Flags</h4>
       <ul style="margin-left: 20px; font-size: 13px; color: var(--text-secondary);">
@@ -1050,7 +1130,7 @@ tr:hover { background: var(--bg-card-hover); }
       </div>
       <div class="gauge-labels"><span>0 (Shareholder Friendly)</span><span>10 (Entrenched)</span></div>
       <p style="margin-top: 12px; font-size: 13px; color: var(--text-secondary);"><span class="severity-badge severity-LOW">SHAREHOLDER FRIENDLY</span> &mdash; Among the lowest (best) entrenchment scores for any mega-cap.</p>
-      <table style="margin-top: 12px;">
+      <div class="table-wrap"><table style="margin-top: 12px;">
         <tbody>
           <tr><td>Dual-Class Stock</td><td class="positive">No</td></tr>
           <tr><td>Annual Board Elections</td><td class="positive">Yes</td></tr>
@@ -1060,13 +1140,13 @@ tr:hover { background: var(--bg-card-hover); }
           <tr><td>CEO = Chairman</td><td class="neutral">Yes, but Lead Independent Dir. (Sandra Peterson)</td></tr>
           <tr><td>Special Meeting Threshold</td><td class="positive">15% of outstanding shares</td></tr>
         </tbody>
-      </table>
+      </table></div>
     </div>
 
     <div class="card">
       <h3 class="card-title">Compensation Alignment: A+</h3>
       <p style="color: var(--text-secondary); margin-bottom: 12px;"><span class="severity-badge severity-LOW">EXCEPTIONALLY ALIGNED</span> with shareholder interests</p>
-      <table>
+      <div class="table-wrap"><table>
         <tbody>
           <tr><td>CEO Performance-Based Comp</td><td class="num positive">&gt;95%</td></tr>
           <tr><td>Stock Ownership Requirement</td><td class="num positive">15x salary (~$37.5M min)</td></tr>
@@ -1079,13 +1159,13 @@ tr:hover { background: var(--bg-card-hover); }
           <tr><td>PSA Structure</td><td>TSR-linked with 0.0x to 1.5x adjustment</td></tr>
           <tr><td>SBC as % Revenue</td><td class="num">4.25% <span style="font-size:11px;color:var(--accent-green);">(declining)</span></td></tr>
         </tbody>
-      </table>
+      </table></div>
     </div>
   </div>
 
   <div class="card">
     <h3 class="card-title">Board Assessment: A</h3>
-    <table>
+    <div class="table-wrap"><table>
       <tbody>
         <tr><td>Independent Directors</td><td class="num positive">11/12 (91.7%)</td></tr>
         <tr><td>Lead Independent Director</td><td>Sandra E. Peterson</td></tr>
@@ -1095,7 +1175,7 @@ tr:hover { background: var(--bg-card-hover); }
         <tr><td>Board Refreshment</td><td>4 directors added since 2019</td></tr>
         <tr><td>New Nominee</td><td>John David Rainey (replacing Carlos Rodriguez)</td></tr>
       </tbody>
-    </table>
+    </table></div>
   </div>
 
   <div class="grid-2">
@@ -1121,7 +1201,7 @@ tr:hover { background: var(--bg-card-hover); }
 
   <div class="card">
     <h3 class="card-title">Stock-Based Compensation</h3>
-    <table>
+    <div class="table-wrap"><table>
       <thead>
         <tr><th>Metric</th><th class="num">FY2025</th><th>Assessment</th></tr>
       </thead>
@@ -1131,19 +1211,19 @@ tr:hover { background: var(--bg-card-hover); }
         <tr><td>vs Peers</td><td class="num">&mdash;</td><td>Moderate for mega-cap software (Alphabet ~8-9%, Salesforce ~10%+, Oracle ~3-4%)</td></tr>
         <tr><td>Quality</td><td class="num positive">HIGH</td><td class="positive">95%+ performance-based CEO comp, TSR-linked PSUs, strong clawback</td></tr>
       </tbody>
-    </table>
+    </table></div>
   </div>
 
   <div class="card">
     <h3 class="card-title">Share Count &amp; Capital Returns</h3>
-    <table>
+    <div class="table-wrap"><table>
       <tbody>
         <tr><td>Shares Outstanding</td><td class="num">7.43B (flat over 3 years)</td></tr>
         <tr><td>Annual Buybacks</td><td class="num">~$30B/year (pausable lever in stress)</td></tr>
         <tr><td>Dividend Payout Ratio</td><td class="num positive">21.6%</td></tr>
         <tr><td>Dividend FCF Coverage</td><td class="num positive">3.25x (2.25x in severe stress)</td></tr>
       </tbody>
-    </table>
+    </table></div>
   </div>
 </section>
 
@@ -1204,34 +1284,34 @@ tr:hover { background: var(--bg-card-hover); }
   <div class="grid-2">
     <div class="card">
       <h3 class="card-title">Tax Analysis</h3>
-      <table>
+      <div class="table-wrap"><table>
         <thead>
           <tr><th>Metric</th><th class="num">FY2023</th><th class="num">FY2024</th><th class="num">FY2025</th></tr>
         </thead>
         <tbody>
           <tr><td>Effective Tax Rate</td><td class="num">19.0%</td><td class="num">18.2%</td><td class="num">17.6%</td></tr>
         </tbody>
-      </table>
+      </table></div>
       <p style="margin-top: 12px; font-size: 13px; color: var(--text-secondary);"><span class="severity-badge severity-MEDIUM">MODERATELY SUSTAINABLE WITH RISK</span> &mdash; Below statutory 21% due to FDII deduction, R&amp;D credits, international structure. Tax reform (25-28% statutory) would add $3.6-6.7B annual burden. Section 174 DTA of $16.9B provides partial buffer (~$3.5B future benefit).</p>
     </div>
 
     <div class="card">
       <h3 class="card-title">SBC Analysis</h3>
-      <table>
+      <div class="table-wrap"><table>
         <tbody>
           <tr><td>SBC FY2025</td><td class="num">$12.0B (4.25% of revenue)</td></tr>
           <tr><td>Trend</td><td class="positive">Declining as % of revenue (4.54% FY2023 to 4.25%)</td></tr>
           <tr><td>Dilution</td><td class="positive">ZERO NET &mdash; share count flat at 7.43B</td></tr>
           <tr><td>Quality</td><td class="positive">95%+ performance-based, TSR-linked</td></tr>
         </tbody>
-      </table>
+      </table></div>
     </div>
   </div>
 
   <div class="card">
     <h3 class="card-title">Stress Testing &amp; Optionality</h3>
     <p style="color: var(--text-secondary); margin-bottom: 16px;">CapEx flexibility analysis: 72% of $64.6B CapEx is discretionary growth spending. Can cut $46.5B without impacting existing service delivery. Maintenance CapEx estimated at $18B.</p>
-    <table>
+    <div class="table-wrap"><table>
       <thead>
         <tr><th>Breakeven Analysis</th><th class="num">Revenue Decline Required</th></tr>
       </thead>
@@ -1239,7 +1319,7 @@ tr:hover { background: var(--bg-card-hover); }
         <tr><td>FCF reaches zero</td><td class="num positive">-47.5%</td></tr>
         <tr><td>Dividend at risk</td><td class="num positive">-41.4%</td></tr>
       </tbody>
-    </table>
+    </table></div>
     <p style="margin-top: 12px; font-size: 13px; color: var(--text-secondary);">Essentially impossible with 77% recurring revenue and $375B+ backlog.</p>
   </div>
 
@@ -1250,7 +1330,7 @@ tr:hover { background: var(--bg-card-hover); }
 
   <div class="card">
     <h3 class="card-title">Validation Checks</h3>
-    <table>
+    <div class="table-wrap"><table>
       <tbody>
         <tr><td>Going Concern</td><td class="positive">No</td></tr>
         <tr><td>Material Weakness</td><td class="positive">No</td></tr>
@@ -1258,7 +1338,7 @@ tr:hover { background: var(--bg-card-hover); }
         <tr><td>Auditor</td><td>Deloitte &amp; Touche LLP</td></tr>
         <tr><td>Calculation Errors</td><td class="positive">0</td></tr>
       </tbody>
-    </table>
+    </table></div>
   </div>
 </section>
 
@@ -1284,7 +1364,7 @@ tr:hover { background: var(--bg-card-hover); }
       <div class="gauge-fill" style="width: 72%; background: linear-gradient(90deg, var(--accent-green), var(--accent-yellow));"></div>
     </div>
     <p style="color: var(--text-secondary); margin-bottom: 16px;">Trust reported numbers (exceptional accuracy). Apply skepticism to forward projections, especially on CapEx efficiency, AI margins, and OpenAI economics.</p>
-    <table>
+    <div class="table-wrap"><table>
       <thead>
         <tr><th>Sub-Score</th><th class="num">Score</th><th>Detail</th></tr>
       </thead>
@@ -1295,7 +1375,7 @@ tr:hover { background: var(--bg-card-hover); }
         <tr><td>Timeline Accuracy</td><td class="num neutral">61</td><td>61.25% &mdash; capacity balance miss, H2 headwind miss</td></tr>
         <tr><td>Transparency vs Deflection</td><td class="num negative">55</td><td>10-K materially more honest than transcripts. Hood deflection rising to 43%.</td></tr>
       </tbody>
-    </table>
+    </table></div>
   </div>
 
   <div class="card">
@@ -1303,7 +1383,7 @@ tr:hover { background: var(--bg-card-hover); }
     <div class="gauge-bar" style="margin-bottom: 16px;">
       <div class="gauge-fill" style="width: 58%; background: linear-gradient(90deg, var(--accent-yellow), var(--accent-orange));"></div>
     </div>
-    <table>
+    <div class="table-wrap"><table>
       <thead>
         <tr><th>Component</th><th class="num">Score</th><th>Detail</th></tr>
       </thead>
@@ -1314,7 +1394,7 @@ tr:hover { background: var(--bg-card-hover); }
         <tr><td>Offensive vs Defensive</td><td class="num neutral">45</td><td>Crossed midpoint by Q2-FY2026. Now 55% defensive posture.</td></tr>
         <tr><td>Cross-Executive Alignment</td><td class="num positive">92</td><td>Suspiciously consistent over 5 quarters</td></tr>
       </tbody>
-    </table>
+    </table></div>
   </div>
 
   <div class="card">
@@ -1322,7 +1402,7 @@ tr:hover { background: var(--bg-card-hover); }
     <div class="gauge-bar" style="margin-bottom: 16px;">
       <div class="gauge-fill" style="width: 76%; background: linear-gradient(90deg, var(--accent-green), var(--accent-blue));"></div>
     </div>
-    <table>
+    <div class="table-wrap"><table>
       <thead>
         <tr><th>Component</th><th class="num">Score</th><th>Detail</th></tr>
       </thead>
@@ -1333,7 +1413,7 @@ tr:hover { background: var(--bg-card-hover); }
         <tr><td>Earnings Quality</td><td class="num positive">95</td><td>M-Score -2.54, TATA -0.055, OCF/NI 1.34x. Exceptional.</td></tr>
         <tr><td>Copilot Monetization</td><td class="num">70</td><td>15M paid seats growing 160%. ~$5.4B ARR. Real but still early.</td></tr>
       </tbody>
-    </table>
+    </table></div>
   </div>
 
   <div class="card">

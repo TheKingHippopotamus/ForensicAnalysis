@@ -362,6 +362,86 @@ tr:hover { background: var(--bg-card-hover); }
   .section-title { font-size: 16px; gap: 6px; }
 }
 
+
+/* ===== MOBILE V2 FIXES (smartphone-specific) ===== */
+
+/* FIX 1: Red flags + cross-layer — more spacing, vertical badge stacking */
+@media (max-width: 768px) {
+  .flag-card { padding: 16px !important; margin-bottom: 16px !important; border-radius: 10px; }
+  .flag-card > div:first-child {
+    flex-direction: column !important; align-items: flex-start !important; gap: 8px !important;
+  }
+  .flag-card .severity-badge { font-size: 11px; }
+  .flag-card p { font-size: 13px; line-height: 1.6; margin-top: 8px; }
+}
+
+/* FIX 2: Insider/Ownership tables — card-style stacking */
+@media (max-width: 768px) {
+  #insiders table, #insiders thead, #insiders tbody, #insiders tr, #insiders th, #insiders td {
+    display: block; width: 100%;
+  }
+  #insiders thead { display: none; }
+  #insiders tr {
+    margin-bottom: 12px; padding: 12px; border-radius: 8px;
+    background: var(--bg-card, #1a2234); border: 1px solid var(--border, #2a3550);
+  }
+  #insiders td { padding: 4px 0; border-bottom: none; text-align: left; }
+  #insiders td.num { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+  #insiders td:last-child { font-size: 12px; color: var(--text-secondary, #8b99b0); line-height: 1.5; }
+}
+
+/* FIX 3: Table scroll hint */
+@media (max-width: 768px) {
+  .table-wrap { position: relative; }
+  .table-wrap::after {
+    content: '\2190 scroll \2192';
+    display: block; text-align: center; font-size: 10px;
+    color: var(--text-muted, #5a6880); padding: 6px 0 2px; opacity: 0.5;
+  }
+}
+
+/* FIX 4: Segments — stacked bar becomes vertical bars on phone */
+@media (max-width: 768px) {
+  .stacked-bar {
+    height: auto !important; flex-direction: column !important; gap: 4px;
+    border-radius: 0 !important;
+  }
+  .stacked-seg {
+    height: 32px !important; width: 100% !important;
+    border-radius: 6px !important;
+    justify-content: flex-start !important; padding-left: 12px !important;
+    font-size: 12px !important;
+  }
+}
+
+/* FIX 5: Forensic models — complete mobile redesign */
+@media (max-width: 768px) {
+  .gauge-container { gap: 16px; flex-direction: column; }
+  .gauge-card {
+    min-width: unset !important; padding: 20px 16px !important;
+    background: var(--bg-secondary, #111827) !important; border-radius: 12px;
+  }
+  .gauge-title { font-size: 16px !important; text-align: center; margin-bottom: 4px; }
+  .gauge-subtitle { font-size: 11px !important; text-align: center; }
+  .gauge-score { font-size: 32px !important; text-align: center; margin: 12px 0 !important; }
+  .gauge-bar { height: 14px !important; border-radius: 7px !important; margin-bottom: 6px; }
+  .gauge-marker { height: 22px !important; top: -4px !important; width: 3px !important; }
+  .gauge-zones .gauge-zone { opacity: 0.25 !important; }
+  .gauge-labels { font-size: 9px !important; padding: 0 2px; }
+  .gauge-labels span:nth-child(2) { opacity: 0.5; font-size: 8px; }
+  .gauge-vars {
+    font-size: 12px !important; line-height: 2.0 !important; margin-top: 12px;
+    padding-top: 12px; border-top: 1px solid var(--border, #2a3550);
+  }
+}
+@media (max-width: 480px) {
+  .flag-card { padding: 14px 12px !important; margin-bottom: 12px !important; border-radius: 8px; }
+  .gauge-score { font-size: 28px !important; }
+  .gauge-title { font-size: 15px !important; }
+  .gauge-labels span:nth-child(2) { display: none; }
+  .gauge-vars { font-size: 11px !important; }
+}
+
 </style>
 </head>
 <body>
@@ -462,7 +542,7 @@ tr:hover { background: var(--bg-card-hover); }
   <div class="card">
     <h3 class="card-title collapsible" onclick="toggleCollapse(this)">Annual Income Statement</h3>
     <div class="collapse-content">
-      <table>
+      <div class="table-wrap"><table>
         <thead>
           <tr>
             <th>Metric</th>
@@ -544,7 +624,7 @@ tr:hover { background: var(--bg-card-hover); }
             <td class="num"><strong>$10.81</strong></td>
           </tr>
         </tbody>
-      </table>
+      </table></div>
     </div>
   </div>
 
@@ -552,7 +632,7 @@ tr:hover { background: var(--bg-card-hover); }
   <div class="card">
     <h3 class="card-title collapsible" onclick="toggleCollapse(this)">Margins &amp; Key Ratios</h3>
     <div class="collapse-content">
-      <table>
+      <div class="table-wrap"><table>
         <thead>
           <tr>
             <th>Metric</th>
@@ -629,7 +709,7 @@ tr:hover { background: var(--bg-card-hover); }
             <td class="positive">Near-zero leverage</td>
           </tr>
         </tbody>
-      </table>
+      </table></div>
     </div>
   </div>
 
@@ -637,7 +717,7 @@ tr:hover { background: var(--bg-card-hover); }
   <div class="card">
     <h3 class="card-title collapsible" onclick="toggleCollapse(this)">Balance Sheet Highlights</h3>
     <div class="collapse-content">
-      <table>
+      <div class="table-wrap"><table>
         <thead>
           <tr>
             <th>Metric</th>
@@ -655,7 +735,7 @@ tr:hover { background: var(--bg-card-hover); }
           <tr><td>Net Cash Position</td><td class="num positive">$99.0B</td><td class="num positive">$84.8B</td></tr>
           <tr><td>Working Capital</td><td class="num">$89.7B</td><td class="num">$74.6B</td></tr>
         </tbody>
-      </table>
+      </table></div>
     </div>
   </div>
 
@@ -850,7 +930,7 @@ tr:hover { background: var(--bg-card-hover); }
     <!-- Google Services -->
     <div class="card">
       <h3 class="card-title">Google Services <span style="font-size:12px;color:var(--text-muted);">85.1% of revenue</span></h3>
-      <table>
+      <div class="table-wrap"><table>
         <thead><tr><th>Sub-Segment</th><th class="num">Revenue</th><th class="num">% Total</th><th class="num">YoY Growth</th></tr></thead>
         <tbody>
           <tr><td>Google Search</td><td class="num">$224.5B</td><td class="num">55.7%</td><td class="num positive">+13.4%</td></tr>
@@ -859,7 +939,7 @@ tr:hover { background: var(--bg-card-hover); }
           <tr><td>Google Network</td><td class="num">$29.8B</td><td class="num">7.4%</td><td class="num negative">-1.9%</td></tr>
           <tr style="font-weight:600;"><td>Total Google Services</td><td class="num">$342.7B</td><td class="num">85.1%</td><td class="num positive">+12.4%</td></tr>
         </tbody>
-      </table>
+      </table></div>
       <div style="margin-top:12px;font-size:12px;color:var(--text-secondary);">
         <strong>Advertising subtotal:</strong> $294.7B (73.2% of revenue, +11.4% YoY). Google Network in structural decline &mdash; 2 consecutive years negative.
       </div>
@@ -905,7 +985,7 @@ tr:hover { background: var(--bg-card-hover); }
   <div class="card">
     <h3 class="card-title collapsible" onclick="toggleCollapse(this)">Quarter-by-Quarter Performance</h3>
     <div class="collapse-content">
-      <table>
+      <div class="table-wrap"><table>
         <thead>
           <tr>
             <th>Quarter</th>
@@ -941,7 +1021,7 @@ tr:hover { background: var(--bg-card-hover); }
             <td><strong>Q3-2025</strong></td><td class="num">$102.3B</td><td class="num">$31.2B</td><td class="num">$35.0B</td><td class="num">$2.87</td><td class="num neutral">30.5%</td><td class="num negative">$24.0B</td><td class="num">$24.5B</td>
           </tr>
         </tbody>
-      </table>
+      </table></div>
     </div>
   </div>
 
@@ -1000,7 +1080,7 @@ tr:hover { background: var(--bg-card-hover); }
   <div class="grid-2">
     <div class="card">
       <h3 class="card-title">Board Composition</h3>
-      <table>
+      <div class="table-wrap"><table>
         <thead><tr><th>Metric</th><th>Value</th></tr></thead>
         <tbody>
           <tr><td>Total Directors</td><td>10</td></tr>
@@ -1009,12 +1089,12 @@ tr:hover { background: var(--bg-card-hover); }
           <tr><td>Average Tenure</td><td class="neutral">15.5 years</td></tr>
           <tr><td>Non-Independent</td><td>Larry Page, Sergey Brin, Sundar Pichai</td></tr>
         </tbody>
-      </table>
+      </table></div>
     </div>
 
     <div class="card">
       <h3 class="card-title">Compensation &amp; SBC</h3>
-      <table>
+      <div class="table-wrap"><table>
         <thead><tr><th>Metric</th><th>Value</th></tr></thead>
         <tbody>
           <tr><td>FY2024 SBC</td><td>$22.8B (6.5% of revenue)</td></tr>
@@ -1025,20 +1105,20 @@ tr:hover { background: var(--bg-card-hover); }
           <tr><td>Pay-for-Performance</td><td>MODERATE-STRONG (TSR modifier vs S&amp;P 100)</td></tr>
           <tr><td>Golden Parachutes</td><td class="positive">None</td></tr>
         </tbody>
-      </table>
+      </table></div>
     </div>
   </div>
 
   <div class="card">
     <h3 class="card-title">Dual-Class Voting Structure</h3>
-    <table>
+    <div class="table-wrap"><table>
       <thead><tr><th>Share Class</th><th>Votes/Share</th><th>Notes</th></tr></thead>
       <tbody>
         <tr><td>Class A (GOOGL)</td><td>1 vote</td><td>Publicly traded</td></tr>
         <tr><td>Class B</td><td class="negative">10 votes</td><td>Founders only &mdash; not publicly traded</td></tr>
         <tr><td>Class C (GOOG)</td><td>0 votes</td><td>Publicly traded</td></tr>
       </tbody>
-    </table>
+    </table></div>
     <p style="font-size:13px;color:var(--accent-red);margin-top:12px;"><strong>Implication:</strong> Founders control majority of votes with ~3.86% economic ownership. No sunset clause. This is the single most significant governance risk &mdash; it amplifies all other risks by removing shareholder recourse.</p>
   </div>
 </section>
@@ -1058,7 +1138,7 @@ tr:hover { background: var(--bg-card-hover); }
         <div class="stacked-seg" style="width:30.89%;background:var(--accent-purple);">Retail 30.9%</div>
         <div class="stacked-seg" style="width:3.86%;background:var(--accent-orange);">Insider 3.9%</div>
       </div>
-      <table style="margin-top:16px;">
+      <div class="table-wrap"><table style="margin-top:16px;">
         <thead><tr><th>Top Institutional Holders</th><th class="num">Est. %</th></tr></thead>
         <tbody>
           <tr><td>Vanguard Group Inc.</td><td class="num">~7.5%</td></tr>
@@ -1067,7 +1147,7 @@ tr:hover { background: var(--bg-card-hover); }
           <tr><td>FMR LLC (Fidelity)</td><td class="num">&mdash;</td></tr>
           <tr><td>Geode Capital Management LLC</td><td class="num">&mdash;</td></tr>
         </tbody>
-      </table>
+      </table></div>
       <p style="font-size:12px;color:var(--text-secondary);margin-top:8px;">Total 13F filers: 5,791. Concentration risk: LOW &mdash; well diversified.</p>
     </div>
 
@@ -1149,7 +1229,7 @@ tr:hover { background: var(--bg-card-hover); }
     <!-- Tax -->
     <div class="card">
       <h3 class="card-title">Tax Analysis</h3>
-      <table>
+      <div class="table-wrap"><table>
         <thead><tr><th>Year</th><th class="num">Effective Tax Rate</th></tr></thead>
         <tbody>
           <tr><td>FY2022</td><td class="num">15.9%</td></tr>
@@ -1157,7 +1237,7 @@ tr:hover { background: var(--bg-card-hover); }
           <tr><td>FY2024</td><td class="num">16.4%</td></tr>
           <tr><td>FY2025 (est.)</td><td class="num neutral">16.8%</td></tr>
         </tbody>
-      </table>
+      </table></div>
       <p style="font-size:12px;color:var(--text-secondary);margin-top:8px;">RISING &mdash; +287bps from FY2023 trough. Gap to 21% statutory rate narrowing as tax benefits normalize.</p>
       <div class="flag-card moderate" style="padding:10px;margin-top:8px;">
         <span class="severity-badge severity-MEDIUM">WATCH</span>
@@ -1168,7 +1248,7 @@ tr:hover { background: var(--bg-card-hover); }
     <!-- SBC -->
     <div class="card">
       <h3 class="card-title">Stock-Based Compensation</h3>
-      <table>
+      <div class="table-wrap"><table>
         <thead><tr><th>Metric</th><th>Value</th></tr></thead>
         <tbody>
           <tr><td>FY2024 SBC</td><td>$22.8B (+1.5% YoY)</td></tr>
@@ -1178,7 +1258,7 @@ tr:hover { background: var(--bg-card-hover); }
           <tr><td>Buyback Offset</td><td class="positive">2.7x SBC</td></tr>
           <tr><td>Net Share Count</td><td class="positive">Declining (-2.0%)</td></tr>
         </tbody>
-      </table>
+      </table></div>
       <p style="font-size:12px;color:var(--text-secondary);margin-top:8px;">Best-in-class SBC profile among mega-cap tech. Absolute dollars high ($22.8B, largest in S&amp;P 500) but improving efficiency.</p>
     </div>
 
@@ -1187,14 +1267,14 @@ tr:hover { background: var(--bg-card-hover); }
       <h3 class="card-title">Debt &amp; Stress Testing</h3>
       <div class="gauge-score positive" style="font-size:32px;">1.5 <span style="font-size:14px;color:var(--text-muted);">/ 10</span></div>
       <p style="font-size:12px;color:var(--text-secondary);margin-bottom:12px;">Composite Stress Score: MINIMAL STRESS &mdash; fortress balance sheet</p>
-      <table>
+      <div class="table-wrap"><table>
         <thead><tr><th>Stress Vector</th><th class="num">Score</th><th>Detail</th></tr></thead>
         <tbody>
           <tr><td>CapEx Funding</td><td class="num neutral">3.0</td><td style="font-size:11px;">PP&amp;E +27.3%, $37B pending acquisitions</td></tr>
           <tr><td>Acquisition Integration</td><td class="num neutral">2.5</td><td style="font-size:11px;">Wiz $32B + Intersect $4.8B &mdash; largest M&amp;A program</td></tr>
           <tr><td>Working Capital</td><td class="num">1.5</td><td style="font-size:11px;">WC declined 16.9%, current ratio dropped to 1.84</td></tr>
         </tbody>
-      </table>
+      </table></div>
       <div style="margin-top:12px;font-size:12px;">
         <span class="positive">Green Flags:</span>
         <span style="color:var(--text-secondary);">Net cash $84.8B, Debt/EBITDA 0.18x, 32% NI growth funds all programs internally</span>
@@ -1640,7 +1720,7 @@ tr:hover { background: var(--bg-card-hover); }
 
   <div class="card">
     <h3 class="card-title">Key 12-Month Risks</h3>
-    <table>
+    <div class="table-wrap"><table>
       <thead><tr><th>Risk</th><th class="num">Probability</th><th>Impact</th></tr></thead>
       <tbody>
         <tr><td>CapEx overbuilding if AI demand normalizes</td><td class="num">20-30%</td><td><span class="severity-badge severity-HIGH">HIGH</span></td></tr>
@@ -1649,7 +1729,7 @@ tr:hover { background: var(--bg-card-hover); }
         <tr><td>Non-operating income reversal</td><td class="num">25-35%</td><td><span class="severity-badge severity-MEDIUM">MEDIUM</span></td></tr>
         <tr><td>Depreciation surge compresses margins</td><td class="num">40-50%</td><td><span class="severity-badge severity-MEDIUM">MEDIUM</span></td></tr>
       </tbody>
-    </table>
+    </table></div>
   </div>
 
   <div class="card">

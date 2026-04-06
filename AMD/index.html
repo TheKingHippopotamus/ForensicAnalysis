@@ -362,6 +362,86 @@ tr:hover { background: var(--bg-card-hover); }
   .section-title { font-size: 16px; gap: 6px; }
 }
 
+
+/* ===== MOBILE V2 FIXES (smartphone-specific) ===== */
+
+/* FIX 1: Red flags + cross-layer — more spacing, vertical badge stacking */
+@media (max-width: 768px) {
+  .flag-card { padding: 16px !important; margin-bottom: 16px !important; border-radius: 10px; }
+  .flag-card > div:first-child {
+    flex-direction: column !important; align-items: flex-start !important; gap: 8px !important;
+  }
+  .flag-card .severity-badge { font-size: 11px; }
+  .flag-card p { font-size: 13px; line-height: 1.6; margin-top: 8px; }
+}
+
+/* FIX 2: Insider/Ownership tables — card-style stacking */
+@media (max-width: 768px) {
+  #insiders table, #insiders thead, #insiders tbody, #insiders tr, #insiders th, #insiders td {
+    display: block; width: 100%;
+  }
+  #insiders thead { display: none; }
+  #insiders tr {
+    margin-bottom: 12px; padding: 12px; border-radius: 8px;
+    background: var(--bg-card, #1a2234); border: 1px solid var(--border, #2a3550);
+  }
+  #insiders td { padding: 4px 0; border-bottom: none; text-align: left; }
+  #insiders td.num { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+  #insiders td:last-child { font-size: 12px; color: var(--text-secondary, #8b99b0); line-height: 1.5; }
+}
+
+/* FIX 3: Table scroll hint */
+@media (max-width: 768px) {
+  .table-wrap { position: relative; }
+  .table-wrap::after {
+    content: '\2190 scroll \2192';
+    display: block; text-align: center; font-size: 10px;
+    color: var(--text-muted, #5a6880); padding: 6px 0 2px; opacity: 0.5;
+  }
+}
+
+/* FIX 4: Segments — stacked bar becomes vertical bars on phone */
+@media (max-width: 768px) {
+  .stacked-bar {
+    height: auto !important; flex-direction: column !important; gap: 4px;
+    border-radius: 0 !important;
+  }
+  .stacked-seg {
+    height: 32px !important; width: 100% !important;
+    border-radius: 6px !important;
+    justify-content: flex-start !important; padding-left: 12px !important;
+    font-size: 12px !important;
+  }
+}
+
+/* FIX 5: Forensic models — complete mobile redesign */
+@media (max-width: 768px) {
+  .gauge-container { gap: 16px; flex-direction: column; }
+  .gauge-card {
+    min-width: unset !important; padding: 20px 16px !important;
+    background: var(--bg-secondary, #111827) !important; border-radius: 12px;
+  }
+  .gauge-title { font-size: 16px !important; text-align: center; margin-bottom: 4px; }
+  .gauge-subtitle { font-size: 11px !important; text-align: center; }
+  .gauge-score { font-size: 32px !important; text-align: center; margin: 12px 0 !important; }
+  .gauge-bar { height: 14px !important; border-radius: 7px !important; margin-bottom: 6px; }
+  .gauge-marker { height: 22px !important; top: -4px !important; width: 3px !important; }
+  .gauge-zones .gauge-zone { opacity: 0.25 !important; }
+  .gauge-labels { font-size: 9px !important; padding: 0 2px; }
+  .gauge-labels span:nth-child(2) { opacity: 0.5; font-size: 8px; }
+  .gauge-vars {
+    font-size: 12px !important; line-height: 2.0 !important; margin-top: 12px;
+    padding-top: 12px; border-top: 1px solid var(--border, #2a3550);
+  }
+}
+@media (max-width: 480px) {
+  .flag-card { padding: 14px 12px !important; margin-bottom: 12px !important; border-radius: 8px; }
+  .gauge-score { font-size: 28px !important; }
+  .gauge-title { font-size: 15px !important; }
+  .gauge-labels span:nth-child(2) { display: none; }
+  .gauge-vars { font-size: 11px !important; }
+}
+
 </style>
 </head>
 <body>
@@ -459,7 +539,7 @@ tr:hover { background: var(--bg-card-hover); }
   <div class="card">
     <h3 class="card-title collapsible" onclick="toggleCollapse(this)">Income Statement ($M)</h3>
     <div class="collapse-content">
-      <table>
+      <div class="table-wrap"><table>
         <thead><tr><th>Metric</th><th class="num">FY2025</th><th class="num">FY2024</th><th class="num">FY2023</th></tr></thead>
         <tbody>
           <tr><td><strong>Revenue</strong></td><td class="num">$34,639M</td><td class="num">$25,785M</td><td class="num">$22,680M</td></tr>
@@ -475,7 +555,7 @@ tr:hover { background: var(--bg-card-hover); }
           <tr><td>SBC Expense</td><td class="num neutral">$1,638M</td><td class="num">$1,407M</td><td class="num">$1,384M</td></tr>
           <tr><td>Diluted Shares (M)</td><td class="num">1,636M</td><td class="num">1,637M</td><td class="num">1,625M</td></tr>
         </tbody>
-      </table>
+      </table></div>
     </div>
   </div>
 
@@ -483,7 +563,7 @@ tr:hover { background: var(--bg-card-hover); }
   <div class="card">
     <h3 class="card-title collapsible" onclick="toggleCollapse(this)">Balance Sheet ($M)</h3>
     <div class="collapse-content">
-      <table>
+      <div class="table-wrap"><table>
         <thead><tr><th>Metric</th><th class="num">FY2025</th><th class="num">FY2024</th><th class="num">FY2023</th></tr></thead>
         <tbody>
           <tr><td>Cash &amp; Equivalents</td><td class="num">$5,539M</td><td class="num">$3,787M</td><td class="num">$3,933M</td></tr>
@@ -500,7 +580,7 @@ tr:hover { background: var(--bg-card-hover); }
           <tr><td><strong>Stockholders' Equity</strong></td><td class="num positive"><strong>$62,999M</strong></td><td class="num">$57,568M</td><td class="num">$55,892M</td></tr>
           <tr><td>Retained Earnings</td><td class="num positive">$6,699M</td><td class="num">$2,364M</td><td class="num">$723M</td></tr>
         </tbody>
-      </table>
+      </table></div>
     </div>
   </div>
 
@@ -508,7 +588,7 @@ tr:hover { background: var(--bg-card-hover); }
   <div class="card">
     <h3 class="card-title collapsible" onclick="toggleCollapse(this)">Key Ratios</h3>
     <div class="collapse-content">
-      <table>
+      <div class="table-wrap"><table>
         <thead><tr><th>Ratio</th><th class="num">FY2025</th><th class="num">FY2024</th><th class="num">FY2023</th></tr></thead>
         <tbody>
           <tr><td><strong>Gross Margin</strong></td><td class="num">49.5%</td><td class="num">49.3%</td><td class="num">46.1%</td></tr>
@@ -527,7 +607,7 @@ tr:hover { background: var(--bg-card-hover); }
           <tr><td>SBC % of Revenue</td><td class="num positive">4.7%</td><td class="num">5.5%</td><td class="num">6.1%</td></tr>
           <tr><td>R&amp;D Intensity</td><td class="num">23.4%</td><td class="num">25.0%</td><td class="num">25.9%</td></tr>
         </tbody>
-      </table>
+      </table></div>
     </div>
   </div>
 
@@ -575,7 +655,7 @@ tr:hover { background: var(--bg-card-hover); }
   <div class="card">
     <h3 class="card-title collapsible" onclick="toggleCollapse(this)">Cash Flow Estimates</h3>
     <div class="collapse-content">
-      <table>
+      <div class="table-wrap"><table>
         <thead><tr><th>Metric</th><th class="num">FY2025 (est.)</th><th class="num">FY2024</th><th class="num">FY2023</th></tr></thead>
         <tbody>
           <tr><td><strong>Operating Cash Flow</strong></td><td class="num positive"><strong>$7,000M</strong></td><td class="num">$3,041M</td><td class="num">$1,667M</td></tr>
@@ -584,7 +664,7 @@ tr:hover { background: var(--bg-card-hover); }
           <tr><td>FCF Margin %</td><td class="num positive">16.6%</td><td class="num">6.8%</td><td class="num">4.5%</td></tr>
           <tr><td>Cash Conversion Quality</td><td class="num">1.61x</td><td class="num">1.85x</td><td class="num">1.95x</td></tr>
         </tbody>
-      </table>
+      </table></div>
       <p style="font-size:11px;color:var(--text-muted);margin-top:8px;">FY2025 OCF estimated from components (NI + D&amp;A + Amort + SBC + DeferredTax - InvestmentGains - WC changes)</p>
     </div>
   </div>
@@ -648,12 +728,12 @@ tr:hover { background: var(--bg-card-hover); }
         <span class="verdict-badge badge-green">SAFE</span>
       </div>
       <div style="margin-top:12px;">
-        <table style="font-size:12px;">
+        <div class="table-wrap"><table style="font-size:12px;">
           <tr><th>Year</th><th class="num">Z-Score</th><th>Status</th></tr>
           <tr><td>FY2025</td><td class="num">3.72</td><td><span class="verdict-badge badge-green">SAFE</span></td></tr>
           <tr><td>FY2024</td><td class="num">3.68</td><td><span class="verdict-badge badge-green">SAFE</span></td></tr>
           <tr><td>FY2023</td><td class="num">3.34</td><td><span class="verdict-badge badge-green">SAFE</span></td></tr>
-        </table>
+        </table></div>
       </div>
       <div class="gauge-vars" style="margin-top:12px;">
         <div><strong>X1 Working Capital/Total Assets:</strong> 0.227</div>
@@ -738,13 +818,13 @@ tr:hover { background: var(--bg-card-hover); }
       <div class="gauge-subtitle">Cash Conversion Cycle + Quality</div>
       <div class="gauge-score">171 days</div>
       <div style="margin-top:12px;">
-        <table style="font-size:12px;">
+        <div class="table-wrap"><table style="font-size:12px;">
           <tr><th>Metric</th><th class="num">FY2025</th><th class="num">FY2024</th></tr>
           <tr><td>DSO</td><td class="num">66.6</td><td class="num">87.6</td></tr>
           <tr><td>DIO</td><td class="num">165.3</td><td class="num">160.3</td></tr>
           <tr><td>DPO</td><td class="num">61.1</td><td class="num">68.9</td></tr>
           <tr><td><strong>CCC</strong></td><td class="num"><strong>170.8</strong></td><td class="num"><strong>179.0</strong></td></tr>
-        </table>
+        </table></div>
       </div>
       <div style="margin-top:8px;font-size:12px;color:var(--accent-cyan);">SHORTENING by 8.2 days &mdash; DSO improved significantly (-21 days), partially offset by DIO increase (+5 days)</div>
       <div style="margin-top:8px;font-size:12px;"><strong>Quality Ratio Trend:</strong></div>
@@ -765,7 +845,7 @@ tr:hover { background: var(--bg-card-hover); }
 
   <div class="card">
     <h3 class="card-title">Revenue by Segment ($M)</h3>
-    <table>
+    <div class="table-wrap"><table>
       <thead><tr><th>Segment</th><th class="num">FY2025</th><th class="num">FY2024</th><th class="num">FY2023</th><th class="num">2Y CAGR</th></tr></thead>
       <tbody>
         <tr><td><strong>Data Center</strong></td><td class="num">$16,635M</td><td class="num">$12,579M</td><td class="num">$6,496M</td><td class="num positive">60.0%</td></tr>
@@ -773,7 +853,7 @@ tr:hover { background: var(--bg-card-hover); }
         <tr><td><strong>Embedded</strong></td><td class="num">$3,454M</td><td class="num">$3,557M</td><td class="num">$5,321M</td><td class="num negative">-19.4%</td></tr>
         <tr style="border-top:2px solid var(--border);"><td><strong>Total</strong></td><td class="num"><strong>$34,639M</strong></td><td class="num"><strong>$25,785M</strong></td><td class="num"><strong>$22,680M</strong></td><td class="num positive"><strong>23.6%</strong></td></tr>
       </tbody>
-    </table>
+    </table></div>
   </div>
 
   <!-- Revenue Mix -->
@@ -813,7 +893,7 @@ tr:hover { background: var(--bg-card-hover); }
   <!-- Operating Margins -->
   <div class="card">
     <h3 class="card-title">Segment Operating Margins</h3>
-    <table>
+    <div class="table-wrap"><table>
       <thead><tr><th>Segment</th><th class="num">FY2025</th><th class="num">FY2024</th><th class="num">FY2023</th></tr></thead>
       <tbody>
         <tr><td><strong>Data Center</strong></td><td class="num negative">21.7%</td><td class="num">27.7%</td><td class="num">19.5%</td></tr>
@@ -821,7 +901,7 @@ tr:hover { background: var(--bg-card-hover); }
         <tr><td><strong>Embedded</strong></td><td class="num">36.0%</td><td class="num">40.0%</td><td class="num">49.4%</td></tr>
         <tr style="border-top:2px solid var(--border);"><td><strong>Consolidated</strong></td><td class="num positive"><strong>10.7%</strong></td><td class="num"><strong>7.4%</strong></td><td class="num"><strong>1.8%</strong></td></tr>
       </tbody>
-    </table>
+    </table></div>
   </div>
 
   <!-- Geographic -->
@@ -854,7 +934,7 @@ tr:hover { background: var(--bg-card-hover); }
   <h2 class="section-title"><span class="icon">&#9637;</span> Quarterly Trends</h2>
 
   <div class="card" style="overflow-x:auto;">
-    <table>
+    <div class="table-wrap"><table>
       <thead><tr><th>Quarter</th><th class="num">Revenue</th><th class="num">Gross Profit</th><th class="num">Op. Income</th><th class="num">Net Income</th><th class="num">EPS</th><th class="num">Gross Mgn</th><th class="num">Op. Mgn</th><th class="num">Net Mgn</th></tr></thead>
       <tbody>
         <tr><td><strong>Q1 2024</strong></td><td class="num">$5,473M</td><td class="num">$2,560M</td><td class="num">$36M</td><td class="num">$123M</td><td class="num">$0.07</td><td class="num">46.8%</td><td class="num">0.7%</td><td class="num">2.2%</td></tr>
@@ -870,7 +950,7 @@ tr:hover { background: var(--bg-card-hover); }
         <tr style="background:var(--accent-green-dim);"><td><strong>Q4 2025 (impl.)</strong></td><td class="num">$10,270M</td><td class="num">$5,577M</td><td class="num">$1,752M</td><td class="num">$1,511M</td><td class="num">$0.91</td><td class="num positive">54.3%</td><td class="num positive">17.1%</td><td class="num">14.7%</td></tr>
         <tr><td colspan="9" style="font-size:11px;color:var(--text-muted);padding:4px 12px;">Derived from FY2025 annual minus Q1-Q3. Record quarter. Beat guided midpoint ($9.6B) by ~$670M.</td></tr>
       </tbody>
-    </table>
+    </table></div>
   </div>
 
   <!-- Trend Flags -->
@@ -899,14 +979,14 @@ tr:hover { background: var(--bg-card-hover); }
     <!-- Board Composition -->
     <div class="card">
       <h3 class="card-title">Board Composition</h3>
-      <table>
+      <div class="table-wrap"><table>
         <tr><td>Board Size</td><td class="num"><strong>8</strong></td></tr>
         <tr><td>Independent Directors</td><td class="num"><strong>7</strong></td></tr>
         <tr><td>Independence Ratio</td><td class="num"><strong>87.5%</strong></td></tr>
         <tr><td>Combined CEO/Chair</td><td class="num"><span class="severity-badge severity-MEDIUM">YES</span></td></tr>
         <tr><td>CEO/Chair</td><td class="num"><strong>Dr. Lisa Su</strong></td></tr>
         <tr><td>Lead Independent Director</td><td class="num">Not disclosed</td></tr>
-      </table>
+      </table></div>
     </div>
 
     <!-- Entrenchment Index -->
@@ -931,14 +1011,14 @@ tr:hover { background: var(--bg-card-hover); }
   <!-- Compensation -->
   <div class="card">
     <h3 class="card-title">Executive Compensation</h3>
-    <table>
+    <div class="table-wrap"><table>
       <tr><td>CEO Base Salary</td><td class="num"><strong>$1,323,000</strong></td></tr>
       <tr><td>Target Bonus (% of Base)</td><td class="num"><strong>200%</strong></td></tr>
       <tr><td>LTI Target</td><td class="num"><strong>$33,000,000</strong></td></tr>
       <tr><td>LTI Mix</td><td class="num">75% PRSUs / 25% Options</td></tr>
       <tr><td>Bonus Metrics</td><td>Non-GAAP Adjusted Net Income (50%), Revenue (40%), Adjusted FCF (10%)</td></tr>
       <tr><td>Non-GAAP Adjustments</td><td class="num"><strong>$3.3B</strong></td></tr>
-    </table>
+    </table></div>
     <div style="margin-top:12px;padding:12px;background:var(--accent-red-dim);border-radius:8px;font-size:12px;color:var(--accent-red);">
       <strong>&#9888; Concern:</strong> Bonuses tied to non-GAAP metrics excluding $3.3B in real costs (SBC + acquisition amortization). Non-GAAP adjustments exceed GAAP net income.
     </div>
@@ -954,7 +1034,7 @@ tr:hover { background: var(--bg-card-hover); }
   <!-- SBC Dilution -->
   <div class="card">
     <h3 class="card-title">Stock-Based Compensation &amp; Dilution</h3>
-    <table>
+    <div class="table-wrap"><table>
       <thead><tr><th>Metric</th><th class="num">FY2025</th><th class="num">FY2024</th><th class="num">FY2023</th></tr></thead>
       <tbody>
         <tr><td>SBC Expense</td><td class="num">$1,638M</td><td class="num">$1,407M</td><td class="num">$1,384M</td></tr>
@@ -963,7 +1043,7 @@ tr:hover { background: var(--bg-card-hover); }
         <tr><td>Net Share Creep (Annual)</td><td class="num" colspan="3">0.49%</td></tr>
         <tr><td>FY2025 Buyback Offset</td><td class="num" colspan="3">$973M</td></tr>
       </tbody>
-    </table>
+    </table></div>
   </div>
 
   <!-- Governance Red Flags -->
@@ -991,11 +1071,11 @@ tr:hover { background: var(--bg-card-hover); }
   <div class="grid-2">
     <div class="card">
       <h3 class="card-title">Insider Trading Activity</h3>
-      <table>
+      <div class="table-wrap"><table>
         <tr><td>Form 4 Filings (19 months)</td><td class="num"><strong>94</strong></td></tr>
         <tr><td>Insider Buying</td><td class="num"><span class="severity-badge severity-MEDIUM">0 transactions</span></td></tr>
         <tr><td>Insider Selling</td><td>Continuous &mdash; largest cluster coincided with strongest quarter</td></tr>
-      </table>
+      </table></div>
       <div style="margin-top:12px;padding:12px;background:var(--accent-yellow-dim);border-radius:8px;font-size:12px;color:var(--accent-yellow);">&#9888; Zero insider buying despite aggressive growth narrative. All activity is SBC vesting + immediate sales.</div>
     </div>
 
@@ -1068,12 +1148,12 @@ tr:hover { background: var(--bg-card-hover); }
 
   <div class="card">
     <h3 class="card-title">Keyword &amp; Tone Analysis</h3>
-    <table>
+    <div class="table-wrap"><table>
       <tr><td>Positive Tone (FY2025)</td><td><span class="positive"><strong>HIGH &mdash; conviction around Data Center and AI, OpenAI partnership framed as validation</strong></span></td></tr>
       <tr><td>Negative Tone (FY2025)</td><td><span class="positive"><strong>LOW &mdash; negatives confined to Embedded decline and AllOther amortization</strong></span></td></tr>
       <tr><td>Hedging (FY2025)</td><td><span class="neutral"><strong>MODERATE &mdash; concentrated in Embedded segment and AllOther commentary</strong></span></td></tr>
       <tr><td>Year-Over-Year Shift</td><td>Less quantified, more narrative-driven. Segment restructuring reduces transparency.</td></tr>
-    </table>
+    </table></div>
   </div>
 </section>
 
@@ -1085,14 +1165,14 @@ tr:hover { background: var(--bg-card-hover); }
     <!-- Tax Forensics -->
     <div class="card">
       <h3 class="card-title">Tax Forensics</h3>
-      <table>
+      <div class="table-wrap"><table>
         <thead><tr><th>Year</th><th class="num">Effective Tax Rate</th></tr></thead>
         <tbody>
           <tr><td>FY2025</td><td class="num negative"><strong>-2.5%</strong></td></tr>
           <tr><td>FY2024</td><td class="num"><strong>19.2%</strong></td></tr>
           <tr><td>FY2023</td><td class="num negative"><strong>-70.3%</strong></td></tr>
         </tbody>
-      </table>
+      </table></div>
       <div style="margin-top:12px;font-size:12px;color:var(--text-secondary);">Extreme ETR volatility. FY2025 recorded $103M tax benefit on $4.14B pretax income. FY2023 had $346M benefit on $492M pretax. Likely driven by deferred tax asset recognition, R&amp;D credits, IP-related deductions. Legitimate but makes GAAP net income unreliable for cash tax assessment.</div>
       <div style="margin-top:8px;"><span class="severity-badge severity-HIGH">HIGH</span> <span style="font-size:12px;">FY2025 ETR of -2.5% well below 15% threshold</span></div>
       <div style="margin-top:8px;"><span class="severity-badge severity-HIGH">CRITICAL</span> <span style="font-size:12px;">FY2023 ETR of -70.3% &mdash; unusual tax benefit</span></div>
@@ -1111,37 +1191,37 @@ tr:hover { background: var(--bg-card-hover); }
   <!-- SBC Analysis -->
   <div class="card">
     <h3 class="card-title">SBC Dilution Analysis</h3>
-    <table>
+    <div class="table-wrap"><table>
       <thead><tr><th>Metric</th><th class="num">FY2025</th><th class="num">FY2024</th><th class="num">FY2023</th></tr></thead>
       <tbody>
         <tr><td>SBC ($M)</td><td class="num">$1,638M</td><td class="num">$1,407M</td><td class="num">$1,384M</td></tr>
         <tr><td>SBC % Revenue</td><td class="num positive">4.7%</td><td class="num">5.5%</td><td class="num">6.1%</td></tr>
         <tr><td>SBC % GAAP OpInc</td><td class="num neutral">44.3%</td><td class="num">74.1%</td><td class="num">345.1%</td></tr>
       </tbody>
-    </table>
+    </table></div>
     <div style="margin-top:12px;font-size:12px;color:var(--text-secondary);">IMPROVING on revenue-normalized basis but absolute dollar amount growing. SBC $1.64B = $1.00 per share annually.</div>
     <div style="margin-top:12px;"><strong>GAAP vs Adjusted Operating Margin</strong></div>
-    <table style="margin-top:8px;">
+    <div class="table-wrap"><table style="margin-top:8px;">
       <thead><tr><th></th><th class="num">FY2025</th><th class="num">FY2024</th><th class="num">FY2023</th></tr></thead>
       <tbody>
         <tr><td>Fully Adjusted Op. Margin</td><td class="num">21.9%</td><td class="num">22.1%</td><td class="num">20.3%</td></tr>
         <tr><td>GAAP-to-Adjusted Gap</td><td class="num negative">11.2pp</td><td class="num negative">14.7pp</td><td class="num negative">18.5pp</td></tr>
       </tbody>
-    </table>
+    </table></div>
     <div style="margin-top:8px;font-size:12px;color:var(--text-secondary);">14pp GAAP-to-adjusted margin gap in FY2025 shows how heavily acquisition amortization and SBC depress reported results. Gap narrowing as amortization declines.</div>
   </div>
 
   <!-- Debt Analysis -->
   <div class="card">
     <h3 class="card-title">Debt Analysis</h3>
-    <table>
+    <div class="table-wrap"><table>
       <tr><td>Total Debt</td><td class="num"><strong>$3,222M</strong></td></tr>
       <tr><td>Long-Term Debt</td><td class="num">$2,348M</td></tr>
       <tr><td>Short-Term Borrowings</td><td class="num">$874M</td></tr>
       <tr><td>Debt/Equity</td><td class="num">0.051x</td></tr>
       <tr><td>Debt/EBITDA</td><td class="num">0.35x</td></tr>
       <tr><td>Interest Coverage</td><td class="num positive">28.2x</td></tr>
-    </table>
+    </table></div>
     <div style="margin-top:12px;"><strong>Note Tranches:</strong></div>
     <ul style="padding-left:16px;font-size:12px;color:var(--text-secondary);margin-top:4px;">
       <li>2.375% due 2030 (Xilinx assumed)</li>
@@ -1635,11 +1715,11 @@ tr:hover { background: var(--bg-card-hover); }
   <!-- Margin Trajectory -->
   <div class="card">
     <h3 class="card-title">Margin Trajectory</h3>
-    <table>
+    <div class="table-wrap"><table>
       <tr><td><strong>Non-GAAP Gross Margin</strong></td><td>Expected 54-55% range maintained unless GPU mix materially shifts</td></tr>
       <tr><td><strong>GAAP Operating Margin</strong></td><td>Expected 12-15% in FY2026 as acquisition amortization continues declining (~$200M/year tailwind)</td></tr>
       <tr><td><strong>Data Center Segment Margin</strong></td><td>Key variable &mdash; stabilization above 22% would be bullish, further compression below 20% would be concerning</td></tr>
-    </table>
+    </table></div>
   </div>
 
   <!-- Management Behavior -->

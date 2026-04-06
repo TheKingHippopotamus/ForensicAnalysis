@@ -362,6 +362,86 @@ th.sortable::after { content: ' \2195'; font-size: 10px; opacity: 0.4; }
   .section-title { font-size: 16px; gap: 6px; }
 }
 
+
+/* ===== MOBILE V2 FIXES (smartphone-specific) ===== */
+
+/* FIX 1: Red flags + cross-layer — more spacing, vertical badge stacking */
+@media (max-width: 768px) {
+  .flag-card { padding: 16px !important; margin-bottom: 16px !important; border-radius: 10px; }
+  .flag-card > div:first-child {
+    flex-direction: column !important; align-items: flex-start !important; gap: 8px !important;
+  }
+  .flag-card .severity-badge { font-size: 11px; }
+  .flag-card p { font-size: 13px; line-height: 1.6; margin-top: 8px; }
+}
+
+/* FIX 2: Insider/Ownership tables — card-style stacking */
+@media (max-width: 768px) {
+  #insiders table, #insiders thead, #insiders tbody, #insiders tr, #insiders th, #insiders td {
+    display: block; width: 100%;
+  }
+  #insiders thead { display: none; }
+  #insiders tr {
+    margin-bottom: 12px; padding: 12px; border-radius: 8px;
+    background: var(--bg-card, #1a2234); border: 1px solid var(--border, #2a3550);
+  }
+  #insiders td { padding: 4px 0; border-bottom: none; text-align: left; }
+  #insiders td.num { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+  #insiders td:last-child { font-size: 12px; color: var(--text-secondary, #8b99b0); line-height: 1.5; }
+}
+
+/* FIX 3: Table scroll hint */
+@media (max-width: 768px) {
+  .table-wrap { position: relative; }
+  .table-wrap::after {
+    content: '\2190 scroll \2192';
+    display: block; text-align: center; font-size: 10px;
+    color: var(--text-muted, #5a6880); padding: 6px 0 2px; opacity: 0.5;
+  }
+}
+
+/* FIX 4: Segments — stacked bar becomes vertical bars on phone */
+@media (max-width: 768px) {
+  .stacked-bar {
+    height: auto !important; flex-direction: column !important; gap: 4px;
+    border-radius: 0 !important;
+  }
+  .stacked-seg {
+    height: 32px !important; width: 100% !important;
+    border-radius: 6px !important;
+    justify-content: flex-start !important; padding-left: 12px !important;
+    font-size: 12px !important;
+  }
+}
+
+/* FIX 5: Forensic models — complete mobile redesign */
+@media (max-width: 768px) {
+  .gauge-container { gap: 16px; flex-direction: column; }
+  .gauge-card {
+    min-width: unset !important; padding: 20px 16px !important;
+    background: var(--bg-secondary, #111827) !important; border-radius: 12px;
+  }
+  .gauge-title { font-size: 16px !important; text-align: center; margin-bottom: 4px; }
+  .gauge-subtitle { font-size: 11px !important; text-align: center; }
+  .gauge-score { font-size: 32px !important; text-align: center; margin: 12px 0 !important; }
+  .gauge-bar { height: 14px !important; border-radius: 7px !important; margin-bottom: 6px; }
+  .gauge-marker { height: 22px !important; top: -4px !important; width: 3px !important; }
+  .gauge-zones .gauge-zone { opacity: 0.25 !important; }
+  .gauge-labels { font-size: 9px !important; padding: 0 2px; }
+  .gauge-labels span:nth-child(2) { opacity: 0.5; font-size: 8px; }
+  .gauge-vars {
+    font-size: 12px !important; line-height: 2.0 !important; margin-top: 12px;
+    padding-top: 12px; border-top: 1px solid var(--border, #2a3550);
+  }
+}
+@media (max-width: 480px) {
+  .flag-card { padding: 14px 12px !important; margin-bottom: 12px !important; border-radius: 8px; }
+  .gauge-score { font-size: 28px !important; }
+  .gauge-title { font-size: 15px !important; }
+  .gauge-labels span:nth-child(2) { display: none; }
+  .gauge-vars { font-size: 11px !important; }
+}
+
 </style>
 </head>
 <body>
@@ -546,7 +626,7 @@ th.sortable::after { content: ' \2195'; font-size: 10px; opacity: 0.4; }
   <h3 class="card-title collapsible" onclick="toggleCollapse(this)" style="margin-bottom:12px;">Income Statement (5-Year)</h3>
   <div class="collapse-content">
   <div class="card" style="overflow-x:auto;">
-    <table>
+    <div class="table-wrap"><table>
       <thead>
         <tr>
           <th>Metric</th><th class="num">FY2021</th><th class="num">FY2022</th><th class="num">FY2023</th><th class="num">FY2024</th><th class="num">FY2025</th><th class="num">FY2026</th>
@@ -578,14 +658,14 @@ th.sortable::after { content: ' \2195'; font-size: 10px; opacity: 0.4; }
           <td class="num">$0.17</td><td class="num">$0.39</td><td class="num">$0.17</td><td class="num">$1.19</td><td class="num">$2.94</td><td class="num">$4.90</td>
         </tr>
       </tbody>
-    </table>
+    </table></div>
   </div>
   </div>
 
   <h3 class="card-title collapsible" onclick="toggleCollapse(this)" style="margin:20px 0 12px;">Key Ratios &amp; Margins</h3>
   <div class="collapse-content">
   <div class="card" style="overflow-x:auto;">
-    <table>
+    <div class="table-wrap"><table>
       <thead>
         <tr><th>Ratio</th><th class="num">FY2022</th><th class="num">FY2023</th><th class="num">FY2024</th><th class="num">FY2025</th><th class="num">FY2026</th><th>Trend</th></tr>
       </thead>
@@ -601,7 +681,7 @@ th.sortable::after { content: ' \2195'; font-size: 10px; opacity: 0.4; }
         <tr><td>R&D Intensity</td><td class="num">19.6%</td><td class="num">27.2%</td><td class="num">14.2%</td><td class="num">9.9%</td><td class="num">8.6%</td><td><span style="color:var(--text-muted);">Declining % (absolute $ growing)</span></td></tr>
         <tr><td>DSO (Days)</td><td class="num">--</td><td class="num">51.8</td><td class="num neutral">59.9</td><td class="num neutral">64.5</td><td class="num">--</td><td><span style="color:var(--accent-yellow);">&#9650; &#9650; &#9650; Monitor</span></td></tr>
       </tbody>
-    </table>
+    </table></div>
   </div>
   </div>
 
@@ -610,23 +690,23 @@ th.sortable::after { content: ' \2195'; font-size: 10px; opacity: 0.4; }
   <div class="grid-2">
     <div class="card">
       <div class="card-title">Assets</div>
-      <table>
+      <div class="table-wrap"><table>
         <tr><td>Total Assets</td><td class="num"><strong>$206.8B</strong></td></tr>
         <tr><td>Cash &amp; Equivalents</td><td class="num">$10.6B</td></tr>
         <tr><td>Marketable Securities</td><td class="num">$52.0B</td></tr>
         <tr><td>Total Liquid Assets</td><td class="num positive">$62.6B</td></tr>
         <tr><td>Goodwill</td><td class="num neutral">$20.8B</td></tr>
-      </table>
+      </table></div>
     </div>
     <div class="card">
       <div class="card-title">Liabilities &amp; Equity</div>
-      <table>
+      <div class="table-wrap"><table>
         <tr><td>Stockholders' Equity</td><td class="num"><strong>$157.3B</strong></td></tr>
         <tr><td>Long-term Debt</td><td class="num">$7.5B</td></tr>
         <tr><td>Short-term Debt</td><td class="num">$1.0B</td></tr>
         <tr><td>Net Cash Position</td><td class="num positive">$54.1B</td></tr>
         <tr><td>Debt/Equity</td><td class="num positive">0.05x</td></tr>
-      </table>
+      </table></div>
     </div>
   </div>
   </div>
@@ -810,7 +890,7 @@ th.sortable::after { content: ' \2195'; font-size: 10px; opacity: 0.4; }
   <h3 class="card-title collapsible" onclick="toggleCollapse(this)" style="margin-bottom:12px;">Revenue by Product</h3>
   <div class="collapse-content">
   <div class="card">
-    <table>
+    <div class="table-wrap"><table>
       <thead><tr><th>Product</th><th class="num">FY2022</th><th class="num">FY2023</th><th class="num">FY2024</th><th class="num">FY2025</th><th class="num">FY2025 Share</th><th class="num">CAGR</th></tr></thead>
       <tbody>
         <tr><td><strong>Data Center</strong></td><td class="num">$10.6B</td><td class="num">$15.0B</td><td class="num">$47.5B</td><td class="num">$115.2B</td><td class="num positive">88.3%</td><td class="num positive">121.2%</td></tr>
@@ -820,7 +900,7 @@ th.sortable::after { content: ' \2195'; font-size: 10px; opacity: 0.4; }
         <tr><td>Professional Visualization</td><td class="num">--</td><td class="num">--</td><td class="num">--</td><td class="num">$1.9B</td><td class="num">1.4%</td><td class="num">--</td></tr>
         <tr><td>Automotive</td><td class="num">$0.6B</td><td class="num">--</td><td class="num">--</td><td class="num">$1.7B</td><td class="num">1.3%</td><td class="num positive">44.1%</td></tr>
       </tbody>
-    </table>
+    </table></div>
 
     <div style="margin-top:20px;">
       <div style="font-size:12px;color:var(--text-muted);margin-bottom:8px;">Revenue Mix Evolution</div>
@@ -852,7 +932,7 @@ th.sortable::after { content: ' \2195'; font-size: 10px; opacity: 0.4; }
   <h3 class="card-title collapsible" onclick="toggleCollapse(this)" style="margin:20px 0 12px;">Geographic Breakdown</h3>
   <div class="collapse-content">
   <div class="card">
-    <table>
+    <div class="table-wrap"><table>
       <thead><tr><th>Region</th><th class="num">FY2022</th><th class="num">FY2025</th><th class="num">FY2025 Share</th><th class="num">CAGR</th><th>Notes</th></tr></thead>
       <tbody>
         <tr><td><strong>United States</strong></td><td class="num">$4.3B</td><td class="num">$61.3B</td><td class="num positive">46.9%</td><td class="num positive">141.2%</td><td>--</td></tr>
@@ -861,21 +941,21 @@ th.sortable::after { content: ' \2195'; font-size: 10px; opacity: 0.4; }
         <tr style="background:var(--accent-red-dim);"><td><strong>China (incl. HK)</strong></td><td class="num">$7.1B</td><td class="num">$17.1B</td><td class="num">13.1%</td><td class="num">--</td><td style="font-size:11px;color:var(--accent-red);">Share halved from 26.4%. H20 ban will further reduce.</td></tr>
         <tr><td>Other</td><td class="num">--</td><td class="num">$7.9B</td><td class="num">6.0%</td><td class="num">--</td><td>--</td></tr>
       </tbody>
-    </table>
+    </table></div>
   </div>
   </div>
 
   <h3 class="card-title collapsible" onclick="toggleCollapse(this)" style="margin:20px 0 12px;">Segment Operating Income &amp; Margins</h3>
   <div class="collapse-content">
   <div class="card">
-    <table>
+    <div class="table-wrap"><table>
       <thead><tr><th>Segment</th><th class="num">FY2022</th><th class="num">FY2023</th><th class="num">FY2024</th><th class="num">FY2025</th><th class="num">FY2025 Margin</th></tr></thead>
       <tbody>
         <tr><td>Compute &amp; Networking</td><td class="num">$4.6B</td><td class="num">$5.1B</td><td class="num">$32.0B</td><td class="num">$82.9B</td><td class="num positive">71.3%</td></tr>
         <tr><td>Graphics</td><td class="num">$8.5B</td><td class="num">$4.6B</td><td class="num">$5.8B</td><td class="num">$5.1B</td><td class="num">35.6%</td></tr>
         <tr><td style="color:var(--text-muted);">Corporate / Unallocated</td><td class="num">--</td><td class="num">--</td><td class="num">--</td><td class="num negative">($6.5B)</td><td class="num">--</td></tr>
       </tbody>
-    </table>
+    </table></div>
   </div>
   </div>
 </section>
@@ -884,7 +964,7 @@ th.sortable::after { content: ' \2195'; font-size: 10px; opacity: 0.4; }
 <section class="section" id="quarterly">
   <h2 class="section-title"><span class="icon">&#9637;</span> Quarterly Trends</h2>
   <div class="card" style="overflow-x:auto;">
-    <table>
+    <div class="table-wrap"><table>
       <thead>
         <tr>
           <th>Quarter</th><th class="num">Revenue ($M)</th><th class="num">QoQ</th><th class="num">YoY</th><th class="num">Net Income ($M)</th><th class="num">EPS</th><th class="num">Gross Margin</th><th class="num">DC Revenue ($M)</th><th class="num">DC Mix</th>
@@ -901,7 +981,7 @@ th.sortable::after { content: ' \2195'; font-size: 10px; opacity: 0.4; }
         <tr><td>FY26 Q3</td><td class="num">$57,006</td><td class="num positive">+22.0%</td><td class="num positive">+62.5%</td><td class="num">$31,910</td><td class="num">$1.30</td><td class="num positive">73.4%</td><td class="num">$51,215</td><td class="num">89.8%</td></tr>
         <tr style="background:var(--accent-green-dim);"><td><strong>FY26 Q4</strong></td><td class="num"><strong>$68,127</strong></td><td class="num positive"><strong>+19.5%</strong></td><td class="num positive"><strong>+73.0%**</strong></td><td class="num"><strong>$42,960</strong></td><td class="num"><strong>$1.76</strong></td><td class="num positive"><strong>75.0%</strong></td><td class="num"><strong>$62,300</strong></td><td class="num"><strong>91.4%</strong></td></tr>
       </tbody>
-    </table>
+    </table></div>
     <div style="margin-top:12px;font-size:11px;color:var(--text-muted);">
       * FY26 Q1 includes Blackwell ramp costs + $4.5B H20 charge, explaining margin compression<br>
       ** YoY estimates based on available prior-year quarterly data
@@ -979,7 +1059,7 @@ th.sortable::after { content: ' \2195'; font-size: 10px; opacity: 0.4; }
         </div>
         <div style="margin-top:12px;"><span class="severity-badge severity-LOW" style="background:var(--accent-green-dim);color:var(--accent-green);font-size:12px;padding:4px 12px;">SHAREHOLDER FRIENDLY (2/10)</span></div>
       </div>
-      <table style="margin-top:16px;">
+      <div class="table-wrap"><table style="margin-top:16px;">
         <tr><td>Long Board Tenure (&gt;10yr)</td><td class="num neutral">+1</td></tr>
         <tr><td>Related Party Transactions</td><td class="num neutral">+1</td></tr>
         <tr><td>CEO Chairman w/o Lead Independent</td><td class="num positive">0</td></tr>
@@ -988,7 +1068,7 @@ th.sortable::after { content: ' \2195'; font-size: 10px; opacity: 0.4; }
         <tr><td>Staggered Board</td><td class="num positive">0</td></tr>
         <tr><td>No Clawback Policy</td><td class="num positive">0</td></tr>
         <tr><td>Low Say-on-Pay</td><td class="num positive">0</td></tr>
-      </table>
+      </table></div>
     </div>
 
     <div class="card">
@@ -997,7 +1077,7 @@ th.sortable::after { content: ' \2195'; font-size: 10px; opacity: 0.4; }
         <span style="font-size:36px;font-weight:700;color:var(--accent-green);">B+</span>
         <span style="font-size:13px;color:var(--text-secondary);">CEO comp growth dramatically trails value creation</span>
       </div>
-      <table>
+      <div class="table-wrap"><table>
         <tr><td>CEO Comp CAGR</td><td class="num">26.7%</td></tr>
         <tr><td>Revenue CAGR</td><td class="num positive">67.3%</td></tr>
         <tr><td>Net Income CAGR</td><td class="num positive">103.0%</td></tr>
@@ -1005,7 +1085,7 @@ th.sortable::after { content: ' \2195'; font-size: 10px; opacity: 0.4; }
         <tr><td>CEO Comp Actually Paid (FY2025)</td><td class="num">$344.2M</td></tr>
         <tr><td>SBC % Revenue (FY2025)</td><td class="num">3.63%</td></tr>
         <tr><td>SBC % Revenue (FY2026)</td><td class="num positive">2.95%</td></tr>
-      </table>
+      </table></div>
       <div style="margin-top:12px;padding:10px;background:var(--accent-yellow-dim);border-radius:8px;font-size:12px;color:var(--accent-yellow);">
         &#9888; All performance targets paid at maximum for 2 consecutive years -- targets need recalibration
       </div>
@@ -1016,20 +1096,20 @@ th.sortable::after { content: ' \2195'; font-size: 10px; opacity: 0.4; }
     <div class="card-title">Board Composition</div>
     <div class="grid-3" style="gap:24px;">
       <div>
-        <table>
+        <div class="table-wrap"><table>
           <tr><td>Total Directors</td><td class="num">13</td></tr>
           <tr><td>Independent</td><td class="num positive">12 (92.3%)</td></tr>
           <tr><td>CEO is Chairman</td><td class="num neutral">Yes</td></tr>
           <tr><td>Lead Independent Director</td><td class="num positive">Stephen C. Neal</td></tr>
-        </table>
+        </table></div>
       </div>
       <div>
-        <table>
+        <div class="table-wrap"><table>
           <tr><td>Women Directors</td><td class="num">5 (38.5%)</td></tr>
           <tr><td>Median Tenure</td><td class="num neutral">12 years</td></tr>
           <tr><td>Directors &gt;10yr Tenure</td><td class="num neutral">53.8%</td></tr>
           <tr><td>New Since 2020</td><td class="num">4</td></tr>
-        </table>
+        </table></div>
       </div>
       <div>
         <div style="font-size:12px;font-weight:600;margin-bottom:8px;">Shareholder Rights: <span style="color:var(--accent-green);">Grade A</span></div>
@@ -1058,7 +1138,7 @@ th.sortable::after { content: ' \2195'; font-size: 10px; opacity: 0.4; }
   <div class="grid-2">
     <div class="card">
       <div class="card-title">CEO: Jensen Huang</div>
-      <table>
+      <div class="table-wrap"><table>
         <tr><td>Shares Sold</td><td class="num">55.2M</td></tr>
         <tr><td>Sale Value</td><td class="num negative">$1.00B</td></tr>
         <tr><td>Shares Gifted</td><td class="num">119.2M</td></tr>
@@ -1066,47 +1146,47 @@ th.sortable::after { content: ' \2195'; font-size: 10px; opacity: 0.4; }
         <tr><td>10b5-1 Plan</td><td class="num">Yes</td></tr>
         <tr><td>Trade Dates</td><td class="num">83</td></tr>
         <tr><td>% of Holdings Sold</td><td class="num">~5%</td></tr>
-      </table>
+      </table></div>
       <div style="margin-top:8px;font-size:12px;color:var(--text-secondary);">Systematic selling via 10b5-1. Large absolute numbers but small relative to ~852M share position.</div>
     </div>
     <div class="card">
       <div class="card-title">CFO: Colette Kress</div>
-      <table>
+      <div class="table-wrap"><table>
         <tr><td>Shares Sold</td><td class="num">449.5K</td></tr>
         <tr><td>Sale Value</td><td class="num negative">$81.2M</td></tr>
         <tr><td>Net Share Change</td><td class="num negative">-458.5K</td></tr>
         <tr><td>10b5-1 Plan</td><td class="num">Yes</td></tr>
         <tr><td>Transactions</td><td class="num">144 (15 trade dates)</td></tr>
-      </table>
+      </table></div>
       <div style="margin-top:8px;font-size:12px;color:var(--text-secondary);">Regular 10b5-1 sales. Systematic, not event-driven.</div>
     </div>
   </div>
 
   <div class="card" style="margin-top:16px;">
     <div class="card-title">Selling Clusters</div>
-    <table>
+    <div class="table-wrap"><table>
       <thead><tr><th>Period</th><th>Direction</th><th class="num">Unique Insiders</th></tr></thead>
       <tbody>
         <tr><td>Nov 2025 - Mar 2026</td><td><span class="negative">Sell</span></td><td class="num">7</td></tr>
         <tr><td>Jul 2025 - Dec 2025</td><td><span class="negative">Sell</span></td><td class="num">6</td></tr>
         <tr><td>Aug 2025 - Oct 2025</td><td><span class="negative">Sell</span></td><td class="num">5</td></tr>
       </tbody>
-    </table>
+    </table></div>
   </div>
 
   <div class="card" style="margin-top:16px;">
     <div class="card-title">Aggregate Insider Summary</div>
     <div class="grid-2" style="gap:24px;">
-      <table>
+      <div class="table-wrap"><table>
         <tr><td>Total Open Market Sales</td><td class="num">601 transactions</td></tr>
         <tr><td>Total Shares Sold</td><td class="num">10.36M</td></tr>
         <tr><td>Total Sale Value</td><td class="num negative">$1.83B</td></tr>
-      </table>
-      <table>
+      </table></div>
+      <div class="table-wrap"><table>
         <tr><td>Total Open Market Purchases</td><td class="num">0</td></tr>
         <tr><td>Buy/Sell Ratio</td><td class="num neutral">0 (infinite selling)</td></tr>
         <tr><td>10b5-1 Plan Users</td><td class="num">8 of 17 sellers</td></tr>
-      </table>
+      </table></div>
     </div>
   </div>
 </section>
@@ -1118,7 +1198,7 @@ th.sortable::after { content: ' \2195'; font-size: 10px; opacity: 0.4; }
   <div class="grid-2">
     <div class="card">
       <div class="card-title">Top 10 Holders</div>
-      <table>
+      <div class="table-wrap"><table>
         <thead><tr><th>#</th><th>Institution</th><th class="num">Ownership %</th><th>Type</th></tr></thead>
         <tbody>
           <tr><td>1</td><td>Vanguard Group</td><td class="num">9.23%</td><td><span style="color:var(--accent-blue);">Index</span></td></tr>
@@ -1132,11 +1212,11 @@ th.sortable::after { content: ' \2195'; font-size: 10px; opacity: 0.4; }
           <tr><td>9</td><td>Northern Trust</td><td class="num">1.03%</td><td><span style="color:var(--accent-blue);">Index</span></td></tr>
           <tr><td>10</td><td>Goldman Sachs</td><td class="num">0.91%</td><td><span style="color:var(--accent-purple);">Active</span></td></tr>
         </tbody>
-      </table>
+      </table></div>
     </div>
     <div class="card">
       <div class="card-title">Ownership Summary</div>
-      <table>
+      <div class="table-wrap"><table>
         <tr><td>Total Institutional</td><td class="num">65.6%</td></tr>
         <tr><td>Total Insider</td><td class="num">4.33%</td></tr>
         <tr><td>Institutional Holders</td><td class="num">5,413</td></tr>
@@ -1147,7 +1227,7 @@ th.sortable::after { content: ' \2195'; font-size: 10px; opacity: 0.4; }
         <tr><td>Q4 2025 Net Direction</td><td class="num positive">Net Buying (1.21x)</td></tr>
         <tr><td>Activist Threat</td><td class="num positive">None</td></tr>
         <tr><td>Crowded Trade Risk</td><td class="num neutral">MODERATE</td></tr>
-      </table>
+      </table></div>
     </div>
   </div>
 </section>
@@ -1158,7 +1238,7 @@ th.sortable::after { content: ' \2195'; font-size: 10px; opacity: 0.4; }
   <div style="font-size:12px;color:var(--text-muted);margin-bottom:16px;">Data: NVDA FY2026, AMD &amp; INTC FY2025 (latest available)</div>
 
   <div class="card" style="overflow-x:auto;">
-    <table>
+    <div class="table-wrap"><table>
       <thead>
         <tr><th>Metric</th><th class="num">NVDA</th><th class="num">AMD</th><th class="num">INTC</th><th>NVDA Rank</th></tr>
       </thead>
@@ -1171,7 +1251,7 @@ th.sortable::after { content: ' \2195'; font-size: 10px; opacity: 0.4; }
         <tr><td>R&D % Revenue</td><td class="num"><strong>8.6%</strong></td><td class="num">23.4%</td><td class="num">26.1%</td><td><span style="color:var(--accent-green);">#1</span> (lowest = most efficient)</td></tr>
         <tr><td>ROE</td><td class="num positive"><strong>76.3%</strong></td><td class="num">6.9%</td><td class="num negative">-0.2%</td><td><span style="color:var(--accent-green);">#1</span></td></tr>
       </tbody>
-    </table>
+    </table></div>
   </div>
 
   <div class="card" style="margin-top:16px;">
@@ -1190,10 +1270,10 @@ th.sortable::after { content: ' \2195'; font-size: 10px; opacity: 0.4; }
 
   <div class="card" style="margin-top:16px;">
     <div class="card-title">Competitor Filing Insights</div>
-    <table>
+    <div class="table-wrap"><table>
       <tr><td style="width:80px;font-weight:600;">AMD</td><td style="font-size:13px;color:var(--text-secondary);">Explicitly acknowledges NVIDIA as "discrete GPU market share leader." Cites CUDA ecosystem as competitive barrier. Flags NVDA-Intel partnership as risk factor.</td></tr>
       <tr><td style="font-weight:600;">Intel</td><td style="font-size:13px;color:var(--text-secondary);">Sold $5B equity to NVIDIA. Now co-developing custom products rather than competing in AI accelerators. Explicitly states NVIDIA GPUs have "highest demand in the market."</td></tr>
-    </table>
+    </table></div>
     <div style="margin-top:12px;padding:10px;background:var(--accent-blue-dim);border-radius:8px;font-size:12px;color:var(--accent-blue);">
       <strong>Key Insight:</strong> NVIDIA-Intel partnership represents structural industry reshaping. Intel effectively conceded AI accelerator competition. AMD is increasingly isolated.
     </div>
@@ -1202,19 +1282,19 @@ th.sortable::after { content: ' \2195'; font-size: 10px; opacity: 0.4; }
   <div class="grid-2" style="margin-top:16px;">
     <div class="card">
       <div class="card-title">Industry Ranking</div>
-      <table>
+      <div class="table-wrap"><table>
         <tr><td>Revenue Rank (CY2024)</td><td class="num">19th (99.2nd percentile)</td></tr>
         <tr><td>Net Income Rank (CY2024)</td><td class="num">5th (99.9th percentile)</td></tr>
         <tr><td>FY2026 Projected</td><td class="num">~11th revenue, #1-2 net income</td></tr>
-      </table>
+      </table></div>
     </div>
     <div class="card">
       <div class="card-title">Hyperscaler CapEx Correlation</div>
-      <table>
+      <div class="table-wrap"><table>
         <tr><td>R-Squared</td><td class="num positive">0.96</td></tr>
         <tr><td>Lag</td><td class="num">CapEx(t) vs NVDA Revenue(t+1)</td></tr>
         <tr><td>CY2025 3-Hyperscaler CapEx</td><td class="num">~$260B (+68%)</td></tr>
-      </table>
+      </table></div>
       <div style="margin-top:8px;font-size:12px;color:var(--accent-green);">Strong quantifiable demand pipeline supports continued growth.</div>
     </div>
   </div>
@@ -1428,7 +1508,7 @@ th.sortable::after { content: ' \2195'; font-size: 10px; opacity: 0.4; }
   <h3 class="card-title collapsible" onclick="toggleCollapse(this)" style="margin-bottom:12px;">Guidance Accuracy Scorecard</h3>
   <div class="collapse-content">
   <div class="card" style="margin-bottom:24px;">
-    <table>
+    <div class="table-wrap"><table>
       <thead><tr><th>Quarter</th><th class="num">Guided Revenue</th><th class="num">Actual Revenue</th><th class="num">Beat %</th><th class="num">GM Guided</th><th class="num">GM Actual</th><th>Result</th></tr></thead>
       <tbody>
         <tr><td>Q2 FY2026</td><td class="num">$44.7B</td><td class="num">$46.7B</td><td class="num positive">+4.5%</td><td class="num">71.5%</td><td class="num">72.4%</td><td><span class="severity-badge severity-LOW" style="background:var(--accent-green-dim);color:var(--accent-green);">BEAT</span></td></tr>
@@ -1436,7 +1516,7 @@ th.sortable::after { content: ' \2195'; font-size: 10px; opacity: 0.4; }
         <tr><td>Q4 FY2026</td><td class="num">$64.5B</td><td class="num">$68.1B</td><td class="num positive">+5.6%</td><td class="num">73.5%</td><td class="num">75.0%</td><td><span class="severity-badge severity-LOW" style="background:var(--accent-green-dim);color:var(--accent-green);">BEAT</span></td></tr>
         <tr style="background:var(--accent-blue-dim);"><td><strong>Q1 FY2027</strong></td><td class="num"><strong>$78.0B</strong></td><td class="num" style="color:var(--text-muted);">--</td><td class="num" style="color:var(--text-muted);">--</td><td class="num"><strong>75.0%</strong></td><td class="num" style="color:var(--text-muted);">--</td><td><span class="severity-badge" style="background:var(--accent-blue-dim);color:var(--accent-blue);">PENDING</span></td></tr>
       </tbody>
-    </table>
+    </table></div>
     <div style="margin-top:12px;font-size:12px;color:var(--text-secondary);">
       <strong>Beat Rate:</strong> 100% (3/3 measurable quarters) | <strong>Avg Beat:</strong> 4.7% above midpoint | <strong>Sandbagging Score:</strong> 8.5/10 | <strong>Model Q1 FY2027 at:</strong> <span style="color:var(--accent-green);font-weight:600;">$80-82B</span>
     </div>
@@ -1622,12 +1702,12 @@ th.sortable::after { content: ' \2195'; font-size: 10px; opacity: 0.4; }
   <div class="grid-2" style="margin-top:16px;">
     <div class="card">
       <div class="card-title">Guidance Track Record</div>
-      <table>
+      <div class="table-wrap"><table>
         <tr><td>Consecutive Revenue Beats</td><td class="num positive">4</td></tr>
         <tr><td>Average Beat Magnitude</td><td class="num positive">+4.2%</td></tr>
         <tr><td>Philosophy</td><td class="num">Consistently Conservative</td></tr>
         <tr><td>China Assumption</td><td class="num">Zero DC compute since Q1 FY26</td></tr>
-      </table>
+      </table></div>
       <div style="margin-top:12px;padding:10px;background:var(--accent-blue-dim);border-radius:8px;">
         <div style="font-size:12px;font-weight:600;color:var(--accent-blue);margin-bottom:4px;">Latest Guidance: Q1 FY2027</div>
         <div style="font-size:13px;">Revenue: <strong>$78.0B</strong> +/- 2% &middot; Gross Margin: <strong>75.0%</strong> +/- 50bps</div>
@@ -1654,7 +1734,7 @@ th.sortable::after { content: ' \2195'; font-size: 10px; opacity: 0.4; }
   <div class="grid-2">
     <div class="card">
       <div class="card-title">Tax Analysis</div>
-      <table>
+      <div class="table-wrap"><table>
         <thead><tr><th>Year</th><th class="num">Effective Tax Rate</th></tr></thead>
         <tbody>
           <tr><td>FY2022</td><td class="num">1.9%</td></tr>
@@ -1663,7 +1743,7 @@ th.sortable::after { content: ' \2195'; font-size: 10px; opacity: 0.4; }
           <tr><td>FY2025</td><td class="num">13.3%</td></tr>
           <tr><td>FY2026</td><td class="num">15.1%</td></tr>
         </tbody>
-      </table>
+      </table></div>
       <div style="margin-top:12px;font-size:12px;color:var(--text-secondary);">
         <strong>Rising ETR explained:</strong> Income growth outpaces fixed-dollar tax benefits. Not a deterioration -- mathematically expected.
       </div>
@@ -1677,7 +1757,7 @@ th.sortable::after { content: ' \2195'; font-size: 10px; opacity: 0.4; }
 
     <div class="card">
       <div class="card-title">Stock-Based Compensation</div>
-      <table>
+      <div class="table-wrap"><table>
         <thead><tr><th>Year</th><th class="num">SBC % Revenue</th></tr></thead>
         <tbody>
           <tr><td>FY2022</td><td class="num">7.4%</td></tr>
@@ -1686,7 +1766,7 @@ th.sortable::after { content: ' \2195'; font-size: 10px; opacity: 0.4; }
           <tr><td>FY2025</td><td class="num positive">3.6%</td></tr>
           <tr><td>FY2026</td><td class="num positive">3.0%</td></tr>
         </tbody>
-      </table>
+      </table></div>
       <div style="margin-top:12px;font-size:12px;color:var(--text-secondary);">
         SBC CAGR: 33.6% vs Revenue CAGR: 68.3% -- declining share<br>
         Net dilution: ANTI-DILUTIVE (buybacks exceed issuances)<br>
@@ -1702,7 +1782,7 @@ th.sortable::after { content: ' \2195'; font-size: 10px; opacity: 0.4; }
   <div class="grid-2" style="margin-top:16px;">
     <div class="card">
       <div class="card-title">Debt Structure</div>
-      <table>
+      <div class="table-wrap"><table>
         <tr><td>Total Debt (FY2026)</td><td class="num">$8.5B</td></tr>
         <tr><td>Debt/Equity</td><td class="num positive">0.054x</td></tr>
         <tr><td>Interest Coverage</td><td class="num positive">502.2x</td></tr>
@@ -1710,7 +1790,7 @@ th.sortable::after { content: ' \2195'; font-size: 10px; opacity: 0.4; }
         <tr><td>Financial Covenants</td><td class="num positive">None</td></tr>
         <tr><td>Net Cash Position</td><td class="num positive">$54.1B</td></tr>
         <tr><td>Commercial Paper Program</td><td class="num">$25B (zero outstanding)</td></tr>
-      </table>
+      </table></div>
       <div style="margin-top:12px;font-size:11px;color:var(--text-muted);">
         Maturity: 12% in 1yr | 32% in 1-5yr | 15% in 5-10yr | 41% in 10yr+
       </div>
@@ -1721,14 +1801,14 @@ th.sortable::after { content: ' \2195'; font-size: 10px; opacity: 0.4; }
 
     <div class="card">
       <div class="card-title">Other Notable Items</div>
-      <table>
+      <div class="table-wrap"><table>
         <tr><td>Goodwill Jump</td><td class="num neutral">$5.2B &#8594; $20.8B (Groq acquisition). Now 10% of assets.</td></tr>
         <tr><td>Net Interest Income</td><td class="num positive">$2.0B in FY2026 -- earns more on cash than pays in interest</td></tr>
         <tr><td>Commercial Paper</td><td class="num">$25B facility (up from $575M) -- strategic liquidity</td></tr>
         <tr><td>H20 Impact</td><td class="num negative">$4.5B Q1 charge + permanent ~$8B/qtr China revenue loss</td></tr>
         <tr><td>Buybacks (FY2026)</td><td class="num positive">$40.1B returned to shareholders</td></tr>
         <tr><td>OBBBA Impact</td><td class="num">One Big Beautiful Bill Act enacted Jul 2025. Effects being evaluated.</td></tr>
-      </table>
+      </table></div>
     </div>
   </div>
 
