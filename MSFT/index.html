@@ -1,0 +1,1702 @@
+<!--
+  FORENSIC REPORT — Microsoft Corporation (MSFT)
+  Generated: April 6, 2026
+  Pipeline: SEC Forensic Analysis V2
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Microsoft Corporation (MSFT) - SEC Forensic Analysis Report</title>
+<style>
+:root {
+  --bg-primary: #0a0e1a;
+  --bg-secondary: #111827;
+  --bg-card: #1a2234;
+  --bg-card-hover: #1f2a40;
+  --border: #2a3550;
+  --text-primary: #e8edf5;
+  --text-secondary: #8b99b0;
+  --text-muted: #5a6880;
+  --accent-green: #22c55e;
+  --accent-green-dim: rgba(34,197,94,0.15);
+  --accent-yellow: #eab308;
+  --accent-yellow-dim: rgba(234,179,8,0.15);
+  --accent-red: #ef4444;
+  --accent-red-dim: rgba(239,68,68,0.15);
+  --accent-blue: #3b82f6;
+  --accent-blue-dim: rgba(59,130,246,0.12);
+  --accent-purple: #a855f7;
+  --accent-cyan: #06b6d4;
+  --accent-orange: #f97316;
+  --nav-width: 240px;
+  --header-height: 80px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  font-size: 14px;
+}
+a { color: var(--accent-blue); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* Header */
+.site-header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: var(--header-height);
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 32px;
+}
+.header-left { display: flex; align-items: center; gap: 20px; }
+.company-name { font-size: 24px; font-weight: 700; letter-spacing: -0.5px; }
+.ticker-badge {
+  background: var(--accent-blue-dim); color: var(--accent-blue);
+  padding: 4px 12px; border-radius: 6px; font-weight: 600; font-size: 14px;
+  border: 1px solid rgba(59,130,246,0.3);
+}
+.header-right { display: flex; align-items: center; gap: 12px; }
+.verdict-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 14px; border-radius: 8px; font-size: 12px; font-weight: 600;
+  letter-spacing: 0.3px;
+}
+.verdict-badge .label { opacity: 0.7; font-weight: 400; }
+.badge-green { background: var(--accent-green-dim); color: var(--accent-green); border: 1px solid rgba(34,197,94,0.3); }
+.badge-yellow { background: var(--accent-yellow-dim); color: var(--accent-yellow); border: 1px solid rgba(234,179,8,0.3); }
+.badge-red { background: var(--accent-red-dim); color: var(--accent-red); border: 1px solid rgba(239,68,68,0.3); }
+.badge-blue { background: var(--accent-blue-dim); color: var(--accent-blue); border: 1px solid rgba(59,130,246,0.3); }
+
+/* Sidebar Nav */
+.sidebar {
+  position: fixed; top: var(--header-height); left: 0; bottom: 0;
+  width: var(--nav-width); background: var(--bg-secondary);
+  border-right: 1px solid var(--border);
+  overflow-y: auto; padding: 16px 0; z-index: 90;
+}
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+.nav-link {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 20px; color: var(--text-secondary);
+  font-size: 13px; cursor: pointer; transition: all 0.2s;
+  border-left: 3px solid transparent;
+}
+.nav-link:hover { background: var(--bg-card); color: var(--text-primary); text-decoration: none; }
+.nav-link.active { color: var(--accent-blue); border-left-color: var(--accent-blue); background: var(--accent-blue-dim); }
+.nav-icon { width: 18px; text-align: center; font-size: 14px; }
+
+/* Main Content */
+.main-content {
+  margin-left: var(--nav-width); margin-top: var(--header-height);
+  padding: 32px; max-width: 1200px;
+}
+.section { margin-bottom: 48px; scroll-margin-top: 100px; }
+.section-title {
+  font-size: 22px; font-weight: 700; margin-bottom: 20px;
+  padding-bottom: 12px; border-bottom: 2px solid var(--border);
+  display: flex; align-items: center; gap: 10px;
+}
+.section-title .icon { font-size: 20px; }
+
+/* Cards */
+.card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 24px; margin-bottom: 16px;
+}
+.card-title { font-size: 16px; font-weight: 600; margin-bottom: 12px; }
+
+/* Collapsible */
+.collapsible { cursor: pointer; user-select: none; }
+.collapsible::after { content: ' \25BC'; font-size: 10px; opacity: 0.5; }
+.collapsible.collapsed::after { content: ' \25B6'; }
+.collapse-content { overflow: hidden; transition: max-height 0.3s ease; }
+.collapse-content.hidden { max-height: 0 !important; padding: 0; }
+
+/* Tables */
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th {
+  background: var(--bg-secondary); color: var(--text-secondary);
+  padding: 10px 12px; text-align: left; font-weight: 600;
+  border-bottom: 2px solid var(--border); position: sticky; top: 0;
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;
+}
+td { padding: 10px 12px; border-bottom: 1px solid var(--border); }
+tr:nth-child(even) { background: rgba(255,255,255,0.02); }
+tr:hover { background: var(--bg-card-hover); }
+.num { text-align: right; font-variant-numeric: tabular-nums; }
+.positive { color: var(--accent-green); }
+.negative { color: var(--accent-red); }
+.neutral { color: var(--accent-yellow); }
+
+/* Gauges */
+.gauge-container { display: flex; flex-wrap: wrap; gap: 20px; }
+.gauge-card {
+  flex: 1; min-width: 280px; background: var(--bg-card);
+  border: 1px solid var(--border); border-radius: 12px; padding: 20px;
+}
+.gauge-title { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+.gauge-subtitle { font-size: 11px; color: var(--text-secondary); margin-bottom: 16px; }
+.gauge-bar {
+  height: 24px; background: var(--bg-secondary); border-radius: 12px;
+  overflow: hidden; position: relative; margin-bottom: 8px;
+}
+.gauge-fill { height: 100%; border-radius: 12px; transition: width 0.5s ease; position: relative; }
+.gauge-zones {
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  display: flex;
+}
+.gauge-zone { height: 100%; opacity: 0.15; }
+.gauge-marker {
+  position: absolute; top: -4px; width: 4px; height: 32px;
+  background: var(--text-primary); border-radius: 2px;
+  transform: translateX(-50%);
+}
+.gauge-labels { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted); }
+.gauge-score { font-size: 28px; font-weight: 700; margin: 8px 0; }
+.gauge-vars { font-size: 12px; color: var(--text-secondary); line-height: 1.8; }
+
+/* Grid layouts */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+@media (max-width: 1024px) {
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  .sidebar { display: none; }
+  .main-content { margin-left: 0; }
+  .header-right { display: none; }
+}
+
+/* Red flag cards */
+.flag-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 20px; margin-bottom: 12px;
+  border-left: 4px solid;
+}
+.flag-card.high { border-left-color: var(--accent-red); }
+.flag-card.moderate { border-left-color: var(--accent-yellow); }
+.flag-card.low { border-left-color: var(--accent-green); }
+.severity-badge {
+  display: inline-block; padding: 2px 8px; border-radius: 4px;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.5px;
+}
+.severity-HIGH { background: var(--accent-red-dim); color: var(--accent-red); }
+.severity-MEDIUM { background: var(--accent-yellow-dim); color: var(--accent-yellow); }
+.severity-LOW { background: var(--accent-green-dim); color: var(--accent-green); }
+.severity-CRITICAL { background: var(--accent-red-dim); color: var(--accent-red); }
+
+/* Timeline */
+.timeline { position: relative; padding-left: 24px; }
+.timeline::before {
+  content: ''; position: absolute; left: 8px; top: 0; bottom: 0;
+  width: 2px; background: var(--border);
+}
+.timeline-item { position: relative; margin-bottom: 20px; }
+.timeline-dot {
+  position: absolute; left: -20px; top: 6px;
+  width: 12px; height: 12px; border-radius: 50%;
+  border: 2px solid; background: var(--bg-primary);
+}
+.timeline-dot.positive { border-color: var(--accent-green); }
+.timeline-dot.negative { border-color: var(--accent-red); }
+.timeline-dot.neutral { border-color: var(--accent-yellow); }
+.timeline-date { font-size: 11px; color: var(--text-muted); margin-bottom: 4px; }
+.timeline-title { font-weight: 600; margin-bottom: 4px; }
+.timeline-detail { font-size: 13px; color: var(--text-secondary); }
+
+/* Watchlist */
+.watchlist-item {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 16px; background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 10px; margin-bottom: 10px;
+}
+.priority-dot {
+  width: 8px; height: 8px; border-radius: 50%; margin-top: 6px; flex-shrink: 0;
+}
+.priority-CRITICAL { background: var(--accent-red); box-shadow: 0 0 8px var(--accent-red); }
+.priority-HIGH { background: var(--accent-orange); }
+.priority-MODERATE { background: var(--accent-yellow); }
+.priority-LOW { background: var(--accent-green); }
+
+/* Bar chart using CSS */
+.bar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+.bar-label { width: 140px; font-size: 12px; text-align: right; color: var(--text-secondary); flex-shrink: 0; }
+.bar-track { flex: 1; height: 22px; background: var(--bg-secondary); border-radius: 4px; overflow: hidden; position: relative; }
+.bar-fill { height: 100%; border-radius: 4px; display: flex; align-items: center; padding-left: 8px; font-size: 11px; font-weight: 600; color: #fff; min-width: 40px; }
+.bar-value { width: 80px; font-size: 12px; text-align: right; font-variant-numeric: tabular-nums; flex-shrink: 0; }
+
+/* Prediction cards */
+.prediction-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 20px; margin-bottom: 12px;
+}
+.confidence-bar {
+  height: 6px; background: var(--bg-secondary); border-radius: 3px;
+  overflow: hidden; margin-top: 8px;
+}
+.confidence-fill { height: 100%; border-radius: 3px; }
+
+/* Footer */
+.site-footer {
+  margin-left: var(--nav-width); padding: 24px 32px;
+  border-top: 1px solid var(--border);
+  color: var(--text-muted); font-size: 12px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+
+/* Summary stats row */
+.stats-row { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 24px; }
+.stat-box {
+  flex: 1; min-width: 150px; background: var(--bg-card);
+  border: 1px solid var(--border); border-radius: 10px; padding: 16px;
+  text-align: center;
+}
+.stat-value { font-size: 24px; font-weight: 700; }
+.stat-label { font-size: 11px; color: var(--text-secondary); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* Entrenchment visual */
+.entrenchment-track {
+  height: 32px; background: linear-gradient(to right, var(--accent-green), var(--accent-yellow), var(--accent-red));
+  border-radius: 16px; position: relative; margin: 16px 0;
+  opacity: 0.3;
+}
+.entrenchment-marker {
+  position: absolute; top: -4px; width: 40px; height: 40px;
+  background: var(--bg-card); border: 3px solid var(--accent-green);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 16px;
+  transform: translateX(-50%);
+}
+
+/* Exec summary */
+.exec-summary { font-size: 15px; line-height: 1.8; color: var(--text-primary); }
+.exec-summary p { margin-bottom: 16px; text-align: justify; }
+
+/* Stacked bar */
+.stacked-bar { display: flex; height: 28px; border-radius: 6px; overflow: hidden; margin-bottom: 4px; }
+.stacked-seg { display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 600; color: #fff; min-width: 20px; }
+
+/* Crash analysis hero */
+.crash-hero {
+  background: linear-gradient(135deg, rgba(34,197,94,0.08) 0%, rgba(59,130,246,0.08) 100%);
+  border: 2px solid rgba(34,197,94,0.3);
+  border-radius: 16px; padding: 32px; margin-bottom: 24px;
+}
+.crash-hero h3 { font-size: 20px; margin-bottom: 12px; color: var(--accent-green); }
+.crash-metric { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 600; margin: 4px; }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="site-header">
+  <div class="header-left">
+    <div>
+      <div class="company-name">Microsoft Corporation</div>
+      <div style="font-size:12px;color:var(--text-muted);">SEC Forensic Analysis Report &middot; April 6, 2026</div>
+    </div>
+    <span class="ticker-badge">MSFT</span>
+    <span style="font-size:12px;color:var(--text-muted);">Nasdaq &middot; AI & Cloud Leader | FY ends June</span>
+  </div>
+  <div class="header-right">
+    <span class="verdict-badge badge-green"><span class="label">Business</span> A (88/100) &mdash; Fortress-Quality Business</span>
+    <span class="verdict-badge badge-green"><span class="label">Management</span> B+ (74/100) &mdash; Operationally Excellent, Forward Caution</span>
+    <span class="verdict-badge badge-yellow"><span class="label">Trajectory</span> B (68/100) &mdash; Growth Strong but CapEx Gap Emerging</span>
+  </div>
+</header>
+
+<!-- Sidebar -->
+<nav class="sidebar" id="sidebar">
+  <a class="nav-link active" href="#executive-summary"><span class="nav-icon">&#9670;</span> Executive Summary</a>
+  <a class="nav-link" href="#crash-analysis"><span class="nav-icon">&#9888;</span> Software Crash Analysis</a>
+  <a class="nav-link" href="#verdicts"><span class="nav-icon">&#9733;</span> Verdicts</a>
+  <a class="nav-link" href="#financials"><span class="nav-icon">&#9635;</span> Financial Overview</a>
+  <a class="nav-link" href="#forensic"><span class="nav-icon">&#9878;</span> Forensic Models</a>
+  <a class="nav-link" href="#segments"><span class="nav-icon">&#9638;</span> Revenue &amp; Segments</a>
+  <a class="nav-link" href="#quarterly"><span class="nav-icon">&#9637;</span> Quarterly Trends</a>
+  <a class="nav-link" href="#governance"><span class="nav-icon">&#9881;</span> Governance</a>
+  <a class="nav-link" href="#insiders"><span class="nav-icon">&#9650;</span> Insider &amp; Institutional</a>
+  <a class="nav-link" href="#text-analysis"><span class="nav-icon">&#9998;</span> Text Analysis</a>
+  <a class="nav-link" href="#advanced"><span class="nav-icon">&#9830;</span> Advanced Analysis</a>
+  <a class="nav-link" href="#transcript-intel"><span class="nav-icon">&#9835;</span> Transcript Intelligence</a>
+  <a class="nav-link" href="#convergence"><span class="nav-icon">&#9733;</span> Cross-Pollination</a>
+  <a class="nav-link" href="#red-flags"><span class="nav-icon">&#9888;</span> Red Flags</a>
+  <a class="nav-link" href="#watchlist"><span class="nav-icon">&#9745;</span> Monitoring Watchlist</a>
+  <a class="nav-link" href="#predictions"><span class="nav-icon">&#9200;</span> Forward Predictions</a>
+</nav>
+
+<!-- Main Content -->
+<main class="main-content">
+
+<!-- ==================== 1. EXECUTIVE SUMMARY ==================== -->
+<section class="section" id="executive-summary">
+  <h2 class="section-title"><span class="icon">&#9670;</span> Executive Summary</h2>
+  <div class="stats-row">
+    <div class="stat-box"><div class="stat-value positive">$281.7B</div><div class="stat-label">FY2025 Revenue (+15%)</div></div>
+    <div class="stat-box"><div class="stat-value positive">$101.8B</div><div class="stat-label">FY2025 Net Income (+16%)</div></div>
+    <div class="stat-box"><div class="stat-value positive">$136.2B</div><div class="stat-label">Operating Cash Flow (+15%)</div></div>
+    <div class="stat-box"><div class="stat-value">$30.2B</div><div class="stat-label">Cash + Equivalents</div></div>
+    <div class="stat-box"><div class="stat-value positive">$43.2B</div><div class="stat-label">Total Debt (declining)</div></div>
+  </div>
+  <div class="card exec-summary">
+    <p>Microsoft is a financial fortress with exceptional earnings quality and 77% recurring revenue, but the massive AI infrastructure bet ($65B+/year CapEx) and OpenAI concentration risk create strategic uncertainty that the software crash is now stress-testing in real time.</p>
+
+    <p><strong>Investor Action: HOLD with high conviction.</strong> For investors already in positions, MSFT is NOT a sell during the software crash. The financial fortress (Z-Score 7.44, net debt $12.9B, $136B OCF, 77% recurring revenue) provides extraordinary downside protection. The 23% decline is primarily multiple compression, not fundamental deterioration &mdash; H1 FY2026 shows revenue accelerating to 17-18% and margins expanding YoY. The dividend is fortress-safe (3.25x FCF coverage even in severe stress). However, DO NOT add aggressively until there is clarity on: (1) OpenAI RPO concentration economics, (2) CapEx inflection timeline, and (3) whether the $100B annualized CapEx pace generates proportional returns. Partial adds on further 10%+ declines are reasonable given the financial floor.</p>
+
+    <p><strong>Key Strengths:</strong></p>
+    <ul style="margin-left: 20px; margin-bottom: 16px; color: var(--text-secondary);">
+      <li>Financial fortress: Altman Z-Score 7.44, Beneish M-Score -2.54 (unlikely manipulator), Piotroski F-Score 7/9, Sloan accrual -6.07% &mdash; all models indicate exceptional financial health and earnings quality</li>
+      <li>77% recurring revenue with $375B RPO ($631B as of Dec 2025) &mdash; 1.33-2.0x annual revenue already contracted</li>
+      <li>Operating cash flow of $136B with net debt of only $12.9B (net debt/EBITDA 0.08x) &mdash; can retire all debt from 5 weeks of cash generation</li>
+      <li>Operating margin expanding to 45.6% with demonstrated operating leverage (OpEx +6% vs revenue +15%)</li>
+      <li>Cloud revenue at $168.9B growing 22.7% consistently &mdash; now 60% of total revenue</li>
+      <li>Exceptional governance: no golden parachutes, 95%+ performance-based CEO comp, 15x salary ownership requirement</li>
+      <li>Dividend fortress-safe at 21.6% payout ratio with 3.25x FCF coverage</li>
+      <li>Near-perfectly balanced geographic split (51/49 US/non-US)</li>
+      <li>Share count flat at 7.43B despite $12B/year SBC &mdash; buyback program fully offsets dilution</li>
+    </ul>
+
+    <p><strong>Key Risks:</strong></p>
+    <ul style="margin-left: 20px; margin-bottom: 16px; color: var(--text-secondary);">
+      <li>OpenAI concentration: 45% of $625B+ RPO from a single unprofitable customer with circular economics</li>
+      <li>CapEx overcommitment: $65B FY2025, accelerating to ~$100B annualized. CapEx CAGR 51% vs revenue CAGR 12% &mdash; a 4x gap</li>
+      <li>Intelligent Cloud margin compression: Operating margin declined 126bps despite 21.5% revenue growth</li>
+      <li>CFO deflection rate rising from 0% to 43% over 5 quarters on CapEx/OpenAI questions</li>
+      <li>Cybersecurity: Midnight Blizzard nation-state breach ongoing with access to source code &mdash; zero discussion in earnings calls</li>
+      <li>Narrative shifted from offensive to defensive by Q2 FY2026</li>
+      <li>Azure 34-39% growth is unverifiable from public filings</li>
+      <li>Non-operating losses of $4.9B (likely OpenAI) not adequately explained</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ==================== SOFTWARE CRASH ANALYSIS (PROMINENT) ==================== -->
+<section class="section" id="crash-analysis">
+  <h2 class="section-title"><span class="icon">&#9888;</span> Software Crash Analysis &mdash; Investor Position Assessment</h2>
+
+  <div class="crash-hero">
+    <h3>HOLD WITH CONVICTION &mdash; Resilience Score: 9.2/10</h3>
+    <p style="font-size:15px; color: var(--text-primary); margin-bottom: 16px;">MSFT is among the MOST crash-resilient companies in software/technology. The 23% decline in Q1 2026 is painful but does not threaten the financial fortress. MSFT will emerge from the crash as a relative safe haven within tech, recovering faster than pure-play software companies due to enterprise contract stickiness and diversified revenue streams.</p>
+    <div>
+      <span class="crash-metric badge-green">Z-Score: 7.44 (2.5x safe)</span>
+      <span class="crash-metric badge-green">77% Recurring Revenue</span>
+      <span class="crash-metric badge-green">$375B+ RPO Backlog</span>
+      <span class="crash-metric badge-green">$136B OCF</span>
+      <span class="crash-metric badge-green">Net Debt/EBITDA: 0.08x</span>
+      <span class="crash-metric badge-green">FCF Breakeven: -47.5% Revenue</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title">Is There Hope for Investors Already in Positions?</h3>
+    <p style="color: var(--text-secondary); margin-bottom: 16px;">The 23% decline from ~$350 to ~$270 occurred AFTER Q2 FY2026 earnings that showed 16.7% revenue growth and operating margin expansion. The decline is driven by broad software sector sentiment, AI CapEx concerns, and multiple compression &mdash; not fundamental deterioration.</p>
+    <p style="color: var(--text-primary); margin-bottom: 16px;"><strong>Answer: Yes, decisively.</strong> The financial fortress provides a floor that most software companies cannot match. Revenue would need to decline 47.5% for FCF to reach zero &mdash; essentially impossible with 77% recurring revenue and $375B+ backlog. Even a 50% stock decline leaves the Altman Z-Score at 4.61 (well above the 2.99 safe threshold). The real question is not survival but whether the massive AI CapEx cycle generates adequate returns &mdash; that determination will take 2-3 more years.</p>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title">Fortress Balance Sheet Metrics</h3>
+    <table>
+      <thead>
+        <tr><th>Metric</th><th>Value</th><th>Implication</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Altman Z-Score</td><td class="num positive">7.44</td><td>2.5x safe threshold &mdash; needs 86% stock decline to approach grey zone</td></tr>
+        <tr><td>Net Debt</td><td class="num positive">$12.9B</td><td>Can retire ALL debt from 5 weeks of OCF</td></tr>
+        <tr><td>Net Debt/EBITDA</td><td class="num positive">0.08x</td><td>Essentially zero leverage</td></tr>
+        <tr><td>Recurring Revenue</td><td class="num positive">77%</td><td>Contractual revenue floor in any downturn</td></tr>
+        <tr><td>RPO (Jun 2025)</td><td class="num positive">$375B</td><td>1.33x annual revenue already contracted</td></tr>
+        <tr><td>RPO (Dec 2025)</td><td class="num positive">$631B</td><td>~2 years revenue at current run rate</td></tr>
+        <tr><td>OCF/Net Income</td><td class="num positive">1.34x</td><td>Cash flow EXCEEDS reported earnings</td></tr>
+        <tr><td>Dividend Coverage (FCF)</td><td class="num positive">3.25x</td><td>Fortress-safe even in severe stress (2.25x)</td></tr>
+        <tr><td>Discretionary CapEx</td><td class="num">72%</td><td>$46.5B can be cut without impacting services</td></tr>
+        <tr><td>Credit Quality</td><td class="num positive">AAA/Aaa (implied)</td><td>No financial maintenance covenants</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title">Stress Test Scenarios</h3>
+    <table>
+      <thead>
+        <tr><th>Scenario</th><th>Revenue</th><th>Op. Margin</th><th>FCF</th><th>Div. Coverage</th><th>Assessment</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="severity-badge severity-LOW">BASELINE</span></td>
+          <td class="num">$281.7B</td>
+          <td class="num">45.6%</td>
+          <td class="num positive">$71.6B</td>
+          <td class="num positive">3.25x</td>
+          <td>Current state &mdash; strong</td>
+        </tr>
+        <tr>
+          <td><span class="severity-badge severity-LOW">MILD</span> Rev -5%, margin -200bps</td>
+          <td class="num">$267.6B</td>
+          <td class="num">43.6%</td>
+          <td class="num positive">$64.1B</td>
+          <td class="num positive">2.92x</td>
+          <td class="positive">Easily survivable</td>
+        </tr>
+        <tr>
+          <td><span class="severity-badge severity-MEDIUM">MODERATE</span> Rev -10%, margin -400bps</td>
+          <td class="num">$253.6B</td>
+          <td class="num">41.6%</td>
+          <td class="num positive">$57.8B</td>
+          <td class="num positive">2.63x</td>
+          <td class="positive">Comfortable &mdash; buybacks scaled back</td>
+        </tr>
+        <tr>
+          <td><span class="severity-badge severity-HIGH">SEVERE</span> Rev -15%, margin -600bps, $5B restructuring</td>
+          <td class="num">$239.5B</td>
+          <td class="num">39.6%</td>
+          <td class="num neutral">$49.5B</td>
+          <td class="num positive">2.25x</td>
+          <td class="neutral">Survivable with adjustments &mdash; buybacks suspended, CapEx slashed 45%</td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="margin-top: 12px; font-size: 13px; color: var(--text-secondary);">Revenue would need to decline <strong>47.5%</strong> for FCF to reach zero, and <strong>41.4%</strong> for dividends to be at risk. Essentially impossible with 77% recurring revenue and $375B+ backlog.</p>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title">Z-Score Crash Sensitivity</h3>
+    <table>
+      <thead>
+        <tr><th>Stock Price</th><th>Decline</th><th>Z-Score</th><th>Zone</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>$350 (pre-crash)</td><td class="num">0%</td><td class="num positive">7.44</td><td><span class="severity-badge severity-LOW">SAFE</span></td></tr>
+        <tr><td>$270 (current)</td><td class="num negative">-23%</td><td class="num positive">6.15</td><td><span class="severity-badge severity-LOW">SAFE</span></td></tr>
+        <tr><td>$175 (severe)</td><td class="num negative">-50%</td><td class="num positive">4.61</td><td><span class="severity-badge severity-LOW">SAFE</span></td></tr>
+        <tr><td>$100 (extreme)</td><td class="num negative">-71%</td><td class="num positive">3.40</td><td><span class="severity-badge severity-LOW">SAFE</span></td></tr>
+        <tr><td>~$50 (grey zone)</td><td class="num negative">-86%</td><td class="num neutral">~2.99</td><td><span class="severity-badge severity-MEDIUM">GREY</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title">Capital Allocation Flexibility</h3>
+    <p style="color: var(--text-secondary); margin-bottom: 16px;">Total OCF of $136.2B provides massive flexibility. Committed expenditures ~$49B. Discretionary available: ~$87B.</p>
+    <table>
+      <thead>
+        <tr><th>Lever</th><th>Cash Freed</th><th>Difficulty</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Pause buybacks</td><td class="num">$30B</td><td><span class="severity-badge severity-LOW">EASY</span></td></tr>
+        <tr><td>Cut growth CapEx 50%</td><td class="num">$23B</td><td><span class="severity-badge severity-MEDIUM">MODERATE</span></td></tr>
+        <tr><td>Suspend acquisitions</td><td class="num">$6B</td><td><span class="severity-badge severity-LOW">EASY</span></td></tr>
+        <tr><td><strong>All three combined</strong></td><td class="num positive"><strong>$59B</strong></td><td>&mdash;</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3 class="card-title">FY2023 Precedent (Real-World Stress Test)</h3>
+      <p style="color: var(--text-secondary); margin-bottom: 12px;">FY2023 provided a real stress test: post-pandemic normalization, enterprise budget tightening, tech layoffs.</p>
+      <table>
+        <tbody>
+          <tr><td>Revenue Growth FY2023</td><td class="num">6.9%</td></tr>
+          <tr><td>Operating Margin</td><td class="num positive">41.8%</td></tr>
+          <tr><td>FCF</td><td class="num positive">$59.5B</td></tr>
+          <tr><td>Cloud Growth (slowdown year)</td><td class="num positive">22.1%</td></tr>
+          <tr><td>Re-acceleration FY2024</td><td class="num positive">15.7%</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top: 12px; font-size: 12px; color: var(--text-muted);">Current position is STRONGER ($375B RPO vs $275B, $136B OCF vs $87.6B) but CapEx cycle is NEW RISK not present in FY2023.</p>
+    </div>
+    <div class="card">
+      <h3 class="card-title">Recovery Outlook</h3>
+      <div style="margin-bottom: 12px;">
+        <div style="font-weight: 600; margin-bottom: 4px;">Base Case (60% probability)</div>
+        <div style="font-size: 13px; color: var(--text-secondary);">Cloud sustains 20%+, CapEx moderates FY2027-28. Recovery to $350 in 12-18 months. MSFT recovers faster than pure-play software.</div>
+        <div class="confidence-bar"><div class="confidence-fill" style="width:60%; background: var(--accent-green);"></div></div>
+      </div>
+      <div style="margin-bottom: 12px;">
+        <div style="font-weight: 600; margin-bottom: 4px;">Bull Case (20% probability)</div>
+        <div style="font-size: 13px; color: var(--text-secondary);">AI adoption accelerates, Copilot at mass scale, Azure dominant. New highs in 9-12 months. Requires Copilot ARR >$20B+.</div>
+        <div class="confidence-bar"><div class="confidence-fill" style="width:20%; background: var(--accent-blue);"></div></div>
+      </div>
+      <div>
+        <div style="font-weight: 600; margin-bottom: 4px;">Bear Case (20% probability)</div>
+        <div style="font-size: 13px; color: var(--text-secondary);">AI adoption slower, OpenAI stress, CapEx elevated. 18-24 month trough. Margins 38-42%. Not existential &mdash; fortress survives.</div>
+        <div class="confidence-bar"><div class="confidence-fill" style="width:20%; background: var(--accent-red);"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="border-left: 4px solid var(--accent-yellow);">
+    <h3 class="card-title">Key Risks That Could Alter the HOLD Thesis</h3>
+    <div class="grid-2" style="margin-top: 12px;">
+      <div>
+        <div style="font-weight: 600; color: var(--accent-red); margin-bottom: 8px;">OpenAI Concentration (Critical)</div>
+        <p style="font-size: 13px; color: var(--text-secondary);">45% of $625B+ RPO from single unprofitable customer. Circular economics: MSFT invests in OpenAI, OpenAI buys Azure, MSFT books RPO. If OpenAI renegotiates or builds own infra, the backlog and CapEx justification are at risk. Four independent analysis layers flagged this as THE critical risk.</p>
+      </div>
+      <div>
+        <div style="font-weight: 600; color: var(--accent-orange); margin-bottom: 8px;">CapEx Overshoot (High)</div>
+        <p style="font-size: 13px; color: var(--text-secondary);">CapEx CAGR 51% vs revenue CAGR 12% &mdash; a 4x gap. Q2 FY2026 capex was $29.9B (annualized ~$120B). Rising depreciation ($22B growing 45% YoY) will weigh on margins regardless of future CapEx decisions. Must narrow within 2-3 years.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 2. VERDICTS ==================== -->
+<section class="section" id="verdicts">
+  <h2 class="section-title"><span class="icon">&#9733;</span> Verdicts</h2>
+
+  <div class="card" style="border-left: 4px solid var(--accent-green);">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+      <h3 class="card-title" style="margin-bottom: 0;">Business Quality</h3>
+      <span class="verdict-badge badge-green" style="font-size: 16px;">A (88/100)</span>
+    </div>
+    <div class="gauge-bar">
+      <div class="gauge-fill" style="width: 88%; background: linear-gradient(90deg, var(--accent-green), var(--accent-cyan));"></div>
+    </div>
+    <p style="color: var(--text-secondary); margin-top: 12px;">Best-in-class enterprise software/cloud platform with 77% recurring revenue, $375B remaining performance obligations, 45.6% operating margins, and OCF of $136B. Cloud revenue at $168.9B growing 22.7% is the growth engine. Diversified across Productivity (43%), Cloud (38%), and Personal Computing (19%). The business model is one of the most durable in technology &mdash; mission-critical enterprise software with astronomical switching costs. Deducted from A+ due to 95bps gross margin compression from AI infrastructure costs and unverifiable Azure-specific growth metrics.</p>
+  </div>
+
+  <div class="card" style="border-left: 4px solid var(--accent-green);">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+      <h3 class="card-title" style="margin-bottom: 0;">Management Quality</h3>
+      <span class="verdict-badge badge-green" style="font-size: 16px;">B+ (74/100)</span>
+    </div>
+    <div class="gauge-bar">
+      <div class="gauge-fill" style="width: 74%; background: linear-gradient(90deg, var(--accent-green), var(--accent-yellow));"></div>
+    </div>
+    <p style="color: var(--text-secondary); margin-top: 12px;">Operationally excellent &mdash; 83% quantitative hit rate on earnings commitments, 15.5% operating income CAGR, operating leverage demonstrated (OpEx +6% on revenue +15%). Governance is exceptional: no golden parachutes, 95%+ performance-based CEO comp, 15x salary ownership requirement, strong clawback. Deducted from A due to: CFO Hood's rising deflection rate (0% to 43% over 5 quarters), abandoned CapEx 'pivot' promise without acknowledgment, refusal to disclose AI-specific margins despite 5 quarters of analyst questions, and extreme gap between 10-K risk candor and transcript optimism. Trust their reported numbers; apply skepticism to forward projections.</p>
+  </div>
+
+  <div class="card" style="border-left: 4px solid var(--accent-yellow);">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+      <h3 class="card-title" style="margin-bottom: 0;">Trajectory</h3>
+      <span class="verdict-badge badge-yellow" style="font-size: 16px;">B (68/100)</span>
+    </div>
+    <div class="gauge-bar">
+      <div class="gauge-fill" style="width: 68%; background: linear-gradient(90deg, var(--accent-yellow), var(--accent-orange));"></div>
+    </div>
+    <p style="color: var(--text-secondary); margin-top: 12px;">Revenue growth remains robust (16-18% YoY in H1 FY2026), cloud is accelerating (Server+Cloud +31%), RPO surged to $631B, and operating margins continue expanding YoY. However, trajectory risk is elevated: CapEx accelerated to $100B annualized pace in Q2 FY2026 (from $65B in FY2025), FCF is declining despite revenue growth, Intelligent Cloud margins are compressing, and the narrative has shifted from offensive to defensive. The OpenAI concentration (45% of RPO) and the CapEx-to-revenue growth gap (51% vs 12% CAGR) must narrow within 2-3 years or the trajectory score will deteriorate further. Q2 FY2026 net income of $38.5B exceeding operating income of $38.3B suggests unusual below-the-line items that warrant scrutiny.</p>
+  </div>
+</section>
+
+<!-- ==================== 3. FINANCIAL OVERVIEW ==================== -->
+<section class="section" id="financials">
+  <h2 class="section-title"><span class="icon">&#9635;</span> Financial Overview</h2>
+
+  <div class="card">
+    <h3 class="card-title collapsible" onclick="toggleCollapse(this)">Income Statement &amp; Profitability</h3>
+    <div class="collapse-content">
+      <table>
+        <thead>
+          <tr><th>Metric</th><th class="num">FY2023</th><th class="num">FY2024</th><th class="num">FY2025</th><th>Trend</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Revenue</td><td class="num">$211.9B</td><td class="num">$245.1B</td><td class="num">$281.7B</td><td class="positive">+15.0% YoY, +12.4% 3yr CAGR</td></tr>
+          <tr><td>Gross Margin</td><td class="num">68.9%</td><td class="num">69.8%</td><td class="num">68.8%</td><td class="neutral">-95bps (AI infra costs)</td></tr>
+          <tr><td>Operating Margin</td><td class="num">41.8%</td><td class="num">44.7%</td><td class="num">45.6%</td><td class="positive">+355bps 3yr expansion</td></tr>
+          <tr><td>Net Margin</td><td class="num">34.2%</td><td class="num">36.0%</td><td class="num">36.1%</td><td class="positive">Stable high</td></tr>
+          <tr><td>EBITDA Margin</td><td class="num">48.1%</td><td class="num">52.8%</td><td class="num">55.6%</td><td class="positive">Strongly expanding</td></tr>
+          <tr><td>Net Income</td><td class="num">$72.4B</td><td class="num">$88.1B</td><td class="num">$101.8B</td><td class="positive">+15.5% YoY</td></tr>
+          <tr><td>OCF</td><td class="num">$87.6B</td><td class="num">$118.5B</td><td class="num">$136.2B</td><td class="positive">+14.9% YoY</td></tr>
+          <tr><td>FCF</td><td class="num">$59.5B</td><td class="num">$74.1B</td><td class="num">$71.6B</td><td class="negative">-3.3% YoY (CapEx drag)</td></tr>
+          <tr><td>FCF Margin</td><td class="num">28.1%</td><td class="num">30.2%</td><td class="num">25.4%</td><td class="negative">-480bps compression</td></tr>
+          <tr><td>CapEx</td><td class="num">$28.1B</td><td class="num">$44.5B</td><td class="num">$64.6B</td><td class="negative">+45.1% YoY, 51.5% 2yr CAGR</td></tr>
+          <tr><td>ROE</td><td class="num">&mdash;</td><td class="num">37.1%</td><td class="num">29.6%</td><td class="neutral">Declining from equity expansion</td></tr>
+          <tr><td>ROA</td><td class="num">&mdash;</td><td class="num">19.1%</td><td class="num">18.1%</td><td class="neutral">Stable despite asset expansion</td></tr>
+          <tr><td>ROIC</td><td class="num">&mdash;</td><td class="num">30.4%</td><td class="num">27.3%</td><td class="neutral">Must stay >20% to validate cycle</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title collapsible" onclick="toggleCollapse(this)">Balance Sheet &amp; Leverage</h3>
+    <div class="collapse-content">
+      <table>
+        <thead>
+          <tr><th>Metric</th><th class="num">FY2024</th><th class="num">FY2025</th><th>Assessment</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Current Ratio</td><td class="num">1.28</td><td class="num positive">1.35</td><td class="positive">Improving; $64.6B deferred rev in CL is not cash obligation</td></tr>
+          <tr><td>Quick Ratio</td><td class="num">&mdash;</td><td class="num positive">1.31</td><td>Nearly equals current ratio &mdash; virtually no inventory</td></tr>
+          <tr><td>Cash Ratio</td><td class="num">0.15</td><td class="num positive">0.21</td><td class="positive">Improving</td></tr>
+          <tr><td>Working Capital</td><td class="num">$34.4B</td><td class="num positive">$49.9B</td><td class="positive">+44.9% YoY</td></tr>
+          <tr><td>Debt/Equity</td><td class="num">0.17</td><td class="num positive">0.13</td><td class="positive">Declining</td></tr>
+          <tr><td>Debt/Assets</td><td class="num">0.09</td><td class="num positive">0.07</td><td class="positive">Declining</td></tr>
+          <tr><td>Net Debt</td><td class="num">$26.6B</td><td class="num positive">$12.9B</td><td class="positive">Declining rapidly &mdash; 5 weeks OCF to retire</td></tr>
+          <tr><td>Net Debt/EBITDA</td><td class="num">&mdash;</td><td class="num positive">0.08x</td><td class="positive">Essentially zero leverage</td></tr>
+          <tr><td>Total Debt-like Obligations</td><td class="num">&mdash;</td><td class="num">$60.6B</td><td>LTD ($43.2B) + operating leases ($17.4B) = 0.45x OCF</td></tr>
+          <tr><td>DSO</td><td class="num">84.7</td><td class="num neutral">90.6</td><td class="neutral">MONITOR &mdash; rising, watch for >95 days</td></tr>
+          <tr><td>Implied Credit Rating</td><td class="num">&mdash;</td><td class="num positive">AAA/Aaa</td><td class="positive">No financial maintenance covenants</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title collapsible" onclick="toggleCollapse(this)">Growth Metrics</h3>
+    <div class="collapse-content">
+      <table>
+        <thead>
+          <tr><th>Metric</th><th class="num">Value</th><th>Assessment</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Revenue CAGR (3yr)</td><td class="num positive">12.4%</td><td class="positive">Consistent double-digit growth at $282B scale</td></tr>
+          <tr><td>Operating Income CAGR (3yr)</td><td class="num positive">15.5%</td><td class="positive">Growing faster than revenue &mdash; operating leverage</td></tr>
+          <tr><td>EPS CAGR (2yr)</td><td class="num positive">18.7%</td><td class="positive">Strong</td></tr>
+          <tr><td>Cloud Revenue CAGR (3yr)</td><td class="num positive">22.7%</td><td class="positive">Remarkably consistent (22.1%, 23.4%, 22.7%)</td></tr>
+          <tr><td>Cloud as % of Revenue</td><td class="num positive">60.0%</td><td>Up from 52.7% in FY2023 &mdash; structural shift</td></tr>
+          <tr><td>Server Products + Cloud YoY</td><td class="num positive">+23.3%</td><td class="positive">Azure proxy &mdash; strong</td></tr>
+          <tr><td>Azure Growth (claimed)</td><td class="num neutral">34-39%</td><td class="neutral">UNVERIFIABLE from public filings</td></tr>
+          <tr><td>CapEx CAGR (2yr)</td><td class="num negative">51.5%</td><td class="negative">4x revenue CAGR &mdash; gap must narrow</td></tr>
+          <tr><td>H1 FY2026 Revenue Growth</td><td class="num positive">Q1: +18.4%, Q2: +16.7%</td><td class="positive">Accelerating from FY2025</td></tr>
+          <tr><td>H1 FY2026 Cloud Growth</td><td class="num positive">Q1: +26.2%, Q2: +25.9%</td><td class="positive">Sustained 25%+</td></tr>
+          <tr><td>RPO (Dec 2025)</td><td class="num positive">$631B</td><td class="positive">~2 years revenue visibility</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title collapsible" onclick="toggleCollapse(this)">Cash Flow Quality</h3>
+    <div class="collapse-content">
+      <table>
+        <thead>
+          <tr><th>Metric</th><th class="num">FY2023</th><th class="num">FY2024</th><th class="num">FY2025</th><th>Verdict</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>OCF/Net Income</td><td class="num">1.21x</td><td class="num">1.35x</td><td class="num positive">1.34x</td><td class="positive">STRONG &mdash; OCF consistently exceeds NI by 20-34%</td></tr>
+          <tr><td>CapEx/Depreciation</td><td class="num">&mdash;</td><td class="num">&mdash;</td><td class="num">2.93x</td><td>Massive capacity expansion, not maintenance</td></tr>
+          <tr><td>Cash Conversion Cycle</td><td class="num" colspan="3">NEGATIVE</td><td class="positive">Customers prepay via subscriptions</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 4. FORENSIC MODELS ==================== -->
+<section class="section" id="forensic">
+  <h2 class="section-title"><span class="icon">&#9878;</span> Forensic Models</h2>
+
+  <div class="gauge-container">
+    <!-- Beneish M-Score -->
+    <div class="gauge-card">
+      <div class="gauge-title">Beneish M-Score</div>
+      <div class="gauge-subtitle">Earnings Manipulation Detection &middot; FY2025 vs FY2024</div>
+      <div class="gauge-score positive">-2.54</div>
+      <div class="gauge-bar" style="position: relative;">
+        <div class="gauge-zones">
+          <div class="gauge-zone" style="width:60%; background: var(--accent-green);"></div>
+          <div class="gauge-zone" style="width:15%; background: var(--accent-yellow);"></div>
+          <div class="gauge-zone" style="width:25%; background: var(--accent-red);"></div>
+        </div>
+        <div class="gauge-marker" style="left: 20%;"></div>
+      </div>
+      <div class="gauge-labels"><span>-3.0 (Clean)</span><span>-1.78 (Threshold)</span><span>0.0+ (Likely Manipulator)</span></div>
+      <p style="margin-top: 12px; font-size: 13px; color: var(--text-secondary);"><span class="severity-badge severity-LOW">UNLIKELY MANIPULATOR</span> &mdash; M-Score well below -1.78 threshold. Cash flow exceeds net income by $34.3B. The opposite of manipulation.</p>
+      <div class="gauge-vars" style="margin-top: 12px;">
+        <strong>Components:</strong><br>
+        DSRI: 1.069 <span class="neutral">(MONITOR &mdash; DSO rose 84.7 to 90.6 days)</span><br>
+        GMI: 1.014 <span class="neutral">(Slight margin compression)</span><br>
+        AQI: 0.851 <span class="positive">(Asset quality improved)</span><br>
+        SGI: 1.149 <span class="positive">(14.9% organic growth)</span><br>
+        DEPI: 1.040 <span style="color:var(--text-muted)">(Mechanical depreciation effect)</span><br>
+        SGAI: 0.892 <span class="positive">(SGA declining &mdash; operating leverage)</span><br>
+        TATA: -0.055 <span class="positive">(STRONG &mdash; earnings over-backed by cash)</span><br>
+        LVGI: 0.896 <span class="positive">(Leverage declining)</span>
+      </div>
+    </div>
+
+    <!-- Altman Z-Score -->
+    <div class="gauge-card">
+      <div class="gauge-title">Altman Z-Score</div>
+      <div class="gauge-subtitle">Bankruptcy Risk Assessment &middot; FY2025</div>
+      <div class="gauge-score positive">7.44</div>
+      <div class="gauge-bar" style="position: relative;">
+        <div class="gauge-zones">
+          <div class="gauge-zone" style="width:18%; background: var(--accent-red);"></div>
+          <div class="gauge-zone" style="width:12%; background: var(--accent-yellow);"></div>
+          <div class="gauge-zone" style="width:70%; background: var(--accent-green);"></div>
+        </div>
+        <div class="gauge-marker" style="left: 75%;"></div>
+      </div>
+      <div class="gauge-labels"><span>0 (Distress)</span><span>1.81</span><span>2.99 (Safe)</span><span>10+</span></div>
+      <p style="margin-top: 12px; font-size: 13px; color: var(--text-secondary);"><span class="severity-badge severity-LOW">EXTREMELY SAFE</span> &mdash; 2.5x the safe threshold. Virtually zero bankruptcy risk. Stock would need to fall to ~$50 (86% decline) to approach grey zone.</p>
+      <div class="gauge-vars" style="margin-top: 12px;">
+        <strong>Components:</strong><br>
+        X1 (Working Capital/TA): 0.081<br>
+        X2 (Retained Earnings/TA): 0.384<br>
+        X3 (EBIT/TA): 0.208<br>
+        X4 (Market Cap/Total Liabilities): 9.443<br>
+        X5 (Revenue/TA): 0.455
+      </div>
+    </div>
+  </div>
+
+  <div class="gauge-container" style="margin-top: 20px;">
+    <!-- Piotroski F-Score -->
+    <div class="gauge-card">
+      <div class="gauge-title">Piotroski F-Score</div>
+      <div class="gauge-subtitle">Financial Health &middot; FY2025</div>
+      <div class="gauge-score positive">7 / 9</div>
+      <div class="gauge-bar">
+        <div class="gauge-fill" style="width: 77.8%; background: linear-gradient(90deg, var(--accent-green), var(--accent-cyan));"></div>
+      </div>
+      <div class="gauge-labels"><span>0 (Weak)</span><span>4-5 (Average)</span><span>9 (Strong)</span></div>
+      <p style="margin-top: 12px; font-size: 13px; color: var(--text-secondary);"><span class="severity-badge severity-LOW">STRONG</span> &mdash; Lost points only on operating efficiency (ROA decline, gross margin decline, asset turnover decline) &mdash; all trace to the SAME root cause: AI/cloud infrastructure buildout expanding assets 21% and PPE 51%. Deliberate investment, not deterioration.</p>
+      <div class="gauge-vars" style="margin-top: 12px;">
+        Profitability: <strong>3/4</strong> (Positive NI, OCF, OCF>NI; Failed ROA decline)<br>
+        Leverage/Liquidity: <strong>3/3</strong> (LTD/TA down, CR improved, no dilution)<br>
+        Operating Efficiency: <strong>1/2</strong> (Gross margin -95bps, asset turnover down)
+      </div>
+    </div>
+
+    <!-- Sloan Accrual -->
+    <div class="gauge-card">
+      <div class="gauge-title">Sloan Accrual Ratio</div>
+      <div class="gauge-subtitle">Earnings Quality &middot; FY2025</div>
+      <div class="gauge-score positive">-6.07%</div>
+      <div class="gauge-bar" style="position: relative;">
+        <div class="gauge-zones">
+          <div class="gauge-zone" style="width:40%; background: var(--accent-green);"></div>
+          <div class="gauge-zone" style="width:20%; background: var(--accent-yellow);"></div>
+          <div class="gauge-zone" style="width:40%; background: var(--accent-red);"></div>
+        </div>
+        <div class="gauge-marker" style="left: 15%;"></div>
+      </div>
+      <div class="gauge-labels"><span>-10% (Cash-rich)</span><span>0%</span><span>+10% (Accrual-heavy)</span></div>
+      <p style="margin-top: 12px; font-size: 13px; color: var(--text-secondary);"><span class="severity-badge severity-LOW">HIGH QUALITY EARNINGS</span> &mdash; Strongly negative ratio means earnings are heavily supported by real cash flows, not accounting accruals. OCF exceeds net income by $34.3B. MSFT is UNDER-reporting relative to cash generation.</p>
+      <div class="gauge-vars" style="margin-top: 12px;">
+        FY2024: -6.58% | FY2025: -6.07%<br>
+        Trend: Slightly less negative but still firmly high-quality
+      </div>
+    </div>
+  </div>
+
+  <div class="gauge-container" style="margin-top: 20px;">
+    <!-- Benford's Law -->
+    <div class="gauge-card">
+      <div class="gauge-title">Benford's Law Analysis</div>
+      <div class="gauge-subtitle">Digit Distribution Test &middot; 168 Financial Values</div>
+      <div class="gauge-score positive">PASS</div>
+      <div class="gauge-bar">
+        <div class="gauge-fill" style="width: 75%; background: var(--accent-green);"></div>
+      </div>
+      <div class="gauge-labels"><span>Chi-sq: 3.85</span><span>Critical: 15.51</span></div>
+      <p style="margin-top: 12px; font-size: 13px; color: var(--text-secondary);"><span class="severity-badge severity-LOW">NO MANIPULATION SIGNAL</span> &mdash; Leading digit distribution conforms to Benford's Law. Chi-squared (3.85) well below critical value (15.51) at p=0.05. Max deviation: 2.64 percentage points.</p>
+    </div>
+
+    <!-- Cash Flow Quality -->
+    <div class="gauge-card">
+      <div class="gauge-title">Cash Flow Quality</div>
+      <div class="gauge-subtitle">OCF/NI Ratio &middot; FY2025</div>
+      <div class="gauge-score positive">1.34x</div>
+      <div class="gauge-bar">
+        <div class="gauge-fill" style="width: 85%; background: linear-gradient(90deg, var(--accent-green), var(--accent-cyan));"></div>
+      </div>
+      <div class="gauge-labels"><span>0.5x (Poor)</span><span>1.0x (Break-even)</span><span>1.5x+ (Excellent)</span></div>
+      <p style="margin-top: 12px; font-size: 13px; color: var(--text-secondary);"><span class="severity-badge severity-LOW">STRONG</span> &mdash; OCF consistently exceeds net income by 20-34%. Dividend coverage 3.25x (FCF). Cash conversion cycle is NEGATIVE (customers prepay). Even in severe stress, dividend covered 2.25x.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 5. REVENUE & SEGMENTS ==================== -->
+<section class="section" id="segments">
+  <h2 class="section-title"><span class="icon">&#9638;</span> Revenue &amp; Segments</h2>
+
+  <div class="card">
+    <h3 class="card-title">Segment Revenue Mix &mdash; FY2025</h3>
+    <div class="stacked-bar">
+      <div class="stacked-seg" style="width:42.9%; background: var(--accent-blue);">P&BP 42.9%</div>
+      <div class="stacked-seg" style="width:37.7%; background: var(--accent-purple);">IC 37.7%</div>
+      <div class="stacked-seg" style="width:19.4%; background: var(--accent-cyan);">MPC 19.4%</div>
+    </div>
+    <div style="display: flex; gap: 16px; margin-top: 8px; font-size: 12px; color: var(--text-secondary);">
+      <span style="color: var(--accent-blue);">Productivity &amp; Business Processes</span>
+      <span style="color: var(--accent-purple);">Intelligent Cloud</span>
+      <span style="color: var(--accent-cyan);">More Personal Computing</span>
+    </div>
+    <table style="margin-top: 16px;">
+      <thead>
+        <tr><th>Segment</th><th class="num">Revenue</th><th class="num">% of Total</th><th class="num">Growth</th><th class="num">Op. Margin</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Productivity &amp; Business Processes</td><td class="num">$120.8B</td><td class="num">42.9%</td><td class="num positive">+13.1%</td><td class="num positive">57.8%</td></tr>
+        <tr><td>Intelligent Cloud</td><td class="num">$106.3B</td><td class="num">37.7%</td><td class="num positive">+21.5%</td><td class="num neutral">42.0% <span style="font-size:11px;color:var(--accent-yellow);">(-126bps)</span></td></tr>
+        <tr><td>More Personal Computing</td><td class="num">$54.6B</td><td class="num">19.4%</td><td class="num positive">+7.5%</td><td class="num">25.9%</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title">Key Product Lines</h3>
+    <div class="bar-row">
+      <div class="bar-label">Server + Cloud</div>
+      <div class="bar-track"><div class="bar-fill" style="width:65%; background: var(--accent-blue);">$98.4B</div></div>
+      <div class="bar-value positive">+23.3%</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">M365 Commercial</div>
+      <div class="bar-track"><div class="bar-fill" style="width:58%; background: var(--accent-purple);">$87.8B</div></div>
+      <div class="bar-value positive">+14.0%</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Gaming</div>
+      <div class="bar-track"><div class="bar-fill" style="width:16%; background: var(--accent-cyan);">$23.5B</div></div>
+      <div class="bar-value positive">+9.1%</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">LinkedIn</div>
+      <div class="bar-track"><div class="bar-fill" style="width:12%; background: var(--accent-orange);">$17.8B</div></div>
+      <div class="bar-value positive">+8.8%</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Windows/Devices</div>
+      <div class="bar-track"><div class="bar-fill" style="width:12%; background: var(--text-muted);">$17.3B</div></div>
+      <div class="bar-value">+1.0%</div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3 class="card-title">Cloud Revenue</h3>
+      <div style="font-size: 28px; font-weight: 700; color: var(--accent-blue);">$168.9B</div>
+      <div style="font-size: 13px; color: var(--text-secondary);">60% of total revenue, growing at 22.7% CAGR</div>
+      <div class="gauge-bar" style="margin-top: 12px;">
+        <div class="gauge-fill" style="width: 60%; background: var(--accent-blue);"></div>
+      </div>
+      <div class="gauge-labels"><span>0%</span><span>Cloud: 60%</span><span>100%</span></div>
+    </div>
+    <div class="card">
+      <h3 class="card-title">Revenue Split</h3>
+      <table>
+        <tbody>
+          <tr><td>Services (recurring)</td><td class="num positive">77.3%</td></tr>
+          <tr><td>Products (one-time)</td><td class="num">22.7%</td></tr>
+          <tr><td>US Revenue</td><td class="num">51.3%</td></tr>
+          <tr><td>Non-US Revenue</td><td class="num">48.7%</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top: 8px; font-size: 12px; color: var(--text-secondary);">Top 2 product lines (Server+Cloud + M365) = 66% of revenue &mdash; both enterprise cloud/subscription (most resilient in downturn)</p>
+    </div>
+  </div>
+
+  <div class="card" style="border-left: 4px solid var(--accent-yellow);">
+    <h3 class="card-title">IC Margin Compression Alert</h3>
+    <p style="color: var(--text-secondary);">Intelligent Cloud operating margin declined 126bps (43.2% to 42.0%) despite 21.5% revenue growth. Cloud COGS growing 1.7x faster than cloud revenue. Management claims margins are 'better by far' while 10-K data shows the opposite. <strong>Watch IC margin &mdash; below 40% requires thesis revision.</strong></p>
+  </div>
+</section>
+
+<!-- ==================== 6. QUARTERLY TRENDS ==================== -->
+<section class="section" id="quarterly">
+  <h2 class="section-title"><span class="icon">&#9637;</span> Quarterly Trends</h2>
+
+  <div class="card">
+    <h3 class="card-title">Latest Quarter: Q2 FY2026 (Oct-Dec 2025)</h3>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-value positive">$81.3B</div><div class="stat-label">Revenue (+16.7% YoY)</div></div>
+      <div class="stat-box"><div class="stat-value positive">$38.3B</div><div class="stat-label">Operating Income</div></div>
+      <div class="stat-box"><div class="stat-value positive">47.1%</div><div class="stat-label">Operating Margin</div></div>
+      <div class="stat-box"><div class="stat-value positive">$5.16</div><div class="stat-label">EPS (+59.8% YoY)</div></div>
+    </div>
+    <table>
+      <thead>
+        <tr><th>Metric</th><th class="num">Q1 FY2026</th><th class="num">Q2 FY2026</th><th>Trend</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Revenue</td><td class="num">$65.6B</td><td class="num positive">$81.3B</td><td class="positive">+16.7% YoY</td></tr>
+        <tr><td>Cloud Revenue</td><td class="num">$38.9B</td><td class="num positive">$51.5B</td><td class="positive">+25.9% YoY</td></tr>
+        <tr><td>Server + Cloud YoY</td><td class="num">+26.2%</td><td class="num positive">+30.6%</td><td class="positive">Accelerating</td></tr>
+        <tr><td>CapEx</td><td class="num">$19.4B</td><td class="num negative">$29.9B</td><td class="negative">+54% sequential jump</td></tr>
+        <tr><td>RPO</td><td class="num">&mdash;</td><td class="num positive">$631B</td><td class="positive">~2 years revenue visibility</td></tr>
+        <tr><td>Net Income</td><td class="num">&mdash;</td><td class="num">$38.5B</td><td class="neutral">Exceeds operating income &mdash; unusual</td></tr>
+      </tbody>
+    </table>
+    <div style="margin-top: 16px;">
+      <h4 style="font-size: 14px; margin-bottom: 8px;">Forensic Flags</h4>
+      <ul style="margin-left: 20px; font-size: 13px; color: var(--text-secondary);">
+        <li>Net income ($38.5B) exceeding operating income ($38.3B) &mdash; unusual, suggests significant other income or tax benefit</li>
+        <li>CapEx jumped 54% sequentially ($19.4B Q1 to $29.9B Q2) &mdash; massive acceleration</li>
+        <li>Cash declining from $30.2B to $24.3B despite strong OCF &mdash; CapEx consuming cash</li>
+        <li>RPO surged to $631B &mdash; ~2 years of revenue visibility at current run rate</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title">Material Events (Sep 2025 &ndash; Jan 2026)</h3>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot positive"></div>
+        <div class="timeline-date">January 28, 2026</div>
+        <div class="timeline-title">Earnings Release &mdash; Q2 FY2026</div>
+        <div class="timeline-detail">Revenue $81.3B (+16.7% YoY), EPS $5.16 (+59.8% YoY). EPS growth dramatically outpacing revenue growth &mdash; investigate below-the-line items.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot neutral"></div>
+        <div class="timeline-date">September 30, 2025</div>
+        <div class="timeline-title">Board Director Departure &mdash; Carlos Rodriguez</div>
+        <div class="timeline-detail">Compensation Committee chair and Audit Committee member departed for 'personal reasons.' Watch for compensation policy changes. Replacement: John David Rainey (Walmart CFO).</div>
+      </div>
+    </div>
+    <p style="margin-top: 12px; font-size: 13px; color: var(--accent-green);">No adverse legal, strategic, or operational 8-K events in the review period.</p>
+  </div>
+</section>
+
+<!-- ==================== 7. GOVERNANCE & COMPENSATION ==================== -->
+<section class="section" id="governance">
+  <h2 class="section-title"><span class="icon">&#9881;</span> Governance &amp; Compensation</h2>
+
+  <div class="card">
+    <h3 class="card-title">Overall Governance Score</h3>
+    <div style="display: flex; align-items: center; gap: 20px;">
+      <div class="gauge-score positive" style="font-size: 36px;">8.5/10 <span style="font-size: 18px;">(A)</span></div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3 class="card-title">Entrenchment Score: 2/10</h3>
+      <div class="entrenchment-track">
+        <div class="entrenchment-marker" style="left: 20%;">2</div>
+      </div>
+      <div class="gauge-labels"><span>0 (Shareholder Friendly)</span><span>10 (Entrenched)</span></div>
+      <p style="margin-top: 12px; font-size: 13px; color: var(--text-secondary);"><span class="severity-badge severity-LOW">SHAREHOLDER FRIENDLY</span> &mdash; Among the lowest (best) entrenchment scores for any mega-cap.</p>
+      <table style="margin-top: 12px;">
+        <tbody>
+          <tr><td>Dual-Class Stock</td><td class="positive">No</td></tr>
+          <tr><td>Annual Board Elections</td><td class="positive">Yes</td></tr>
+          <tr><td>Proxy Access</td><td class="positive">Yes</td></tr>
+          <tr><td>Staggered Board</td><td class="positive">No</td></tr>
+          <tr><td>Single Class Stock</td><td class="positive">Yes</td></tr>
+          <tr><td>CEO = Chairman</td><td class="neutral">Yes, but Lead Independent Dir. (Sandra Peterson)</td></tr>
+          <tr><td>Special Meeting Threshold</td><td class="positive">15% of outstanding shares</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3 class="card-title">Compensation Alignment: A+</h3>
+      <p style="color: var(--text-secondary); margin-bottom: 12px;"><span class="severity-badge severity-LOW">EXCEPTIONALLY ALIGNED</span> with shareholder interests</p>
+      <table>
+        <tbody>
+          <tr><td>CEO Performance-Based Comp</td><td class="num positive">&gt;95%</td></tr>
+          <tr><td>Stock Ownership Requirement</td><td class="num positive">15x salary (~$37.5M min)</td></tr>
+          <tr><td>Employment Agreements</td><td class="positive">None</td></tr>
+          <tr><td>Golden Parachutes</td><td class="positive">None</td></tr>
+          <tr><td>Change-in-Control Payments</td><td class="positive">None</td></tr>
+          <tr><td>Executive Pensions</td><td class="positive">None</td></tr>
+          <tr><td>Guaranteed Bonuses</td><td class="positive">None</td></tr>
+          <tr><td>Clawback</td><td class="positive">No-fault recovery &mdash; beyond Dodd-Frank</td></tr>
+          <tr><td>PSA Structure</td><td>TSR-linked with 0.0x to 1.5x adjustment</td></tr>
+          <tr><td>SBC as % Revenue</td><td class="num">4.25% <span style="font-size:11px;color:var(--accent-green);">(declining)</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title">Board Assessment: A</h3>
+    <table>
+      <tbody>
+        <tr><td>Independent Directors</td><td class="num positive">11/12 (91.7%)</td></tr>
+        <tr><td>Lead Independent Director</td><td>Sandra E. Peterson</td></tr>
+        <tr><td>Financial Expertise</td><td>4 Fortune 500 CFOs (Johnston/Disney, List/Gap, Mason/Citi, Rainey/Walmart)</td></tr>
+        <tr><td>CEO Operators</td><td>3 (Scharf/Wells Fargo, MacGregor/Engie, Walmsley/GSK)</td></tr>
+        <tr><td>Gender Diversity</td><td class="positive">42% women (5 of 12)</td></tr>
+        <tr><td>Board Refreshment</td><td>4 directors added since 2019</td></tr>
+        <tr><td>New Nominee</td><td>John David Rainey (replacing Carlos Rodriguez)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="grid-2">
+    <div class="card" style="border-left: 4px solid var(--accent-yellow);">
+      <h3 class="card-title">Shareholder Proposals</h3>
+      <p style="color: var(--text-secondary);">6 shareholder proposals &mdash; all AI ethics/human rights focused. Board recommends AGAINST all 6.</p>
+      <p style="margin-top: 8px; font-size: 13px;"><span class="severity-badge severity-MEDIUM">YELLOW FLAG</span> &mdash; Board's blanket opposition to all AI governance proposals signals insufficient engagement with a material risk area given $65B CapEx in AI.</p>
+    </div>
+    <div class="card" style="border-left: 4px solid var(--accent-yellow);">
+      <h3 class="card-title">Related Party: Inflection AI</h3>
+      <p style="color: var(--text-secondary);">Licensing agreement with Inflection AI (March 2024). Reid Hoffman co-founded Inflection AI and serves on MSFT board. ~$650M license, hired most staff including CEO Mustafa Suleyman.</p>
+      <p style="margin-top: 8px; font-size: 13px;"><span class="severity-badge severity-MEDIUM">MODERATE RISK</span> &mdash; Not disqualifying but warrants monitoring.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 8. IPO ANALYSIS (CONDITIONAL) ==================== -->
+<!-- IF_IPO --><!-- END_IPO -->
+
+<!-- ==================== 9. INSIDER & INSTITUTIONAL ==================== -->
+<section class="section" id="insiders">
+  <h2 class="section-title"><span class="icon">&#9650;</span> Insider &amp; Institutional Activity</h2>
+
+  <div class="card">
+    <h3 class="card-title">Stock-Based Compensation</h3>
+    <table>
+      <thead>
+        <tr><th>Metric</th><th class="num">FY2025</th><th>Assessment</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Total SBC</td><td class="num">$12.0B</td><td>4.25% of revenue (declining from 4.54% FY2023)</td></tr>
+        <tr><td>Net Dilution</td><td class="num positive">ZERO</td><td class="positive">Share count flat at 7.43B &mdash; buybacks fully offset $12B/year SBC</td></tr>
+        <tr><td>vs Peers</td><td class="num">&mdash;</td><td>Moderate for mega-cap software (Alphabet ~8-9%, Salesforce ~10%+, Oracle ~3-4%)</td></tr>
+        <tr><td>Quality</td><td class="num positive">HIGH</td><td class="positive">95%+ performance-based CEO comp, TSR-linked PSUs, strong clawback</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title">Share Count &amp; Capital Returns</h3>
+    <table>
+      <tbody>
+        <tr><td>Shares Outstanding</td><td class="num">7.43B (flat over 3 years)</td></tr>
+        <tr><td>Annual Buybacks</td><td class="num">~$30B/year (pausable lever in stress)</td></tr>
+        <tr><td>Dividend Payout Ratio</td><td class="num positive">21.6%</td></tr>
+        <tr><td>Dividend FCF Coverage</td><td class="num positive">3.25x (2.25x in severe stress)</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ==================== 10. TEXT ANALYSIS ==================== -->
+<section class="section" id="text-analysis">
+  <h2 class="section-title"><span class="icon">&#9998;</span> Text Analysis</h2>
+
+  <div class="card">
+    <h3 class="card-title">10-K Risk Factor Analysis</h3>
+    <p style="color: var(--text-secondary); margin-bottom: 16px;">Analysis of FY2025 10-K risk disclosures compared to earnings call messaging reveals significant gaps:</p>
+    <div class="flag-card moderate">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+        <strong>Cybersecurity Disclosure Gap</strong>
+        <span class="severity-badge severity-HIGH">HIGH</span>
+      </div>
+      <p style="font-size: 13px; color: var(--text-secondary);">Midnight Blizzard (Nobelium) nation-state breach is ongoing with active access to source code and internal systems. 10-K states: 'the threat actor could continue to utilize this information to attempt to gain access to our systems.' Zero discussion in 5 quarters of earnings calls, zero analyst questions. Unpriced tail risk.</p>
+    </div>
+    <div class="flag-card moderate">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+        <strong>AI CapEx Overinvestment Risk (10-K Candor)</strong>
+        <span class="severity-badge severity-MEDIUM">MEDIUM</span>
+      </div>
+      <p style="font-size: 13px; color: var(--text-secondary);">10-K explicitly acknowledges: 'If we are not effective in executing organizational and technical changes to increase efficiency and accelerate innovation, or if we fail to generate sufficient usage of our new products and services, we may not grow revenue in line with the infrastructure and development investments.' This is the AI bubble scenario in legal language.</p>
+    </div>
+    <div class="flag-card moderate">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+        <strong>New FY2025 Risk: AI Copyright Litigation</strong>
+        <span class="severity-badge severity-MEDIUM">MEDIUM</span>
+      </div>
+      <p style="font-size: 13px; color: var(--text-secondary);">New risk factor: 'copyright infringement and other claims arising from AI training and output.' NYT v. OpenAI and similar lawsuits. Potential liability unquantified.</p>
+    </div>
+    <div class="flag-card moderate">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+        <strong>Regulatory Under-disclosure</strong>
+        <span class="severity-badge severity-MEDIUM">MEDIUM</span>
+      </div>
+      <p style="font-size: 13px; color: var(--text-secondary);">10-K regulatory disclosure is 'surprisingly thin' given EU AI Act, Digital Markets Act enforcement, and global AI regulation momentum. No specific mention of DMA or antitrust proceedings. Under-disclosed relative to exposure.</p>
+    </div>
+    <div class="flag-card moderate">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+        <strong>Non-Operating Losses Opacity</strong>
+        <span class="severity-badge severity-MEDIUM">MEDIUM</span>
+      </div>
+      <p style="font-size: 13px; color: var(--text-secondary);">Non-operating income swung from -$1.6B (FY2024) to -$4.9B (FY2025). Likely OpenAI equity method losses. Not adequately explained in MD&amp;A &mdash; transparency gap on a material item.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title">Narrative Shift: Offensive to Defensive</h3>
+    <p style="color: var(--text-secondary);">Management narrative has shifted from offensive (celebrating wins, highlighting growth) to defensive (justifying CapEx, defending margins) by Q2 FY2026. Now 55% defensive posture. Credibility buffer depleted before actual bad news arrives. Cross-executive alignment remains at 92% &mdash; either deep coherence or managed messaging.</p>
+  </div>
+</section>
+
+<!-- ==================== 11. ADVANCED ANALYSIS ==================== -->
+<section class="section" id="advanced">
+  <h2 class="section-title"><span class="icon">&#9830;</span> Advanced Analysis</h2>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3 class="card-title">Tax Analysis</h3>
+      <table>
+        <thead>
+          <tr><th>Metric</th><th class="num">FY2023</th><th class="num">FY2024</th><th class="num">FY2025</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Effective Tax Rate</td><td class="num">19.0%</td><td class="num">18.2%</td><td class="num">17.6%</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top: 12px; font-size: 13px; color: var(--text-secondary);"><span class="severity-badge severity-MEDIUM">MODERATELY SUSTAINABLE WITH RISK</span> &mdash; Below statutory 21% due to FDII deduction, R&amp;D credits, international structure. Tax reform (25-28% statutory) would add $3.6-6.7B annual burden. Section 174 DTA of $16.9B provides partial buffer (~$3.5B future benefit).</p>
+    </div>
+
+    <div class="card">
+      <h3 class="card-title">SBC Analysis</h3>
+      <table>
+        <tbody>
+          <tr><td>SBC FY2025</td><td class="num">$12.0B (4.25% of revenue)</td></tr>
+          <tr><td>Trend</td><td class="positive">Declining as % of revenue (4.54% FY2023 to 4.25%)</td></tr>
+          <tr><td>Dilution</td><td class="positive">ZERO NET &mdash; share count flat at 7.43B</td></tr>
+          <tr><td>Quality</td><td class="positive">95%+ performance-based, TSR-linked</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title">Stress Testing &amp; Optionality</h3>
+    <p style="color: var(--text-secondary); margin-bottom: 16px;">CapEx flexibility analysis: 72% of $64.6B CapEx is discretionary growth spending. Can cut $46.5B without impacting existing service delivery. Maintenance CapEx estimated at $18B.</p>
+    <table>
+      <thead>
+        <tr><th>Breakeven Analysis</th><th class="num">Revenue Decline Required</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>FCF reaches zero</td><td class="num positive">-47.5%</td></tr>
+        <tr><td>Dividend at risk</td><td class="num positive">-41.4%</td></tr>
+      </tbody>
+    </table>
+    <p style="margin-top: 12px; font-size: 13px; color: var(--text-secondary);">Essentially impossible with 77% recurring revenue and $375B+ backlog.</p>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title">Goodwill &amp; Intangible Risk</h3>
+    <p style="color: var(--text-secondary);">$119.5B goodwill + $22.6B intangibles = $142.1B (23% of assets). Activision's $51.2B goodwill untested in recession. Gaming revenue slowdown could trigger impairment testing. Probability: LOW-MEDIUM, Impact: MEDIUM.</p>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title">Validation Checks</h3>
+    <table>
+      <tbody>
+        <tr><td>Going Concern</td><td class="positive">No</td></tr>
+        <tr><td>Material Weakness</td><td class="positive">No</td></tr>
+        <tr><td>Restatement</td><td class="positive">No</td></tr>
+        <tr><td>Auditor</td><td>Deloitte &amp; Touche LLP</td></tr>
+        <tr><td>Calculation Errors</td><td class="positive">0</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ==================== 11B. TRANSCRIPT INTELLIGENCE ==================== -->
+<section class="section" id="transcript-intel">
+  <h2 class="section-title"><span class="icon">&#9835;</span> Transcript Intelligence</h2>
+
+  <div class="card">
+    <h3 class="card-title">Quarters Analyzed</h3>
+    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+      <span class="verdict-badge badge-blue">Q2-FY2025</span>
+      <span class="verdict-badge badge-blue">Q3-FY2025</span>
+      <span class="verdict-badge badge-blue">Q4-FY2025</span>
+      <span class="verdict-badge badge-blue">Q1-FY2026</span>
+      <span class="verdict-badge badge-blue">Q2-FY2026</span>
+    </div>
+    <p style="margin-top: 12px; font-size: 13px; color: var(--text-secondary);">Layers synthesized: L01-Management Decoder, L02-Credibility Tracker, L03-Analyst Intelligence, L04-Guidance Forensics, L09-Narrative Drift, XV01-Forensic, XV02-Ratios, XV03-Governance, XV04-Text</p>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title">Management Credibility: B+ (72/100)</h3>
+    <div class="gauge-bar" style="margin-bottom: 16px;">
+      <div class="gauge-fill" style="width: 72%; background: linear-gradient(90deg, var(--accent-green), var(--accent-yellow));"></div>
+    </div>
+    <p style="color: var(--text-secondary); margin-bottom: 16px;">Trust reported numbers (exceptional accuracy). Apply skepticism to forward projections, especially on CapEx efficiency, AI margins, and OpenAI economics.</p>
+    <table>
+      <thead>
+        <tr><th>Sub-Score</th><th class="num">Score</th><th>Detail</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Quantitative Accuracy</td><td class="num positive">83</td><td>83% hit rate across 12 testable claims &mdash; strong operational execution</td></tr>
+        <tr><td>Qualitative Delivery</td><td class="num positive">90</td><td>89.6% average delivery on 5 qualitative promises</td></tr>
+        <tr><td>Linguistic Credibility</td><td class="num">71</td><td>Nadella 72, Hood 70 &mdash; competent but Hood's deflection rising</td></tr>
+        <tr><td>Timeline Accuracy</td><td class="num neutral">61</td><td>61.25% &mdash; capacity balance miss, H2 headwind miss</td></tr>
+        <tr><td>Transparency vs Deflection</td><td class="num negative">55</td><td>10-K materially more honest than transcripts. Hood deflection rising to 43%.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title">Narrative Consistency: C+ (58/100)</h3>
+    <div class="gauge-bar" style="margin-bottom: 16px;">
+      <div class="gauge-fill" style="width: 58%; background: linear-gradient(90deg, var(--accent-yellow), var(--accent-orange));"></div>
+    </div>
+    <table>
+      <thead>
+        <tr><th>Component</th><th class="num">Score</th><th>Detail</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Core Story Stability</td><td class="num">75</td><td>Moderate stability in overall narrative</td></tr>
+        <tr><td>CapEx Narrative Drift</td><td class="num negative">30</td><td>Drift coefficient 0.7 &mdash; from 'investing in growth' to 'every GPU contracted for useful life' (unacknowledged pivot)</td></tr>
+        <tr><td>OpenAI Narrative Drift</td><td class="num negative">25</td><td>Drift coefficient 0.75 &mdash; from 'strategic partnership' to concentration risk management (maximum drift)</td></tr>
+        <tr><td>Offensive vs Defensive</td><td class="num neutral">45</td><td>Crossed midpoint by Q2-FY2026. Now 55% defensive posture.</td></tr>
+        <tr><td>Cross-Executive Alignment</td><td class="num positive">92</td><td>Suspiciously consistent over 5 quarters</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title">Growth Quality: B+ (76/100)</h3>
+    <div class="gauge-bar" style="margin-bottom: 16px;">
+      <div class="gauge-fill" style="width: 76%; background: linear-gradient(90deg, var(--accent-green), var(--accent-blue));"></div>
+    </div>
+    <table>
+      <thead>
+        <tr><th>Component</th><th class="num">Score</th><th>Detail</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Revenue Authenticity</td><td class="num positive">95</td><td>15% growth fully verified. Cloud CAGR 22.7% genuine. No manipulation.</td></tr>
+        <tr><td>Margin Quality</td><td class="num neutral">65</td><td>Operating margin expanding but cloud-specific margins compressing. P&amp;BP masking IC deterioration.</td></tr>
+        <tr><td>CapEx Efficiency</td><td class="num negative">45</td><td>CapEx CAGR 51% vs revenue CAGR 12%. FCF declined. Efficiency claims unproven.</td></tr>
+        <tr><td>Earnings Quality</td><td class="num positive">95</td><td>M-Score -2.54, TATA -0.055, OCF/NI 1.34x. Exceptional.</td></tr>
+        <tr><td>Copilot Monetization</td><td class="num">70</td><td>15M paid seats growing 160%. ~$5.4B ARR. Real but still early.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title">Risk Score: 62/100 (Higher = More Risk)</h3>
+    <div class="bar-row">
+      <div class="bar-label">OpenAI Concentration</div>
+      <div class="bar-track"><div class="bar-fill" style="width:85%; background: var(--accent-red);">85</div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">CapEx Overcommitment</div>
+      <div class="bar-track"><div class="bar-fill" style="width:75%; background: var(--accent-orange);">75</div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Narrative Fragility</div>
+      <div class="bar-track"><div class="bar-fill" style="width:65%; background: var(--accent-yellow);">65</div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Cybersecurity Tail Risk</div>
+      <div class="bar-track"><div class="bar-fill" style="width:55%; background: var(--accent-yellow);">55</div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Margin Compression</div>
+      <div class="bar-track"><div class="bar-fill" style="width:50%; background: var(--accent-yellow);">50</div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Regulatory Blind Spot</div>
+      <div class="bar-track"><div class="bar-fill" style="width:40%; background: var(--accent-green);">40</div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Balance Sheet Risk</div>
+      <div class="bar-track"><div class="bar-fill" style="width:10%; background: var(--accent-green);">10</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 12. CROSS-POLLINATION ==================== -->
+<section class="section" id="convergence">
+  <h2 class="section-title"><span class="icon">&#9733;</span> Cross-Pollination &amp; Convergence</h2>
+
+  <div class="card">
+    <p style="color: var(--text-secondary); margin-bottom: 16px;">Cross-layer red flags represent findings where multiple independent analysis layers converge on the same concern. The more layers that independently flag an issue, the higher the confidence in the finding.</p>
+  </div>
+
+  <div class="flag-card high">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+      <strong>XF-002: OpenAI Concentration Risk Escalating</strong>
+      <span class="severity-badge severity-CRITICAL">CRITICAL</span>
+    </div>
+    <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px;">Flagged by: L02, L03, L09, XV-04 (4 independent layers &mdash; strongest convergence in dataset)</p>
+    <p style="font-size: 13px; color: var(--text-secondary);">45% of RPO from unprofitable single customer. Circular economics: MSFT invests in OpenAI, OpenAI buys Azure, MSFT books RPO. $4.1B/quarter equity losses.</p>
+    <p style="font-size: 13px; margin-top: 8px;"><strong>Investor Action:</strong> If OpenAI economics change, $281B of RPO and the entire CapEx justification structure are at risk.</p>
+  </div>
+
+  <div class="flag-card high">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+      <strong>XF-003: CapEx 'Pivot' Promise Abandoned Without Acknowledgment</strong>
+      <span class="severity-badge severity-HIGH">HIGH</span>
+    </div>
+    <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px;">Flagged by: L02, L04, L09, XV-02 (4 layers)</p>
+    <p style="font-size: 13px; color: var(--text-secondary);">Management replaced pivot narrative with 'contract-backed' defense without acknowledging original promise was broken. CapEx doubled to $140B annualized.</p>
+    <p style="font-size: 13px; margin-top: 8px;"><strong>Investor Action:</strong> Do not expect CapEx moderation until management explicitly commits to a timeline.</p>
+  </div>
+
+  <div class="flag-card high">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+      <strong>XF-001: CFO Hood's Deflection Rate Rising</strong>
+      <span class="severity-badge severity-HIGH">HIGH</span>
+    </div>
+    <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px;">Flagged by: L01, L03, XV-03 (3 layers)</p>
+    <p style="font-size: 13px; color: var(--text-secondary);">Deflection rose from 0% to 43% over 5 quarters on CapEx and OpenAI questions. Triple-layer convergence signals management is aware of emerging risks they prefer not to quantify.</p>
+    <p style="font-size: 13px; margin-top: 8px;"><strong>Investor Action:</strong> Interpret as a forward indicator. When a CFO deflects more during prosperity, it typically precedes a narrative correction.</p>
+  </div>
+
+  <div class="flag-card moderate">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+      <strong>XF-004: Cybersecurity Breach Ignored in Investor Communications</strong>
+      <span class="severity-badge severity-HIGH">MEDIUM-HIGH</span>
+    </div>
+    <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px;">Flagged by: XV-04, L03 (2 layers)</p>
+    <p style="font-size: 13px; color: var(--text-secondary);">Active nation-state access to source code disclosed in 10-K but zero mentions in 5 quarters of earnings calls. Shared blind spot between management and analysts.</p>
+    <p style="font-size: 13px; margin-top: 8px;"><strong>Investor Action:</strong> Factor as unpriced tail risk. Customer-impacting breach would have outsized impact because market is ignoring it.</p>
+  </div>
+
+  <div class="flag-card moderate">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+      <strong>XF-005: IC Margin Compression Contradicts 'AI Margins Better' Narrative</strong>
+      <span class="severity-badge severity-MEDIUM">MEDIUM</span>
+    </div>
+    <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px;">Flagged by: XV-01, XV-02, XV-04 (3 layers)</p>
+    <p style="font-size: 13px; color: var(--text-secondary);">IC margin compressed 126bps while CFO claims margins are 'better by far.' Cloud COGS growing 1.7x revenue. 10-K acknowledges compression.</p>
+    <p style="font-size: 13px; margin-top: 8px;"><strong>Investor Action:</strong> Watch IC segment margin as leading indicator. Below 40% in FY2026 = thesis revision needed.</p>
+  </div>
+</section>
+
+<!-- ==================== 13. RED FLAGS ==================== -->
+<section class="section" id="red-flags">
+  <h2 class="section-title"><span class="icon">&#9888;</span> Red Flags</h2>
+
+  <div class="card">
+    <h3 class="card-title" style="color: var(--accent-red);">Red Flags</h3>
+
+    <div class="flag-card high">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+        <span>OpenAI concentration: 45% of $625B+ RPO from single unprofitable customer with circular economics</span>
+        <span class="severity-badge severity-CRITICAL">CRITICAL</span>
+      </div>
+      <p style="font-size: 12px; color: var(--text-muted);">Source: phase8/layer-10-synthesis.json (XF-002, flagged by 4 independent layers) | Monitor: Track OpenAI-related RPO disclosure, Azure AI consumption, equity method losses</p>
+    </div>
+
+    <div class="flag-card high">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+        <span>CapEx 'pivot' promise abandoned &mdash; spend accelerated to $100B+ annualized with no inflection point</span>
+        <span class="severity-badge severity-HIGH">HIGH</span>
+      </div>
+      <p style="font-size: 12px; color: var(--text-muted);">Source: phase8/layer-10-synthesis.json (XF-003) | Monitor: CapEx % of revenue, FCF margin trend, management guidance</p>
+    </div>
+
+    <div class="flag-card high">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+        <span>CFO Hood's deflection rate rising from 0% to 43% over 5 quarters despite strong results</span>
+        <span class="severity-badge severity-HIGH">HIGH</span>
+      </div>
+      <p style="font-size: 12px; color: var(--text-muted);">Source: phase8/layer-10-synthesis.json (XF-001) | Monitor: Deflection patterns quarter-over-quarter</p>
+    </div>
+
+    <div class="flag-card moderate">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+        <span>Cybersecurity breach (Midnight Blizzard) ongoing with nation-state access to source code &mdash; zero discussion in investor communications</span>
+        <span class="severity-badge severity-HIGH">MEDIUM-HIGH</span>
+      </div>
+      <p style="font-size: 12px; color: var(--text-muted);">Source: phase2/text-analysis.json, phase8/layer-10-synthesis.json (XF-004) | Monitor: Customer breach disclosures, security advisories</p>
+    </div>
+
+    <div class="flag-card moderate">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+        <span>IC margin compressing 126bps despite 21.5% revenue growth &mdash; management claims contradict 10-K data</span>
+        <span class="severity-badge severity-MEDIUM">MEDIUM</span>
+      </div>
+      <p style="font-size: 12px; color: var(--text-muted);">Monitor: IC operating margin quarterly &mdash; below 40% requires thesis revision</p>
+    </div>
+
+    <div class="flag-card moderate">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+        <span>DSO rising from 84.7 to 90.6 days &mdash; receivables growing 23% while revenue grew 15%</span>
+        <span class="severity-badge severity-MEDIUM">MEDIUM</span>
+      </div>
+      <p style="font-size: 12px; color: var(--text-muted);">Monitor: Quarterly DSO &mdash; above 95 days warrants deeper investigation</p>
+    </div>
+
+    <div class="flag-card moderate">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+        <span>Non-operating losses of $4.9B in FY2025 not adequately explained &mdash; likely OpenAI equity losses</span>
+        <span class="severity-badge severity-MEDIUM">MEDIUM</span>
+      </div>
+      <p style="font-size: 12px; color: var(--text-muted);">Monitor: Non-operating income line, demand transparency on OpenAI investment accounting</p>
+    </div>
+
+    <div class="flag-card low">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+        <span>Azure 34-39% growth is most important metric but UNVERIFIABLE from public filings</span>
+        <span class="severity-badge severity-MEDIUM">LOW-MEDIUM</span>
+      </div>
+      <p style="font-size: 12px; color: var(--text-muted);">Monitor: Cross-reference with Server Products &amp; Cloud segment growth for consistency</p>
+    </div>
+
+    <div class="flag-card low">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+        <span>Inflection AI related-party transaction &mdash; board member Reid Hoffman conflict of interest</span>
+        <span class="severity-badge severity-MEDIUM">LOW-MEDIUM</span>
+      </div>
+      <p style="font-size: 12px; color: var(--text-muted);">Monitor: Additional transactions involving Hoffman-connected entities</p>
+    </div>
+
+    <div class="flag-card low">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+        <span>Board opposes all 6 shareholder proposals on AI ethics &mdash; insufficient engagement with material AI governance risks</span>
+        <span class="severity-badge severity-MEDIUM">LOW-MEDIUM</span>
+      </div>
+      <p style="font-size: 12px; color: var(--text-muted);">Monitor: Board response to AI governance proposals, regulatory developments</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title" style="color: var(--accent-green);">Green Flags</h3>
+
+    <div class="flag-card low">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+        <span>Altman Z-Score 7.44 &mdash; 2.5x safe threshold. Would need 86% stock decline to approach grey zone.</span>
+        <span class="severity-badge severity-LOW">CRITICAL STRENGTH</span>
+      </div>
+    </div>
+    <div class="flag-card low">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+        <span>Beneish M-Score -2.54 with strongly negative TATA &mdash; earnings OVER-backed by cash. OCF exceeds NI by $34.3B.</span>
+        <span class="severity-badge severity-LOW">CRITICAL STRENGTH</span>
+      </div>
+    </div>
+    <div class="flag-card low">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+        <span>77% recurring revenue with $375B RPO ($631B Dec 2025) &mdash; multi-year forward visibility</span>
+        <span class="severity-badge severity-LOW">CRITICAL STRENGTH</span>
+      </div>
+    </div>
+    <div class="flag-card low">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+        <span>OCF $136B on net debt $12.9B &mdash; net debt/EBITDA 0.08x. Can retire ALL debt from 5 weeks of cash.</span>
+        <span class="severity-badge severity-LOW">HIGH STRENGTH</span>
+      </div>
+    </div>
+    <div class="flag-card low">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+        <span>Operating margin expanding 355bps over 3 years to 45.6% &mdash; OpEx +6% vs revenue +15%</span>
+        <span class="severity-badge severity-LOW">HIGH STRENGTH</span>
+      </div>
+    </div>
+    <div class="flag-card low">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+        <span>Exceptional governance: no golden parachutes, 95%+ perf-based CEO comp, 15x salary ownership, 2/10 entrenchment</span>
+        <span class="severity-badge severity-LOW">HIGH STRENGTH</span>
+      </div>
+    </div>
+    <div class="flag-card low">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+        <span>Dividend fortress-safe: 21.6% payout, 3.25x FCF coverage baseline, 2.25x in severe stress</span>
+        <span class="severity-badge severity-LOW">HIGH STRENGTH</span>
+      </div>
+    </div>
+    <div class="flag-card low">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+        <span>Zero net dilution despite $12B/year SBC &mdash; buybacks fully offset. Share count flat at 7.43B.</span>
+        <span class="severity-badge severity-LOW">HIGH STRENGTH</span>
+      </div>
+    </div>
+    <div class="flag-card low">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+        <span>Cloud revenue CAGR 22.7% remarkably consistent across 3 years. Cloud now 60% of total revenue.</span>
+        <span class="severity-badge severity-LOW">HIGH STRENGTH</span>
+      </div>
+    </div>
+    <div class="flag-card low">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+        <span>Benford's Law PASS &mdash; chi-squared 3.85 vs critical 15.51. No digit manipulation signal.</span>
+        <span class="severity-badge severity-LOW">MEDIUM STRENGTH</span>
+      </div>
+    </div>
+    <div class="flag-card low">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+        <span>H1 FY2026: revenue +17-18%, cloud +26%, margins expanding YoY. Fundamentals not deteriorating.</span>
+        <span class="severity-badge severity-LOW">MEDIUM STRENGTH</span>
+      </div>
+    </div>
+    <div class="flag-card low">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+        <span>Near-perfect geographic balance (51/49 US/non-US) provides natural diversification</span>
+        <span class="severity-badge severity-LOW">MEDIUM STRENGTH</span>
+      </div>
+    </div>
+    <div class="flag-card low">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+        <span>72% of CapEx ($46.5B) is discretionary &mdash; can be cut within 6-12 months</span>
+        <span class="severity-badge severity-LOW">MEDIUM STRENGTH</span>
+      </div>
+    </div>
+    <div class="flag-card low">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+        <span>FY2023 stress-test precedent: 41.8% margin and $59.5B FCF maintained, then re-accelerated to 15.7%</span>
+        <span class="severity-badge severity-LOW">MEDIUM STRENGTH</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 14. MONITORING WATCHLIST ==================== -->
+<section class="section" id="watchlist">
+  <h2 class="section-title"><span class="icon">&#9745;</span> Monitoring Watchlist</h2>
+
+  <div class="watchlist-item">
+    <div class="priority-dot priority-CRITICAL"></div>
+    <div>
+      <div style="font-weight: 600;">Trigger 1: IC Operating Margin &lt; 40%</div>
+      <div style="font-size: 13px; color: var(--text-secondary);">If Intelligent Cloud operating margin drops below 40%, reassess the cloud margin thesis. Current: 42.0%, declining. Below 40% indicates AI infrastructure costs are structurally impairing profitability.</div>
+    </div>
+  </div>
+
+  <div class="watchlist-item">
+    <div class="priority-dot priority-CRITICAL"></div>
+    <div>
+      <div style="font-weight: 600;">Trigger 2: OpenAI RPO Concentration &gt; 50%</div>
+      <div style="font-size: 13px; color: var(--text-secondary);">If OpenAI-related RPO exceeds 50% of total or if OpenAI announces own infrastructure buildout, reassess the CapEx justification. Current estimate: 45% of RPO.</div>
+    </div>
+  </div>
+
+  <div class="watchlist-item">
+    <div class="priority-dot priority-HIGH"></div>
+    <div>
+      <div style="font-weight: 600;">Trigger 3: DSO &gt; 95 Days</div>
+      <div style="font-size: 13px; color: var(--text-secondary);">If DSO exceeds 95 days (from current 90.6), investigate customer credit quality and collection dynamics. Above 100 days = potential revenue quality concern.</div>
+    </div>
+  </div>
+
+  <div class="watchlist-item">
+    <div class="priority-dot priority-HIGH"></div>
+    <div>
+      <div style="font-weight: 600;">Trigger 4: FCF Margin &lt; 20%</div>
+      <div style="font-size: 13px; color: var(--text-secondary);">If FCF margin compresses below 20% (from current 25.4%), the CapEx cycle is consuming too much cash generation. Indicates need for CapEx moderation regardless of AI opportunity.</div>
+    </div>
+  </div>
+
+  <div class="watchlist-item">
+    <div class="priority-dot priority-HIGH"></div>
+    <div>
+      <div style="font-weight: 600;">Trigger 5: CapEx &gt; $120B Without Cloud Growth &gt; 30%</div>
+      <div style="font-size: 13px; color: var(--text-secondary);">If annualized CapEx exceeds $120B without proportional revenue acceleration, the investment-to-returns gap is widening dangerously.</div>
+    </div>
+  </div>
+
+  <div class="watchlist-item">
+    <div class="priority-dot priority-HIGH"></div>
+    <div>
+      <div style="font-weight: 600;">Trigger 6: CFO Deflection &gt; 50% or Hood Departure</div>
+      <div style="font-size: 13px; color: var(--text-secondary);">If CFO Hood's deflection rate exceeds 50% or if Hood departs, interpret as a leading indicator of narrative correction or strategic disagreement.</div>
+    </div>
+  </div>
+
+  <div class="watchlist-item">
+    <div class="priority-dot priority-MODERATE"></div>
+    <div>
+      <div style="font-weight: 600;">Trigger 7: Customer-Facing Cybersecurity Incident</div>
+      <div style="font-size: 13px; color: var(--text-secondary);">If any customer-facing breach is linked to Midnight Blizzard source code access, this becomes a material trust event for enterprise cloud customers.</div>
+    </div>
+  </div>
+
+  <div class="watchlist-item">
+    <div class="priority-dot priority-MODERATE"></div>
+    <div>
+      <div style="font-weight: 600;">Trigger 8: Azure Growth &lt; 25% Without Disclosure</div>
+      <div style="font-size: 13px; color: var(--text-secondary);">If Azure growth (currently claimed 34-39%) decelerates below 25% without management proactively disclosing, verify through Server Products &amp; Cloud segment trend.</div>
+    </div>
+  </div>
+
+  <div class="watchlist-item">
+    <div class="priority-dot priority-MODERATE"></div>
+    <div>
+      <div style="font-weight: 600;">Trigger 9: Non-Operating Losses &gt; $6B/Year</div>
+      <div style="font-size: 13px; color: var(--text-secondary);">If non-operating losses exceed $6B in any fiscal year, demand transparency on OpenAI equity investment accounting. Current: $4.9B FY2025.</div>
+    </div>
+  </div>
+
+  <div class="watchlist-item">
+    <div class="priority-dot priority-MODERATE"></div>
+    <div>
+      <div style="font-weight: 600;">Trigger 10: Cloud Revenue Growth &lt; 20% YoY</div>
+      <div style="font-size: 13px; color: var(--text-secondary);">If quarterly cloud revenue growth decelerates to &lt;20% while CapEx remains elevated, the fundamental CapEx return thesis is being tested.</div>
+    </div>
+  </div>
+
+  <div class="watchlist-item">
+    <div class="priority-dot priority-LOW"></div>
+    <div>
+      <div style="font-weight: 600;">Trigger 11: Third New CapEx Justification Metric</div>
+      <div style="font-size: 13px; color: var(--text-secondary);">If management introduces a third new metric (after 'fungible fleet', 'contract duration', 'GPU useful life'), interpret as narrative defense escalation rather than genuine clarity.</div>
+    </div>
+  </div>
+
+  <div class="watchlist-item">
+    <div class="priority-dot priority-LOW"></div>
+    <div>
+      <div style="font-weight: 600;">Trigger 12: Copilot Seat Growth &lt; 50% YoY</div>
+      <div style="font-size: 13px; color: var(--text-secondary);">If Copilot paid seats growth decelerates below 50% YoY (from current ~160%) while at &lt;30M seats, the enterprise AI monetization thesis is stalling.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 15. PREDICTIONS ==================== -->
+<section class="section" id="predictions">
+  <h2 class="section-title"><span class="icon">&#9200;</span> Forward Predictions</h2>
+
+  <div class="prediction-card">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+      <strong>PRED-001: CapEx Will NOT Moderate in FY2027</strong>
+      <span class="verdict-badge badge-yellow">75% Confidence</span>
+    </div>
+    <p style="font-size: 13px; color: var(--text-secondary);">Management will introduce new metrics to justify continued acceleration. Basis: 5 quarters of escalation with no inflection guidance. Each quarter introduces new defensive metric.</p>
+    <p style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Timeframe: Next 4 quarters</p>
+    <div class="confidence-bar"><div class="confidence-fill" style="width:75%; background: var(--accent-yellow);"></div></div>
+  </div>
+
+  <div class="prediction-card">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+      <strong>PRED-002: OpenAI Will Become Larger Visible Risk Factor</strong>
+      <span class="verdict-badge badge-yellow">70% Confidence</span>
+    </div>
+    <p style="font-size: 13px; color: var(--text-secondary);">Analyst community will build circular economics model by Q4-FY2026. Basis: Analyst concern escalating from background noise to 5-firm consensus over 3 quarters.</p>
+    <p style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Timeframe: 2-3 quarters</p>
+    <div class="confidence-bar"><div class="confidence-fill" style="width:70%; background: var(--accent-yellow);"></div></div>
+  </div>
+
+  <div class="prediction-card">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+      <strong>PRED-003: MSFT Emerges as Relative Safe Haven</strong>
+      <span class="verdict-badge badge-green">80% Confidence</span>
+    </div>
+    <p style="font-size: 13px; color: var(--text-secondary);">MSFT will navigate the software crash with operating margins above 42% and FCF above $55B, emerging as relative safe haven. Basis: FY2023 precedent (41.8% margin in slowdown), stronger current position ($375B RPO, $136B OCF), proven enterprise stickiness.</p>
+    <p style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Timeframe: Through FY2027</p>
+    <div class="confidence-bar"><div class="confidence-fill" style="width:80%; background: var(--accent-green);"></div></div>
+  </div>
+</section>
+
+</main>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div>SEC Forensic Analysis &middot; Microsoft Corporation (MSFT) &middot; Generated April 6, 2026</div>
+  <div>Data sources: SEC EDGAR (10-K, 10-Q, 8-K, DEF 14A, Form 4), XBRL/iXBRL via Arelle MCP, Earnings Call Transcripts (5 quarters), Institutional Holdings Data &middot; 35+ data files analyzed across 10 pipeline phases</div>
+</footer>
+
+<script>
+// Sidebar active link tracking
+const sections = document.querySelectorAll('.section');
+const navLinks = document.querySelectorAll('.nav-link');
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(link => link.classList.remove('active'));
+      const activeLink = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
+      if (activeLink) activeLink.classList.add('active');
+    }
+  });
+}, { rootMargin: '-100px 0px -60% 0px' });
+
+sections.forEach(section => observer.observe(section));
+
+// Smooth scrolling
+document.querySelectorAll('.nav-link').forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    const target = document.querySelector(link.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+
+// Collapsible sections
+function toggleCollapse(el) {
+  el.classList.toggle('collapsed');
+  const content = el.nextElementSibling;
+  if (content) content.classList.toggle('hidden');
+}
+</script>
+</body>
+</html>
