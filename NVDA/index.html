@@ -68,6 +68,7 @@ a:hover { text-decoration: underline; }
 }
 .home-btn:hover { background: rgba(201,162,39,0.2); border-color: #C9A227; text-decoration: none; }
 .home-btn svg { width: 18px; height: 18px; }
+.header-logo { width: 36px; height: 36px; object-fit: contain; filter: brightness(0) invert(0.85); flex-shrink: 0; }
 .company-name { font-size: 24px; font-weight: 700; letter-spacing: -0.5px; font-family: var(--font-serif); }
 .ticker-badge {
   background: rgba(201,162,39,0.10); color: #C9A227;
@@ -102,7 +103,7 @@ a:hover { text-decoration: underline; }
   border-left: 3px solid transparent;
 }
 .nav-link:hover { background: var(--bg-card); color: var(--text-primary); text-decoration: none; }
-.nav-link.active { color: #C9A227; border-left-color: #C9A227; background: rgba(201,162,39,0.10); }
+.nav-link.active { color: var(--accent-gold); border-left-color: var(--accent-gold); background: var(--accent-gold-dim); }
 .nav-icon { width: 18px; text-align: center; font-size: 14px; }
 
 /* Main Content */
@@ -450,6 +451,7 @@ th.sortable::after { content: ' \2195'; font-size: 10px; opacity: 0.4; }
 <header class="site-header">
   <div class="header-left">
     <a href="../" class="home-btn" title="Back to all reports"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></a>
+    <img src="../static/ticker_logos/NVDA.svg" alt="NVDA" class="header-logo">
     <div>
       <div class="company-name">NVIDIA Corporation</div>
       <div style="font-size:12px;color:var(--text-muted);">SEC Forensic Analysis Report &middot; April 5, 2026</div>

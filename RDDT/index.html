@@ -68,6 +68,7 @@ a:hover { text-decoration: underline; }
 }
 .home-btn:hover { background: rgba(201,162,39,0.2); border-color: #C9A227; text-decoration: none; }
 .home-btn svg { width: 18px; height: 18px; }
+.header-logo { width: 36px; height: 36px; object-fit: contain; filter: brightness(0) invert(0.85); flex-shrink: 0; }
 .company-name { font-size: 24px; font-weight: 700; letter-spacing: -0.5px; font-family: var(--font-serif); }
 .ticker-badge {
   background: rgba(201,162,39,0.10); color: #C9A227;
@@ -445,6 +446,7 @@ tr:hover { background: var(--bg-card-hover); }
 <header class="site-header">
   <div class="header-left">
     <a href="../" class="home-btn" title="Back to all reports"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></a>
+    <svg class="header-logo" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="18" cy="18" r="14" fill="#d0d0d0"/><circle cx="13" cy="16" r="2.5" fill="#0a0e1a"/><circle cx="23" cy="16" r="2.5" fill="#0a0e1a"/><path d="M12 22c1.5 2.5 5 4 6 4s4.5-1.5 6-4" stroke="#0a0e1a" stroke-width="2" stroke-linecap="round"/><circle cx="26" cy="7" r="3" fill="#d0d0d0"/><line x1="20" y1="4" x2="26" y2="7" stroke="#d0d0d0" stroke-width="2"/></svg>
     <div>
       <div class="company-name">Reddit, Inc.</div>
       <div style="font-size:12px;color:var(--text-muted);">SEC Forensic Analysis Report &middot; April 5, 2026</div>
