@@ -655,44 +655,9 @@ body {
   transition: width 0.1s;
 }
 
-/* --- MOBILE HEADER --- */
-.mobile-header {
-  display: none;
-  position: fixed; top: 0; left: 0; right: 0;
-  height: 52px;
-  background: var(--s1);
-  border-bottom: 1px solid var(--b2);
-  z-index: 1001;
-  align-items: center;
-  padding: 0 1rem;
-  gap: 0.75rem;
-}
-.mobile-header img { height: 22px; filter: brightness(0) invert(0.9); }
-.mobile-header .brand {
-  font-family: var(--font-display);
-  font-size: 0.68rem;
-  color: var(--gold);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-.sidebar-overlay {
-  display: none; position: fixed; inset: 0;
-  background: rgba(0,0,0,0.5); z-index: 999;
-  backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
-}
 
 /* --- RESPONSIVE --- */
 @media (max-width: 900px) {
-  .mobile-header { display: flex; }
-  .scroll-progress { left: 0; top: 52px; }
-  .sidebar {
-    transform: translateX(-100%); width: 260px;
-    top: 0; z-index: 1002;
-  }
-  .sidebar.open { transform: translateX(0); }
-  .sidebar-overlay.open { display: block; }
-  .main { margin-left: 0; padding-top: 52px; }
-  .report-footer { margin-left: 0; }
   .hero { padding: 1.75rem 1.25rem 1.5rem; }
   .hero h1 { font-size: 1.6rem; }
   .hero h1 img { height: 1.5rem !important; }
@@ -715,6 +680,12 @@ body {
   .insight-box { padding: 1rem; }
 }
 
+@media (max-width: 768px) {
+  .sidebar { display: none; }
+  .main { margin-left: 0; }
+  .report-footer { margin-left: 0; }
+}
+
 @media (max-width: 480px) {
   .gauge-grid { grid-template-columns: 1fr; }
   .kpi-strip { grid-template-columns: repeat(2, 1fr); }
@@ -724,7 +695,7 @@ body {
 
 /* --- PRINT --- */
 @media print {
-  .sidebar, .mobile-header, .scroll-progress { display: none; }
+  .sidebar, .scroll-progress { display: none; }
   .main { margin-left: 0; }
   .report-footer { margin-left: 0; }
   body { background: white; color: #1a1a2e; font-size: 11px; }
@@ -998,22 +969,10 @@ body {
 .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 -4px; padding: 0 4px; }
 
 
-/* Mobile overlay */
-.sidebar-overlay {
-  display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6);
-  z-index: 89; backdrop-filter: blur(2px);
-}
-.sidebar-overlay.active { display: block; }
-
 /* ============ TABLET (<1024px) ============ */
 @media (max-width: 1024px) {
   .grid-2, .grid-3 { grid-template-columns: 1fr; }
   .header-right { display: none; }
-  .sidebar {
-    transform: translateX(-100%); transition: transform 0.3s ease;
-    z-index: 91;
-  }
-  .sidebar.open { transform: translateX(0); }
   .main-content { margin-left: 0; padding: 24px; }
   .site-footer { margin-left: 0; }
   .gauge-card { min-width: 220px; }
@@ -1152,15 +1111,6 @@ body {
 </style>
 </head>
 <body>
-
-<!-- MOBILE HEADER -->
-<div class="mobile-header">
-  <a href="../" style="display:flex;align-items:center;color:var(--t3);text-decoration:none;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg></a>
-  <img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg" alt="NIKE">
-  <span class="brand">The King Hippopotamus</span>
-  <a href="../" class="home-btn" title="Back to all reports"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></a>
-</div>
-<div class="sidebar-overlay" onclick="toggleSidebar()"></div>
 
 <!-- SIDEBAR -->
 <aside class="sidebar">
@@ -2244,32 +2194,6 @@ function toggleSection(header) {
   header.classList.toggle('collapsed');
 }
 
-// Sidebar active state on scroll
-(function() {
-  const sections = document.querySelectorAll('.report-section');
-  const navLinks = document.querySelectorAll('.sidebar nav a[href^="#"]');
-
-  function updateActive() {
-    let current = '';
-    const offset = 120;
-    sections.forEach(function(section) {
-      const top = section.getBoundingClientRect().top;
-      if (top < offset + 100) {
-        current = section.id;
-      }
-    });
-    navLinks.forEach(function(link) {
-      link.classList.remove('active');
-      if (link.getAttribute('href') === '#' + current) {
-        link.classList.add('active');
-      }
-    });
-  }
-
-  window.addEventListener('scroll', updateActive);
-  updateActive();
-})();
-
 // Smooth scroll for sidebar links
 document.querySelectorAll('.sidebar nav a[href^="#"]').forEach(function(link) {
   link.addEventListener('click', function(e) {
@@ -2281,38 +2205,6 @@ document.querySelectorAll('.sidebar nav a[href^="#"]').forEach(function(link) {
   });
 });
 
-// Mobile menu toggle
-const menuBtn = document.getElementById('menuBtn');
-const sidebar = document.getElementById('sidebar');
-const overlay = document.getElementById('sidebarOverlay');
-
-function toggleSidebar() {
-  sidebar.classList.toggle('open');
-  overlay.classList.toggle('active');
-  menuBtn.innerHTML = sidebar.classList.contains('open') ? '\u2715' : '\u2630';
-}
-function closeSidebar() {
-  sidebar.classList.remove('open');
-  overlay.classList.remove('active');
-  menuBtn.innerHTML = '\u2630';
-}
-if (menuBtn) menuBtn.addEventListener('click', toggleSidebar);
-if (overlay) overlay.addEventListener('click', closeSidebar);
-
-</script>
-
-<script>
-// Sidebar toggle
-function toggleSidebar() {
-  document.querySelector('.sidebar').classList.toggle('open');
-  document.querySelector('.sidebar-overlay').classList.toggle('open');
-}
-document.querySelectorAll('.sidebar nav a').forEach(a => {
-  a.addEventListener('click', () => {
-    if (window.innerWidth <= 900) toggleSidebar();
-  });
-});
-
 // Scroll progress bar
 window.addEventListener('scroll', () => {
   const h = document.documentElement;
@@ -2321,24 +2213,16 @@ window.addEventListener('scroll', () => {
   if (bar) bar.style.width = pct + '%';
 });
 
-// Section collapse
-function toggleSection(el) {
-  el.classList.toggle('collapsed');
+// Scroll spy — highlight active section in sidebar
+const spySections = document.querySelectorAll('.report-section[id]');
+const spyLinks = document.querySelectorAll('.sidebar nav a');
+function updateSpy() {
+  let cur = '';
+  spySections.forEach(s => { if (window.scrollY >= s.offsetTop - 140) cur = s.id; });
+  spyLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + cur));
 }
-
-// Active sidebar link on scroll
-const sections = document.querySelectorAll('.report-section');
-const navLinks = document.querySelectorAll('.sidebar nav a[href^="#"]');
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      navLinks.forEach(a => a.classList.remove('active'));
-      const link = document.querySelector('.sidebar nav a[href="#' + entry.target.id + '"]');
-      if (link) link.classList.add('active');
-    }
-  });
-}, { threshold: 0.2, rootMargin: '-80px 0px -60% 0px' });
-sections.forEach(s => observer.observe(s));
+window.addEventListener('scroll', updateSpy, { passive: true });
+updateSpy();
 </script>
 </body>
 </html>
