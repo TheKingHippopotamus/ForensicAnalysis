@@ -8,6 +8,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 <title>Microsoft Corporation (MSFT) - SEC Forensic Analysis Report</title>
 <style>
 :root {
@@ -32,6 +35,9 @@
   --accent-orange: #f97316;
   --nav-width: 240px;
   --header-height: 80px;
+  --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --accent-gold: #C9A227;
+  --accent-gold-dim: rgba(201,162,39,0.10);
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
@@ -48,17 +54,30 @@ a:hover { text-decoration: underline; }
 .site-header {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
   height: var(--header-height);
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  background: linear-gradient(135deg, #0B0E13 0%, #141A26 100%);
   border-bottom: 1px solid var(--border);
   display: flex; align-items: center; justify-content: space-between;
   padding: 0 32px;
 }
+.site-header::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 3px; background: linear-gradient(90deg, #C9A227 0%, #E0B830 50%, #C9A227 100%);
+}
 .header-left { display: flex; align-items: center; gap: 20px; }
-.company-name { font-size: 24px; font-weight: 700; letter-spacing: -0.5px; }
+.home-btn {
+  display: flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px; border-radius: 6px;
+  background: rgba(201,162,39,0.10); border: 1px solid rgba(201,162,39,0.25);
+  color: #C9A227; text-decoration: none; transition: all 0.2s;
+  flex-shrink: 0;
+}
+.home-btn:hover { background: rgba(201,162,39,0.2); border-color: #C9A227; text-decoration: none; }
+.home-btn svg { width: 18px; height: 18px; }
+.company-name { font-family: var(--font-serif); font-size: 24px; font-weight: 700; letter-spacing: -0.5px; }
 .ticker-badge {
-  background: var(--accent-blue-dim); color: var(--accent-blue);
+  background: rgba(201,162,39,0.10); color: #C9A227;
   padding: 4px 12px; border-radius: 6px; font-weight: 600; font-size: 14px;
-  border: 1px solid rgba(59,130,246,0.3);
+  border: 1px solid rgba(201,162,39,0.25);
 }
 .header-right { display: flex; align-items: center; gap: 12px; }
 .verdict-badge {
@@ -88,7 +107,7 @@ a:hover { text-decoration: underline; }
   border-left: 3px solid transparent;
 }
 .nav-link:hover { background: var(--bg-card); color: var(--text-primary); text-decoration: none; }
-.nav-link.active { color: var(--accent-blue); border-left-color: var(--accent-blue); background: var(--accent-blue-dim); }
+.nav-link.active { color: #C9A227; border-left-color: #C9A227; background: rgba(201,162,39,0.10); }
 .nav-icon { width: 18px; text-align: center; font-size: 14px; }
 
 /* Main Content */
@@ -98,7 +117,7 @@ a:hover { text-decoration: underline; }
 }
 .section { margin-bottom: 48px; scroll-margin-top: 100px; }
 .section-title {
-  font-size: 22px; font-weight: 700; margin-bottom: 20px;
+  font-family: var(--font-serif); font-size: 22px; font-weight: 700; margin-bottom: 20px;
   padding-bottom: 12px; border-bottom: 2px solid var(--border);
   display: flex; align-items: center; gap: 10px;
 }
@@ -158,7 +177,7 @@ tr:hover { background: var(--bg-card-hover); }
   transform: translateX(-50%);
 }
 .gauge-labels { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted); }
-.gauge-score { font-size: 28px; font-weight: 700; margin: 8px 0; }
+.gauge-score { font-family: var(--font-serif); font-size: 28px; font-weight: 700; margin: 8px 0; }
 .gauge-vars { font-size: 12px; color: var(--text-secondary); line-height: 1.8; }
 
 /* Grid layouts */
@@ -292,14 +311,6 @@ tr:hover { background: var(--bg-card-hover); }
 /* Table scroll wrapper */
 .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 -4px; padding: 0 4px; }
 
-/* Mobile menu button */
-.menu-btn {
-  display: none; background: none; border: 1px solid var(--border);
-  color: var(--text-primary, #e8edf5); padding: 8px; border-radius: 8px;
-  cursor: pointer; font-size: 20px; line-height: 1; min-width: 44px; min-height: 44px;
-  align-items: center; justify-content: center;
-}
-
 /* Mobile overlay */
 .sidebar-overlay {
   display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6);
@@ -311,7 +322,6 @@ tr:hover { background: var(--bg-card-hover); }
 @media (max-width: 1024px) {
   .grid-2, .grid-3 { grid-template-columns: 1fr; }
   .header-right { display: none; }
-  .menu-btn { display: flex; }
   .sidebar {
     transform: translateX(-100%); transition: transform 0.3s ease;
     z-index: 91;
@@ -459,7 +469,7 @@ tr:hover { background: var(--bg-card-hover); }
 <!-- Header -->
 <header class="site-header">
   <div class="header-left">
-    <button class="menu-btn" id="menuBtn" aria-label="Open navigation">&#9776;</button>
+    <a href="../" class="home-btn" title="Back to all reports"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></a>
     <div>
       <div class="company-name">Microsoft Corporation</div>
       <div style="font-size:12px;color:var(--text-muted);">SEC Forensic Analysis Report &middot; April 6, 2026</div>
@@ -1883,4 +1893,4 @@ if (overlay) overlay.addEventListener('click', closeSidebar);
 
 </script>
 </body>
-</html>
+</html><!-- notify test 1775484568 -->
