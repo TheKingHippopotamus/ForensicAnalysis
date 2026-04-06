@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
@@ -53,7 +53,7 @@ a:hover { text-decoration: underline; }
   background: linear-gradient(135deg, #0B0E13 0%, #141A26 100%);
   border-bottom: 1px solid var(--border);
   display: flex; align-items: center; justify-content: space-between;
-  padding: 6px 32px 0;
+  padding: max(6px, env(safe-area-inset-top)) 32px 0;
 }
 .site-header::before {
   content: ''; position: absolute; top: 0; left: 0; right: 0;
@@ -313,6 +313,7 @@ tr:hover { background: var(--bg-card-hover); }
   .site-footer { margin-left: 0; }
   .site-header { padding: 0 16px; gap: 8px; height: 60px; }
   .company-name { font-size: 18px; }
+  .header-logo { width: 28px; height: 28px; }
   .ticker-badge { font-size: 12px; padding: 3px 8px; }
   .site-header .header-left > span { display: none; }
   .main-content { padding: 16px; }
