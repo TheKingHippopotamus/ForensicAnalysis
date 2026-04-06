@@ -1,13 +1,8 @@
-<!--
-  FORENSIC REPORT — Alphabet Inc. (GOOGL)
-  Generated: April 6, 2026
-  Pipeline: SEC Forensic Pipeline V2
--->
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
@@ -40,6 +35,7 @@
   --accent-gold-dim: rgba(201,162,39,0.10);
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-padding-top: 100px; }
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
   background: var(--bg-primary);
@@ -57,7 +53,7 @@ a:hover { text-decoration: underline; }
   background: linear-gradient(135deg, #0B0E13 0%, #141A26 100%);
   border-bottom: 1px solid var(--border);
   display: flex; align-items: center; justify-content: space-between;
-  padding: 6px 32px 0;
+  padding: max(6px, env(safe-area-inset-top)) 32px 0;
 }
 .site-header::before {
   content: ''; position: absolute; top: 0; left: 0; right: 0;
@@ -73,6 +69,7 @@ a:hover { text-decoration: underline; }
 }
 .home-btn:hover { background: rgba(201,162,39,0.2); border-color: #C9A227; text-decoration: none; }
 .home-btn svg { width: 18px; height: 18px; }
+.header-logo { width: 36px; height: 36px; object-fit: contain; filter: brightness(0) invert(0.85); flex-shrink: 0; }
 .company-name { font-size: 24px; font-weight: 700; letter-spacing: -0.5px; font-family: var(--font-serif); }
 .ticker-badge {
   background: rgba(201,162,39,0.10); color: #C9A227;
@@ -107,7 +104,7 @@ a:hover { text-decoration: underline; }
   border-left: 3px solid transparent;
 }
 .nav-link:hover { background: var(--bg-card); color: var(--text-primary); text-decoration: none; }
-.nav-link.active { color: #C9A227; border-left-color: #C9A227; background: rgba(201,162,39,0.10); }
+.nav-link.active { color: var(--accent-gold); border-left-color: var(--accent-gold); background: var(--accent-gold-dim); }
 .nav-icon { width: 18px; text-align: center; font-size: 14px; }
 
 /* Main Content */
@@ -316,6 +313,7 @@ tr:hover { background: var(--bg-card-hover); }
   .site-footer { margin-left: 0; }
   .site-header { padding: 0 16px; gap: 8px; height: 60px; }
   .company-name { font-size: 18px; }
+  .header-logo { width: 28px; height: 28px; }
   .ticker-badge { font-size: 12px; padding: 3px 8px; }
   .site-header .header-left > span { display: none; }
   .main-content { padding: 16px; }
@@ -450,6 +448,7 @@ tr:hover { background: var(--bg-card-hover); }
 <header class="site-header">
   <div class="header-left">
     <a href="../" class="home-btn" title="Back to all reports"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></a>
+    <img src="../static/ticker_logos/GOOGL.svg" alt="GOOGL" class="header-logo">
     <div>
       <div class="company-name">Alphabet Inc.</div>
       <div style="font-size:12px;color:var(--text-muted);">SEC Forensic Analysis Report &middot; April 6, 2026</div>
@@ -1810,7 +1809,7 @@ document.querySelectorAll('.nav-link').forEach(link => {
   link.addEventListener('click', (e) => {
     e.preventDefault();
     const target = document.querySelector(link.getAttribute('href'));
-    if (target) { closeSidebar(); target.scrollIntoView({ behavior: 'smooth' }); }
+    if (target) { target.scrollIntoView({ behavior: 'smooth' }); }
   });
 });
 
