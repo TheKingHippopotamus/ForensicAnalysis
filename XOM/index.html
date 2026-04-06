@@ -2,7 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 <title>Exxon Mobil Corporation (XOM) - SEC Forensic Analysis Report</title>
 <style>
 :root {
@@ -26,9 +29,13 @@
   --accent-cyan: #06b6d4;
   --accent-orange: #f97316;
   --nav-width: 240px;
-  --header-height: 80px;
+  --header-height: 90px;
+  --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --accent-gold: #C9A227;
+  --accent-gold-dim: rgba(201,162,39,0.10);
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-padding-top: 100px; }
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
   background: var(--bg-primary);
@@ -43,17 +50,31 @@ a:hover { text-decoration: underline; }
 .site-header {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
   height: var(--header-height);
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  background: linear-gradient(135deg, #0B0E13 0%, #141A26 100%);
   border-bottom: 1px solid var(--border);
   display: flex; align-items: center; justify-content: space-between;
-  padding: 0 32px;
+  padding: max(6px, env(safe-area-inset-top)) 32px 0;
+}
+.site-header::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 3px; background: linear-gradient(90deg, #C9A227 0%, #E0B830 50%, #C9A227 100%);
 }
 .header-left { display: flex; align-items: center; gap: 20px; }
-.company-name { font-size: 24px; font-weight: 700; letter-spacing: -0.5px; }
+.home-btn {
+  display: flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px; border-radius: 6px;
+  background: rgba(201,162,39,0.10); border: 1px solid rgba(201,162,39,0.25);
+  color: #C9A227; text-decoration: none; transition: all 0.2s;
+  flex-shrink: 0;
+}
+.home-btn:hover { background: rgba(201,162,39,0.2); border-color: #C9A227; text-decoration: none; }
+.home-btn svg { width: 18px; height: 18px; }
+.header-logo { width: 36px; height: 36px; object-fit: contain; filter: brightness(0) invert(0.85); flex-shrink: 0; }
+.company-name { font-family: var(--font-serif); font-size: 24px; font-weight: 700; letter-spacing: -0.5px; }
 .ticker-badge {
-  background: var(--accent-blue-dim); color: var(--accent-blue);
+  background: rgba(201,162,39,0.10); color: #C9A227;
   padding: 4px 12px; border-radius: 6px; font-weight: 600; font-size: 14px;
-  border: 1px solid rgba(59,130,246,0.3);
+  border: 1px solid rgba(201,162,39,0.25);
 }
 .header-right { display: flex; align-items: center; gap: 12px; }
 .verdict-badge {
@@ -83,7 +104,7 @@ a:hover { text-decoration: underline; }
   border-left: 3px solid transparent;
 }
 .nav-link:hover { background: var(--bg-card); color: var(--text-primary); text-decoration: none; }
-.nav-link.active { color: var(--accent-blue); border-left-color: var(--accent-blue); background: var(--accent-blue-dim); }
+.nav-link.active { color: var(--accent-gold); border-left-color: var(--accent-gold); background: var(--accent-gold-dim); }
 .nav-icon { width: 18px; text-align: center; font-size: 14px; }
 
 /* Main Content */
@@ -93,7 +114,7 @@ a:hover { text-decoration: underline; }
 }
 .section { margin-bottom: 48px; scroll-margin-top: 100px; }
 .section-title {
-  font-size: 22px; font-weight: 700; margin-bottom: 20px;
+  font-family: var(--font-serif); font-size: 22px; font-weight: 700; margin-bottom: 20px;
   padding-bottom: 12px; border-bottom: 2px solid var(--border);
   display: flex; align-items: center; gap: 10px;
 }
@@ -153,17 +174,20 @@ tr:hover { background: var(--bg-card-hover); }
   transform: translateX(-50%);
 }
 .gauge-labels { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted); }
-.gauge-score { font-size: 28px; font-weight: 700; margin: 8px 0; }
+.gauge-score { font-family: var(--font-serif); font-size: 28px; font-weight: 700; margin: 8px 0; }
 .gauge-vars { font-size: 12px; color: var(--text-secondary); line-height: 1.8; }
+
+/* Table scroll wrapper */
+.table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 -4px; padding: 0 4px; }
 
 /* Grid layouts */
 .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
 @media (max-width: 1024px) {
   .grid-2, .grid-3 { grid-template-columns: 1fr; }
-  .sidebar { display: none; }
-  .main-content { margin-left: 0; }
   .header-right { display: none; }
+  .main-content { padding: 24px; }
+  .gauge-card { min-width: 220px; }
 }
 
 /* Red flag cards */
@@ -281,26 +305,137 @@ th.sortable::after { content: ' \2195'; font-size: 10px; opacity: 0.4; }
 .stacked-bar { display: flex; height: 28px; border-radius: 6px; overflow: hidden; margin-bottom: 4px; }
 .stacked-seg { display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 600; color: #fff; min-width: 20px; }
 
-/* Hamburger menu for mobile */
-.hamburger { display: none; cursor: pointer; padding: 8px; }
-.hamburger span { display: block; width: 24px; height: 2px; background: var(--text-primary); margin: 5px 0; transition: 0.3s; }
-@media (max-width: 1024px) {
-  .hamburger { display: block; }
-  .sidebar.mobile-open { display: block; z-index: 200; width: 100%; }
-}
+/* ============ PHONE (<768px) ============ */
 @media (max-width: 768px) {
-  .main-content { padding: 16px; }
-  .site-header { padding: 0 16px; }
+  .sidebar { display: none; }
+  .main-content { margin-left: 0; }
+  .site-footer { margin-left: 0; }
+  .site-header { padding: 0 16px; gap: 8px; height: 60px; }
   .company-name { font-size: 18px; }
+  .header-logo { width: 28px; height: 28px; }
+  .ticker-badge { font-size: 12px; padding: 3px 8px; }
+  .site-header .header-left > span { display: none; }
+  .main-content { padding: 16px; }
+  .section { margin-bottom: 32px; scroll-margin-top: 70px; }
+  .section-title { font-size: 18px; }
   .stats-row { gap: 8px; }
-  .stat-box { min-width: 120px; padding: 12px; }
+  .stat-box { min-width: 100px; padding: 12px 8px; }
   .stat-value { font-size: 18px; }
-  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  .stat-label { font-size: 9px; }
+  .card { padding: 16px; border-radius: 10px; }
+  .card-title { font-size: 14px; }
+  .exec-summary { font-size: 14px; line-height: 1.7; }
+  .exec-summary p { text-align: left; }
+  table { font-size: 12px; }
+  th { font-size: 10px; padding: 8px 6px; }
+  td { padding: 8px 6px; }
+  .gauge-container { gap: 12px; }
+  .gauge-card { min-width: unset; padding: 16px; }
+  .gauge-score { font-size: 24px; }
+  .bar-row { gap: 6px; }
+  .bar-label { width: 80px; font-size: 11px; }
+  .bar-value { width: 60px; font-size: 11px; }
+  .bar-fill { font-size: 10px; padding-left: 4px; }
+  .flag-card { padding: 14px; }
+  .watchlist-item { padding: 12px; }
+  .site-footer { padding: 16px; flex-direction: column; gap: 8px; text-align: center; }
+  .nav-link { padding: 14px 20px; font-size: 14px; min-height: 44px; }
+  .stacked-bar { height: 24px; }
+  .prediction-card { padding: 16px; }
+  .timeline { padding-left: 20px; }
+}
+
+/* ============ SMALL PHONE (<480px) ============ */
+@media (max-width: 480px) {
+  .site-header { padding: 0 12px; }
+  .company-name { font-size: 16px; max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .main-content { padding: 12px; }
+  .stats-row { flex-direction: column; gap: 6px; }
+  .stat-box { min-width: unset; flex-direction: row; justify-content: space-between; align-items: center; text-align: left; padding: 10px 14px; }
+  .stat-value { font-size: 20px; }
+  .stat-label { font-size: 10px; margin-top: 0; }
+  .bar-label { width: 60px; font-size: 10px; }
+  .bar-value { width: 50px; font-size: 10px; }
+  .section-title { font-size: 16px; gap: 6px; }
+}
+
+/* ===== MOBILE V2 FIXES (smartphone-specific) ===== */
+
+/* FIX 1: Red flags + cross-layer — more spacing, vertical badge stacking */
+@media (max-width: 768px) {
+  .flag-card { padding: 16px !important; margin-bottom: 16px !important; border-radius: 10px; }
+  .flag-card > div:first-child {
+    flex-direction: column !important; align-items: flex-start !important; gap: 8px !important;
+  }
+  .flag-card .severity-badge { font-size: 11px; }
+  .flag-card p { font-size: 13px; line-height: 1.6; margin-top: 8px; }
+}
+
+/* FIX 2: Insider/Ownership tables — card-style stacking */
+@media (max-width: 768px) {
+  #insiders table, #insiders thead, #insiders tbody, #insiders tr, #insiders th, #insiders td {
+    display: block; width: 100%;
+  }
+  #insiders thead { display: none; }
+  #insiders tr {
+    margin-bottom: 12px; padding: 12px; border-radius: 8px;
+    background: var(--bg-card, #1a2234); border: 1px solid var(--border, #2a3550);
+  }
+  #insiders td { padding: 4px 0; border-bottom: none; text-align: left; }
+  #insiders td.num { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+  #insiders td:last-child { font-size: 12px; color: var(--text-secondary, #8b99b0); line-height: 1.5; }
+}
+
+/* FIX 3: Table scroll hint */
+@media (max-width: 768px) {
+  .table-wrap { position: relative; }
+  .table-wrap::after {
+    content: '\2190 scroll \2192';
+    display: block; text-align: center; font-size: 10px;
+    color: var(--text-muted, #5a6880); padding: 6px 0 2px; opacity: 0.5;
+  }
+}
+
+/* FIX 4: Segments — stacked bar becomes vertical bars on phone */
+@media (max-width: 768px) {
+  .stacked-bar {
+    height: auto !important; flex-direction: column !important; gap: 4px;
+    border-radius: 0 !important;
+  }
+  .stacked-seg {
+    height: 32px !important; width: 100% !important;
+    border-radius: 6px !important;
+    justify-content: flex-start !important; padding-left: 12px !important;
+    font-size: 12px !important;
+  }
+}
+
+/* FIX 5: Forensic models — complete mobile redesign */
+@media (max-width: 768px) {
+  .gauge-container { gap: 16px; flex-direction: column; }
+  .gauge-card {
+    min-width: unset !important; padding: 20px 16px !important;
+    background: var(--bg-secondary, #111827) !important; border-radius: 12px;
+  }
+  .gauge-title { font-size: 16px !important; text-align: center; margin-bottom: 4px; }
+  .gauge-subtitle { font-size: 11px !important; text-align: center; }
+  .gauge-score { font-size: 32px !important; text-align: center; margin: 12px 0 !important; }
+  .gauge-bar { height: 14px !important; border-radius: 7px !important; margin-bottom: 6px; }
+  .gauge-marker { height: 22px !important; top: -4px !important; width: 3px !important; }
+  .gauge-zones .gauge-zone { opacity: 0.25 !important; }
+  .gauge-labels { font-size: 9px !important; padding: 0 2px; }
+  .gauge-labels span:nth-child(2) { opacity: 0.5; font-size: 8px; }
+  .gauge-vars {
+    font-size: 12px !important; line-height: 2.0 !important; margin-top: 12px;
+    padding-top: 12px; border-top: 1px solid var(--border, #2a3550);
+  }
 }
 @media (max-width: 480px) {
-  .company-name { font-size: 16px; }
-  .stat-box { min-width: 100px; }
-  .card { padding: 16px; }
+  .flag-card { padding: 14px 12px !important; margin-bottom: 12px !important; border-radius: 8px; }
+  .gauge-score { font-size: 28px !important; }
+  .gauge-title { font-size: 15px !important; }
+  .gauge-labels span:nth-child(2) { display: none; }
+  .gauge-vars { font-size: 11px !important; }
 }
 </style>
 </head>
@@ -309,20 +444,19 @@ th.sortable::after { content: ' \2195'; font-size: 10px; opacity: 0.4; }
 <!-- Header -->
 <header class="site-header">
   <div class="header-left">
-    <div class="hamburger" onclick="document.getElementById('sidebar').classList.toggle('mobile-open')">
-      <span></span><span></span><span></span>
-    </div>
+    <a href="../" class="home-btn" title="Back to all reports"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></a>
+    <img src="../static/ticker_logos/XOM.svg" alt="XOM" class="header-logo">
     <div>
       <div class="company-name">Exxon Mobil Corporation</div>
       <div style="font-size:12px;color:var(--text-muted);">SEC Forensic Analysis Report &middot; April 6, 2026</div>
     </div>
     <span class="ticker-badge">XOM</span>
-    <span style="font-size:12px;color:var(--text-muted);">NYSE &middot; SIC 2911</span>
+    <span style="font-size:12px;color:var(--text-muted);">NYSE &middot; Petroleum Refining | FY ends December</span>
   </div>
   <div class="header-right">
-    <span class="verdict-badge badge-yellow"><span class="label">Business</span> GOOD &mdash; WITH CAVEATS</span>
-    <span class="verdict-badge badge-yellow"><span class="label">Management</span> COMPETENT OPERATORS</span>
-    <span class="verdict-badge badge-red"><span class="label">Trajectory</span> FINANCIALLY DETERIORATING</span>
+    <span class="verdict-badge badge-yellow"><span class="label">Business</span> B (72/100) &mdash; Good With Caveats</span>
+    <span class="verdict-badge badge-yellow"><span class="label">Management</span> B (72/100) &mdash; Competent, Narrative Overreach</span>
+    <span class="verdict-badge badge-red"><span class="label">Trajectory</span> C+ (58/100) &mdash; Financially Deteriorating</span>
   </div>
 </header>
 
