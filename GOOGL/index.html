@@ -1,0 +1,1660 @@
+<!--
+  FORENSIC REPORT — Alphabet Inc. (GOOGL)
+  Generated: April 6, 2026
+  Pipeline: SEC Forensic Pipeline V2
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alphabet Inc. (GOOGL) - SEC Forensic Analysis Report</title>
+<style>
+:root {
+  --bg-primary: #0a0e1a;
+  --bg-secondary: #111827;
+  --bg-card: #1a2234;
+  --bg-card-hover: #1f2a40;
+  --border: #2a3550;
+  --text-primary: #e8edf5;
+  --text-secondary: #8b99b0;
+  --text-muted: #5a6880;
+  --accent-green: #22c55e;
+  --accent-green-dim: rgba(34,197,94,0.15);
+  --accent-yellow: #eab308;
+  --accent-yellow-dim: rgba(234,179,8,0.15);
+  --accent-red: #ef4444;
+  --accent-red-dim: rgba(239,68,68,0.15);
+  --accent-blue: #3b82f6;
+  --accent-blue-dim: rgba(59,130,246,0.12);
+  --accent-purple: #a855f7;
+  --accent-cyan: #06b6d4;
+  --accent-orange: #f97316;
+  --nav-width: 240px;
+  --header-height: 80px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  font-size: 14px;
+}
+a { color: var(--accent-blue); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* Header */
+.site-header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: var(--header-height);
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 32px;
+}
+.header-left { display: flex; align-items: center; gap: 20px; }
+.company-name { font-size: 24px; font-weight: 700; letter-spacing: -0.5px; }
+.ticker-badge {
+  background: var(--accent-blue-dim); color: var(--accent-blue);
+  padding: 4px 12px; border-radius: 6px; font-weight: 600; font-size: 14px;
+  border: 1px solid rgba(59,130,246,0.3);
+}
+.header-right { display: flex; align-items: center; gap: 12px; }
+.verdict-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 14px; border-radius: 8px; font-size: 12px; font-weight: 600;
+  letter-spacing: 0.3px;
+}
+.verdict-badge .label { opacity: 0.7; font-weight: 400; }
+.badge-green { background: var(--accent-green-dim); color: var(--accent-green); border: 1px solid rgba(34,197,94,0.3); }
+.badge-yellow { background: var(--accent-yellow-dim); color: var(--accent-yellow); border: 1px solid rgba(234,179,8,0.3); }
+.badge-red { background: var(--accent-red-dim); color: var(--accent-red); border: 1px solid rgba(239,68,68,0.3); }
+.badge-blue { background: var(--accent-blue-dim); color: var(--accent-blue); border: 1px solid rgba(59,130,246,0.3); }
+
+/* Sidebar Nav */
+.sidebar {
+  position: fixed; top: var(--header-height); left: 0; bottom: 0;
+  width: var(--nav-width); background: var(--bg-secondary);
+  border-right: 1px solid var(--border);
+  overflow-y: auto; padding: 16px 0; z-index: 90;
+}
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+.nav-link {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 20px; color: var(--text-secondary);
+  font-size: 13px; cursor: pointer; transition: all 0.2s;
+  border-left: 3px solid transparent;
+}
+.nav-link:hover { background: var(--bg-card); color: var(--text-primary); text-decoration: none; }
+.nav-link.active { color: var(--accent-blue); border-left-color: var(--accent-blue); background: var(--accent-blue-dim); }
+.nav-icon { width: 18px; text-align: center; font-size: 14px; }
+
+/* Main Content */
+.main-content {
+  margin-left: var(--nav-width); margin-top: var(--header-height);
+  padding: 32px; max-width: 1200px;
+}
+.section { margin-bottom: 48px; scroll-margin-top: 100px; }
+.section-title {
+  font-size: 22px; font-weight: 700; margin-bottom: 20px;
+  padding-bottom: 12px; border-bottom: 2px solid var(--border);
+  display: flex; align-items: center; gap: 10px;
+}
+.section-title .icon { font-size: 20px; }
+
+/* Cards */
+.card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 24px; margin-bottom: 16px;
+}
+.card-title { font-size: 16px; font-weight: 600; margin-bottom: 12px; }
+
+/* Collapsible */
+.collapsible { cursor: pointer; user-select: none; }
+.collapsible::after { content: ' \25BC'; font-size: 10px; opacity: 0.5; }
+.collapsible.collapsed::after { content: ' \25B6'; }
+.collapse-content { overflow: hidden; transition: max-height 0.3s ease; }
+.collapse-content.hidden { max-height: 0 !important; padding: 0; }
+
+/* Tables */
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th {
+  background: var(--bg-secondary); color: var(--text-secondary);
+  padding: 10px 12px; text-align: left; font-weight: 600;
+  border-bottom: 2px solid var(--border); position: sticky; top: 0;
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;
+}
+td { padding: 10px 12px; border-bottom: 1px solid var(--border); }
+tr:nth-child(even) { background: rgba(255,255,255,0.02); }
+tr:hover { background: var(--bg-card-hover); }
+.num { text-align: right; font-variant-numeric: tabular-nums; }
+.positive { color: var(--accent-green); }
+.negative { color: var(--accent-red); }
+.neutral { color: var(--accent-yellow); }
+
+/* Gauges */
+.gauge-container { display: flex; flex-wrap: wrap; gap: 20px; }
+.gauge-card {
+  flex: 1; min-width: 280px; background: var(--bg-card);
+  border: 1px solid var(--border); border-radius: 12px; padding: 20px;
+}
+.gauge-title { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+.gauge-subtitle { font-size: 11px; color: var(--text-secondary); margin-bottom: 16px; }
+.gauge-bar {
+  height: 24px; background: var(--bg-secondary); border-radius: 12px;
+  overflow: hidden; position: relative; margin-bottom: 8px;
+}
+.gauge-fill { height: 100%; border-radius: 12px; transition: width 0.5s ease; position: relative; }
+.gauge-zones {
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  display: flex;
+}
+.gauge-zone { height: 100%; opacity: 0.15; }
+.gauge-marker {
+  position: absolute; top: -4px; width: 4px; height: 32px;
+  background: var(--text-primary); border-radius: 2px;
+  transform: translateX(-50%);
+}
+.gauge-labels { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted); }
+.gauge-score { font-size: 28px; font-weight: 700; margin: 8px 0; }
+.gauge-vars { font-size: 12px; color: var(--text-secondary); line-height: 1.8; }
+
+/* Grid layouts */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+@media (max-width: 1024px) {
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  .sidebar { display: none; }
+  .main-content { margin-left: 0; }
+  .header-right { display: none; }
+}
+
+/* Red flag cards */
+.flag-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 20px; margin-bottom: 12px;
+  border-left: 4px solid;
+}
+.flag-card.high { border-left-color: var(--accent-red); }
+.flag-card.moderate { border-left-color: var(--accent-yellow); }
+.flag-card.low { border-left-color: var(--accent-green); }
+.severity-badge {
+  display: inline-block; padding: 2px 8px; border-radius: 4px;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.5px;
+}
+.severity-HIGH { background: var(--accent-red-dim); color: var(--accent-red); }
+.severity-MEDIUM { background: var(--accent-yellow-dim); color: var(--accent-yellow); }
+.severity-LOW { background: var(--accent-green-dim); color: var(--accent-green); }
+
+/* Timeline */
+.timeline { position: relative; padding-left: 24px; }
+.timeline::before {
+  content: ''; position: absolute; left: 8px; top: 0; bottom: 0;
+  width: 2px; background: var(--border);
+}
+.timeline-item { position: relative; margin-bottom: 20px; }
+.timeline-dot {
+  position: absolute; left: -20px; top: 6px;
+  width: 12px; height: 12px; border-radius: 50%;
+  border: 2px solid; background: var(--bg-primary);
+}
+.timeline-dot.positive { border-color: var(--accent-green); }
+.timeline-dot.negative { border-color: var(--accent-red); }
+.timeline-dot.neutral { border-color: var(--accent-yellow); }
+.timeline-date { font-size: 11px; color: var(--text-muted); margin-bottom: 4px; }
+.timeline-title { font-weight: 600; margin-bottom: 4px; }
+.timeline-detail { font-size: 13px; color: var(--text-secondary); }
+
+/* Watchlist */
+.watchlist-item {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 16px; background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 10px; margin-bottom: 10px;
+}
+.priority-dot {
+  width: 8px; height: 8px; border-radius: 50%; margin-top: 6px; flex-shrink: 0;
+}
+.priority-CRITICAL { background: var(--accent-red); box-shadow: 0 0 8px var(--accent-red); }
+.priority-HIGH { background: var(--accent-orange); }
+.priority-MODERATE { background: var(--accent-yellow); }
+.priority-LOW { background: var(--accent-green); }
+
+/* Bar chart using CSS */
+.bar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+.bar-label { width: 140px; font-size: 12px; text-align: right; color: var(--text-secondary); flex-shrink: 0; }
+.bar-track { flex: 1; height: 22px; background: var(--bg-secondary); border-radius: 4px; overflow: hidden; position: relative; }
+.bar-fill { height: 100%; border-radius: 4px; display: flex; align-items: center; padding-left: 8px; font-size: 11px; font-weight: 600; color: #fff; min-width: 40px; }
+.bar-value { width: 80px; font-size: 12px; text-align: right; font-variant-numeric: tabular-nums; flex-shrink: 0; }
+
+/* Prediction cards */
+.prediction-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 20px; margin-bottom: 12px;
+}
+.confidence-bar {
+  height: 6px; background: var(--bg-secondary); border-radius: 3px;
+  overflow: hidden; margin-top: 8px;
+}
+.confidence-fill { height: 100%; border-radius: 3px; }
+
+/* Footer */
+.site-footer {
+  margin-left: var(--nav-width); padding: 24px 32px;
+  border-top: 1px solid var(--border);
+  color: var(--text-muted); font-size: 12px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+
+/* Summary stats row */
+.stats-row { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 24px; }
+.stat-box {
+  flex: 1; min-width: 150px; background: var(--bg-card);
+  border: 1px solid var(--border); border-radius: 10px; padding: 16px;
+  text-align: center;
+}
+.stat-value { font-size: 24px; font-weight: 700; }
+.stat-label { font-size: 11px; color: var(--text-secondary); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* Entrenchment visual */
+.entrenchment-track {
+  height: 32px; background: linear-gradient(to right, var(--accent-green), var(--accent-yellow), var(--accent-red));
+  border-radius: 16px; position: relative; margin: 16px 0;
+  opacity: 0.3;
+}
+.entrenchment-marker {
+  position: absolute; top: -4px; width: 40px; height: 40px;
+  background: var(--bg-card); border: 3px solid var(--accent-red);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 16px;
+  transform: translateX(-50%);
+}
+
+/* Exec summary */
+.exec-summary { font-size: 15px; line-height: 1.8; color: var(--text-primary); }
+.exec-summary p { margin-bottom: 16px; text-align: justify; }
+
+/* Stacked bar */
+.stacked-bar { display: flex; height: 28px; border-radius: 6px; overflow: hidden; margin-bottom: 4px; }
+.stacked-seg { display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 600; color: #fff; min-width: 20px; }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="site-header">
+  <div class="header-left">
+    <div>
+      <div class="company-name">Alphabet Inc.</div>
+      <div style="font-size:12px;color:var(--text-muted);">SEC Forensic Analysis Report &middot; April 6, 2026</div>
+    </div>
+    <span class="ticker-badge">GOOGL</span>
+    <span style="font-size:12px;color:var(--text-muted);">NASDAQ &middot; AI-first hyperscaler delivering 15% revenue acceleration and 36% Cloud growth, backed by a fortress balance sheet</span>
+  </div>
+  <div class="header-right">
+    <span class="verdict-badge badge-green"><span class="label">Business</span> Strong</span>
+    <span class="verdict-badge badge-yellow"><span class="label">Management</span> Credible but Curated</span>
+    <span class="verdict-badge badge-yellow"><span class="label">Trajectory</span> Cautiously Bullish</span>
+  </div>
+</header>
+
+<!-- Sidebar -->
+<nav class="sidebar" id="sidebar">
+  <a class="nav-link active" href="#executive-summary"><span class="nav-icon">&#9670;</span> Executive Summary</a>
+  <a class="nav-link" href="#verdicts"><span class="nav-icon">&#9733;</span> Verdicts</a>
+  <a class="nav-link" href="#financials"><span class="nav-icon">&#9635;</span> Financial Overview</a>
+  <a class="nav-link" href="#forensic"><span class="nav-icon">&#9878;</span> Forensic Models</a>
+  <a class="nav-link" href="#segments"><span class="nav-icon">&#9638;</span> Revenue &amp; Segments</a>
+  <a class="nav-link" href="#quarterly"><span class="nav-icon">&#9637;</span> Quarterly Trends</a>
+  <a class="nav-link" href="#governance"><span class="nav-icon">&#9881;</span> Governance</a>
+  <a class="nav-link" href="#insiders"><span class="nav-icon">&#9650;</span> Insider &amp; Institutional</a>
+  <a class="nav-link" href="#text-analysis"><span class="nav-icon">&#9998;</span> Text Analysis</a>
+  <a class="nav-link" href="#advanced"><span class="nav-icon">&#9830;</span> Advanced Analysis</a>
+  <a class="nav-link" href="#transcript-intel"><span class="nav-icon">&#9835;</span> Transcript Intelligence</a>
+  <a class="nav-link" href="#convergence"><span class="nav-icon">&#9733;</span> Cross-Pollination</a>
+  <a class="nav-link" href="#red-flags"><span class="nav-icon">&#9888;</span> Red Flags</a>
+  <a class="nav-link" href="#watchlist"><span class="nav-icon">&#9745;</span> Watchlist</a>
+  <a class="nav-link" href="#predictions"><span class="nav-icon">&#9200;</span> Predictions</a>
+</nav>
+
+<!-- Main Content -->
+<main class="main-content">
+
+<!-- ==================== 1. EXECUTIVE SUMMARY ==================== -->
+<section class="section" id="executive-summary">
+  <h2 class="section-title"><span class="icon">&#9670;</span> Executive Summary</h2>
+  <div class="stats-row">
+    <div class="stat-box"><div class="stat-value positive">$402.8B</div><div class="stat-label">Revenue (FY2025)</div></div>
+    <div class="stat-box"><div class="stat-value positive">$132.2B</div><div class="stat-label">Net Income (FY2025)</div></div>
+    <div class="stat-box"><div class="stat-value positive">$112.3B</div><div class="stat-label">Operating Cash Flow (9M 2025)</div></div>
+    <div class="stat-box"><div class="stat-value">$95.7B</div><div class="stat-label">Cash &amp; Short-Term Investments (FY2024)</div></div>
+    <div class="stat-box"><div class="stat-value positive">$10.81</div><div class="stat-label">Diluted EPS</div></div>
+  </div>
+  <div class="card exec-summary">
+    <p>Alphabet Inc. delivered a landmark FY2025, posting $402.8B in revenue (+15.1%), $132.2B in net income (+32.0%), and diluted EPS of $10.81 (+34.5%). Google Cloud was the standout, accelerating to 35.8% growth ($58.7B) and now representing 14.6% of total revenue &mdash; up from 10.8% just two years ago. Google Search grew 13.4% to $224.5B, defying fears of AI-driven disruption, while the Subscriptions/Platforms/Devices segment surged 19.1% to $48.0B. Gross margins expanded for the fourth consecutive year to 59.7%, and the balance sheet remains fortress-grade with a net cash position of $84.8B and minimal leverage (debt/EBITDA of 0.18x). The company's Altman Z-Score of 4.12 and Beneish M-Score of -2.41 confirm financial health with no manipulation signals.</p>
+    <p>Beneath the headline strength, however, several forensic findings warrant investor attention. Operating income growth decelerated sharply from 33.3% (FY2024) to 14.8% (FY2025), while net income growth of 32% was substantially inflated by $29.8B in non-operating income &mdash; representing 22.5% of net income from volatile, non-core sources. Operating expenses grew 22% versus revenue growth of 15%, reversing the cost discipline narrative that defined FY2024. Quarterly CapEx nearly doubled from ~$13B/quarter in 2024 to ~$24B/quarter in H2 2025, and management has signaled $175-185B for FY2026 &mdash; the largest annual capital expenditure program in corporate history.</p>
+    <p>The most consequential risks are structural rather than financial. The dual-class share structure allows founders with ~3.86% economic ownership to maintain majority voting control, authorizing this unprecedented capital commitment without meaningful shareholder recourse. The DOJ antitrust case &mdash; targeting Search default agreements worth $20B+ annually &mdash; is a top-3 risk in the 10-K yet received zero discussion across four quarterly earnings calls. And 750 million Gemini monthly active users generating zero advertising revenue represents the largest unquantified transition risk in technology. Management's 91% promise-keeping record and conservative guidance bias provide comfort, but the increasing gap between what the 10-K discloses and what earnings calls discuss is a forensic concern that has intensified throughout FY2025.</p>
+  </div>
+</section>
+
+<!-- ==================== 2. VERDICTS ==================== -->
+<section class="section" id="verdicts">
+  <h2 class="section-title"><span class="icon">&#9733;</span> Verdicts</h2>
+  <div class="grid-3">
+    <div class="card" style="border-top: 3px solid var(--accent-green);">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+        <span class="severity-badge" style="background:var(--accent-green-dim);color:var(--accent-green);">BUSINESS</span>
+        <span style="font-size:12px;color:var(--text-muted);">Confidence: HIGH</span>
+      </div>
+      <div class="card-title" style="color:var(--accent-green);">Strong &mdash; Firing on Nearly All Cylinders</div>
+      <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;">Alphabet's core business is firing on nearly all cylinders. Revenue accelerated for the second consecutive year to $402.8B (+15.1%), powered by Google Cloud's 35.8% surge to $58.7B and Search's resilient 13.4% growth to $224.5B. Gross margins expanded to 59.7% &mdash; the fourth straight year of improvement. The Subscriptions/Platforms/Devices line crossed $48B at 19% growth, reducing advertising dependency to 73% of revenue (from 77% two years ago). However, operating margin plateaued at 32% as AI infrastructure costs caught up with efficiency gains, and Google Network's structural decline continued. The business engine is strong but increasingly capital-intensive.</p>
+    </div>
+    <div class="card" style="border-top: 3px solid var(--accent-yellow);">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+        <span class="severity-badge" style="background:var(--accent-yellow-dim);color:var(--accent-yellow);">MANAGEMENT</span>
+        <span style="font-size:12px;color:var(--text-muted);">Confidence: HIGH</span>
+      </div>
+      <div class="card-title" style="color:var(--accent-yellow);">Credible but Curated &mdash; Trust Score 62/100</div>
+      <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;">Management credibility is high on backward-looking execution &mdash; a 91% promise-keeping rate on verifiable claims and a consistent sandbagging pattern that benefits investors on the upside. However, forward-looking transparency is deteriorating. The largest capex commitment in corporate history ($175-185B FY2026E) comes with zero disclosed ROI metrics. Paid click and CPC metrics were quietly dropped in Q4. The DOJ antitrust case &mdash; a top-3 risk in the 10-K &mdash; received zero discussion across four earnings calls. Management's escalating AI triumphalism inversely correlates with their willingness to address cannibalization dynamics, cost discipline erosion, and the silent 40% buyback reduction. Trust score: 62/100 &mdash; credible but curated.</p>
+    </div>
+    <div class="card" style="border-top: 3px solid var(--accent-yellow);">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+        <span class="severity-badge" style="background:var(--accent-yellow-dim);color:var(--accent-yellow);">TRAJECTORY</span>
+        <span style="font-size:12px;color:var(--text-muted);">Confidence: MEDIUM-HIGH</span>
+      </div>
+      <div class="card-title" style="color:var(--accent-yellow);">Cautiously Bullish with Material Blind Spots</div>
+      <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;">Alphabet is navigating the most consequential capital allocation decision in its history. The bull case is compelling: Cloud backlog at $240B with Apple as a new anchor tenant, Search proving resilient against AI alternatives, and full-stack vertical integration (models + TPUs + cloud + distribution) creating a genuine moat. The bear case centers on three unquantified risks: (1) $180B annual capex with no disclosed ROI framework, (2) 750M Gemini users generating zero ad revenue while potentially cannibalizing Search, and (3) DOJ antitrust remedies that could force changes to $294.7B in advertising defaults. Near-term trajectory favors continued acceleration, but the 12-month outlook hinges on whether AI investment translates to revenue faster than depreciation compresses margins. Cautiously bullish with material blind spots.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 3. FINANCIAL OVERVIEW ==================== -->
+<section class="section" id="financials">
+  <h2 class="section-title"><span class="icon">&#9635;</span> Financial Overview</h2>
+
+  <!-- Income Statement -->
+  <div class="card">
+    <h3 class="card-title collapsible" onclick="toggleCollapse(this)">Annual Income Statement</h3>
+    <div class="collapse-content">
+      <table>
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th class="num">FY2022</th>
+            <th class="num">FY2023</th>
+            <th class="num">FY2024</th>
+            <th class="num">FY2025</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Revenue</strong></td>
+            <td class="num">$282.8B</td>
+            <td class="num">$307.4B</td>
+            <td class="num">$350.0B</td>
+            <td class="num"><strong>$402.8B</strong></td>
+          </tr>
+          <tr>
+            <td>Cost of Revenue</td>
+            <td class="num">$126.2B</td>
+            <td class="num">$133.3B</td>
+            <td class="num">$146.3B</td>
+            <td class="num">$162.5B</td>
+          </tr>
+          <tr>
+            <td><strong>Gross Profit</strong></td>
+            <td class="num">$156.6B</td>
+            <td class="num">$174.1B</td>
+            <td class="num">$203.7B</td>
+            <td class="num"><strong>$240.3B</strong></td>
+          </tr>
+          <tr>
+            <td>R&amp;D</td>
+            <td class="num">$39.5B</td>
+            <td class="num">$45.4B</td>
+            <td class="num">$49.3B</td>
+            <td class="num">&mdash;</td>
+          </tr>
+          <tr>
+            <td>Sales &amp; Marketing</td>
+            <td class="num">$26.6B</td>
+            <td class="num">$27.9B</td>
+            <td class="num">$27.8B</td>
+            <td class="num">&mdash;</td>
+          </tr>
+          <tr>
+            <td>G&amp;A</td>
+            <td class="num">$15.7B</td>
+            <td class="num">$16.4B</td>
+            <td class="num">$14.2B</td>
+            <td class="num">&mdash;</td>
+          </tr>
+          <tr>
+            <td><strong>Operating Income</strong></td>
+            <td class="num">$74.8B</td>
+            <td class="num">$84.3B</td>
+            <td class="num">$112.4B</td>
+            <td class="num"><strong>$129.0B</strong></td>
+          </tr>
+          <tr>
+            <td>Other Income (Expense)</td>
+            <td class="num negative">($3.5B)</td>
+            <td class="num">$1.4B</td>
+            <td class="num">$7.4B</td>
+            <td class="num positive">$29.8B</td>
+          </tr>
+          <tr>
+            <td><strong>Net Income</strong></td>
+            <td class="num">$60.0B</td>
+            <td class="num">$73.8B</td>
+            <td class="num">$100.1B</td>
+            <td class="num"><strong>$132.2B</strong></td>
+          </tr>
+          <tr>
+            <td><strong>Diluted EPS</strong></td>
+            <td class="num">$4.56</td>
+            <td class="num">$5.80</td>
+            <td class="num">$8.04</td>
+            <td class="num"><strong>$10.81</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Margins & Ratios -->
+  <div class="card">
+    <h3 class="card-title collapsible" onclick="toggleCollapse(this)">Margins &amp; Key Ratios</h3>
+    <div class="collapse-content">
+      <table>
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th class="num">FY2022</th>
+            <th class="num">FY2023</th>
+            <th class="num">FY2024</th>
+            <th class="num">FY2025</th>
+            <th>Trend</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Gross Margin</td>
+            <td class="num">55.4%</td>
+            <td class="num">56.6%</td>
+            <td class="num">58.2%</td>
+            <td class="num positive"><strong>59.7%</strong></td>
+            <td class="positive">EXPANDING +427bps over 3yr</td>
+          </tr>
+          <tr>
+            <td>Operating Margin</td>
+            <td class="num">26.5%</td>
+            <td class="num">27.4%</td>
+            <td class="num">32.1%</td>
+            <td class="num neutral"><strong>32.0%</strong></td>
+            <td class="neutral">PLATEAUING at 32%</td>
+          </tr>
+          <tr>
+            <td>Net Margin</td>
+            <td class="num">21.2%</td>
+            <td class="num">24.0%</td>
+            <td class="num">28.6%</td>
+            <td class="num positive"><strong>32.8%</strong></td>
+            <td class="neutral">Inflated by $29.8B non-op income</td>
+          </tr>
+          <tr>
+            <td>EBITDA Margin</td>
+            <td class="num">31.2%</td>
+            <td class="num">31.3%</td>
+            <td class="num">36.5%</td>
+            <td class="num">&mdash;</td>
+            <td>&mdash;</td>
+          </tr>
+          <tr>
+            <td>Current Ratio</td>
+            <td class="num">&mdash;</td>
+            <td class="num">2.10</td>
+            <td class="num">1.84</td>
+            <td class="num">&mdash;</td>
+            <td class="neutral">Declining (still healthy)</td>
+          </tr>
+          <tr>
+            <td>ROE</td>
+            <td class="num">&mdash;</td>
+            <td class="num">27.4%</td>
+            <td class="num">32.9%</td>
+            <td class="num">&mdash;</td>
+            <td class="positive">Improving</td>
+          </tr>
+          <tr>
+            <td>ROIC</td>
+            <td class="num">&mdash;</td>
+            <td class="num">&mdash;</td>
+            <td class="num">44.2%</td>
+            <td class="num">&mdash;</td>
+            <td class="positive">Best-in-class</td>
+          </tr>
+          <tr>
+            <td>Debt/EBITDA</td>
+            <td class="num">&mdash;</td>
+            <td class="num">&mdash;</td>
+            <td class="num">0.18x</td>
+            <td class="num">&mdash;</td>
+            <td class="positive">Near-zero leverage</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Balance Sheet -->
+  <div class="card">
+    <h3 class="card-title collapsible" onclick="toggleCollapse(this)">Balance Sheet Highlights</h3>
+    <div class="collapse-content">
+      <table>
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th class="num">FY2023</th>
+            <th class="num">FY2024</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Total Assets</td><td class="num">$402.4B</td><td class="num">$450.3B</td></tr>
+          <tr><td>Cash &amp; Short-Term Investments</td><td class="num">$110.9B</td><td class="num">$95.7B</td></tr>
+          <tr><td>PP&amp;E (net)</td><td class="num">$134.3B</td><td class="num">$171.0B</td></tr>
+          <tr><td>Total Liabilities</td><td class="num">$119.0B</td><td class="num">$125.2B</td></tr>
+          <tr><td>Long-Term Debt + Leases</td><td class="num">$11.9B</td><td class="num">$10.9B</td></tr>
+          <tr><td>Stockholders' Equity</td><td class="num">$283.4B</td><td class="num">$325.1B</td></tr>
+          <tr><td>Net Cash Position</td><td class="num positive">$99.0B</td><td class="num positive">$84.8B</td></tr>
+          <tr><td>Working Capital</td><td class="num">$89.7B</td><td class="num">$74.6B</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Growth Rates -->
+  <div class="card">
+    <h3 class="card-title collapsible" onclick="toggleCollapse(this)">Growth Rates (YoY %)</h3>
+    <div class="collapse-content">
+      <div style="margin-top:12px;">
+        <div class="bar-row">
+          <div class="bar-label">Revenue</div>
+          <div class="bar-track"><div class="bar-fill" style="width:50%;background:var(--accent-green);">+15.1%</div></div>
+          <div class="bar-value positive">3yr CAGR: 12.5%</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">Gross Profit</div>
+          <div class="bar-track"><div class="bar-fill" style="width:60%;background:var(--accent-green);">+18.0%</div></div>
+          <div class="bar-value positive">3yr CAGR: 15.3%</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">Operating Income</div>
+          <div class="bar-track"><div class="bar-fill" style="width:49%;background:var(--accent-yellow);">+14.8%</div></div>
+          <div class="bar-value neutral">Decelerating from 33.3%</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">Net Income</div>
+          <div class="bar-track"><div class="bar-fill" style="width:80%;background:var(--accent-green);">+32.0%</div></div>
+          <div class="bar-value neutral">Inflated by non-op income</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">Diluted EPS</div>
+          <div class="bar-track"><div class="bar-fill" style="width:85%;background:var(--accent-green);">+34.5%</div></div>
+          <div class="bar-value positive">3yr CAGR: 33.4%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 4. FORENSIC MODELS ==================== -->
+<section class="section" id="forensic">
+  <h2 class="section-title"><span class="icon">&#9878;</span> Forensic Models</h2>
+  <div class="gauge-container">
+
+    <!-- Beneish M-Score -->
+    <div class="gauge-card">
+      <div class="gauge-title">Beneish M-Score (8-variable)</div>
+      <div class="gauge-subtitle">FY2024 vs FY2023 &mdash; Manipulation Detection</div>
+      <div class="gauge-score positive">-2.41</div>
+      <div class="gauge-bar">
+        <div class="gauge-zones">
+          <div class="gauge-zone" style="width:60%;background:var(--accent-green);"></div>
+          <div class="gauge-zone" style="width:15%;background:var(--accent-yellow);"></div>
+          <div class="gauge-zone" style="width:25%;background:var(--accent-red);"></div>
+        </div>
+        <div class="gauge-marker" style="left:28%;"></div>
+      </div>
+      <div class="gauge-labels"><span>-3.5 (Safe)</span><span>-1.78 (Threshold)</span><span>0+ (Likely)</span></div>
+      <div style="margin-top:12px;"><span class="severity-badge" style="background:var(--accent-green-dim);color:var(--accent-green);">UNLIKELY MANIPULATOR</span></div>
+      <div class="gauge-vars" style="margin-top:12px;">
+        <div>DSRI: 0.958 &mdash; No receivables inflation</div>
+        <div>GMI: 0.973 &mdash; Margins expanding (positive)</div>
+        <div>AQI: 1.186 &mdash; Slightly elevated from goodwill growth</div>
+        <div>SGI: 1.139 &mdash; Moderate 13.9% growth, not anomalous</div>
+        <div>TATA: -0.028 &mdash; Cash earnings exceed accruals (healthy)</div>
+        <div>LVGI: 0.915 &mdash; Deleveraging (positive)</div>
+      </div>
+      <p style="font-size:12px;color:var(--text-secondary);margin-top:12px;">Both year-pairs score well below the manipulation threshold. Negative TATA, expanding margins, and declining leverage all confirm clean financial reporting.</p>
+    </div>
+
+    <!-- Altman Z-Score -->
+    <div class="gauge-card">
+      <div class="gauge-title">Altman Z-Score (5-factor)</div>
+      <div class="gauge-subtitle">FY2024 &mdash; Bankruptcy Risk Assessment</div>
+      <div class="gauge-score positive">4.12</div>
+      <div class="gauge-bar">
+        <div class="gauge-zones">
+          <div class="gauge-zone" style="width:30%;background:var(--accent-red);"></div>
+          <div class="gauge-zone" style="width:20%;background:var(--accent-yellow);"></div>
+          <div class="gauge-zone" style="width:50%;background:var(--accent-green);"></div>
+        </div>
+        <div class="gauge-marker" style="left:78%;"></div>
+      </div>
+      <div class="gauge-labels"><span>0 (Distress)</span><span>1.81 (Gray)</span><span>2.99+ (Safe)</span></div>
+      <div style="margin-top:12px;"><span class="severity-badge" style="background:var(--accent-green-dim);color:var(--accent-green);">SAFE &mdash; VERY LOW RISK</span></div>
+      <div class="gauge-vars" style="margin-top:12px;">
+        <div>X1 (Working Capital/TA): 0.166</div>
+        <div>X3 (EBIT/TA): 0.250</div>
+        <div>X4 (Equity/TL): 2.597</div>
+        <div>Trend: IMPROVING &mdash; 3.89 (FY2023) to 4.12 (FY2024), +5.9%</div>
+      </div>
+      <p style="font-size:12px;color:var(--text-secondary);margin-top:12px;">Z-Score of 4.12 is well above the 2.99 safe threshold. Using market cap (~$2T) instead of book equity would push Z-Score above 10. Zero credit distress risk.</p>
+    </div>
+
+    <!-- Piotroski F-Score -->
+    <div class="gauge-card">
+      <div class="gauge-title">Piotroski F-Score</div>
+      <div class="gauge-subtitle">FY2025 &mdash; Financial Strength Signals</div>
+      <div class="gauge-score positive">7<span style="font-size:16px;color:var(--text-muted);"> / 9</span></div>
+      <div class="gauge-bar">
+        <div class="gauge-fill" style="width:77.8%;background:linear-gradient(90deg,var(--accent-green),var(--accent-green));"></div>
+      </div>
+      <div class="gauge-labels"><span>0 (Weak)</span><span>5 (Neutral)</span><span>9 (Strong)</span></div>
+      <div style="margin-top:12px;"><span class="severity-badge" style="background:var(--accent-green-dim);color:var(--accent-green);">STRONG</span></div>
+      <div class="gauge-vars" style="margin-top:12px;">
+        <div>Missed: F6 &mdash; Current ratio declined 2.10 to 1.84 (still healthy)</div>
+        <div>Missed: F9 &mdash; Asset turnover compressed as assets grew 32% vs revenue 15%</div>
+        <div>Prior year: 8/9 (FY2024)</div>
+      </div>
+      <p style="font-size:12px;color:var(--text-secondary);margin-top:12px;">Slight decline from 8 to 7 reflects heavy investment cycle, not fundamental deterioration. Both misses are capex-driven, not distress signals.</p>
+    </div>
+
+    <!-- Sloan Accrual -->
+    <div class="gauge-card">
+      <div class="gauge-title">Sloan Accrual Ratio</div>
+      <div class="gauge-subtitle">FY2024 &mdash; Earnings Quality</div>
+      <div class="gauge-score positive">-7.53%</div>
+      <div class="gauge-bar">
+        <div class="gauge-zones">
+          <div class="gauge-zone" style="width:50%;background:var(--accent-green);"></div>
+          <div class="gauge-zone" style="width:25%;background:var(--accent-yellow);"></div>
+          <div class="gauge-zone" style="width:25%;background:var(--accent-red);"></div>
+        </div>
+        <div class="gauge-marker" style="left:15%;"></div>
+      </div>
+      <div class="gauge-labels"><span>-15% (Excellent)</span><span>-5% (Threshold)</span><span>+10% (Poor)</span></div>
+      <div style="margin-top:12px;"><span class="severity-badge" style="background:var(--accent-green-dim);color:var(--accent-green);">HIGH CASH QUALITY</span></div>
+      <div class="gauge-vars" style="margin-top:12px;">
+        <div>FY2023: -5.44% &rarr; FY2024: -7.53% (IMPROVING)</div>
+        <div>Cash generation substantially exceeds reported net income</div>
+      </div>
+    </div>
+
+    <!-- Benford's Law -->
+    <div class="gauge-card">
+      <div class="gauge-title">Benford's Law Analysis</div>
+      <div class="gauge-subtitle">First-Digit Distribution &mdash; 117 Financial Figures</div>
+      <div class="gauge-score positive">PASS</div>
+      <div class="gauge-vars" style="margin-top:12px;">
+        <div>Chi-Squared: 2.87 (critical: 15.51)</div>
+        <div>MAD: 0.012 &mdash; CLOSE CONFORMITY</div>
+        <div>Sample Size: 117 financial figures</div>
+      </div>
+      <p style="font-size:12px;color:var(--text-secondary);margin-top:12px;">Financial figures conform well to expected first-digit distribution. No evidence of data manipulation. Slight over-representation of digit 4 driven by recurring $40-49B figures (R&amp;D, YouTube).</p>
+    </div>
+
+    <!-- Cash Conversion -->
+    <div class="gauge-card">
+      <div class="gauge-title">Cash Conversion Quality</div>
+      <div class="gauge-subtitle">OCF / Net Income Ratio</div>
+      <div class="gauge-score positive">1.36x</div>
+      <div class="gauge-bar">
+        <div class="gauge-fill" style="width:68%;background:var(--accent-green);"></div>
+      </div>
+      <div class="gauge-labels"><span>0.5x (Poor)</span><span>1.0x (Par)</span><span>2.0x (Excellent)</span></div>
+      <div class="gauge-vars" style="margin-top:12px;">
+        <div>FY2022: 1.33x &rarr; FY2023: 1.36x &rarr; FY2024: 1.36x</div>
+        <div>3-Year Average: 1.35x &mdash; Consistently high-quality</div>
+        <div>CCC improved: 36.4 days (FY2023) to 33.0 days (FY2024)</div>
+      </div>
+      <p style="font-size:12px;color:var(--text-secondary);margin-top:12px;">$1.36 of OCF for every $1 of net income. DSO declined while revenue grew, confirming no receivables stuffing.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ==================== 5. REVENUE & SEGMENTS ==================== -->
+<section class="section" id="segments">
+  <h2 class="section-title"><span class="icon">&#9638;</span> Revenue &amp; Segments</h2>
+
+  <div class="card">
+    <h3 class="card-title">Segment Structure &mdash; FY2025</h3>
+    <p style="color:var(--text-secondary);margin-bottom:16px;">Three segments: Google Services (85.1%), Google Cloud (14.6%), Other Bets (0.4%). Advertising dependency declining from 77.4% (FY2023) to 73.2% (FY2025) &mdash; down 420bps in 2 years.</p>
+    <div class="stacked-bar">
+      <div class="stacked-seg" style="width:55.7%;background:#3b82f6;" title="Google Search $224.5B">Search 55.7%</div>
+      <div class="stacked-seg" style="width:14.6%;background:#8b5cf6;" title="Google Cloud $58.7B">Cloud 14.6%</div>
+      <div class="stacked-seg" style="width:11.9%;background:#06b6d4;" title="Subs/Platforms $48.0B">Subs 11.9%</div>
+      <div class="stacked-seg" style="width:10.0%;background:#ef4444;" title="YouTube Ads $40.4B">YT 10.0%</div>
+      <div class="stacked-seg" style="width:7.4%;background:#f97316;" title="Network $29.8B">Net 7.4%</div>
+      <div class="stacked-seg" style="width:0.4%;background:#6b7280;" title="Other Bets $1.5B"></div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;font-size:11px;color:var(--text-secondary);">
+      <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;background:#3b82f6;border-radius:2px;"></span>Search</span>
+      <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;background:#8b5cf6;border-radius:2px;"></span>Cloud</span>
+      <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;background:#06b6d4;border-radius:2px;"></span>Subscriptions</span>
+      <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;background:#ef4444;border-radius:2px;"></span>YouTube Ads</span>
+      <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;background:#f97316;border-radius:2px;"></span>Network</span>
+      <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;background:#6b7280;border-radius:2px;"></span>Other Bets</span>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <!-- Google Services -->
+    <div class="card">
+      <h3 class="card-title">Google Services <span style="font-size:12px;color:var(--text-muted);">85.1% of revenue</span></h3>
+      <table>
+        <thead><tr><th>Sub-Segment</th><th class="num">Revenue</th><th class="num">% Total</th><th class="num">YoY Growth</th></tr></thead>
+        <tbody>
+          <tr><td>Google Search</td><td class="num">$224.5B</td><td class="num">55.7%</td><td class="num positive">+13.4%</td></tr>
+          <tr><td>YouTube Advertising</td><td class="num">$40.4B</td><td class="num">10.0%</td><td class="num neutral">+11.7%</td></tr>
+          <tr><td>Subs/Platforms/Devices</td><td class="num">$48.0B</td><td class="num">11.9%</td><td class="num positive">+19.1%</td></tr>
+          <tr><td>Google Network</td><td class="num">$29.8B</td><td class="num">7.4%</td><td class="num negative">-1.9%</td></tr>
+          <tr style="font-weight:600;"><td>Total Google Services</td><td class="num">$342.7B</td><td class="num">85.1%</td><td class="num positive">+12.4%</td></tr>
+        </tbody>
+      </table>
+      <div style="margin-top:12px;font-size:12px;color:var(--text-secondary);">
+        <strong>Advertising subtotal:</strong> $294.7B (73.2% of revenue, +11.4% YoY). Google Network in structural decline &mdash; 2 consecutive years negative.
+      </div>
+    </div>
+
+    <!-- Google Cloud -->
+    <div class="card" style="border-left:3px solid var(--accent-purple);">
+      <h3 class="card-title" style="color:var(--accent-purple);">Google Cloud <span style="font-size:12px;color:var(--text-muted);">14.6% of revenue</span></h3>
+      <div class="gauge-score positive" style="font-size:36px;">$58.7B</div>
+      <div style="font-size:14px;margin-bottom:16px;"><span class="positive">+35.8% YoY</span> &mdash; 2yr CAGR 33.2% &mdash; Q4 grew <strong>48%</strong></div>
+      <div style="font-size:13px;color:var(--text-secondary);line-height:1.8;">
+        <div><strong>Backlog:</strong> $240B as of Q4 2025</div>
+        <div><strong>Key Catalysts:</strong> AI workloads (Gemini, Vertex AI), Enterprise migration, Apple partnership, Wiz acquisition ($32B pending)</div>
+        <div><strong>Margin Signal:</strong> Consolidated gross margins expanding despite Cloud growing as share &mdash; implies Cloud margins improving rapidly</div>
+        <div><strong>Trend:</strong> ACCELERATING &mdash; 30.6% to 35.8%</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <!-- Other Bets -->
+    <div class="card">
+      <h3 class="card-title">Other Bets <span style="font-size:12px;color:var(--text-muted);">0.4% of revenue</span></h3>
+      <p style="font-size:13px;color:var(--text-secondary);">Revenue: $1.5B (<span class="negative">-6.7% YoY</span>). Immaterial and declining. Waymo is the primary asset but no profitability timeline disclosed. Likely consuming $4-6B+ in annual operating losses.</p>
+    </div>
+
+    <!-- Geographic -->
+    <div class="card">
+      <h3 class="card-title">Geographic Breakdown &mdash; FY2025</h3>
+      <div class="bar-row"><div class="bar-label">United States</div><div class="bar-track"><div class="bar-fill" style="width:48.2%;background:#3b82f6;">48.2%</div></div><div class="bar-value">$194.2B (+13.9%)</div></div>
+      <div class="bar-row"><div class="bar-label">EMEA</div><div class="bar-track"><div class="bar-fill" style="width:29.1%;background:#8b5cf6;">29.1%</div></div><div class="bar-value">$117.2B (+14.7%)</div></div>
+      <div class="bar-row"><div class="bar-label">APAC</div><div class="bar-track"><div class="bar-fill" style="width:16.8%;background:#06b6d4;">16.8%</div></div><div class="bar-value">$67.7B (+19.1%)</div></div>
+      <div class="bar-row"><div class="bar-label">Other Americas</div><div class="bar-track"><div class="bar-fill" style="width:5.9%;background:#f97316;">5.9%</div></div><div class="bar-value">&mdash;</div></div>
+      <p style="font-size:12px;color:var(--text-secondary);margin-top:8px;">Fastest growing: APAC at 19.1% &mdash; nearly doubled from 10.3% in FY2024, likely driven by AI/Cloud adoption.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 6. QUARTERLY TRENDS ==================== -->
+<section class="section" id="quarterly">
+  <h2 class="section-title"><span class="icon">&#9637;</span> Quarterly Trends</h2>
+
+  <div class="card">
+    <h3 class="card-title collapsible" onclick="toggleCollapse(this)">Quarter-by-Quarter Performance</h3>
+    <div class="collapse-content">
+      <table>
+        <thead>
+          <tr>
+            <th>Quarter</th>
+            <th class="num">Revenue</th>
+            <th class="num">Op. Income</th>
+            <th class="num">Net Income</th>
+            <th class="num">EPS</th>
+            <th class="num">Op. Margin</th>
+            <th class="num">CapEx</th>
+            <th class="num">FCF</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Q3-2023</td><td class="num">$76.7B</td><td class="num">$21.3B</td><td class="num">$19.7B</td><td class="num">$1.55</td><td class="num">27.8%</td><td class="num">&mdash;</td><td class="num">&mdash;</td>
+          </tr>
+          <tr>
+            <td>Q1-2024</td><td class="num">$80.5B</td><td class="num">$25.5B</td><td class="num">$23.7B</td><td class="num">$1.89</td><td class="num">31.6%</td><td class="num">$12.0B</td><td class="num">$16.8B</td>
+          </tr>
+          <tr>
+            <td>Q2-2024</td><td class="num">$84.7B</td><td class="num">$27.4B</td><td class="num">$23.6B</td><td class="num">$1.89</td><td class="num">32.4%</td><td class="num">$13.2B</td><td class="num">$13.5B</td>
+          </tr>
+          <tr>
+            <td>Q3-2024</td><td class="num">$88.3B</td><td class="num">$28.5B</td><td class="num">$26.3B</td><td class="num">$2.12</td><td class="num">32.3%</td><td class="num">$13.1B</td><td class="num">$17.6B</td>
+          </tr>
+          <tr style="background:rgba(59,130,246,0.05);">
+            <td><strong>Q1-2025</strong></td><td class="num">$90.2B</td><td class="num">$30.6B</td><td class="num">$34.5B</td><td class="num">$2.81</td><td class="num positive">33.9%</td><td class="num">$17.2B</td><td class="num">$19.0B</td>
+          </tr>
+          <tr style="background:rgba(59,130,246,0.05);">
+            <td><strong>Q2-2025</strong></td><td class="num">$96.4B</td><td class="num">$31.3B</td><td class="num">$28.2B</td><td class="num">$2.31</td><td class="num">32.4%</td><td class="num negative">$22.4B</td><td class="num negative">$5.3B</td>
+          </tr>
+          <tr style="background:rgba(59,130,246,0.05);">
+            <td><strong>Q3-2025</strong></td><td class="num">$102.3B</td><td class="num">$31.2B</td><td class="num">$35.0B</td><td class="num">$2.87</td><td class="num neutral">30.5%</td><td class="num negative">$24.0B</td><td class="num">$24.5B</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3 class="card-title">Quarterly Trend Flags</h3>
+      <div class="flag-card moderate" style="padding:12px;margin-bottom:8px;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+          <span class="severity-badge severity-MEDIUM">WARNING</span>
+          <strong>Operating Margin Compression</strong>
+        </div>
+        <p style="font-size:12px;color:var(--text-secondary);">Declined 341bps from Q1-2025 peak (33.92%) to Q3-2025 (30.51%). Revenue accelerating but costs outpacing.</p>
+      </div>
+      <div class="flag-card high" style="padding:12px;margin-bottom:8px;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+          <span class="severity-badge severity-HIGH">WARNING</span>
+          <strong>CapEx Intensity Surge</strong>
+        </div>
+        <p style="font-size:12px;color:var(--text-secondary);">CapEx as % of revenue: 14.8% (Q3-2024) to 23.4% (Q3-2025). Q1-Q3 2025 CapEx of $63.6B vs $38.3B prior year = +66%.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 class="card-title">Revenue YoY Growth Trend</h3>
+      <div class="bar-row"><div class="bar-label">Q3-2024</div><div class="bar-track"><div class="bar-fill" style="width:75%;background:var(--accent-green);">+15.1%</div></div></div>
+      <div class="bar-row"><div class="bar-label">Q1-2025</div><div class="bar-track"><div class="bar-fill" style="width:60%;background:var(--accent-green);">+12.0%</div></div></div>
+      <div class="bar-row"><div class="bar-label">Q2-2025</div><div class="bar-track"><div class="bar-fill" style="width:69%;background:var(--accent-green);">+13.8%</div></div></div>
+      <div class="bar-row"><div class="bar-label">Q3-2025</div><div class="bar-track"><div class="bar-fill" style="width:80%;background:var(--accent-green);">+16.0%</div></div></div>
+      <p style="font-size:12px;color:var(--text-secondary);margin-top:8px;">Assessment: STABLE to slightly ACCELERATING. Q3-2025 at 16% is the strongest quarterly growth in 2 years.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 7. GOVERNANCE & COMPENSATION ==================== -->
+<section class="section" id="governance">
+  <h2 class="section-title"><span class="icon">&#9881;</span> Governance &amp; Compensation</h2>
+
+  <div class="card">
+    <h3 class="card-title">Overall Governance Grade: <span class="neutral">C+</span></h3>
+    <div class="entrenchment-track">
+      <div class="entrenchment-marker" style="left:66.7%;">4</div>
+    </div>
+    <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-muted);margin-bottom:16px;">
+      <span>0 &mdash; Low Entrenchment</span>
+      <span>Entrenchment Index: 4/6</span>
+      <span>6 &mdash; Max Entrenchment</span>
+    </div>
+    <div style="font-size:13px;color:var(--text-secondary);line-height:1.8;">
+      <div><span class="severity-badge severity-HIGH">HIGH</span> <strong>Dual-class voting:</strong> Class B (10 votes/share) gives founders majority control with ~3.86% economic interest. No sunset clause.</div>
+      <div style="margin-top:8px;"><span class="severity-badge severity-MEDIUM">MEDIUM</span> <strong>Limited shareholder rights:</strong> Board recommends AGAINST all stockholder proposals. Virtual-only annual meeting.</div>
+      <div style="margin-top:8px;"><span class="severity-badge severity-MEDIUM">MEDIUM</span> <strong>Board tenure:</strong> Average 15.5 years. 5 of 10 directors with 22+ year tenures raises refreshment concerns.</div>
+      <div style="margin-top:8px;"><span class="severity-badge severity-LOW">LOW</span> <strong>Insider activity:</strong> 161 sales, 0 purchases in 6 months &mdash; routine but notable absence of voluntary buying.</div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3 class="card-title">Board Composition</h3>
+      <table>
+        <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+        <tbody>
+          <tr><td>Total Directors</td><td>10</td></tr>
+          <tr><td>Independent %</td><td>70%</td></tr>
+          <tr><td>Chair</td><td>John L. Hennessy (independent)</td></tr>
+          <tr><td>Average Tenure</td><td class="neutral">15.5 years</td></tr>
+          <tr><td>Non-Independent</td><td>Larry Page, Sergey Brin, Sundar Pichai</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3 class="card-title">Compensation &amp; SBC</h3>
+      <table>
+        <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+        <tbody>
+          <tr><td>FY2024 SBC</td><td>$22.8B (6.5% of revenue)</td></tr>
+          <tr><td>SBC/Revenue Trend</td><td class="positive">Declining: 7.31% to 6.51%</td></tr>
+          <tr><td>SBC/Operating Income</td><td class="neutral">20.3%</td></tr>
+          <tr><td>Buyback Offset</td><td class="positive">$62B buybacks = 2.7x SBC</td></tr>
+          <tr><td>Net Share Count</td><td class="positive">Declining: 12,460M to 12,211M</td></tr>
+          <tr><td>Pay-for-Performance</td><td>MODERATE-STRONG (TSR modifier vs S&amp;P 100)</td></tr>
+          <tr><td>Golden Parachutes</td><td class="positive">None</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title">Dual-Class Voting Structure</h3>
+    <table>
+      <thead><tr><th>Share Class</th><th>Votes/Share</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Class A (GOOGL)</td><td>1 vote</td><td>Publicly traded</td></tr>
+        <tr><td>Class B</td><td class="negative">10 votes</td><td>Founders only &mdash; not publicly traded</td></tr>
+        <tr><td>Class C (GOOG)</td><td>0 votes</td><td>Publicly traded</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:13px;color:var(--accent-red);margin-top:12px;"><strong>Implication:</strong> Founders control majority of votes with ~3.86% economic ownership. No sunset clause. This is the single most significant governance risk &mdash; it amplifies all other risks by removing shareholder recourse.</p>
+  </div>
+</section>
+
+<!-- ==================== 8. IPO ANALYSIS (CONDITIONAL) ==================== -->
+<!-- IF_IPO --><!-- END_IPO -->
+
+<!-- ==================== 9. INSIDER & INSTITUTIONAL ==================== -->
+<section class="section" id="insiders">
+  <h2 class="section-title"><span class="icon">&#9650;</span> Insider &amp; Institutional Activity</h2>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3 class="card-title">Ownership Breakdown</h3>
+      <div class="stacked-bar" style="height:36px;">
+        <div class="stacked-seg" style="width:65.26%;background:var(--accent-blue);">Institutional 65.3%</div>
+        <div class="stacked-seg" style="width:30.89%;background:var(--accent-purple);">Retail 30.9%</div>
+        <div class="stacked-seg" style="width:3.86%;background:var(--accent-orange);">Insider 3.9%</div>
+      </div>
+      <table style="margin-top:16px;">
+        <thead><tr><th>Top Institutional Holders</th><th class="num">Est. %</th></tr></thead>
+        <tbody>
+          <tr><td>Vanguard Group Inc.</td><td class="num">~7.5%</td></tr>
+          <tr><td>BlackRock Inc.</td><td class="num">~6.5%</td></tr>
+          <tr><td>State Street Global Advisors</td><td class="num">~3.5%</td></tr>
+          <tr><td>FMR LLC (Fidelity)</td><td class="num">&mdash;</td></tr>
+          <tr><td>Geode Capital Management LLC</td><td class="num">&mdash;</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:12px;color:var(--text-secondary);margin-top:8px;">Total 13F filers: 5,791. Concentration risk: LOW &mdash; well diversified.</p>
+    </div>
+
+    <div class="card">
+      <h3 class="card-title">Insider Trading Activity (6 Months)</h3>
+      <div style="display:flex;gap:24px;margin-bottom:16px;">
+        <div class="stat-box" style="flex:1;"><div class="stat-value negative">161</div><div class="stat-label">Sales</div></div>
+        <div class="stat-box" style="flex:1;"><div class="stat-value" style="color:var(--text-muted);">0</div><div class="stat-label">Purchases</div></div>
+      </div>
+      <div style="font-size:13px;color:var(--text-secondary);line-height:1.8;">
+        <div><strong>Direction:</strong> <span class="negative">NET SELLING</span></div>
+        <div><strong>Sentiment:</strong> NEUTRAL-NEGATIVE &mdash; routine 10b5-1 plans and RSU vesting. No pre-earnings clusters detected.</div>
+        <div><strong>Notable Sale:</strong> John Kent Walker (President Global Affairs &amp; CLO) &mdash; $2.12M sale on 2026-03-27</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 10. TEXT ANALYSIS ==================== -->
+<section class="section" id="text-analysis">
+  <h2 class="section-title"><span class="icon">&#9998;</span> Text Analysis</h2>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3 class="card-title">MD&amp;A Narrative Analysis</h3>
+      <div style="display:flex;gap:12px;margin-bottom:16px;">
+        <div class="stat-box" style="flex:1;"><div class="stat-value neutral">7.5</div><div class="stat-label">Narrative Confidence</div></div>
+        <div class="stat-box" style="flex:1;"><div class="stat-value neutral">6.0</div><div class="stat-label">Tone Consistency</div></div>
+        <div class="stat-box" style="flex:1;"><div class="stat-value neutral">6.5</div><div class="stat-label">Disclosure Quality</div></div>
+      </div>
+      <div style="font-size:13px;color:var(--text-secondary);line-height:1.8;">
+        <div><strong>FY2025 Tone:</strong> Strongly bullish with minimal hedging. AI/Gemini language saturates the narrative. Superlatives ("most intelligent", "most capable") used without caveats.</div>
+        <div style="margin-top:8px;"><strong>YoY Shift:</strong> From cost discipline + measured growth (FY2024) to AI triumphalism + aggressive investment (FY2025). Restructuring language disappeared, replaced by expansion language.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 class="card-title">Key Narrative Flags</h3>
+      <div class="flag-card moderate" style="padding:12px;margin-bottom:8px;">
+        <span class="severity-badge severity-MEDIUM">FLAG</span>
+        <span style="font-size:13px;margin-left:8px;">OpEx grew +22% while revenue grew +15% &mdash; cost discipline narrative reversed</span>
+      </div>
+      <div class="flag-card moderate" style="padding:12px;margin-bottom:8px;">
+        <span class="severity-badge severity-MEDIUM">FLAG</span>
+        <span style="font-size:13px;margin-left:8px;">Net margin (32.8%) exceeds operating margin (32.0%) due to $29.8B non-operating income</span>
+      </div>
+      <div class="flag-card moderate" style="padding:12px;margin-bottom:8px;">
+        <span class="severity-badge severity-MEDIUM">FLAG</span>
+        <span style="font-size:13px;margin-left:8px;">No AI revenue attribution despite AI being central to narrative</span>
+      </div>
+      <div class="flag-card high" style="padding:12px;margin-bottom:8px;">
+        <span class="severity-badge severity-HIGH">FLAG</span>
+        <span style="font-size:13px;margin-left:8px;">AI-Search cannibalization absent from MD&amp;A despite being HIGH severity in risk factors</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title">Risk Factor Analysis</h3>
+    <div style="font-size:13px;color:var(--text-secondary);line-height:1.8;">
+      <div><strong>Section Size:</strong> 85,215 characters &mdash; ABOVE AVERAGE with named products, dollar amounts, and active proceedings</div>
+      <div style="margin-top:8px;"><strong>Top 3 Risks:</strong></div>
+      <ol style="margin-left:20px;margin-top:4px;">
+        <li>Regulatory/Antitrust &mdash; active DOJ case, EUR 2.95B EU fine, DMA enforcement</li>
+        <li>AI search disruption of advertising model &mdash; 73% revenue concentration at risk</li>
+        <li>$36.8B pending acquisitions during antitrust scrutiny</li>
+      </ol>
+      <div style="margin-top:8px;"><strong>New for FY2025:</strong> Wiz + Intersect deal-specific risks ($36.8B), AI-native platform competition, AI search disruption from ChatGPT/Perplexity</div>
+      <div style="margin-top:8px;"><strong>Biggest Disclosure Gap:</strong> <span class="negative">Cybersecurity section only 3.3K chars (4% of risk section) &mdash; disproportionately thin for a company managing billions of user accounts</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 11. ADVANCED ANALYSIS ==================== -->
+<section class="section" id="advanced">
+  <h2 class="section-title"><span class="icon">&#9830;</span> Advanced Analysis</h2>
+
+  <div class="grid-3">
+    <!-- Tax -->
+    <div class="card">
+      <h3 class="card-title">Tax Analysis</h3>
+      <table>
+        <thead><tr><th>Year</th><th class="num">Effective Tax Rate</th></tr></thead>
+        <tbody>
+          <tr><td>FY2022</td><td class="num">15.9%</td></tr>
+          <tr><td>FY2023</td><td class="num positive">13.9%</td></tr>
+          <tr><td>FY2024</td><td class="num">16.4%</td></tr>
+          <tr><td>FY2025 (est.)</td><td class="num neutral">16.8%</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:12px;color:var(--text-secondary);margin-top:8px;">RISING &mdash; +287bps from FY2023 trough. Gap to 21% statutory rate narrowing as tax benefits normalize.</p>
+      <div class="flag-card moderate" style="padding:10px;margin-top:8px;">
+        <span class="severity-badge severity-MEDIUM">WATCH</span>
+        <span style="font-size:11px;margin-left:6px;">47% DTA decline ($17.2B to $9.1B) in FY2025 &mdash; possible SBC benefit reversal or tax credit utilization</span>
+      </div>
+    </div>
+
+    <!-- SBC -->
+    <div class="card">
+      <h3 class="card-title">Stock-Based Compensation</h3>
+      <table>
+        <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+        <tbody>
+          <tr><td>FY2024 SBC</td><td>$22.8B (+1.5% YoY)</td></tr>
+          <tr><td>SBC / Revenue</td><td class="positive">6.51% (declining from 7.31%)</td></tr>
+          <tr><td>SBC / Operating Income</td><td>20.3%</td></tr>
+          <tr><td>Dilution Ratio</td><td>0.37x</td></tr>
+          <tr><td>Buyback Offset</td><td class="positive">2.7x SBC</td></tr>
+          <tr><td>Net Share Count</td><td class="positive">Declining (-2.0%)</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:12px;color:var(--text-secondary);margin-top:8px;">Best-in-class SBC profile among mega-cap tech. Absolute dollars high ($22.8B, largest in S&amp;P 500) but improving efficiency.</p>
+    </div>
+
+    <!-- Debt & Stress -->
+    <div class="card">
+      <h3 class="card-title">Debt &amp; Stress Testing</h3>
+      <div class="gauge-score positive" style="font-size:32px;">1.5 <span style="font-size:14px;color:var(--text-muted);">/ 10</span></div>
+      <p style="font-size:12px;color:var(--text-secondary);margin-bottom:12px;">Composite Stress Score: MINIMAL STRESS &mdash; fortress balance sheet</p>
+      <table>
+        <thead><tr><th>Stress Vector</th><th class="num">Score</th><th>Detail</th></tr></thead>
+        <tbody>
+          <tr><td>CapEx Funding</td><td class="num neutral">3.0</td><td style="font-size:11px;">PP&amp;E +27.3%, $37B pending acquisitions</td></tr>
+          <tr><td>Acquisition Integration</td><td class="num neutral">2.5</td><td style="font-size:11px;">Wiz $32B + Intersect $4.8B &mdash; largest M&amp;A program</td></tr>
+          <tr><td>Working Capital</td><td class="num">1.5</td><td style="font-size:11px;">WC declined 16.9%, current ratio dropped to 1.84</td></tr>
+        </tbody>
+      </table>
+      <div style="margin-top:12px;font-size:12px;">
+        <span class="positive">Green Flags:</span>
+        <span style="color:var(--text-secondary);">Net cash $84.8B, Debt/EBITDA 0.18x, 32% NI growth funds all programs internally</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 11B. TRANSCRIPT INTELLIGENCE ==================== -->
+<section class="section" id="transcript-intel">
+  <h2 class="section-title"><span class="icon">&#9835;</span> Transcript Intelligence</h2>
+
+  <div class="card">
+    <p style="font-size:12px;color:var(--text-muted);margin-bottom:16px;">Source: Layer 10 Synthesis &mdash; 4 quarters of earnings call transcripts (Q1-Q4 2025), 9 analytical layers, 4 cross-validators</p>
+
+    <div class="grid-3" style="margin-bottom:20px;">
+      <div class="stat-box">
+        <div class="stat-value neutral">62<span style="font-size:14px;color:var(--text-muted);"> / 100</span></div>
+        <div class="stat-label">Management Trust</div>
+        <div class="confidence-bar"><div class="confidence-fill" style="width:62%;background:var(--accent-yellow);"></div></div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-value neutral">58<span style="font-size:14px;color:var(--text-muted);"> / 100</span></div>
+        <div class="stat-label">Information Quality</div>
+        <div class="confidence-bar"><div class="confidence-fill" style="width:58%;background:var(--accent-yellow);"></div></div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-value" style="color:var(--accent-orange);">72<span style="font-size:14px;color:var(--text-muted);"> / 100</span></div>
+        <div class="stat-label">Risk Convergence</div>
+        <div class="confidence-bar"><div class="confidence-fill" style="width:72%;background:var(--accent-orange);"></div></div>
+      </div>
+    </div>
+
+    <div class="grid-2" style="margin-bottom:16px;">
+      <div style="font-size:12px;color:var(--text-secondary);line-height:1.8;">
+        <strong>Trust Sub-Scores:</strong>
+        <div>Credibility Track Record: 85/100</div>
+        <div>Communication Quality: 55/100</div>
+        <div>Guidance Honesty: 55/100</div>
+        <div>Insider Alignment: 50/100</div>
+        <div>Governance Accountability: 45/100</div>
+      </div>
+      <div style="font-size:13px;color:var(--text-secondary);line-height:1.7;">
+        <strong>Net Assessment:</strong> CAUTIOUSLY BULLISH WITH MATERIAL BLIND SPOTS. Financial execution is strong and backward-looking credibility is high. But the forward outlook depends on a $180B/year CapEx bet with unspecified returns, a Search-Gemini transition with unquantified economics, and an antitrust exposure with unknown resolution.
+      </div>
+    </div>
+  </div>
+
+  <!-- Cross-Layer Red Flags -->
+  <div class="card">
+    <h3 class="card-title">Cross-Layer Red Flags (Transcript-Derived)</h3>
+
+    <div class="flag-card high">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+        <span class="severity-badge severity-HIGH">HIGH</span>
+        <strong>CapEx ROI Black Box</strong>
+        <span style="font-size:11px;color:var(--text-muted);margin-left:auto;">7 layers confirming &mdash; 95% confidence</span>
+      </div>
+      <p style="font-size:13px;color:var(--text-secondary);">$175-185B FY2026 CapEx (largest in corporate history) with zero disclosed return metrics. Management cites "rigorous framework" without specifying. CapEx overran FY2025 guidance by 7.5%. ~$107B funding gap vs FCF.</p>
+    </div>
+
+    <div class="flag-card high">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+        <span class="severity-badge severity-HIGH">HIGH</span>
+        <strong>AI Cannibalization Denial</strong>
+        <span style="font-size:11px;color:var(--text-muted);margin-left:auto;">6 layers confirming &mdash; 85% confidence</span>
+      </div>
+      <p style="font-size:13px;color:var(--text-secondary);">750M Gemini MAU with zero ad monetization running parallel to $294.7B Search revenue. Three-way inconsistency: risk section warns, MD&amp;A omits, management dismisses.</p>
+    </div>
+
+    <div class="flag-card high">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+        <span class="severity-badge severity-HIGH">HIGH</span>
+        <strong>Antitrust Communication Blackout</strong>
+        <span style="font-size:11px;color:var(--text-muted);margin-left:auto;">3 layers confirming &mdash; 90% confidence</span>
+      </div>
+      <p style="font-size:13px;color:var(--text-secondary);">DOJ antitrust case &mdash; potentially most material legal risk &mdash; has zero mentions across 4 earnings calls. Potential remedies include forcing changes to Search default agreements ($294.7B ad base at risk).</p>
+    </div>
+
+    <div class="flag-card moderate">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+        <span class="severity-badge severity-MEDIUM">MEDIUM-HIGH</span>
+        <strong>Earnings Quality Inflation</strong>
+        <span style="font-size:11px;color:var(--text-muted);margin-left:auto;">4 layers confirming &mdash; 90% confidence</span>
+      </div>
+      <p style="font-size:13px;color:var(--text-secondary);">Operating income +14.8% vs net income +32%. The 17pp gap filled by $29.8B non-operating income (22.5% of net income). OpEx grew 22% vs revenue 15%.</p>
+    </div>
+
+    <div class="flag-card moderate">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+        <span class="severity-badge severity-MEDIUM">MEDIUM</span>
+        <strong>Metric Rotation Pattern</strong>
+        <span style="font-size:11px;color:var(--text-muted);margin-left:auto;">3 layers confirming &mdash; 85% confidence</span>
+      </div>
+      <p style="font-size:13px;color:var(--text-secondary);">Q4 dropped paid clicks, CPC, and "monetization at same rate" language without explanation. Simultaneously introduced new metrics. Classic metric-swap pattern.</p>
+    </div>
+
+    <div class="flag-card moderate">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+        <span class="severity-badge severity-MEDIUM">MEDIUM</span>
+        <strong>Buyback Silent Reduction</strong>
+        <span style="font-size:11px;color:var(--text-muted);margin-left:auto;">4 layers confirming &mdash; 90% confidence</span>
+      </div>
+      <p style="font-size:13px;color:var(--text-secondary);">Share repurchases declined ~40% from FY2024 ($62B) to FY2025 (est. $37B). Q4 buybacks ($5.5B) were 52% below Q3. Never discussed on any earnings call.</p>
+    </div>
+
+    <div class="flag-card moderate">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+        <span class="severity-badge severity-MEDIUM">MEDIUM</span>
+        <strong>Supply Constraint Goalpost Moving</strong>
+        <span style="font-size:11px;color:var(--text-muted);margin-left:auto;">3 layers confirming &mdash; 85% confidence</span>
+      </div>
+      <p style="font-size:13px;color:var(--text-secondary);">Cloud supply constraint timeline moved 3 times: "end of 2025" to "into 2026" to "through 2026". Each move coincided with CapEx guidance increases.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 12. CROSS-POLLINATION ==================== -->
+<section class="section" id="convergence">
+  <h2 class="section-title"><span class="icon">&#9733;</span> Cross-Pollination &amp; Convergence</h2>
+
+  <div class="card" style="border-left:4px solid var(--accent-cyan);">
+    <h3 class="card-title">AI Infrastructure Investment Cycle Is Unprecedented</h3>
+    <div style="font-size:12px;color:var(--text-muted);margin-bottom:8px;">Confidence: VERY HIGH &mdash; 5 sources converging</div>
+    <div style="font-size:13px;color:var(--text-secondary);line-height:1.7;margin-bottom:12px;">All data sources confirm Alphabet is in the most capital-intensive phase of its history. The magnitude ($175-185B FY2026E) is unprecedented in corporate history. The risk is not about affordability (balance sheet can support it) but about returns on invested capital.</div>
+    <div style="font-size:11px;color:var(--text-muted);">Sources: 10-K financials (PP&amp;E +27%) | Quarterly data (CapEx 14.8% to 23.4%) | Earnings calls | 8-K events ($36.8B M&amp;A) | MD&amp;A</div>
+  </div>
+
+  <div class="card" style="border-left:4px solid var(--accent-yellow);">
+    <h3 class="card-title">Earnings Quality Gap Is Real But Manageable</h3>
+    <div style="font-size:12px;color:var(--text-muted);margin-bottom:8px;">Confidence: HIGH &mdash; 5 sources converging</div>
+    <div style="font-size:13px;color:var(--text-secondary);line-height:1.7;margin-bottom:12px;">Operating earnings quality is genuinely strong (negative accruals, 1.36x cash conversion). But headline net income quality is lower than presented due to $29.8B non-operating income. The gap between operating performance (mid-teens growth) and reported performance (30%+ growth) will eventually converge.</div>
+    <div style="font-size:11px;color:var(--text-muted);">Sources: Beneish M-Score | Sloan ratio | Income statement | Earnings calls | Cash conversion quality</div>
+  </div>
+
+  <div class="card" style="border-left:4px solid var(--accent-purple);">
+    <h3 class="card-title">Cloud Is the Undisputed Growth Engine</h3>
+    <div style="font-size:12px;color:var(--text-muted);margin-bottom:8px;">Confidence: VERY HIGH &mdash; 5 sources converging</div>
+    <div style="font-size:13px;color:var(--text-secondary);line-height:1.7;margin-bottom:12px;">Every data source confirms Cloud as the primary growth vector. Revenue share rising, margins improving, backlog massive ($240B). The $32B Wiz acquisition is the clearest signal of strategic prioritization.</div>
+    <div style="font-size:11px;color:var(--text-muted);">Sources: Segment data (35.8% growth) | Quarterly acceleration (48% Q4) | Earnings calls | 8-K Wiz | Geographic data (APAC +19%)</div>
+  </div>
+
+  <div class="card" style="border-left:4px solid var(--accent-red);">
+    <h3 class="card-title">Governance Structure Amplifies All Risks</h3>
+    <div style="font-size:12px;color:var(--text-muted);margin-bottom:8px;">Confidence: HIGH &mdash; 5 sources converging</div>
+    <div style="font-size:13px;color:var(--text-secondary);line-height:1.7;margin-bottom:12px;">Dual-class governance is not itself a red flag, but it means the largest capex in corporate history, the AI transition strategy, and the M&amp;A program are all authorized without meaningful shareholder oversight. This is a risk multiplier for every other finding.</div>
+    <div style="font-size:11px;color:var(--text-muted);">Sources: Proxy | Insider trading | Board composition | Earnings calls | 10-K risk factors</div>
+  </div>
+
+  <div class="card" style="border-left:4px solid var(--accent-orange);">
+    <h3 class="card-title">Regulatory Risk Is Underpriced in Investor Communications</h3>
+    <div style="font-size:12px;color:var(--text-muted);margin-bottom:8px;">Confidence: HIGH &mdash; 5 sources converging</div>
+    <div style="font-size:13px;color:var(--text-secondary);line-height:1.7;margin-bottom:12px;">Active DOJ antitrust proceedings targeting Search defaults, a EUR 2.95B EU ad-tech fine, and DMA enforcement obligations collectively represent the most material legal exposure in tech. Yet earnings call listeners receive zero signal about this risk.</div>
+    <div style="font-size:11px;color:var(--text-muted);">Sources: 10-K Item 1A | 8-K events | Earnings calls (zero discussion) | Risk factor analysis | Transcript cross-validation</div>
+  </div>
+</section>
+
+<!-- ==================== 13. RED FLAGS ==================== -->
+<section class="section" id="red-flags">
+  <h2 class="section-title"><span class="icon">&#9888;</span> Red Flags</h2>
+
+  <div class="flag-card high">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+      <span class="severity-badge severity-HIGH">HIGH</span>
+      <strong>#1 &mdash; CapEx ROI Opacity on $175-185B Annual Commitment</strong>
+      <span style="font-size:11px;color:var(--text-muted);margin-left:auto;">7 sources | 95% confidence</span>
+    </div>
+    <p style="font-size:13px;color:var(--text-secondary);margin-bottom:8px;">The largest annual capital expenditure in corporate history comes with zero disclosed return metrics. Management cites "rigorous framework" three times across four earnings calls without ever specifying what it measures. CapEx overran FY2025 guidance by 7.5%. Quarterly CapEx nearly doubled from $13B to $24B. The ~$107B gap between FCF and CapEx guidance implies debt issuance or buyback elimination. Dual-class governance means shareholders cannot challenge this allocation.</p>
+    <div style="font-size:11px;color:var(--accent-blue);">Watch: Q1 2026 CapEx disclosure and any ROI framework specifics. If "rigorous framework" is repeated without details, concern escalates.</div>
+  </div>
+
+  <div class="flag-card high">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+      <span class="severity-badge severity-HIGH">HIGH</span>
+      <strong>#2 &mdash; AI-Search Cannibalization &mdash; Three-Way Inconsistency</strong>
+      <span style="font-size:11px;color:var(--text-muted);margin-left:auto;">6 sources | 85% confidence</span>
+    </div>
+    <p style="font-size:13px;color:var(--text-secondary);margin-bottom:8px;">750M Gemini monthly active users generating zero advertising revenue, running parallel to Google Search ($294.7B, 73% of total). The company's own 10-K classifies AI search disruption as HIGH severity. MD&amp;A omits any discussion. Management verbally dismisses it. If even 10% of Search queries migrate to unmonetized Gemini, the revenue impact is $22B+ annually.</p>
+    <div style="font-size:11px;color:var(--accent-blue);">Watch: Search revenue growth trajectory in Q1 2026. If growth decelerates while Gemini MAU continues rising, cannibalization signal strengthens.</div>
+  </div>
+
+  <div class="flag-card high">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+      <span class="severity-badge severity-HIGH">HIGH</span>
+      <strong>#3 &mdash; DOJ Antitrust Risk &mdash; Communication Blackout</strong>
+      <span style="font-size:11px;color:var(--text-muted);margin-left:auto;">3 sources | 90% confidence</span>
+    </div>
+    <p style="font-size:13px;color:var(--text-secondary);margin-bottom:8px;">DOJ antitrust case targeting Search default agreements (worth $20B+ annually) is a top-3 risk in the 10-K but received zero discussion across four quarterly earnings calls. Potential remedies could force opening of browser/device defaults, reducing Search market share by 5-15%. EU separately imposed EUR 2.95B ad-tech fine in September 2025.</p>
+    <div style="font-size:11px;color:var(--accent-blue);">Watch: Court ruling timeline. Monitor independently &mdash; management is unlikely to discuss proactively.</div>
+  </div>
+
+  <div class="flag-card moderate">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+      <span class="severity-badge severity-MEDIUM">MEDIUM-HIGH</span>
+      <strong>#4 &mdash; Earnings Quality &mdash; Non-Operating Income Inflation</strong>
+      <span style="font-size:11px;color:var(--text-muted);margin-left:auto;">4 sources | 90% confidence</span>
+    </div>
+    <p style="font-size:13px;color:var(--text-secondary);margin-bottom:8px;">FY2025 net income of $132.2B (+32%) includes $29.8B non-operating income (22.5% of total). Operating income grew only 14.8%. The 17pp gap between operating and net income growth is entirely non-operational. Non-operating income was $7.4B in FY2024 and $1.4B in FY2023.</p>
+    <div style="font-size:11px;color:var(--accent-blue);">Watch: Strip non-operating income in models. If securities markets decline, headline earnings could fall significantly.</div>
+  </div>
+
+  <div class="flag-card moderate">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+      <span class="severity-badge severity-MEDIUM">MEDIUM</span>
+      <strong>#5 &mdash; Operating Margin Compression (Quarterly)</strong>
+      <span style="font-size:11px;color:var(--text-muted);margin-left:auto;">3 sources | 85% confidence</span>
+    </div>
+    <p style="font-size:13px;color:var(--text-secondary);">Operating margin declined from 33.92% (Q1-2025 peak) to 30.51% (Q3-2025) &mdash; a 341bps compression over two quarters. Driven by COGS growth outpacing revenue and surging R&amp;D spend.</p>
+  </div>
+
+  <div class="flag-card moderate">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+      <span class="severity-badge severity-MEDIUM">MEDIUM</span>
+      <strong>#6 &mdash; Metric Rotation &mdash; Paid Clicks and CPC Dropped</strong>
+      <span style="font-size:11px;color:var(--text-muted);margin-left:auto;">3 sources | 85% confidence</span>
+    </div>
+    <p style="font-size:13px;color:var(--text-secondary);">Q4 2025 earnings call dropped three key metrics without explanation: paid clicks growth, cost-per-click growth, and "monetization at approximately the same rate." Classic metric-swap pattern suggesting retired metrics may have weakened.</p>
+  </div>
+
+  <div class="flag-card moderate">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+      <span class="severity-badge severity-MEDIUM">MEDIUM</span>
+      <strong>#7 &mdash; Buyback Reduction &mdash; Silent ~40% Decline</strong>
+      <span style="font-size:11px;color:var(--text-muted);margin-left:auto;">4 sources | 90% confidence</span>
+    </div>
+    <p style="font-size:13px;color:var(--text-secondary);">Share repurchases declined from $62B (FY2024) to est. $37B (FY2025). Q4 buybacks of $5.5B were 52% below Q3. Never discussed on any earnings call. Direct consequence of the CapEx ramp.</p>
+  </div>
+
+  <div class="flag-card moderate">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+      <span class="severity-badge severity-MEDIUM">MEDIUM</span>
+      <strong>#8 &mdash; Dual-Class Governance &mdash; No Sunset Clause</strong>
+      <span style="font-size:11px;color:var(--text-muted);margin-left:auto;">2 sources | 95% confidence</span>
+    </div>
+    <p style="font-size:13px;color:var(--text-secondary);">Founders with ~3.86% economic ownership control majority of votes. $175-185B CapEx, $36.8B M&amp;A, and AI strategy pivot are authorized without meaningful shareholder vote. Entrenchment index 4/6 (HIGH).</p>
+  </div>
+
+  <div class="flag-card moderate">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+      <span class="severity-badge severity-MEDIUM">MEDIUM</span>
+      <strong>#9 &mdash; YouTube Advertising Deceleration</strong>
+      <span style="font-size:11px;color:var(--text-muted);margin-left:auto;">4 sources | 80% confidence</span>
+    </div>
+    <p style="font-size:13px;color:var(--text-secondary);">YouTube ad revenue growth: FY2024 +14.7%, FY2025 +11.7%, Q4 2025 +9%. Management attributes Q4 to election year lapping (one-time). But deceleration preceded the election year.</p>
+  </div>
+
+  <div class="flag-card moderate">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+      <span class="severity-badge severity-MEDIUM">MEDIUM</span>
+      <strong>#10 &mdash; Principal Accounting Officer Departure</strong>
+      <span style="font-size:11px;color:var(--text-muted);margin-left:auto;">1 source | 70% confidence</span>
+    </div>
+    <p style="font-size:13px;color:var(--text-secondary);">Amie Thuener O'Toole resigned as VP Corporate Controller and PAO effective April 9, 2026. No disagreement disclosed. PAO departures always warrant monitoring for restatement risk, particularly during massive CapEx and two large pending acquisitions.</p>
+  </div>
+
+  <div class="flag-card moderate">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+      <span class="severity-badge severity-MEDIUM">MEDIUM</span>
+      <strong>#11 &mdash; Cost Discipline Erosion &mdash; OpEx +22% vs Revenue +15%</strong>
+      <span style="font-size:11px;color:var(--text-muted);margin-left:auto;">4 sources | 85% confidence</span>
+    </div>
+    <p style="font-size:13px;color:var(--text-secondary);">FY2025 OpEx grew 22% versus revenue growth of 15%. In FY2024, OpEx grew only 2% versus revenue of 14%. Dramatic reversal of cost discipline.</p>
+  </div>
+
+  <div class="flag-card low">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+      <span class="severity-badge severity-LOW">LOW-MEDIUM</span>
+      <strong>#12 &mdash; Deferred Tax Asset Decline &mdash; 47% Drop</strong>
+      <span style="font-size:11px;color:var(--text-muted);margin-left:auto;">1 source | 70% confidence</span>
+    </div>
+    <p style="font-size:13px;color:var(--text-secondary);">Net deferred tax assets fell from $17.2B to $9.1B (FY2025), a 47% decline. Root cause uncertain without granular DTA/DTL breakout.</p>
+  </div>
+</section>
+
+<!-- ==================== 14. MONITORING WATCHLIST ==================== -->
+<section class="section" id="watchlist">
+  <h2 class="section-title"><span class="icon">&#9745;</span> Monitoring Watchlist</h2>
+
+  <div class="watchlist-item">
+    <div class="priority-dot priority-CRITICAL"></div>
+    <div>
+      <div style="font-weight:600;">Q1 2026 YouTube Advertising Growth</div>
+      <div style="font-size:12px;color:var(--text-secondary);margin-top:4px;">Trigger: If YouTube ad growth remains below 10%, structural deceleration confirmed (election excuse expires)</div>
+      <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">Expected: April 2026 &mdash; Current: Q4 2025 at 9% growth (lowest in 2 years)</div>
+    </div>
+  </div>
+
+  <div class="watchlist-item">
+    <div class="priority-dot priority-CRITICAL"></div>
+    <div>
+      <div style="font-weight:600;">CapEx ROI Disclosure</div>
+      <div style="font-size:12px;color:var(--text-secondary);margin-top:4px;">Trigger: Any quantitative return metric for AI infrastructure investment</div>
+      <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">Expected: April 2026 &mdash; Current: "Rigorous framework" cited 3 times with zero specifics</div>
+    </div>
+  </div>
+
+  <div class="watchlist-item">
+    <div class="priority-dot priority-HIGH"></div>
+    <div>
+      <div style="font-weight:600;">Paid Clicks / CPC Metric Return</div>
+      <div style="font-size:12px;color:var(--text-secondary);margin-top:4px;">Trigger: Return or absence of paid clicks and CPC metrics in Q1 2026</div>
+      <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">Expected: April 2026 &mdash; Current: Dropped in Q4 2025 without explanation</div>
+    </div>
+  </div>
+
+  <div class="watchlist-item">
+    <div class="priority-dot priority-HIGH"></div>
+    <div>
+      <div style="font-weight:600;">DOJ Antitrust Ruling</div>
+      <div style="font-size:12px;color:var(--text-secondary);margin-top:4px;">Trigger: Court ruling or consent decree on Search default agreements</div>
+      <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">Expected: 2026 (timeline uncertain) &mdash; Current: Active proceedings; zero discussion on earnings calls</div>
+    </div>
+  </div>
+
+  <div class="watchlist-item">
+    <div class="priority-dot priority-HIGH"></div>
+    <div>
+      <div style="font-weight:600;">Wiz Acquisition Regulatory Approval</div>
+      <div style="font-size:12px;color:var(--text-secondary);margin-top:4px;">Trigger: Approval or rejection of $32B all-cash acquisition</div>
+      <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">Expected: 2026 &mdash; Current: Pending regulatory approvals</div>
+    </div>
+  </div>
+
+  <div class="watchlist-item">
+    <div class="priority-dot priority-HIGH"></div>
+    <div>
+      <div style="font-weight:600;">Gemini Ad Monetization Launch</div>
+      <div style="font-size:12px;color:var(--text-secondary);margin-top:4px;">Trigger: First advertising integration within Gemini product surface</div>
+      <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">Expected: 2026 &mdash; Current: 750M MAU with zero ad revenue</div>
+    </div>
+  </div>
+
+  <div class="watchlist-item">
+    <div class="priority-dot priority-MODERATE"></div>
+    <div>
+      <div style="font-weight:600;">Operating Margin Trajectory</div>
+      <div style="font-size:12px;color:var(--text-secondary);margin-top:4px;">Trigger: Quarterly operating margin below 30% for 2 consecutive quarters</div>
+      <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">Expected: H1 2026 &mdash; Current: 30.51% in Q3-2025 after 33.92% peak</div>
+    </div>
+  </div>
+
+  <div class="watchlist-item">
+    <div class="priority-dot priority-MODERATE"></div>
+    <div>
+      <div style="font-weight:600;">Share Buyback Program</div>
+      <div style="font-size:12px;color:var(--text-secondary);margin-top:4px;">Trigger: Formal reduction or pause in buyback program</div>
+      <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">Expected: FY2025 10-K disclosure &mdash; Current: Silent ~40% reduction estimated</div>
+    </div>
+  </div>
+
+  <div class="watchlist-item">
+    <div class="priority-dot priority-MODERATE"></div>
+    <div>
+      <div style="font-weight:600;">PAO Successor Appointment</div>
+      <div style="font-size:12px;color:var(--text-secondary);margin-top:4px;">Trigger: New Principal Accounting Officer named</div>
+      <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">Expected: April-May 2026 &mdash; Current: Amie Thuener O'Toole departed effective April 9, 2026</div>
+    </div>
+  </div>
+
+  <div class="watchlist-item">
+    <div class="priority-dot priority-MODERATE"></div>
+    <div>
+      <div style="font-weight:600;">Depreciation Acceleration</div>
+      <div style="font-size:12px;color:var(--text-secondary);margin-top:4px;">Trigger: Quarterly depreciation exceeding $8B (on pace for $32B+ annual)</div>
+      <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">Expected: Q1 2026 10-Q &mdash; Current: FY2024 depreciation $15.3B, likely $25B+ in FY2025</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 15. PREDICTIONS ==================== -->
+<section class="section" id="predictions">
+  <h2 class="section-title"><span class="icon">&#9200;</span> Forward Predictions</h2>
+
+  <div class="card">
+    <h3 class="card-title">Q1 2026 Near-Term Forecast</h3>
+    <div class="grid-2" style="margin-top:12px;">
+      <div>
+        <div class="prediction-card">
+          <div style="font-weight:600;">Revenue: $105-110B</div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-top:4px;">+17-22% YoY &mdash; easy Q1 2025 comp ($90.2B, +12%) and Cloud momentum support acceleration</div>
+          <div class="confidence-bar"><div class="confidence-fill" style="width:75%;background:var(--accent-green);"></div></div>
+        </div>
+        <div class="prediction-card">
+          <div style="font-weight:600;">Google Cloud: $18-19B</div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-top:4px;">Likely 40%+ growth &mdash; $240B backlog and Apple partnership ramp</div>
+          <div class="confidence-bar"><div class="confidence-fill" style="width:80%;background:var(--accent-green);"></div></div>
+        </div>
+        <div class="prediction-card">
+          <div style="font-weight:600;">Search: Re-acceleration likely</div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-top:4px;">Easy comp (+10% in Q1 2025). Watch for AI Max commercial query expansion.</div>
+          <div class="confidence-bar"><div class="confidence-fill" style="width:65%;background:var(--accent-green);"></div></div>
+        </div>
+      </div>
+      <div>
+        <div class="prediction-card">
+          <div style="font-weight:600;color:var(--accent-orange);">YouTube: CRITICAL TEST</div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-top:4px;">Q1 2026 is the decisive quarter. Election lapping excuse expires. If growth stays 9-10%, structural deceleration confirmed.</div>
+          <div class="confidence-bar"><div class="confidence-fill" style="width:60%;background:var(--accent-orange);"></div></div>
+        </div>
+        <div class="prediction-card">
+          <div style="font-weight:600;">Operating Margin: 30-31%</div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-top:4px;">Depreciation accelerating. Management will counter with efficiency proof points.</div>
+          <div class="confidence-bar"><div class="confidence-fill" style="width:70%;background:var(--accent-yellow);"></div></div>
+        </div>
+        <div class="prediction-card">
+          <div style="font-weight:600;">CapEx: $40-45B</div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-top:4px;">On pace for $175-185B annual. Any upward revision signals FY2025 overrun pattern continuing.</div>
+          <div class="confidence-bar"><div class="confidence-fill" style="width:75%;background:var(--accent-yellow);"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title">12-Month Scenario Analysis</h3>
+    <div class="grid-3">
+      <div class="prediction-card" style="border-top:3px solid var(--accent-green);">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+          <strong style="color:var(--accent-green);">Bull Case</strong>
+          <span class="severity-badge" style="background:var(--accent-green-dim);color:var(--accent-green);">30%</span>
+        </div>
+        <p style="font-size:13px;color:var(--text-secondary);">Cloud sustains 40%+ growth, Search proves AI-resilient, Gemini monetization begins, Wiz closes smoothly. Revenue $470B+, operating margin holds 31%+.</p>
+        <div class="confidence-bar"><div class="confidence-fill" style="width:30%;background:var(--accent-green);"></div></div>
+      </div>
+      <div class="prediction-card" style="border-top:3px solid var(--accent-blue);">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+          <strong style="color:var(--accent-blue);">Base Case</strong>
+          <span class="severity-badge" style="background:var(--accent-blue-dim);color:var(--accent-blue);">50%</span>
+        </div>
+        <p style="font-size:13px;color:var(--text-secondary);">Cloud growth normalizes to 30-35%, Search grows 10-12%, operating margin compresses to 29-31%. Revenue $450-465B. Net income growth decelerates to 10-15%.</p>
+        <div class="confidence-bar"><div class="confidence-fill" style="width:50%;background:var(--accent-blue);"></div></div>
+      </div>
+      <div class="prediction-card" style="border-top:3px solid var(--accent-red);">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+          <strong style="color:var(--accent-red);">Bear Case</strong>
+          <span class="severity-badge" style="background:var(--accent-red-dim);color:var(--accent-red);">20%</span>
+        </div>
+        <p style="font-size:13px;color:var(--text-secondary);">DOJ mandates Search default changes, Cloud decelerates below 25%, CapEx overbuilding apparent, Wiz blocked. Operating margin 27-28%. Revenue $435-445B.</p>
+        <div class="confidence-bar"><div class="confidence-fill" style="width:20%;background:var(--accent-red);"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title">Key 12-Month Risks</h3>
+    <table>
+      <thead><tr><th>Risk</th><th class="num">Probability</th><th>Impact</th></tr></thead>
+      <tbody>
+        <tr><td>CapEx overbuilding if AI demand normalizes</td><td class="num">20-30%</td><td><span class="severity-badge severity-HIGH">HIGH</span></td></tr>
+        <tr><td>DOJ antitrust remedy on Search defaults</td><td class="num">30-40%</td><td><span class="severity-badge severity-HIGH">HIGH</span></td></tr>
+        <tr><td>Gemini cannibalization at scale</td><td class="num">15-25%</td><td><span class="severity-badge severity-MEDIUM">MEDIUM-HIGH</span></td></tr>
+        <tr><td>Non-operating income reversal</td><td class="num">25-35%</td><td><span class="severity-badge severity-MEDIUM">MEDIUM</span></td></tr>
+        <tr><td>Depreciation surge compresses margins</td><td class="num">40-50%</td><td><span class="severity-badge severity-MEDIUM">MEDIUM</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title">Management Behavior Forecast</h3>
+    <div style="font-size:13px;color:var(--text-secondary);line-height:1.8;">
+      <div><strong>Narrative Strategy:</strong> AI triumphalism will continue and escalate. Expect new Gemini engagement metrics each quarter.</div>
+      <div><strong>Metric Evolution:</strong> Paid clicks/CPC unlikely to return if they weakened. New AI-native metrics will replace them.</div>
+      <div><strong>CapEx Framing:</strong> Demand-pull narrative will intensify. Specific cloud deal announcements will be timed to justify spend.</div>
+      <div><strong>Sandbagging:</strong> Based on 91% promise-keeping rate and 8.0/10 sandbagging score, any guidance or directional commentary should be treated as a floor.</div>
+    </div>
+  </div>
+
+  <!-- Key Events Timeline -->
+  <div class="card">
+    <h3 class="card-title">Key Events Timeline</h3>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot negative"></div>
+        <div class="timeline-date">2025-03-18</div>
+        <div class="timeline-title">$32B all-cash acquisition of Wiz, Inc.</div>
+        <div class="timeline-detail">Largest acquisition in Alphabet history. Cloud security platform to join Google Cloud. Expected close 2026 subject to regulatory approval.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot negative"></div>
+        <div class="timeline-date">2025-09-05</div>
+        <div class="timeline-title">EUR 2.95B European Commission antitrust fine</div>
+        <div class="timeline-detail">EC ruled Google violated competition laws through self-preferencing in ad-tech. Google plans appeal.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot neutral"></div>
+        <div class="timeline-date">2025-07-18</div>
+        <div class="timeline-title">Stockholder derivative action preliminary settlement</div>
+        <div class="timeline-detail">Court preliminarily approved settlement. Defendants deny liability.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot negative"></div>
+        <div class="timeline-date">2026-04-02</div>
+        <div class="timeline-title">Principal Accounting Officer resignation</div>
+        <div class="timeline-detail">Amie Thuener O'Toole resigned as VP Corporate Controller and PAO effective April 9, 2026.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot positive"></div>
+        <div class="timeline-date">2025-02-04</div>
+        <div class="timeline-title">Q4 2024 earnings release and $0.20/share dividend declared</div>
+        <div class="timeline-detail">Cash dividend payable March 17, 2025.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div>SEC Forensic Analysis &middot; Alphabet Inc. (GOOGL) &middot; Generated April 6, 2026</div>
+  <div>Data sources: SEC EDGAR (10-K, 10-Q, 8-K, DEF 14A, Form 4, 13F), Earnings Call Transcripts &middot; 25 data files analyzed</div>
+</footer>
+
+<script>
+// Sidebar active link tracking
+const sections = document.querySelectorAll('.section');
+const navLinks = document.querySelectorAll('.nav-link');
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(link => link.classList.remove('active'));
+      const activeLink = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
+      if (activeLink) activeLink.classList.add('active');
+    }
+  });
+}, { rootMargin: '-100px 0px -60% 0px' });
+
+sections.forEach(section => observer.observe(section));
+
+// Smooth scrolling
+document.querySelectorAll('.nav-link').forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    const target = document.querySelector(link.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+
+// Collapsible sections
+function toggleCollapse(el) {
+  el.classList.toggle('collapsed');
+  const content = el.nextElementSibling;
+  if (content) content.classList.toggle('hidden');
+}
+</script>
+</body>
+</html>
