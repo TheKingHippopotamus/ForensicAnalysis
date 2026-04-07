@@ -1,0 +1,911 @@
+{
+  "meta": {
+    "ticker": "LLY",
+    "company": "Eli Lilly and Company",
+    "exchange": "NYSE",
+    "industry": "Pharmaceuticals",
+    "tagline": "GLP-1 Platform Company | $65.2B Revenue | World's Most Valuable Pharma",
+    "generated_date": "April 7, 2026",
+    "fiscal_year_end": "December",
+    "analysis_period": "FY2023-FY2025, Q4-2024 through Q4-2025 earnings calls",
+    "filings_analyzed": 15,
+    "data_sources": "SEC EDGAR (10-K, 10-Q, 8-K, DEF 14A, Form 4), 5 earnings call transcripts, arelle-mcp XBRL",
+    "auditor": "Ernst & Young LLP",
+    "cik": "59478",
+    "shares_outstanding": 943357420,
+    "public_float_usd": 807887000000
+  },
+
+  "verdicts": {
+    "business": {
+      "text": "Eli Lilly has executed one of the most remarkable revenue transformations in pharmaceutical history: $65.2B in FY2025 revenue (+44.7% YoY) with operating margins expanding from 19% to 39.5% in just two years — all driven by a single dual-agonist molecule, tirzepatide. The business is genuinely exceptional on every quality dimension: ROIC of 29.5%, Piotroski F-Score of 7/9, Beneish M-Score of -1.89 (clean), and #1 ranked composite quality in the peer set (LLY, PFE, JNJ, MRK, ABBV, NVO). However, 56.2% of revenue from one molecule (Mounjaro + Zepbound combined) is an unprecedented single-product concentration for a company of this scale, amplified by $40.9B in long-term debt (+43% YoY) raised to fund manufacturing capacity that serves those same two products.",
+      "color": "green"
+    },
+    "management": {
+      "text": "Management credibility scores 73.7% (adjusted) with a composite trust score of 71/100 — above average with concentrated gaps. CEO Ricks and CFO Montarce deliver consistently on operational and revenue commitments (systematic sandbagging confirmed: 2025 initial guide beaten by 9.6%), and CSO Skovronsky is the most credible executive across the pipeline with 88/100 score. The August 2025 conviction buy by CEO + CSO + 3 directors at the orforglipron dip is the strongest insider alignment signal in the dataset. However, five documented say-do gaps exist (including the abandoned 'low-40s margin ceiling' and the $15B buyback at near-zero pace), and CFO Montarce's complete deflection on orforglipron revenue contribution in Q4-2025 — the most financially material question of the year — is the single biggest trust liability entering 2026.",
+      "color": "yellow"
+    },
+    "trajectory": {
+      "text": "The trajectory is broadly positive but decelerating from hypergrowth into structured growth with headwinds. The GLP-1 market is growing toward $202B by 2033, orforglipron (Q2-2026 US launch) extends the oral platform, and Zepbound international (98.7% US currently) is an enormous untapped lever. Against this, the 2026 pricing headwind is accelerating from ~7-8% to 'low to mid-teens' — the most bearish explicit signal management has issued in five quarters — and it is credible because pricing guidance has historically been accurate (not sandbagged). The math for $80-83B FY2026 guidance requires orforglipron + Medicare access + continued GLP-1 organic growth all firing simultaneously. The sandbagging-adjusted expectation of $87-90B is realistic, but H1 2026 (before Medicare access in July) and any orforglipron launch disappointment represent the two key risk windows.",
+      "color": "green"
+    }
+  },
+
+  "executive_summary": "Eli Lilly has undergone a business transformation so rapid it strains conventional financial analysis. In three years — FY2023 through FY2025 — revenue nearly doubled ($34.1B to $65.2B), operating income quadrupled ($6.6B to $25.7B), and operating margin expanded more than 2,000 basis points (19.2% to 39.5%). The engine is tirzepatide, a dual GIP/GLP-1 agonist marketed as Mounjaro in diabetes and Zepbound in obesity, which together generated $36.6B in FY2025 revenue — 56.2% of the company's total. No large-cap pharmaceutical company has seen a single molecule contribute this magnitude of revenue in such a compressed timeframe.\n\nThe forensic picture is clean. The Beneish M-Score of -1.89 classifies LLY as an 'unlikely manipulator,' and the key elevating factors (SGI of 1.447 from authentic hypergrowth, DSRI of 1.115 from channel fill during international launches) are cross-validated by management commentary and audited financials. The Altman Z-Score stands at 7.50 — dramatically above the 2.99 safe-zone threshold — and the Piotroski F-Score of 7/9 reflects strong financial quality with only investment-phase caveats. Ernst & Young issued a clean opinion with no material weaknesses.\n\nThe most important financial story beneath the headline numbers is the leverage bet. LLY issued $13.2B in new long-term debt in FY2025 alone, bringing total LTD to $40.9B (+43% YoY), to fund $7.8B in capital expenditures for manufacturing capacity. The interest coverage ratio of 28.75x and LTD/EBITDA of 1.47x confirm this is strategic leverage, not distress leverage. But borrowing $1.38 per $1.00 of free cash flow generated means LLY is structurally dependent on GLP-1 demand continuing to accelerate. The manufacturing investment thesis is compelling — but it is concentrated on the same two products that already represent 56% of revenue.\n\nCompetitively, LLY holds the strongest position in the six-peer pharma universe on composite quality. Revenue growth of +44.7% is 7.3x the peer median of 6.1%. Operating margin of 39.5% leads all traditional pharma peers, second only to Novo Nordisk at 41.3%. The GLP-1 duopoly (LLY + NVO) controls the fastest-growing therapeutic category in modern pharmaceutical history, and tirzepatide's superior efficacy profile in weight loss endpoints vs semaglutide underpins LLY's dominant US market position.\n\nTranscript analysis across five quarters reveals a management team with above-average operational credibility and below-average transparency on commercially sensitive data. The August 2025 conviction buy by CEO Ricks, CSO Skovronsky, and three independent directors at the orforglipron Phase 3 dip is the strongest insider alignment signal in the dataset — particularly meaningful for Skovronsky, who knows the full pipeline data. However, five documented say-do gaps (the abandoned 'low-40s' margin ceiling, the dilatory $15B buyback, declining R&D intensity vs 'robust investment' narrative) and CFO Montarce's complete refusal to quantify orforglipron's contribution to the $80-83B FY2026 guidance are material transparency concerns.\n\nThe bear case for LLY is coherent and specific: (1) The 2026 'low to mid-teens' pricing headwind is the first non-sandbagged guidance signal management has issued — take it seriously; (2) Orforglipron's ITT efficacy at ~9% placebo-adjusted weight loss vs semaglutide's ~14% is a real gap that CSO Skovronsky deflected when directly challenged — if the oral market is more competitive than management's 'expansion not cannibalization' thesis, the guidance math breaks; (3) The $13.7B inventory build (up 81% YoY) pre-loading the orforglipron launch creates write-down risk if launch disappoints; (4) Canada's generic semaglutide (early 2026) threatens the $16.3B of OUS revenue that is 75% self-pay.\n\nWhat to watch: Q1-2026 call will reveal US realized price vs the 'low to mid-teens' guide — if pricing erodes more than guided, the FY2026 scenario is under pressure. Q2-2026 call is the moment of maximum information: first orforglipron revenue disclosure. If management still does not disaggregate orforglipron revenue in Q2-2026, assume the number is below Street expectations. The $5B+ threshold Steve Scala (TD Cowen) identified is the right test.",
+
+  "stats": {
+    "revenue": {"value": "$65.2B", "label": "FY2025 Revenue", "yoy_change": "+44.7%"},
+    "net_income": {"value": "$20.6B", "label": "FY2025 Net Income", "yoy_change": "+94.9%"},
+    "ocf": {"value": "$16.8B", "label": "Operating Cash Flow", "yoy_change": "+90.6%"},
+    "cash": {"value": "$7.3B", "label": "Cash & Equivalents"},
+    "extra": {"value": "$40.9B", "label": "Long-Term Debt", "yoy_change": "+43.3%"},
+    "eps_diluted": {"value": "$22.95", "label": "FY2025 Diluted EPS", "yoy_change": "+96.0%"},
+    "operating_income": {"value": "$25.7B", "label": "FY2025 Operating Income", "yoy_change": "+102.9%"},
+    "gross_margin": {"value": "83.0%", "label": "Gross Margin"},
+    "operating_margin": {"value": "39.5%", "label": "Operating Margin"},
+    "fcf": {"value": "$9.0B", "label": "Free Cash Flow"}
+  },
+
+  "valuation_context": {
+    "market_cap_usd": 807887000000,
+    "market_cap_display": "$808B",
+    "pe_ratio_trailing": {
+      "value": 39.2,
+      "basis": "Market cap $808B / Net Income $20.6B",
+      "note": "Trailing P/E of ~39x reflects GLP-1 growth premium"
+    },
+    "ev_ebitda": {
+      "enterprise_value_est": "~$842B (market cap + LTD - cash: $808B + $40.9B - $7.3B)",
+      "ebitda_fy2025": 27728000000,
+      "ev_ebitda": 30.4,
+      "note": "EV/EBITDA of ~30x is above traditional pharma (12-18x) but justified by >40% revenue growth; comparable to NVO at peak GLP-1 scaling"
+    },
+    "ps_ratio": {
+      "value": 12.4,
+      "basis": "Market cap $808B / Revenue $65.2B"
+    },
+    "peer_pe_context": {
+      "LLY": 39.2,
+      "NVO": 32.0,
+      "MRK": 14.5,
+      "JNJ": 16.8,
+      "PFE": 18.3,
+      "ABBV": 22.1
+    },
+    "valuation_narrative": "LLY trades at a 39x trailing P/E premium vs. peer median of ~18x. This premium is warranted by best-in-class growth (+44.7% revenue) and expanding margins, but concentration risk (56% revenue in tirzepatide) and the $40.9B debt load create valuation sensitivity. The 'real' management expectation for 2026 revenue, after applying the confirmed 8-10% sandbagging premium, is $87-90B — implying forward P/E of approximately 25-27x on normalized earnings, which is more defensible. Novo Nordisk is the best comparable: at peak GLP-1 scaling it traded 28-35x earnings. LLY's current multiple is not euphoric by that standard.",
+    "analyst_narrative": "The valuation premium is a two-sided argument. Bulls point to the multi-decade GLP-1 runway ($202B market by 2033), orforglipron's potential to expand the addressable market from 50M to 150M+ patients by eliminating injection barriers, and the demonstrated operating leverage that has taken margins from 19% to 39% in three years. Bears point to concentration risk, the pricing headwind acceleration, and the $40.9B debt load as a vulnerability if growth disappoints. The 2026 pricing math is the near-term acid test: if management's 'low to mid-teens' headwind materializes while volume grows 20%+, the bull case holds. If pricing hits -16% or worse, multiple compression is likely.",
+    "cross_source_insights": ["NVO is the best historical comp — it peaked at 35x P/E at comparable growth trajectory before normalizing to 22x as growth decelerated", "Orforglipron launch in Q2-2026 is the next material re-rating catalyst"],
+    "watch_items": ["Forward P/E on 2026 consensus vs management sandbagging-adjusted estimate", "Price erosion vs volume growth quarterly reconciliation beginning Q1-2026"]
+  },
+
+  "financial_overview": {
+    "income_statement": {
+      "FY2023": {
+        "revenue": 34124000000,
+        "gross_profit": 27042000000,
+        "operating_income": 6554000000,
+        "net_income": 5240000000,
+        "ebitda": 8081000000,
+        "gross_margin_pct": 79.3,
+        "operating_margin_pct": 19.2,
+        "net_margin_pct": 15.4,
+        "eps_diluted": 5.80,
+        "rd_expense": 9313000000,
+        "sga_expense": 7404000000
+      },
+      "FY2024": {
+        "revenue": 45043000000,
+        "gross_profit": 36625000000,
+        "operating_income": 12681000000,
+        "net_income": 10590000000,
+        "ebitda": 14448000000,
+        "gross_margin_pct": 81.3,
+        "operating_margin_pct": 28.2,
+        "net_margin_pct": 23.5,
+        "eps_diluted": 11.71,
+        "rd_expense": 10991000000,
+        "sga_expense": 8594000000
+      },
+      "FY2025": {
+        "revenue": 65179000000,
+        "gross_profit": 54127000000,
+        "operating_income": 25731000000,
+        "net_income": 20640000000,
+        "ebitda": 27728000000,
+        "gross_margin_pct": 83.0,
+        "operating_margin_pct": 39.5,
+        "net_margin_pct": 31.7,
+        "eps_diluted": 22.95,
+        "rd_expense": 13337000000,
+        "sga_expense": 11094000000,
+        "interest_expense": 895000000,
+        "tax_expense": 5091000000,
+        "effective_tax_rate_pct": 19.8,
+        "da": 1997000000,
+        "sbc": 626000000
+      }
+    },
+    "balance_sheet": {
+      "FY2024": {
+        "total_assets": 78715000000,
+        "cash": 3268000000,
+        "accounts_receivable": 11006000000,
+        "inventories": 7589000000,
+        "current_assets": 32740000000,
+        "current_liabilities": 28376000000,
+        "long_term_debt": 28527000000,
+        "total_liabilities": 64443000000,
+        "stockholders_equity": 14272000000,
+        "goodwill": 5770000000,
+        "intangible_assets": 6166000000
+      },
+      "FY2025": {
+        "total_assets": 112476000000,
+        "cash": 7268000000,
+        "accounts_receivable": 17760000000,
+        "inventories": 13744000000,
+        "current_liabilities": 35228000000,
+        "long_term_debt": 40868000000,
+        "total_liabilities": 85941000000,
+        "stockholders_equity": 26535000000,
+        "retained_earnings": 24470000000,
+        "goodwill": 5898000000,
+        "intangible_assets": 6521000000
+      }
+    },
+    "cash_flow": {
+      "FY2023": {"ocf": 4240000000, "capex": 3448000000, "fcf": 792000000},
+      "FY2024": {"ocf": 8818000000, "capex": 5058000000, "fcf": 3760000000, "debt_proceeds": 11417000000, "debt_repaid": 664000000},
+      "FY2025": {"ocf": 16813000000, "capex": 7841000000, "fcf": 8972000000, "investing_cf": -10972000000, "financing_cf": -2213000000, "debt_proceeds": 13167000000, "debt_repaid": 778000000}
+    },
+    "growth_rates": {
+      "revenue_growth_fy2025": 0.447,
+      "revenue_growth_fy2024": 0.320,
+      "operating_income_growth_fy2025": 1.029,
+      "net_income_growth_fy2025": 0.949,
+      "ocf_growth_fy2025": 0.906,
+      "fcf_growth_fy2025": 1.386,
+      "rd_growth_fy2025": 0.213,
+      "rd_intensity_fy2025": 0.205,
+      "rd_intensity_fy2024": 0.244,
+      "rd_intensity_fy2023": 0.273
+    },
+    "key_ratios": {
+      "fy2025": {
+        "gross_margin": 0.830,
+        "operating_margin": 0.395,
+        "net_margin": 0.317,
+        "ebitda_margin": 0.425,
+        "roa": 0.183,
+        "roe": 0.778,
+        "roic": 0.295,
+        "debt_to_equity": 1.54,
+        "interest_coverage": 28.75,
+        "current_ratio_approx": 1.17,
+        "quick_ratio_approx": 0.71,
+        "fcf_margin": 0.138,
+        "capex_to_revenue": 0.120,
+        "sbc_to_revenue": 0.010,
+        "ocf_to_net_income": 0.815,
+        "sloan_accrual_ratio": 0.034,
+        "dso_days": 99
+      },
+      "fy2024": {
+        "gross_margin": 0.813,
+        "operating_margin": 0.282,
+        "net_margin": 0.235,
+        "ebitda_margin": 0.321,
+        "roa": 0.135,
+        "roe": 0.742,
+        "roic": 0.225,
+        "debt_to_equity": 1.999,
+        "interest_coverage": 16.24,
+        "current_ratio": 1.154,
+        "ocf_to_net_income": 0.833,
+        "dso_days": 89
+      }
+    },
+    "analyst_narrative": "LLY's financial overview tells a story of operating leverage achieved at pharmaceutical scale. The 1,132 basis-point operating margin expansion in FY2025 alone (from 28.2% to 39.5%) reflects revenue growing at +44.7% while SG&A grew only +29.1% and R&D only +21.3%. Each incremental dollar of GLP-1 revenue flows through at a contribution margin of approximately 70-75%, because the fixed cost base — manufacturing infrastructure, sales force, R&D labs — is largely scale-invariant at current revenue levels.\n\nThe cash flow picture deserves special attention. Operating cash flow nearly doubled to $16.8B, and FCF grew from $3.8B to $9.0B despite a $2.8B increase in capital expenditures. However, FCF conversion against net income (43.5%) is weaker than the headline figures suggest, because LLY is simultaneously building $7.8B in manufacturing infrastructure and absorbing $6.2B in inventory growth to pre-position orforglipron launch and sustain GLP-1 supply. The OCF/NI ratio of 0.815 has been remarkably stable across three years (0.809, 0.833, 0.815), indicating structural working capital investment rather than earnings quality deterioration.\n\nThe balance sheet transformation is dramatic but carries structural risk. Total assets grew from $64B to $112B in two years, driven by inventory (+81%), accounts receivable (+61%), and capital expenditures. Long-term debt grew $12.3B (+43%) to $40.9B in FY2025 alone, representing two large bond tranches of ~$6.5B each in February and August 2025. The leverage is strategic — LTD/EBITDA of 1.47x and interest coverage of 28.75x confirm serviceability — but the debt is concentrated in GLP-1 manufacturing capacity, creating correlation risk: the same products that generate the cash to service the debt are the products whose demand the manufacturing is supposed to serve.",
+    "cross_source_insights": ["Quarterly trend shows consistent acceleration: Q1 2025 ($12.7B), Q2 2025 ($15.6B), Q3 2025 ($17.6B) — sequential growth of ~$1.5-2B per quarter", "The Q3 2024 net income collapse ($970M vs $2.97B prior quarter) was a $2.8B Morphic Therapeutic acquisition IPR&D charge — one-time, not recurring", "Inventory build to $13.7B (+81%) is the key FY2026 watch item: legitimate pre-loading for orforglipron, or write-down risk if launch disappoints"],
+    "watch_items": ["DSO trajectory: 89 days (FY2024) to 99 days (FY2025). Threshold is 110 days — cross it and Beneish M-Score breaches manipulation zone", "R&D intensity declining from 27.3% to 20.5% in two years — absolute dollars growing but revenue growing faster; watch whether pipeline investment keeps pace"]
+  },
+
+  "forensic_models": {
+    "beneish": {
+      "m_score": -1.8895,
+      "threshold": -1.78,
+      "verdict": "UNLIKELY MANIPULATOR",
+      "risk_level": "LOW-MODERATE",
+      "margin_to_threshold": 0.1095,
+      "components": {
+        "DSRI": {"value": 1.1151, "flag": "WATCH", "note": "AR grew 61% vs 45% revenue — DSO expanded from 89 to 99 days. Explained by international launch stocking dynamics confirmed by management."},
+        "GMI": {"value": 0.9791, "flag": "CLEAN", "note": "Gross margins IMPROVING (81.3% to 83.0%) — no deterioration to hide."},
+        "AQI": {"value": 0.6694, "flag": "CLEAN", "note": "Non-current non-physical asset ratio DECREASED — no intangible inflation."},
+        "SGI": {"value": 1.4470, "flag": "CONTEXT-DEPENDENT", "note": "HIGHEST DRIVER. 44.7% revenue growth is authentic GLP-1 hypergrowth — not accounting-driven."},
+        "DEPI": {"value": 1.2738, "flag": "WATCH", "note": "Depreciation rate decreased — partially artifact of new capex-heavy manufacturing assets in early useful life."},
+        "SGAI": {"value": 0.8921, "flag": "CLEAN", "note": "SG&A efficiency improving — revenue growing faster than sales costs."},
+        "TATA": {"value": 0.0340, "flag": "MODERATE", "note": "NI exceeded OCF by $3.8B — attributable to working capital investment (inventory +$6.2B, AR +$6.8B)."},
+        "LVGI": {"value": 0.9359, "flag": "CLEAN", "note": "Leverage ratio DECREASED despite absolute debt increase — assets grew proportionally."}
+      },
+      "forensic_conclusion": "The Beneish model produces a clean result for LLY FY2025. The primary M-Score elevation is driven by authentic hypergrowth (SGI = 1.447) and channel-fill AR buildup (DSRI = 1.115), both with documented organic explanations cross-validated by management commentary and the clean EY audit opinion. The model is correctly identifying the forensic profile of a rapidly growing pharmaceutical company in a manufacturing investment phase, not a manipulation signal.",
+      "gauge": {"value": -1.89, "min": -3.0, "max": -1.0, "safe_below": -1.78}
+    },
+    "altman": {
+      "z_score": 7.4970,
+      "verdict": "SAFE ZONE",
+      "risk_level": "VERY LOW",
+      "components": {
+        "X1_working_capital_to_assets": {"value": 0.1814, "contribution": 0.2177},
+        "X2_retained_earnings_to_assets": {"value": 0.2176, "contribution": 0.3046},
+        "X3_ebit_to_assets": {"value": 0.2288, "contribution": 0.7549},
+        "X4_market_cap_to_liabilities": {"value": 9.4005, "contribution": 5.6403},
+        "X5_revenue_to_assets": {"value": 0.5795, "contribution": 0.5795}
+      },
+      "key_insight": "X4 (Market Cap / Total Liabilities = 9.4x) drives 75% of the Z-Score — the market values LLY's future cash flows at 9.4x its total obligations. Even stripping out X4 entirely, the operations-only Z-Score components sum to 1.86 — approaching safe zone on fundamentals alone. Even in a 50% market cap compression scenario, Z-Score would fall to ~4.64 — still firmly in safe zone.",
+      "gauge": {"value": 7.50, "min": 0, "max": 10, "safe_above": 2.99, "grey_zone_low": 1.81}
+    },
+    "piotroski": {
+      "f_score": 7,
+      "max_score": 9,
+      "verdict": "MODERATE-STRONG",
+      "risk_level": "LOW",
+      "breakdown": {
+        "profitability": {"score": 3, "max": 4, "fail": "P4 — accruals from growth investment (NI > OCF by $3.8B)"},
+        "leverage_liquidity": {"score": 2, "max": 3, "fail": "P5 — marginal LTD/Assets increase (+0.09pp, borderline)"},
+        "efficiency": {"score": 2, "max": 2, "note": "Both gross margin expansion (+173bps) and asset turnover improvement pass"}
+      },
+      "context_note": "For a high-growth company investing $7.8B in manufacturing capex, F-Score 7/9 is highly favorable. The two failures reflect strategic investment dynamics, not financial deterioration."
+    },
+    "sloan": {
+      "accrual_ratio_fy2025": 0.0340,
+      "accrual_ratio_fy2024": 0.0225,
+      "accrual_ratio_fy2023": 0.0156,
+      "threshold_concerning": 0.08,
+      "verdict": "MODERATE EARNINGS QUALITY — within acceptable range",
+      "trend": "Gradually increasing with revenue scaling — consistent with inventory/AR buildup for GLP-1 manufacturing ramp. OCF/NI ratio stable at 0.815 (vs 0.809 FY2023, 0.833 FY2024) confirms structural working capital investment rather than earnings manipulation.",
+      "watch": "Monitor Sloan ratio; should not exceed 0.06-0.07 in FY2026. If inventory/AR continue growing faster than revenue without orforglipron launch justification, escalate."
+    },
+    "benford": {
+      "chi_square": 3.65,
+      "p_value": "~0.82",
+      "verdict": "PASS — no statistical anomaly",
+      "note": "Chi-square of 3.65 vs critical value of 15.51 at p=0.05 with 8 degrees of freedom. First-digit distribution of 81 financial values is consistent with Benford's Law. No evidence of financial statement fabrication through digit manipulation.",
+      "digit_5_7_slight_excess": "Digits 5 and 7 show minor excess (3.2pp and 2.8pp above expected). Not statistically significant. In context of rapid scaling, segment revenue figures ending in round numbers produce expected slight deviation."
+    },
+    "analyst_narrative": "Six forensic models applied to LLY FY2025 data converge on the same conclusion: this is a financially healthy, aggressively growing pharmaceutical company with no evidence of earnings manipulation, no going-concern risk, and no structural accounting fraud signals. The Beneish M-Score proximity to its threshold (-1.89 vs -1.78 threshold) is the closest thing to a flag in the dataset — but cross-validation through five quarters of management commentary, the clean EY audit, and the stable OCF/NI ratio all confirm that the model elevation is driven by authentic hypergrowth rather than accounting engineering.\n\nThe single most important forensic watch item entering FY2026 is the DSO trajectory. Days Sales Outstanding expanded from 89 to 99 days in FY2025 — driven by international launch stocking dynamics that management explicitly confirmed in earnings calls. If DSO crosses 110 days in FY2026 Q1-Q2 without a proportional new-country launch explanation, the Beneish DSRI component would push the M-Score above the manipulation threshold and warrant deeper investigation. Absent that trigger, the forensic profile is clean.",
+    "cross_source_insights": ["Beneish TATA (0.034) and Sloan accrual ratio (0.034) are identical — consistent cross-model signal at non-alarming level", "XV-F01 cross-validation confirms SGI is organic: management language is supply-constrained, not demand-fabricated"],
+    "watch_items": ["DSO crossing 110 days in FY2026 without proportional international launch explanation", "TATA exceeding 0.06 in FY2026 would warrant escalation"]
+  },
+
+  "transcript_intelligence": {
+    "composite_scores": {
+      "management_trust_score": {"score": 71, "max": 100, "grade": "B+", "basis": "Weighted composite of credibility track record (73.7%), directness trend (68%), narrative consistency (65%), insider alignment (75%)"},
+      "information_quality_score": {"score": 64, "max": 100, "grade": "B-", "basis": "Weighted composite of metric consistency (60%), specificity (65%), guidance accuracy (72%), data transparency (58%)"},
+      "risk_convergence_score": {"score": 78, "max": 100, "grade": "B+", "basis": "CONFIRMED risks (3 flags, 3+ layers each) + CORROBORATED risks (3 flags, 2 layers) + single-source watches (3)"}
+    },
+    "say_do_gaps": [
+      {"id": "SDG-01", "gap": "$15B buyback authorization at near-zero pace — implies 5+ year completion at $700M/quarter. Shares reduced only 0.5% YoY.", "severity": "MEDIUM"},
+      {"id": "SDG-02", "gap": "'Low-40s' operating margin ceiling stated Q4-2024, abandoned by Q3-2025 (48.3% actual performance margin) without retraction. Q4-2025 guidance at 46-47.5% also above the 'ceiling.'", "severity": "MEDIUM"},
+      {"id": "SDG-03", "gap": "R&D intensity declining from 27.3% to 20.5% of revenue vs 'robust innovation investment' narrative. Absolute dollars growing but revenue growing faster.", "severity": "MEDIUM"},
+      {"id": "SDG-04", "gap": "Manufacturing investment framed as organic capex priority; actually debt-funded at $1.38 per $1 of FCF generated.", "severity": "MEDIUM"},
+      {"id": "SDG-05", "gap": "'39 BD transactions' diversification narrative: Goodwill only +$128M and Intangibles +$355M in FY2025 — both trivial vs $65B revenue scale. No transformative diversifying acquisition.", "severity": "MEDIUM"}
+    ],
+    "executive_credibility": {
+      "David_Ricks_CEO": {
+        "adjusted_credibility": 0.75,
+        "score": 72,
+        "strength": "Manufacturing capacity delivery (all commitments met), pricing philosophy directness, August 2025 conviction buy ($1.05M personal)",
+        "weakness": "CVS impact underplayed, compounding certainty overstatement, consumer platform framing is narrative inflation without unit economics",
+        "signature_tell": "'Accumulation of evidence over time' — deployed when timeline commitment is not forthcoming"
+      },
+      "Lucas_Montarce_CFO": {
+        "adjusted_credibility": 0.80,
+        "score": 78,
+        "strength": "Revenue guidance accuracy (all commitments delivered), pricing transparency when confronted, specific data point: '$3.49 self-pay channel price for 6 months'",
+        "weakness": "Q4-2025 full deflection on orforglipron contribution — most evasive response across all quarters. LTD trajectory ($40.9B) never discussed on any call.",
+        "signature_tell": "'Included in guidance' — means: the number exists but you cannot have it"
+      },
+      "Daniel_Skovronsky_CSO": {
+        "adjusted_credibility": 0.90,
+        "score": 88,
+        "strength": "Highest credibility executive. Pipeline milestones delivered. Pre-data candor set realistic orforglipron expectations. August 2025 conviction buy ($644K as CSO with full pipeline knowledge) is the strongest single insider signal.",
+        "weakness": "Q2-2025 orforglipron ITT efficacy deflection ('Wall Street focused on exact numbers making cross-trial comparisons') — inconsistent with his usual scientific rigor. This is the single most anomalous moment in 5 quarters.",
+        "signature_tell": "'Profile landed where expected' — used when data is technically defensible but commercially disappointing"
+      },
+      "Patrik_Jonsson": {
+        "adjusted_credibility": 0.55,
+        "score": 55,
+        "strength": "International execution (OUS Mounjaro $21.7B FY2025, Q4 'significantly exceeded Street estimates')",
+        "weakness": "Medicare H2-2025 prediction broken (wrong mechanism, wrong timing). Employer coverage 'will continue to grow' contradicted by 'balanced: some adding, some removing' one quarter later.",
+        "signature_tell": "'Tremendous momentum' — deployed without a number when the number is unfavorable"
+      }
+    },
+    "guidance_accuracy": {
+      "fy2025": {
+        "initial_guide": "$59.5B (JPM January 2025)",
+        "final_actual": "$65.2B",
+        "beat_amount_usd": 5700000000,
+        "beat_pct": 9.6,
+        "verdict": "SYSTEMATIC SANDBAGGING CONFIRMED — second consecutive year of $4-6B beats vs initial guidance. Apply 8-10% premium to 2026 guide midpoint ($81.5B) to estimate management's real internal expectation: $87-90B.",
+        "pricing_accuracy": "2025 pricing guidance ('mid-to-high single digit') delivered accurately (~7-8%). This makes the 2026 'low to mid-teens' guide CREDIBLE and NOT a sandbag on pricing."
+      }
+    },
+    "analyst_interactions": {
+      "most_significant_probe": {
+        "analyst": "Steve Scala (TD Cowen)",
+        "quarter": "Q4-2025",
+        "question": "Can $80-83B guidance occur without orforglipron being $5B+?",
+        "response": "CFO Montarce full deflection — 'orforglipron included in guidance but exact contribution not disclosed.' Most evasive response across all 5 calls.",
+        "forensic_significance": "This is the most financially material analyst question of the year. Management's refusal to answer creates model ambiguity for both bulls and bears. The $5B threshold Scala identified is the right test."
+      },
+      "key_probes": [
+        "Umer Raffat (Evercore): orforglipron revenue specificity probed Q3 and Q4-2025 — full deflections both times",
+        "Tim Anderson (BofA): Canadian generic semaglutide risk flagged Q2-2025; covered lives data never provided across 5 calls",
+        "Seamus Fernandez (Guggenheim): retatrutide differentiation vs tirzepatide probed Q2-2025",
+        "Terence Flynn (Morgan Stanley): pricing net realization quarterly trend, direct probe Q3-2025"
+      ]
+    },
+    "analyst_narrative": "The earnings call transcript analysis across five quarters reveals a management team that has mastered the art of operational credibility while maintaining strategic opacity. The pattern is clear: manufacturing commitments, pipeline milestones, and revenue guidance are reliably delivered and tracked — these commitments management considers trackable and verifiable. But commercially sensitive data (orforglipron revenue contribution, covered lives trajectory, DSO trends, gross-to-net specifics) is systematically withheld.\n\nThe most important finding from the five-quarter transcript analysis is that the 2026 'low to mid-teens' pricing headwind disclosure is categorically different from previous guidance. Management has a confirmed history of sandbagging revenue guidance (9.6% beats annually), but pricing guidance has historically been accurate. The fact that Q4-2025 disclosed a pricing acceleration from 7-8% to 13-15% without pre-telegraphing it progressively — it appeared as a step-change — suggests this is a genuine structural escalation, not a conservative anchor. Investors should treat this disclosure as the first non-sandbagged warning signal.",
+    "cross_source_insights": ["Insider conviction buy (CEO + CSO + 3 directors, August 2025) directly contradicts any thesis that management lacks confidence in the GLP-1 platform post-orforglipron miss", "Five-quarter narrative drift analysis confirms 'consumer platform' framing is substituting for orforglipron revenue specifics in Q4-2025 — narrative inflation pattern"],
+    "watch_items": ["Q2-2026: first orforglipron revenue disclosure. If not disclosed separately, assume below Street. If <$1B Q2-2026, $80-83B guidance is under pressure.", "Q1-2026: US realized price vs 'low to mid-teens' guide. Front-loading expected in H1 2026 as Medicaid rebates take effect before Medicare access offset materializes."]
+  },
+
+  "revenue_segments": {
+    "by_product_fy2025": {
+      "Mounjaro": {"revenue": 22966000000, "pct_total": 35.2, "yoy_growth_pct": 66.6, "label": "Tirzepatide (T2D)"},
+      "Zepbound": {"revenue": 13660000000, "pct_total": 21.0, "yoy_growth_pct": 174.1, "label": "Tirzepatide (Obesity)"},
+      "Trulicity": {"revenue": 9127000000, "pct_total": 14.0, "yoy_change_note": "Declining — US compound patent expires 2027"},
+      "Jardiance": {"revenue": 6773000000, "pct_total": 10.4, "note": "Stable diabetes revenue"},
+      "Verzenio": {"revenue": 5723000000, "pct_total": 8.8, "note": "Oncology — breast cancer"},
+      "Taltz": {"revenue": 4163000000, "pct_total": 6.4, "note": "Immunology — psoriasis/PsA"},
+      "Other": {"revenue": 2767000000, "pct_total": 4.2}
+    },
+    "by_product_fy2024": {
+      "Mounjaro": {"revenue": 13784000000, "pct_total": 30.6},
+      "Zepbound": {"revenue": 4984000000, "pct_total": 11.1},
+      "Trulicity": {"revenue": 5433000000, "pct_total": 12.1},
+      "Jardiance": {"revenue": 5086000000, "pct_total": 11.3},
+      "Verzenio": {"revenue": 5307000000, "pct_total": 11.8},
+      "Taltz": {"revenue": 3260000000, "pct_total": 7.2}
+    },
+    "concentration_flag": {
+      "mounjaro_zepbound_combined_fy2025": 36626000000,
+      "mounjaro_zepbound_pct_fy2025": 56.2,
+      "mounjaro_zepbound_pct_fy2024": 41.6,
+      "severity": "HIGH — unprecedented single-molecule concentration for a $65B company",
+      "amplifier": "$40.9B LTD issued to manufacture these same two products"
+    },
+    "by_therapeutic_area_fy2025": {
+      "CardiometabolicHealth": {"revenue": 33864000000, "pct_total": 52.0, "yoy_growth_pct": 55.0},
+      "Oncology": {"revenue": 5352000000, "pct_total": 8.2, "yoy_growth_pct": 6.3},
+      "Immunology": {"revenue": 2964000000, "pct_total": 4.5, "yoy_growth_pct": 20.6},
+      "Neuroscience": {"revenue": 3180000000, "pct_total": 4.9, "yoy_growth_pct": 101.3, "note": "Doubling — Kisunla (donanemab) Alzheimer's launch"}
+    },
+    "by_geography_fy2025": {
+      "US": {"revenue": 43481000000, "pct_total": 66.7, "yoy_growth_pct": 43.1},
+      "NonUS": {"revenue": 21698000000, "pct_total": 33.3, "yoy_growth_pct": 47.9},
+      "Europe": {"revenue": 11558000000, "pct_total": 17.7, "yoy_growth_pct": 67.0},
+      "Japan": {"revenue": 2132000000, "pct_total": 3.3, "yoy_growth_pct": 17.5},
+      "China": {"revenue": 1951000000, "pct_total": 3.0, "yoy_growth_pct": 17.5},
+      "RestOfWorld": {"revenue": 6057000000, "pct_total": 9.3}
+    },
+    "geographic_note": "Zepbound international revenue is virtually zero (98.7% US in FY2025 — only $19.8M OUS by Q3-2025). This represents the single largest untapped commercial lever in the LLY story: applying the Zepbound approval and commercial infrastructure to the international market, where Mounjaro is already growing at 67% in Europe alone.",
+    "ous_revenue_quality_flag": "75% of OUS Mounjaro revenue is self-pay obesity patients (only 9 countries with T2D reimbursement). Canadian generic semaglutide (early 2026) is a direct threat to cash-pay channel — 10-20% share capture implies $1.6-$3.3B revenue risk to the OUS base.",
+    "analyst_narrative": "The revenue segment analysis reveals a company where one product line is doing almost all of the work, and everything else is either holding steady or beginning a long-term decline. Mounjaro + Zepbound = 56.2% of revenue, up from 41.6% in FY2024. Trulicity — which was LLY's primary GLP-1 asset before tirzepatide — is now in decline as its US compound patent approaches 2027 expiry. The non-GLP-1 therapeutic areas (oncology, immunology, neuroscience) collectively represent only 17.6% of revenue, none growing near tirzepatide pace.\n\nThe international geography story is actually the most important segment narrative for 2026-2027: Europe grew 67% in FY2025 as Mounjaro EU launched. But Zepbound — despite generating $13.7B in US obesity revenue — has virtually no international footprint. When Zepbound international approvals activate at scale, potentially 2026-2027, a second wave of geographic expansion adds a material growth layer on top of the already-growing Mounjaro international franchise.",
+    "cross_source_insights": ["Neuroscience doubling to $3.2B (Kisunla) is the most encouraging non-GLP-1 signal — represents potential second growth vector if diagnostic capacity constraints are resolved", "Trulicity at $9.1B is still material revenue that will compress starting 2027 — watch for guidance haircuts as biosimilar competition approaches"],
+    "watch_items": ["Zepbound OUS approval and launch timelines — when Zepbound international activates, it is the next $5-10B+ revenue layer", "Trulicity revenue trajectory as 2027 patent expiry approaches — comps will become increasingly difficult"]
+  },
+
+  "governance": {
+    "entrenchment_index": {"score": 2, "max": 6, "interpretation": "LOW-MODERATE — trajectory toward better governance"},
+    "entrenchment_factors": [
+      {"factor": "Classified Board", "present": true, "note": "Staggered 3-year terms. Shareholder Item 4 (2026 ballot) proposes elimination — management opposed. Got 78% support in 2025 but needed 80% supermajority."},
+      {"factor": "Poison Pill", "present": false, "note": "No shareholder rights plan"},
+      {"factor": "Golden Parachute", "present": false, "note": "Double-trigger CIC only; no excise tax gross-ups"},
+      {"factor": "Supermajority Voting", "present": true, "note": "Item 5 on 2026 ballot proposes elimination — also got 78% in 2025, needed 80%."},
+      {"factor": "Dual-Class Shares", "present": false, "note": "Single class common stock"},
+      {"factor": "Anti-Takeover Bylaws", "present": false, "note": "None beyond classified board/supermajority above"}
+    ],
+    "ceo_chair_duality": {
+      "present": true,
+      "risk": "MODERATE — David Ricks holds both Chair and CEO simultaneously. Partially mitigated by Lead Independent Director. Shareholder Item 6 (2026 proxy) seeks independent board chair — management opposed.",
+      "context": "At $800B+ market cap with 56% revenue concentration in two products and $40.9B LTD, robust independent board oversight is material, not ceremonial."
+    },
+    "board_composition": {
+      "total_directors": 12,
+      "independent_directors": 11,
+      "lead_independent_director": true,
+      "notable_addition": "Nobel laureate Carolyn Bertozzi (click chemistry, Stanford) elected December 2025 — strategic science board addition relevant to oncology/ADC pipeline"
+    },
+    "ceo_compensation": {
+      "fy2025_total_usd": 36698337,
+      "variable_pct": 95.4,
+      "base_salary_usd": 1700000,
+      "say_on_pay_approval_pct": ">96%",
+      "pay_for_performance": "ALIGNED — CEO comp grew 25.5% while revenue grew 44.7% and operating income doubled (+103%). Management is not capturing a disproportionate share of the GLP-1 windfall.",
+      "compensation_actually_paid_usd": 75185008,
+      "cap_note": "CAP of $75.2M reflects mark-to-market gains on prior equity grants — economically appropriate; prior grants tied to long-term performance are appreciating alongside shareholders"
+    },
+    "insider_ownership": {
+      "management_pct": 0.17,
+      "lilly_endowment_pct": 10.1,
+      "lilly_endowment_trend": "SYSTEMATIC SELLER — portfolio diversification by concentrated charitable foundation. ~875K+ shares sold over 6 months for ~$696M+. Not a management or insider alignment concern."
+    },
+    "conviction_buys": {
+      "date": "2025-08-12",
+      "context": "Post-orforglipron Phase 3 miss — stock fell ~14%",
+      "buyers": [
+        {"name": "David Ricks (CEO)", "shares": 1632, "price": 644.77, "value_usd": 1052265},
+        {"name": "Daniel Skovronsky (CSO)", "price_note": "~644", "value_usd": 644000, "note": "CSO bought knowing full pipeline data — strongest credibility signal"},
+        {"name": "3 independent directors", "note": "Same date purchase cluster", "combined_value_usd": 1200000}
+      ],
+      "total_conviction_purchase_usd": 2900000,
+      "forensic_significance": "STRONG POSITIVE — five insiders purchasing simultaneously at the Phase 3 dip is the strongest insider alignment signal in the dataset. Subsequent orforglipron FDA approval validates the insider thesis."
+    },
+    "governance_trajectory": {
+      "improving_signals": ["Nobel laureate board addition", "Shareholder proposals gaining 78% support (close to supermajority threshold)", "Zero discretionary management sales in 12 months", ">96% say-on-pay approval"],
+      "concerns": ["CEO/Chair duality at mega-cap scale with concentrated product exposure", "Classified board blocking shareholder accountability speed", "Supermajority threshold blocked reform by only 2pp margin — institutional pressure building"]
+    },
+    "analyst_narrative": "LLY's governance profile is improving but carries structural residue from an era when the company operated at much smaller scale. The CEO/Chair duality, classified board, and supermajority voting requirement are legacy features that would be unremarkable for a $50B company but become meaningful friction at $800B+ market cap with concentrated product risk. The governance reform proposals (Items 4, 5, 6) are being pressed at each annual meeting with growing shareholder support — 78% in 2025 on both key proposals, just 2 percentage points short of the 80% supermajority required for passage. If these pass in 2026, the entrenchment index falls from 2/6 to 0/6, a significant positive governance signal.",
+    "cross_source_insights": ["August 2025 conviction buy contradicts any narrative of insider misalignment — this is the behavioral proof point that the management team believes in the long-term thesis despite the short-term Phase 3 disappointment", "The 2025 annual meeting results (78% for governance reform vs 80% required) indicate institutional pressure is building and governance improvement at the 2026 meeting is plausible"],
+    "watch_items": ["2026 proxy vote on Items 4, 5, 6 — if all three pass, governance risk drops substantially", "If board votes against their own shareholder resolutions in 2026, treat as governance deterioration signal"]
+  },
+
+  "insider_institutional": {
+    "form4_summary": {
+      "period": "April 2025 — April 2026",
+      "total_filings": 100,
+      "discretionary_sells_by_management": 0,
+      "key_signal": "ZERO discretionary management sales across 100 Form 4 filings in 12 months. All management transactions are RSU vests + tax withholding (routine, scheduled) or open-market purchases.",
+      "lilly_endowment_sells": {
+        "total_shares_sold_approx": 906948,
+        "total_value_approx_usd": 696000000,
+        "note": "Lilly Endowment Inc (10% owner) is a charitable foundation systematically diversifying its concentrated LLY position. Not insider management — not a bearish signal."
+      }
+    },
+    "institutional_ownership": {
+      "institutional_pct": 82.5,
+      "total_holders": 4436,
+      "top_holders": [
+        {"rank": 1, "institution": "Lilly Endowment Inc", "pct": 10.1, "trend": "DECREASING (diversification)"},
+        {"rank": 2, "institution": "Vanguard Group Inc", "pct": 8.5, "trend": "STABLE TO INCREASING (+1.17M shares)"},
+        {"rank": 3, "institution": "PNC Financial Services", "pct": 5.4, "trend": "STABLE"},
+        {"rank": 4, "institution": "BlackRock Inc", "pct": 4.4, "trend": "STABLE"}
+      ],
+      "institutional_signal": "High-quality institutional ownership base dominated by passive index funds (Vanguard, BlackRock) with 4,436 unique holders indicating broad, diversified institutional support. No activist positions flagged."
+    },
+    "insider_signal_summary": {
+      "overall": "STRONGLY POSITIVE",
+      "rationale": "Zero discretionary sells + August 2025 conviction buys by CEO + CSO + 3 directors is one of the strongest insider alignment configurations possible at mega-cap scale. The CSO's purchase is particularly notable given his access to the full pipeline data — he knew orforglipron's full trial data before buying.",
+      "caveat": "Management ownership at 0.17% is low in absolute percentage terms, though typical for mega-cap pharma where equity is held through RSU/PSU programs rather than open-market stakes."
+    },
+    "analyst_narrative": "The insider trading picture for LLY is one of the strongest conviction signals in this analysis. Across 100 Form 4 filings over 12 months, there are zero discretionary sells by any member of management — every RSU transaction is either a scheduled vest or the mandatory tax withholding that accompanies it. Against this backdrop of zero discretionary selling, the August 2025 cluster of open-market purchases — by the CEO, CSO, and three independent directors — at the post-orforglipron Phase 3 dip is extraordinary. This is not a token purchase for optics; it is insiders deploying personal capital at the moment of maximum negative news flow.",
+    "cross_source_insights": ["Lilly Endowment selling ($696M+ over 6 months) is creating persistent downward price pressure in the open market — but it represents charitable foundation portfolio diversification, not insider thesis abandonment", "High institutional ownership (82.5%) with 4,436 holders provides market stability and limits single-holder concentration risk beyond the Endowment"],
+    "watch_items": ["Any discretionary management sell would be a significant negative signal given the current zero-sells pattern", "Lilly Endowment remaining position (~9.7% after recent sales) still represents substantial future selling pressure"]
+  },
+
+  "peer_comparison": {
+    "peers": ["PFE", "JNJ", "MRK", "ABBV", "NVO"],
+    "metrics_table": {
+      "revenue_usd_b": {"LLY": 65.2, "PFE": 62.6, "JNJ": 94.2, "MRK": 65.0, "ABBV": 61.2, "NVO": 46.8},
+      "revenue_growth_pct": {"LLY": 44.7, "PFE": -1.6, "JNJ": 6.1, "MRK": 1.3, "ABBV": 8.6, "NVO": 11.1, "peer_median": 6.1},
+      "gross_margin_pct": {"LLY": 83.0, "PFE": 74.3, "JNJ": 67.9, "MRK": 82.0, "ABBV": 70.2, "NVO": 85.7, "peer_median": 74.3},
+      "operating_margin_pct": {"LLY": 39.5, "PFE": 12.4, "JNJ": 18.6, "MRK": 28.1, "ABBV": 24.6, "NVO": 41.3, "peer_median": 24.6},
+      "net_margin_pct": {"LLY": 31.7, "PFE": 12.4, "JNJ": 28.5, "MRK": 28.1, "ABBV": 6.9, "NVO": 33.1, "peer_median": 28.1},
+      "rd_intensity_pct": {"LLY": 20.5, "PFE": 17.5, "JNJ": 15.6, "MRK": 24.3, "ABBV": 10.8, "NVO": 14.1, "peer_median": 17.5},
+      "fcf_usd_b": {"LLY": 9.0, "PFE": 8.5, "JNJ": 14.8, "MRK": 11.2, "ABBV": 17.8, "NVO": 12.1},
+      "capex_to_revenue_pct": {"LLY": 12.0, "PFE": 4.5, "JNJ": 5.2, "MRK": 5.8, "ABBV": 2.1, "NVO": 9.5, "peer_median": 5.2},
+      "ltd_usd_b": {"LLY": 40.9, "PFE": 28.9, "JNJ": 41.4, "MRK": 35.1, "ABBV": 64.5, "NVO": 4.2},
+      "debt_to_equity": {"LLY": 1.54, "PFE": 0.82, "JNJ": 0.73, "MRK": 1.10, "NVO": 0.18}
+    },
+    "rankings": {
+      "revenue_growth": {"LLY": 1, "NVO": 2, "ABBV": 3, "JNJ": 4, "MRK": 5, "PFE": 6},
+      "gross_margin": {"NVO": 1, "LLY": 2, "MRK": 3, "PFE": 4, "ABBV": 5, "JNJ": 6},
+      "operating_margin": {"NVO": 1, "LLY": 2, "MRK": 3, "ABBV": 4, "JNJ": 5, "PFE": 6},
+      "net_margin": {"NVO": 1, "LLY": 2, "JNJ": 3, "MRK": 4, "PFE": 5, "ABBV": 6},
+      "composite_quality": {"LLY": 1, "NVO": 2, "MRK": 3, "JNJ": 4, "PFE": 5, "ABBV": 6}
+    },
+    "outliers": [
+      {"metric": "Revenue Growth", "LLY_value": "44.7%", "peer_median": "6.1%", "std_devs_from_median": 8.0, "direction": "positive", "magnitude": "EXTREME"},
+      {"metric": "Operating Margin", "LLY_value": "39.5%", "peer_median": "24.6%", "std_devs_from_median": 1.4, "direction": "positive", "magnitude": "SIGNIFICANT"},
+      {"metric": "CapEx Intensity", "LLY_value": "12.0%", "peer_median": "5.2%", "std_devs_from_median": 2.5, "direction": "high", "magnitude": "SIGNIFICANT"}
+    ],
+    "nvo_analysis": {
+      "relationship": "Primary comparable — closest strategic analog and GLP-1 duopoly partner",
+      "nvo_revenue_fy2025": 46.8,
+      "nvo_glp1_share": "~72% of revenue",
+      "nvo_growth": 11.1,
+      "nvo_operating_margin": 41.3,
+      "nvo_debt": 4.2,
+      "key_comparison": "NVO is LLY 2 years ahead — peak GLP-1 scaling achieved, now decelerating to normal growth rates (+11.1%). NVO's near-debt-free balance sheet ($4.2B LTD vs LLY's $40.9B) shows that GLP-1 franchises can operate capital-efficiently once manufacturing is established. NVO's deceleration from peak growth is LLY's 2028+ roadmap — watch NVO's multiple compression trajectory as a forward guide.",
+      "lly_vs_nvo_concentration": "LLY Mounjaro+Zepbound = 56.2% of revenue. NVO semaglutide suite (Ozempic + Wegovy + Rybelsus) = ~72% of revenue — NVO is actually MORE concentrated but spread across three distinct products with different patient populations."
+    },
+    "pfe_warning": "PFE is the structural cautionary tale: post-COVID revenue cliff, -1.6% FY2025 growth, 12.4% operating margin — the lowest in the peer set. PFE has NO GLP-1 pipeline after discontinuing its own oral GLP-1 candidates. This illustrates how rapidly a pharma mega-cap can de-rate without a durable growth platform.",
+    "analyst_narrative": "In the six-peer pharma universe, LLY is in a class by itself on growth metrics — but its financial profile is more nuanced than the headlines suggest. It leads on revenue growth (44.7% vs 6.1% median) and is second on all margin metrics (only NVO exceeds it). But on free cash flow ($9.0B, rank 5 of 6) and capex intensity (12.0%, rank 1 as highest), LLY is investing aggressively at the expense of near-term cash generation.\n\nThe NVO comparison is the most instructive: NVO reached peak GLP-1 scaling first and is now showing what the mature franchise looks like. NVO's 2025 growth slowed to 11.1% — what LLY's growth rate might look like in 2028-2029. NVO's operating margin at 41.3% shows LLY's structural margin ceiling. And NVO's near-debt-free balance sheet shows that GLP-1 franchises can be capital-efficient — once the manufacturing is built.",
+    "cross_source_insights": ["MRK's Keytruda patent cliff in 2028 is to MRK what Trulicity 2027 is to LLY — the difference is that LLY already has its successor (tirzepatide), while MRK is racing to build its Keytruda replacement", "ABBV's $64.5B debt load from the Allergan acquisition is the cautionary tale for acquisition-funded diversification — LLY's $40.9B manufacturing-funded leverage is more defensible"],
+    "watch_items": ["NVO's 2026 growth trajectory and market reaction — if NVO continues decelerating to <8% growth, watch for multiple compression contagion across GLP-1 stocks including LLY", "PFE's ex-COVID earnings stabilization — any PFE re-rating would provide context for LLY's premium vs restructured peers"]
+  },
+
+  "text_analysis": {
+    "mda_keyword_analysis": {
+      "positive_tone_instances": ["strong demand", "significant and growing portion", "primarily driven by volume growth", "increased demand"],
+      "hedging_language_instances": ["we cannot guarantee adequate regulation or compliance", "provided that we meet U.S. manufacturing investment commitments", "barriers to reimbursable patient access"],
+      "negative_signals": ["lower realized prices", "barriers to reimbursable patient access", "Payers in various international markets also do not cover anti-obesity medicines", "pharmaceutical industry generally depends on China-based suppliers"],
+      "net_tone": "MIXED-POSITIVE — strong volume/demand narrative dominates, but price headwinds, access barriers, and conditionality risks are explicitly disclosed rather than buried. More candid than typical pharma MD&A."
+    },
+    "new_risk_factors_fy2025": [
+      {
+        "id": "NEW-R1",
+        "title": "Section 232 National Security Tariff Grace Period",
+        "severity": "MEDIUM-HIGH",
+        "note": "3-year grace period conditioned on US manufacturing commitments. Entirely new in FY2025. Creates capital allocation constraint — LLY must execute on manufacturing investment or lose trade protection."
+      },
+      {
+        "id": "NEW-R2",
+        "title": "China Supply Chain / BIOSECURE Act Risk",
+        "severity": "MEDIUM-HIGH",
+        "note": "API supply chains run through China. New US tariffs + BIOSECURE Act create disruption risk. Potentially underweighted given 56% revenue concentration in tirzepatide manufacturing."
+      },
+      {
+        "id": "NEW-R3",
+        "title": "Government Pricing Agreement — Binding Commitments",
+        "severity": "HIGH",
+        "note": "November 2025 agreement commits LLY to lower Medicaid prices and 'balanced pricing across developed nations' for future products. Creates structural pricing ceiling precedent for international launches."
+      },
+      {
+        "id": "NEW-R4",
+        "title": "Compounding Pharmacy Post-Shortage Enforcement Risk",
+        "severity": "HIGH",
+        "note": "FDA shortage resolved but compounding continues illegally. LLY cannot guarantee enforcement. Risk qualitatively WORSE in FY2025 — in FY2024, compounders had legal basis (shortage exception); now they are operating illegally but persistent."
+      },
+      {
+        "id": "NEW-R5",
+        "title": "Oral GLP-1 Competitive Risk (Orforglipron + NVO oral semaglutide)",
+        "severity": "MEDIUM",
+        "note": "LLY's own orforglipron creates internal cannibalization risk. Novo's oral semaglutide already marketed. The oral GLP-1 competitive landscape is explicitly new in FY2025."
+      }
+    ],
+    "risk_factors_removed_fy2025": ["COVID-19 antibody revenue decline (no longer material)", "Supply shortage as primary risk (replaced by enforcement risk)"],
+    "mda_yoy_key_additions": [
+      "Preliminary Government Pricing Agreement (Nov 2025) — entirely new, creates structural pricing commitments",
+      "Zepbound Medicare obesity access commitment (July 1, 2026) — specific date, specific revenue catalyst",
+      "Pipeline advances: tirzepatide heart failure EU approval, orforglipron submission, pediatric T2D approvals"
+    ],
+    "text_vs_transcript_divergences": [
+      {"topic": "Compounding Pharmacy Risk", "xbrl_text": "'Cannot guarantee adequate regulation or compliance'", "verbal_tone": "Q2-2025: 'unsafe practice that shouldn't exist' — then topic disappeared from Q3-Q4 calls", "verdict": "MODERATE DIVERGENCE — verbal confidence exceeds written disclosure; 10-K language is more conservative"},
+      {"topic": "Revenue Concentration Risk", "xbrl_text": "10-K explicitly rates concentration 'HIGH severity'", "verbal_tone": "Management deflects to pipeline breadth narrative; never verbally quantifies '56%'", "verdict": "DIVERGENCE — written risk disclosure is candid; verbal presentation systematically minimizes"},
+      {"topic": "US Pricing Trajectory", "xbrl_text": "Discloses 'lower realized prices' as ongoing headwind", "verbal_tone": "CFO: '2026 low to mid-teens headwind' — matched written disclosure", "verdict": "ALIGNED — pricing risk disclosure consistent across both channels"},
+      {"topic": "Long-Term Debt Trajectory", "xbrl_text": "Balance sheet clearly shows $40.9B LTD (+43%)", "verbal_tone": "Zero analyst or management discussion of LTD magnitude across 5 calls", "verdict": "SIGNIFICANT DIVERGENCE — $12.3B net new debt in one year went unmentioned by management AND unchallenged by analysts"}
+    ],
+    "analyst_narrative": "The text analysis reveals a disclosure regime that is more sophisticated than binary candid/opaque framing. LLY management uses written 10-K risk disclosures as the formal safety valve — the concentration risk, the pricing headwinds, the manufacturing conditionality are all explicitly disclosed in the annual report. But verbal management during earnings calls systematically deploys a different frame: volume strength, pipeline breadth, platform expansion. The result is that investors reading only transcripts get a more optimistic picture than investors reading only the 10-K.\n\nThe most significant divergence is the long-term debt silence. The FY2025 balance sheet shows $40.9B in LTD after $13.2B in new issuances — an unprecedented leverage ramp for this company in a single year. Zero analyst questions, zero management discussion. This creates an information gap for debt-focused investors who are not reading the balance sheet and cash flow statement with sufficient scrutiny.",
+    "cross_source_insights": ["'Cannot guarantee adequate regulation' on compounding pharmacies is the most honest sentence in the FY2025 10-K — management's verbal optimism on compounding (FDA enforcement succeeding) exceeds this formal written admission", "The Government Pricing Agreement (NEW-R3) is the most consequential new risk disclosure — 'balanced pricing across developed nations' language could constrain LLY's pricing model for future products including orforglipron international launches"],
+    "watch_items": ["How 'balanced cross-market pricing' commitment affects orforglipron international launch pricing (2027 expected) — this is the most underappreciated risk from the November 2025 agreement", "China supply chain risk maturity — any BIOSECURE Act passage would require API sourcing diversification, a multi-year and multi-billion-dollar undertaking"]
+  },
+
+  "advanced_analysis": {
+    "tax_analysis": {
+      "effective_tax_rate_fy2025": 0.198,
+      "effective_tax_rate_fy2024": 0.165,
+      "effective_tax_rate_fy2023": 0.200,
+      "trend": "Increased 330bps in FY2025 vs FY2024 — partially offsetting operating income gains. As US-sourced GLP-1 revenue grows (with US manufacturing expansion), the mix toward higher-taxed US income may maintain or slightly elevate the effective rate.",
+      "pillar_two_note": "OECD Pillar Two global minimum tax (15%) is effective FY2024+. LLY's international operations (33% of revenue) may face incremental tax in low-tax jurisdictions as Pillar Two enforcement matures."
+    },
+    "sbc_analysis": {
+      "sbc_fy2025": 626000000,
+      "sbc_to_revenue_fy2025": 0.0096,
+      "sbc_to_revenue_fy2024": 0.0143,
+      "sbc_to_revenue_fy2023": 0.0184,
+      "dilution_from_eps_gap_pct": 0.22,
+      "verdict": "SBC is de minimis relative to revenue scale and declining as revenue grows faster than compensation grants. Effectively zero economic dilution — diluted-to-basic EPS gap of $0.05 on $22.95 EPS."
+    },
+    "debt_stress": {
+      "ltd_to_ebitda": 1.47,
+      "interest_coverage": 28.75,
+      "composite_stress_score": {"score": 2, "max": 10, "verdict": "LOW STRESS"},
+      "aggressive_vs_reckless": "AGGRESSIVE-BUT-SMART — borrowing at investment-grade rates to fund manufacturing capacity generating 39.5% operating margins. LTD/EBITDA of 1.47x is well within investment-grade pharma norms (<3.5x). At $27.7B EBITDA, entire $40.9B LTD could be retired in ~18 months of EBITDA generation.",
+      "debt_structure_fy2025": {
+        "feb_2025_issuance": {"amount_usd": 6460000000, "tranches": "6 tranches, 2028-2065 maturities, 4.55%-5.60% coupons"},
+        "aug_2025_issuance": {"amount_usd": 6710000000, "tranches": "7 tranches including floating rate, 2028-2065 maturities, 4.00%-5.65% coupons"},
+        "cumulative_2yr_new_debt_usd": 24584000000,
+        "cumulative_repayments_2yr_usd": 1442000000
+      },
+      "watchpoints": [
+        "PACE: $24.6B in new LTD over 2 years is unprecedented for LLY historically — requires GLP-1 demand to continue growing to justify",
+        "PRODUCT CONCENTRATION: Debt was issued to serve Mounjaro/Zepbound manufacturing. If either faces safety signal or pricing collapse, manufacturing assets could become stranded with debt remaining.",
+        "FCF CONVERSION: Only 43.5% of net income converted to FCF in FY2025 due to heavy capex + working capital. This ratio should improve as manufacturing buildout completes (target 2027+)"
+      ]
+    },
+    "capex_analysis": {
+      "capex_fy2025": 7841000000,
+      "capex_fy2024": 5058000000,
+      "capex_fy2023": 3448000000,
+      "capex_3yr_cumulative": 16347000000,
+      "capex_to_revenue_fy2025": 0.120,
+      "peer_capex_median": 0.052,
+      "manufacturing_program": "LEAP (Lilly Exploratory Advanced Production) — announced sites: Lebanon Indiana, North Carolina, Wisconsin (US); Germany, Ireland (international). Cumulative commitment $55B+ since 2020 per management.",
+      "strategic_rationale": "Manufacuring build-out (1) eliminates supply constraints that limited FY2023-2024 GLP-1 revenue; (2) satisfies Section 232 tariff grace period conditions; (3) reduces dependence on compounding pharmacies and third-party CMOs; (4) creates competitive moat — NVO's manufacturing capacity head start is being rapidly closed."
+    },
+    "working_capital": {
+      "dso_fy2025": 99,
+      "dso_fy2024": 89,
+      "dso_change": "+10 days",
+      "inventory_fy2025": 13744000000,
+      "inventory_fy2024": 7589000000,
+      "inventory_yoy_pct": 81,
+      "inventory_to_revenue": 0.211,
+      "watch": "Inventory build is the FY2026 binary risk: legitimate orforglipron pre-loading (management thesis) vs write-down risk (bear case). If orforglipron Q2-2026 US launch generates <$300M in first quarter, inventory impairment risk escalates."
+    },
+    "analyst_narrative": "The advanced analysis converges on a single structural theme: LLY is executing a leveraged bet on the GLP-1 category at unprecedented scale. The bet is rational — borrowing at 4-5% investment-grade rates to build manufacturing capacity that generates 39.5% operating margins is a positive-NPV decision by any standard. But the bet is also asymmetric in a specific way: the upside (GLP-1 demand grows to $202B market by 2033, LLY captures 30-35%) is enormous, but the downside (safety signal, pricing collapse, or orforglipron underperformance) hits simultaneously against both the revenue base and the $40.9B debt load.\n\nThe SBC analysis is one of the cleaner stories in the dataset: compensation is not diluting shareholders, is declining as a revenue percentage, and is heavily performance-linked. This is governance functioning as designed.",
+    "cross_source_insights": ["Debt maturity structure (2028-2065 tranches) suggests LLY locked in long-dated financing at 2025 rates — reducing near-term refinancing risk if rates stay elevated", "The $55B+ cumulative manufacturing commitment since 2020 means manufacturing is not just strategy — it is sunk cost that makes continued GLP-1 investment a rational imperative"],
+    "watch_items": ["FY2026 FCF vs debt issuance — if net new debt exceeds $10B on FCF <$12B, leverage trajectory deteriorates", "Inventory normalization: should come down from $13.7B as orforglipron launch absorbs the build; if inventory grows further in Q1-Q2 2026 without launch catalysts, investigate"]
+  },
+
+  "risk_convergence": {
+    "confirmed_risks": [
+      {
+        "flag_id": "XLFLAG-01",
+        "title": "Single-Molecule Revenue Concentration — 56.2% in Tirzepatide",
+        "confidence": "CONFIRMED (6 independent layers)",
+        "severity": "HIGH",
+        "layers": ["L7 (SDG-05)", "L9 (NI-05)", "XV-4", "L8 (revenue math)", "L5 (competitive)", "XV-1 (SGI driver)"],
+        "what_management_says": "39 BD transactions; reinvesting obesity proceeds into oncology, neuroscience, immunology; pipeline spanning all TAs",
+        "what_data_shows": "BD Goodwill +$128M, Intangibles +$355M in FY2025 — trivial vs $65B revenue scale. No transformative diversifying acquisition. Non-GLP-1 revenue = $28.5B but none growing near tirzepatide pace.",
+        "asymmetric_scenario": "Tirzepatide safety signal (black swan) or Novo head-to-head cardiovascular outcome superiority — creates catastrophic scenario with $40.9B LTD and no near-term offset",
+        "trigger": "Any MACE or safety signal for tirzepatide in post-market surveillance; Novo CVOT data superiority claim"
+      },
+      {
+        "flag_id": "XLFLAG-02",
+        "title": "Pricing Headwind Acceleration — 7-8% to 13-15% Without Pre-Telegraphing",
+        "confidence": "CONFIRMED (5 independent layers)",
+        "severity": "HIGH",
+        "layers": ["L1 (tone shift)", "L4 (guidance tracker)", "XV-2 (ratios)", "XV-4 (text)", "L5 (IRA/semaglutide)"],
+        "what_management_says": "CFO: 'Volume growth more than offsets.' CEO: 'Government pricing deal is the right thing — access expansion.'",
+        "what_data_shows": "FY2025 US price: -7 to -8%. FY2026 guide: -13 to -15%. ~700bp acceleration. Government agreement creates irreversible Medicaid reduction mechanism. Unlike revenue guidance, pricing guidance has been accurate — NOT sandbagged.",
+        "math": "For $80-83B guide: if US revenue ~$43B and price -14%, volume must grow 25%+ to hold $43B. Requires orforglipron + Medicare access + continued Zepbound growth all firing simultaneously.",
+        "trigger": "Q1-2026 US realized price vs 'low to mid-teens' guide. If >-15%, FY2026 guide is at risk."
+      },
+      {
+        "flag_id": "XLFLAG-03",
+        "title": "Orforglipron Revenue Opacity — Most Material Information Gap in 2026 Guidance",
+        "confidence": "CONFIRMED (4 independent layers)",
+        "severity": "MEDIUM-HIGH",
+        "layers": ["L1 (Montarce deflection)", "L3 (Scala Q4-2025)", "L7 (capital allocation math)", "L9 (narrative drift)"],
+        "what_management_says": "Montarce: 'Orforglipron included in guidance but exact contribution not disclosed.'",
+        "what_data_shows": "$65.2B actual → $80-83B guide = $14.8-17.8B delta. After Medicare access ($0.6-1.2B), organic GLP-1 (~$8-10B), OUS (~$3-4B), residual $2-5B = unaccounted orforglipron placeholder that management refuses to quantify.",
+        "trigger": "Q2-2026 call — first orforglipron revenue disclosure. If not separately disclosed, assume below Street. If <$1B Q2-2026, $80-83B guidance faces difficulty."
+      }
+    ],
+    "corroborated_risks": [
+      {
+        "flag_id": "XLFLAG-04",
+        "title": "Inventory Build / Write-Down Risk — 81% Growth Pre-Loading Orforglipron",
+        "confidence": "CORROBORATED (2 layers)",
+        "severity": "LOW-MEDIUM (escalate if launch disappoints)",
+        "trigger": "Q2-2026 orforglipron TRx volume vs pre-launch analyst models ($500M-$800M first quarter threshold)"
+      },
+      {
+        "flag_id": "XLFLAG-05",
+        "title": "International Self-Pay Revenue Vulnerability — 75% OUS Revenue is Out-of-Pocket",
+        "confidence": "CORROBORATED (3 layers)",
+        "severity": "MEDIUM",
+        "trigger": "Canadian generic semaglutide pricing and Q1-2026 OUS Mounjaro volume vs Q4-2025 run-rate"
+      },
+      {
+        "flag_id": "XLFLAG-06",
+        "title": "Compounding Pharmacy Optimism-Reality Gap",
+        "confidence": "CORROBORATED (2 layers)",
+        "severity": "LOW-MEDIUM",
+        "trigger": "Court ruling reversing compounding restrictions; adverse event from compounded tirzepatide creating LLY legal liability"
+      }
+    ],
+    "single_source_watches": [
+      {"rank": 14, "finding": "DSO expanding from 89 to 99 days — near Beneish watch threshold (110 days). Zero analyst/management discussion.", "trigger": "DSO >110 days in Q1-Q2 2026"},
+      {"rank": 15, "finding": "NVIDIA co-innovation lab — halo-effect signaling, zero operational substance disclosed.", "trigger": "Any AI-generated asset entering Phase 1 within 18 months"},
+      {"rank": 16, "finding": "Section 232 tariff grace period conditioned on undisclosed manufacturing commitment quantum.", "trigger": "Trade policy action after grace period; LLY manufacturing investment falling below announced pace"}
+    ],
+    "leveraged_manufacturing_finding": {
+      "rank": 1,
+      "finding": "LLY is running a leveraged supply bet: $40.9B LTD (+43% YoY), $13.2B new debt issued in FY2025 on $9.0B FCF. The manufacturing investment narrative conceals that LLY is borrowing $1.38 per $1 of free cash flow generated.",
+      "confidence": "CONFIRMED — 4 layers (L7, XV-1, XV-2, XV-4)",
+      "evidence": "FCF $9.0B, net new debt $12.4B in FY2025. Management never directly addressed leverage trajectory across 5 calls. $13.2B debt issuance went unmentioned by any analyst."
+    },
+    "positive_conviction": {
+      "finding": "August 2025 conviction buy by CEO Ricks + CSO Skovronsky + 3 independent directors simultaneously at the orforglipron Phase 3 dip is the strongest insider alignment signal in the dataset. CSO specifically knows the full pipeline data. Subsequent FDA approval vindicates the buy.",
+      "confidence": "CONFIRMED — HIGH (positive finding)",
+      "evidence": "5 insiders, same day, $2.9M total at ~$644/share. Orforglipron approved in Q4-2025."
+    },
+    "analyst_narrative": "The risk convergence analysis identifies three CONFIRMED high-severity risks — each validated by 4-6 independent investigative layers — and three CORROBORATED medium-severity risks. The striking finding is that the three confirmed risks are structurally interconnected: single-molecule concentration risk (XLFLAG-01) is amplified by the leveraged manufacturing bet, which was funded to serve those same concentrated products; the pricing headwind acceleration (XLFLAG-02) directly threatens the revenue growth needed to service the debt; and orforglipron opacity (XLFLAG-03) means the single most important revenue variable for 2026 guidance cannot be verified by external analysts.\n\nThe positive finding — the insider conviction buy — is equally confirmed by the same rigorous cross-layer methodology. It provides the most direct behavioral evidence that LLY's management team believes the long-term GLP-1 thesis is intact despite near-term orforglipron efficacy concerns.",
+    "cross_source_insights": ["The three confirmed risks form a risk cluster: concentration × leverage × opacity. Any one of these risks materializing accelerates the others.", "The confirmed positive (insider buy) and confirmed negative (concentration + leverage) are both high-confidence — the LLY investment thesis is genuinely two-sided, not a clear bull or bear story"],
+    "watch_items": ["Q1-2026 US realized price is the first acid test of the pricing headwind acceleration", "Q2-2026 orforglipron disclosure is the binary information event that will resolve the largest single ambiguity in the 2026 investment thesis"]
+  },
+
+  "watchlist_predictions": {
+    "monitoring_items": [
+      {
+        "id": "WATCH-01",
+        "item": "US Realized Price Trajectory vs 'Low to Mid-Teens' Guide",
+        "priority": "CRITICAL",
+        "frequency": "Quarterly",
+        "trigger": "Q1-2026 call: if US realized price shows >-15% erosion, revise FY2026 estimate downward and escalate pricing risk rating from HIGH to CRITICAL",
+        "escalation": "Any Q1-2026 call language like 'pricing dynamics more challenging than anticipated'"
+      },
+      {
+        "id": "WATCH-02",
+        "item": "Orforglipron Q2-2026 Launch Revenue and Market Penetration",
+        "priority": "CRITICAL",
+        "frequency": "Quarterly beginning Q2-2026",
+        "trigger": "If orforglipron Q2-2026 initial TRx uptake is <$300M, management $80-83B guidance is at risk. If still not separately disclosed in Q2-2026 call, assume number is below Street expectations.",
+        "key_test": "NTB (new to brand) share >60% of orforglipron TRx confirms market expansion thesis"
+      },
+      {
+        "id": "WATCH-03",
+        "item": "DSO and Accounts Receivable Normalization",
+        "priority": "HIGH",
+        "frequency": "Quarterly",
+        "trigger": "DSO crossing 110 days in FY2026 Q1-Q2 without new-country launch explanation breaches Beneish DSRI watch threshold",
+        "note": "Currently at 99 days — 11 days from trigger"
+      },
+      {
+        "id": "WATCH-04",
+        "item": "OUS Mounjaro Volume vs Canadian Generic Semaglutide Pricing",
+        "priority": "MEDIUM-HIGH",
+        "frequency": "Quarterly",
+        "trigger": "Q1-2026 OUS Mounjaro volume below Q4-2025 run-rate or any management commentary on Canada/UK price competition",
+        "risk_quantum": "$1.6-$3.3B revenue risk if 10-20% of OUS self-pay base captured by generic semaglutide"
+      },
+      {
+        "id": "WATCH-05",
+        "item": "2026 Annual Meeting Governance Vote (Items 4, 5, 6)",
+        "priority": "MEDIUM",
+        "frequency": "Annual (May 2026)",
+        "trigger": "If Items 4 + 5 (board declassification, supermajority elimination) pass: governance risk drops to 0/6. If board votes against its own shareholder resolutions: treat as governance deterioration.",
+        "context": "Both proposals got 78% in 2025 — just 2pp below 80% supermajority threshold"
+      },
+      {
+        "id": "WATCH-06",
+        "item": "Inventory Normalization Post-Orforglipron Launch",
+        "priority": "MEDIUM",
+        "frequency": "Quarterly",
+        "trigger": "Inventory failing to decline from $13.7B in Q2-Q3 2026 despite orforglipron launch implies write-down risk; any management commentary on 'inventory adjustment' is an escalation signal",
+        "baseline": "$13.7B FY2025 year-end — expect gradual decline as orforglipron launch absorbs pre-built supply"
+      }
+    ],
+    "predictions": {
+      "q1_2026": {
+        "revenue": {
+          "guidance_range": "$80-83B FY2026 (management)",
+          "sandbagging_adjusted": "$87-90B real management expectation (apply confirmed 8-10% premium)",
+          "q1_2026_estimate": "~$18-20B if linear; likely modest beat vs consensus given Medicare not effective until July 2026",
+          "confidence": 0.75,
+          "note": "H1 2026 is lower-catalyzed (no Medicare access until July 1); H2 2026 is where Medicare + orforglipron ramp unlock"
+        },
+        "pricing": {
+          "call": "Front-loaded pricing erosion in H1 2026 as Medicaid rebate changes take effect before Medicare access offset. Q1-Q2 price declines could be -12 to -15% YoY.",
+          "confidence": 0.70
+        },
+        "orforglipron": {
+          "launch_quarter": "Q2-2026 US",
+          "first_quarter_range": "$300M-$800M",
+          "key_signal": "NTB share >60% of orforglipron TRx confirms market expansion vs cannibalization",
+          "confidence": 0.65
+        }
+      },
+      "risk_scenarios": [
+        {
+          "risk": "Orforglipron Launch Disappointment",
+          "probability": "LOW-MEDIUM (20-30%)",
+          "mechanism": "First TRx uptake <$300M Q2-2026 implies physician adoption slower than expected or oral semaglutide competition more intense than 'market expansion' narrative. $80-83B requires ~$3-5B FY2026 contribution.",
+          "impact": "HIGH — guidance revision; leverage ratio worsens; narrative credibility damaged"
+        },
+        {
+          "risk": "Pricing Erosion Exceeds Guide",
+          "probability": "MEDIUM (30-40%)",
+          "mechanism": "Payer mix shifts toward Medicare faster than expected; blended net price hits -16 to -18% instead of -13 to -15%.",
+          "impact": "MEDIUM-HIGH — margin compression from 47% toward 44-45%"
+        },
+        {
+          "risk": "OUS Revenue Erosion (Generic Semaglutide)",
+          "probability": "MEDIUM (25-35%)",
+          "mechanism": "Canadian generic semaglutide captures 10-15% of cash-pay obesity market",
+          "impact": "MEDIUM — $1-2B headwind; LLY response is orforglipron international 2027"
+        },
+        {
+          "risk": "Manufacturing Over-Investment / LTD Stress",
+          "probability": "LOW (10-15%)",
+          "mechanism": "Demand growth decelerates 2027-2028; $40.9B+ LTD against flatter revenue trajectory",
+          "impact": "HIGH if triggered — balance sheet stress at mega-cap scale"
+        }
+      ],
+      "management_behavior_predictions": [
+        {
+          "behavior": "Orforglipron revenue disaggregation",
+          "prediction": "Management will begin disclosing orforglipron-specific revenue once Q2-2026 launch is established. Non-disclosure strategy only works pre-launch. By Q3-2026, expect product-level transparency.",
+          "escalation": "If orforglipron revenue not disclosed in Q2-2026 call, assume below Street expectations."
+        },
+        {
+          "behavior": "LillyDirect platform evolution",
+          "prediction": "Consumer platform narrative will intensify in 2026 as offset to pricing headwind narrative. Watch for subscription language, patient retention metrics, unit economics (LTV/CAC).",
+          "escalation": "If 2026 calls still cite only cumulative 'engaged patients' without active patient count or retention data, platform thesis remains aspirational."
+        },
+        {
+          "behavior": "Governance reform (2026 proxy)",
+          "prediction": "Items 4 and 5 (board declassification, supermajority elimination) will go to vote at May 2026 annual meeting. Both previously achieved 78% support.",
+          "escalation": "If board votes against its own shareholder resolutions, treat as governance deterioration."
+        }
+      ]
+    },
+    "analyst_narrative": "The watchlist framework identifies six monitoring items organized by priority and trigger precision. The two CRITICAL items (pricing trajectory and orforglipron launch) represent the binary events that will either validate or challenge the $80-83B FY2026 guidance. The four HIGH/MEDIUM items (DSO, OUS competition, governance vote, inventory) are trailing indicators that will confirm or undermine the base case over 2-4 quarters.\n\nThe prediction framework applies the confirmed 8-10% sandbagging premium to revenue guidance while treating the pricing guidance as credible (non-sandbagged based on historical accuracy). This creates an asymmetric scenario: management's real revenue expectation is likely $87-90B (bullish), but the pricing headwind they guided is real and not conservative (bearish). The net resolution of these two dynamics in Q1-Q2 2026 will determine whether LLY's valuation premium is sustained or compresses.",
+    "cross_source_insights": ["The 2026 guidance math requires all three components (Medicare access, orforglipron, OUS growth) to fire simultaneously — any single failure cascades into guidance risk", "Management's refusal to disaggregate orforglipron contribution creates both bull and bear ambiguity — it cuts both ways on expectations"],
+    "watch_items": ["Q2-2026 is the single highest-information event for LLY in the next 12 months — first orforglipron revenue, first Medicare access impact, and H2 2026 trajectory guidance will all be available simultaneously"]
+  },
+
+  "closing_synthesis": {
+    "scope": "15 SEC filings (10-K FY2025, 10-K FY2024, 4 10-Qs, 3 8-Ks, DEF 14A, Form 4 [100 filings], 13F), 5 quarterly earnings calls (Q4-2024 through Q4-2025), and 6 forensic models (Beneish, Altman, Piotroski, Sloan, Benford, Debt Stress)",
+
+    "thesis": "Eli Lilly is the highest-quality growth company in large-cap pharmaceuticals — a statement backed by objective rankings across revenue growth (#1 in peer set), operating margin (#2), composite quality (#1), and forensic health (CLEAN). The GLP-1 franchise has created an operating leverage event that doubled operating income in a single year and expanded operating margins from 19% to 39.5% in three years. The moat — tirzepatide's superior dual-agonist efficacy, patent protection through 2036-2037, and the manufacturing infrastructure now being purpose-built to serve it — is durable at a horizon most equity investors cannot fully capitalize. Against this exceptional thesis, the risks are specific: 56% revenue concentration amplified by $40.9B in manufacturing debt, an accelerating pricing headwind (7-8% to 13-15%) that is the first credible management warning in five quarters, and an orforglipron launch whose financial contribution management systematically refuses to quantify. The 2026 investment case is not a simple bull/bear story — it is a convergence of extraordinary growth credentials against concentrated structural risks that will be resolved in real-time across two critical earnings calls.",
+
+    "xbrl_bullets": [
+      "Revenue grew $20.1B (+44.7%) to $65.2B in FY2025 — $16.9B of that growth (84%) came from Mounjaro (+$9.2B) and Zepbound (+$8.7B) alone. Concentration at 56.2% of revenue is structural, not temporary.",
+      "Operating margin expanded 1,132 bps in a single year (28.2% to 39.5%) — one of the most rapid margin expansion events in pharmaceutical history, driven by GLP-1 products scaling against a largely fixed cost base. ROIC of 29.5% confirms the economics are real.",
+      "Long-term debt grew $12.3B (+43%) to $40.9B in FY2025 via two bond tranches ($6.46B February, $6.71B August). LLY borrowed $1.38 for every $1.00 of free cash flow generated — a leveraged manufacturing bet that is rational given 39.5% operating margins but creates asymmetric downside if GLP-1 demand disappoints.",
+      "Beneish M-Score of -1.89 (vs -1.78 threshold) and Benford chi-square of 3.65 (vs 15.51 critical value) confirm clean financial statements. The Piotroski F-Score of 7/9 and Altman Z-Score of 7.50 confirm exceptional financial health. All forensic model elevation is attributable to authentic hypergrowth, not accounting manipulation.",
+      "Accounts receivable grew 61% to $17.8B (DSO: 89 → 99 days) while inventory grew 81% to $13.7B — both confirmed by management as legitimate channel-fill and orforglipron pre-launch manufacturing build. These are the two near-term forensic watch items for FY2026."
+    ],
+
+    "transcript_bullets": [
+      "Management credibility scores 73.7% adjusted, with CSO Skovronsky the most reliable voice (90% adjusted) on pipeline matters and CFO Montarce the weakest in Q4-2025 (complete deflection on orforglipron revenue contribution — the most financially material question of the year).",
+      "Systematic revenue guidance sandbagging is confirmed: 2025 initial guide beaten by $5.7B (9.6%). Apply 8-10% premium to $81.5B 2026 midpoint → $87-90B is management's real internal expectation. HOWEVER, pricing guidance has historically been accurate and the 'low to mid-teens' 2026 headwind disclosure is credible and not sandbagged.",
+      "The August 2025 conviction buy (CEO + CSO + 3 directors simultaneously at the orforglipron Phase 3 dip) is the strongest insider alignment signal in the dataset — particularly the CSO's $644K purchase with full pipeline knowledge. Subsequent orforglipron FDA approval vindicates the insider thesis.",
+      "Five say-do gaps documented: the abandoned 'low-40s' margin ceiling (actual 48.3% performance margin in Q3-2025), the $15B buyback at 5+ year implied completion pace, declining R&D intensity vs 'robust investment' narrative, debt-funded manufacturing vs 'organic capex' framing, and '39 BD transactions' diversification narrative vs $128M Goodwill growth.",
+      "CSO Skovronsky's Q2-2025 deflection on orforglipron ITT efficacy ('Wall Street focused on exact numbers making cross-trial comparisons that don't carry over') is the single most anomalous communication moment across 5 quarters — inconsistent with his normal scientific rigor. The 9% vs 14% efficacy gap vs semaglutide is real and was acknowledged as real by insiders via the August 2025 conviction buy."
+    ],
+
+    "convergent": [
+      {
+        "finding": "GLP-1 demand is organic, durable, and supply-constrained — not demand-fabricated",
+        "xbrl_support": "Revenue grew $20B in FY2025 on improving margins, stable OCF/NI ratio (0.815), expanding ROIC (29.5%). SGI-elevated Beneish score reflects authentic growth.",
+        "transcript_support": "Management language is supply-constrained ('no wholesaler backorders entering 2025,' '1.8x doses produced in FY2025 vs 2024'). Cross-validations confirm demand outpacing supply, not accounting manipulation."
+      },
+      {
+        "finding": "Pricing headwind is real and accelerating — this is the primary near-term financial risk",
+        "xbrl_support": "FY2025 US revenue grew +43.1% — primarily volume-driven. US revenue as % of total declined slightly (67.4% to 66.7%) despite absolute growth, consistent with price erosion offsetting volume gains.",
+        "transcript_support": "CFO Montarce's 'low to mid-teens' FY2026 pricing guide is credible because 2025 pricing guidance was accurate. Both 10-K and verbal disclosures align on this risk."
+      },
+      {
+        "finding": "Manufacturing investment is legitimate and existential — not optional and not a sign of distress",
+        "xbrl_support": "$7.8B capex, $13.2B debt issuance, $16.3B cumulative 3-year capex. LTD/EBITDA of 1.47x and interest coverage of 28.75x confirm serviceability.",
+        "transcript_support": "Manufacturing commitment language is consistent and specific across all 5 calls. Section 232 tariff grace period creates policy motivation for US manufacturing investment."
+      }
+    ],
+
+    "divergent": [
+      {
+        "finding": "Revenue concentration risk: 10-K is candid, management verbally deflects",
+        "xbrl_shows": "56.2% Mounjaro+Zepbound concentration explicitly rated HIGH severity in 10-K risk section",
+        "transcript_shows": "Management verbal tone deflects to pipeline breadth narrative, '39 BD transactions', and consumer platform identity — never verbally quantifies the 56% figure",
+        "resolution": "Treat 10-K disclosure as the accurate risk signal; verbal framing as narrative management"
+      },
+      {
+        "finding": "Long-term debt trajectory: balance sheet transparent, calls silent",
+        "xbrl_shows": "$40.9B LTD after $13.2B new issuances — largest single-year debt ramp in LLY history",
+        "transcript_shows": "Zero analyst questions, zero management discussion of LTD trajectory across all 5 calls",
+        "resolution": "Unexplained information gap. LTD risk is real and investors relying on transcripts alone are underweighting balance sheet leverage."
+      },
+      {
+        "finding": "Orforglipron efficacy gap: insider behavior contradicts verbal minimization",
+        "xbrl_shows": "Not directly measurable in XBRL — but August 2025 insider buys at the Phase 3 miss dip show insiders took the risk seriously enough to buy",
+        "transcript_shows": "CSO Skovronsky deflected the ITT efficacy question with rhetorical framing — unusual for his normally rigorous scientific communication style",
+        "resolution": "The insider buys — behavioral evidence — outweigh the verbal deflection. The thesis held, orforglipron received FDA approval. But the efficacy gap is real and remains commercially relevant."
+      }
+    ],
+
+    "watchpoint": {
+      "single_most_important": "Q2-2026 earnings call — first orforglipron revenue disclosure combined with first full quarter of Medicare access impact. This single data point resolves the largest information gap in the LLY investment thesis: whether the $80-83B guidance requires orforglipron to be $5B+ (Scala/TD Cowen threshold) and whether the oral GLP-1 market expands or cannibalizes the injectable franchise. If management still does not separately disclose orforglipron revenue in Q2-2026, assume the number is below Street expectations and treat the guidance as under pressure.",
+      "secondary_watchpoint": "Q1-2026 US realized price vs 'low to mid-teens' guide — the first pricing data point that will confirm or challenge the pricing trajectory that is LLY's most credible near-term financial risk."
+    },
+
+    "analyst_narrative": "The closing synthesis integrates 15 filings, 5 earnings calls, and 6 forensic models into a unified investment framework. Three convergent findings — organic GLP-1 demand, accelerating pricing headwind, legitimate manufacturing bet — represent high-confidence conclusions where XBRL data and transcript intelligence agree. Three divergent findings — concentration risk verbally minimized but written candidly, LTD trajectory discussed in balance sheet but silenced in calls, efficacy gap rhetorically minimized but behaviorally acknowledged via insider buys — represent areas where investors must actively adjudicate between what management says and what the data shows.\n\nThe forensic health conclusion is unambiguous: LLY's financial statements are clean, the business is genuinely exceptional, and the growth is real. The investment question is not 'is this a good company' — it clearly is — but 'at what multiple does the concentration risk and pricing headwind change the calculus?' The answer to that question will be substantially answered in 2026 across two earnings calls and one governance vote.",
+    "cross_source_insights": ["The most important methodological finding: transcript intelligence and XBRL data are both necessary — each surfaces risks the other obscures. XBRL exposes the LTD trajectory that calls ignore; calls expose the orforglipron opacity that XBRL cannot quantify.", "The systematic sandbagging confirmation (revenue) + pricing guidance accuracy (pricing) creates a precise analytical framework: apply 8-10% premium to revenue guidance but take pricing guidance at face value."],
+    "watch_items": ["Q2-2026: orforglipron revenue disclosure (binary), Medicare impact (first data), H2 trajectory guidance (forward look)", "Q1-2026: US realized price (pricing acceleration confirmation or relief)"]
+  }
+}
