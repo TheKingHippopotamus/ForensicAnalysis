@@ -207,6 +207,7 @@ a:hover { text-decoration: underline; }
 /* ============================================================
    TABLES
    ============================================================ */
+.table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 -4px; padding: 0 4px; }
 table { width: 100%; border-collapse: collapse; font-size: 13px; }
 th {
   background: var(--bg-secondary); color: var(--text-secondary);
@@ -1117,7 +1118,7 @@ body.tier-full .collapsible.collapsed::after {
   </div>
   <div class="card">
     <div class="card-title">Peer P/E Context</div>
-    <table>
+    <div class="table-wrap"><table class="data-table">
       <thead><tr><th>Ticker</th><th class="num">Trailing P/E</th><th>Commentary</th></tr></thead>
       <tbody>
         <tr><td><strong>LLY</strong></td><td class="num neutral">39.2x</td><td>GLP-1 growth premium</td></tr>
@@ -1127,7 +1128,7 @@ body.tier-full .collapsible.collapsed::after {
         <tr><td>JNJ</td><td class="num">16.8x</td><td>Diversified stable compounder</td></tr>
         <tr><td>MRK</td><td class="num">14.5x</td><td>Keytruda cliff approaching 2028</td></tr>
       </tbody>
-    </table>
+    </table></div>
   </div>
   <div class="card">
     <div class="card-title">Valuation Narrative</div>
@@ -1149,7 +1150,7 @@ body.tier-full .collapsible.collapsed::after {
   <div class="card">
     <div class="card-title collapsible" onclick="toggleCollapse(this)">Annual Financial Summary</div>
     <div class="collapse-content">
-      <table>
+      <div class="table-wrap"><table class="data-table">
         <thead>
           <tr>
             <th>Metric</th>
@@ -1173,7 +1174,7 @@ body.tier-full .collapsible.collapsed::after {
           <tr><td>Net Margin</td><td class="num">15.4%</td><td class="num">23.5%</td><td class="num positive">31.7%</td><td class="num positive">+823 bps</td></tr>
           <tr><td>ROIC</td><td class="num">—</td><td class="num">22.5%</td><td class="num positive">29.5%</td><td class="num positive">+700 bps</td></tr>
         </tbody>
-      </table>
+      </table></div>
       <div style="margin-top:20px;">
         <div class="card-title" style="margin-bottom:12px;">Revenue Growth (YoY)</div>
         <div class="bar-row">
@@ -1205,7 +1206,7 @@ body.tier-full .collapsible.collapsed::after {
       </div>
       <div style="margin-top:20px;">
         <div class="card-title">Balance Sheet Highlights</div>
-        <table style="margin-top:10px;">
+        <div class="table-wrap"><table class="data-table" style="margin-top:10px;">
           <thead>
             <tr><th>Item</th><th class="num">FY2024</th><th class="num">FY2025</th><th class="num">Change</th></tr>
           </thead>
@@ -1219,11 +1220,11 @@ body.tier-full .collapsible.collapsed::after {
             <tr><td>LTD/EBITDA</td><td class="num">1.97x</td><td class="num">1.47x</td><td class="num positive">Improved</td></tr>
             <tr><td>Interest Coverage</td><td class="num">16.24x</td><td class="num">28.75x</td><td class="num positive">+12.5x</td></tr>
           </tbody>
-        </table>
+        </table></div>
       </div>
       <div style="margin-top:20px;">
         <div class="card-title">Cash Flow</div>
-        <table style="margin-top:10px;">
+        <div class="table-wrap"><table class="data-table" style="margin-top:10px;">
           <thead>
             <tr><th>Item</th><th class="num">FY2023</th><th class="num">FY2024</th><th class="num">FY2025</th></tr>
           </thead>
@@ -1233,7 +1234,7 @@ body.tier-full .collapsible.collapsed::after {
             <tr><td>Free Cash Flow</td><td class="num">$0.8B</td><td class="num">$3.8B</td><td class="num positive">$9.0B</td></tr>
             <tr><td>New Debt Proceeds</td><td class="num">—</td><td class="num">$11.4B</td><td class="num negative">$13.2B</td></tr>
           </tbody>
-        </table>
+        </table></div>
       </div>
     </div>
   </div>
@@ -1241,7 +1242,7 @@ body.tier-full .collapsible.collapsed::after {
     <div class="card-title collapsible" onclick="toggleCollapse(this)">Quarterly Trends</div>
     <div class="collapse-content">
       <p style="color:var(--text-secondary);margin-bottom:16px;font-size:13px;">Sequential quarterly revenue acceleration through FY2025:</p>
-      <table>
+      <div class="table-wrap"><table class="data-table">
         <thead>
           <tr><th>Quarter</th><th class="num">Revenue</th><th class="num">QoQ Change</th><th>Note</th></tr>
         </thead>
@@ -1251,7 +1252,7 @@ body.tier-full .collapsible.collapsed::after {
           <tr><td>Q3 2025</td><td class="num">$17.6B</td><td class="num positive">+$2.0B</td><td>OUS Mounjaro ramp</td></tr>
           <tr><td>Q4 2025</td><td class="num">$19.3B</td><td class="num positive">+$1.7B</td><td>Record quarter</td></tr>
         </tbody>
-      </table>
+      </table></div>
       <div style="margin-top:16px;font-size:13px;color:var(--text-secondary);">
         <p><strong style="color:var(--text-primary);">Q3 2024 net income anomaly:</strong> Q3 2024 net income collapsed to $970M vs $2.97B prior quarter — attributable to a $2.8B Morphic Therapeutic acquisition IPR&amp;D charge. One-time, not recurring.</p>
         <p style="margin-top:8px;"><strong style="color:var(--text-primary);">R&amp;D intensity trend:</strong> FY2023: 27.3% | FY2024: 24.4% | FY2025: 20.5% — declining as revenue grows faster than R&amp;D spend. Absolute dollars growing (+21.3%), but the intensity is declining.</p>
@@ -1442,7 +1443,7 @@ body.tier-full .collapsible.collapsed::after {
   </div>
   <div class="card">
     <div class="card-title">Executive Credibility Profiles</div>
-    <table>
+    <div class="table-wrap"><table class="data-table">
       <thead><tr><th>Executive</th><th class="num">Score</th><th>Strength</th><th>Weakness / Tell</th></tr></thead>
       <tbody>
         <tr>
@@ -1470,7 +1471,7 @@ body.tier-full .collapsible.collapsed::after {
           <td><span style="color:var(--accent-red);">Medicare H2-2025 prediction broken. Employer coverage contradiction within one quarter.</span> Tell: "Tremendous momentum" (no number)</td>
         </tr>
       </tbody>
-    </table>
+    </table></div>
   </div>
   <div class="card">
     <div class="card-title">Guidance Accuracy — Systematic Sandbagging Confirmed</div>
@@ -1598,7 +1599,7 @@ body.tier-full .collapsible.collapsed::after {
   </div>
   <div class="card">
     <div class="card-title">Geographic Revenue — FY2025</div>
-    <table>
+    <div class="table-wrap"><table class="data-table">
       <thead><tr><th>Region</th><th class="num">Revenue</th><th class="num">% Total</th><th class="num">YoY Growth</th></tr></thead>
       <tbody>
         <tr><td>United States</td><td class="num">$43.5B</td><td class="num">66.7%</td><td class="num positive">+43.1%</td></tr>
@@ -1608,7 +1609,7 @@ body.tier-full .collapsible.collapsed::after {
         <tr><td>China</td><td class="num">$2.0B</td><td class="num">3.0%</td><td class="num positive">+17.5%</td></tr>
         <tr><td><strong>Total Non-US</strong></td><td class="num"><strong>$21.7B</strong></td><td class="num"><strong>33.3%</strong></td><td class="num positive"><strong>+47.9%</strong></td></tr>
       </tbody>
-    </table>
+    </table></div>
     <div style="background:var(--accent-blue-dim);border:1px solid rgba(59,130,246,0.3);border-radius:8px;padding:12px;margin-top:12px;">
       <div style="font-weight:700;color:var(--accent-blue);">&#9733; KEY INSIGHT: Zepbound International = Virtually Zero (98.7% US in FY2025)</div>
       <div style="font-size:13px;margin-top:4px;">Only $19.8M OUS Zepbound revenue by Q3-2025. When Zepbound international approvals activate at scale (2026-2027), this represents the single largest untapped commercial lever in the LLY story — a potential $5-10B+ additional revenue layer.</div>
@@ -1617,7 +1618,7 @@ body.tier-full .collapsible.collapsed::after {
   </div>
   <div class="card">
     <div class="card-title">Therapeutic Area Breakdown — FY2025</div>
-    <table>
+    <div class="table-wrap"><table class="data-table">
       <thead><tr><th>Therapeutic Area</th><th class="num">Revenue</th><th class="num">% Total</th><th class="num">YoY Growth</th></tr></thead>
       <tbody>
         <tr><td>Cardiometabolic Health (GLP-1 core)</td><td class="num">$33.9B</td><td class="num">52.0%</td><td class="num positive">+55.0%</td></tr>
@@ -1625,7 +1626,7 @@ body.tier-full .collapsible.collapsed::after {
         <tr><td>Oncology (Verzenio)</td><td class="num">$5.4B</td><td class="num">8.2%</td><td class="num positive">+6.3%</td></tr>
         <tr><td>Immunology (Taltz)</td><td class="num">$3.0B</td><td class="num">4.5%</td><td class="num positive">+20.6%</td></tr>
       </tbody>
-    </table>
+    </table></div>
     <div style="margin-top:10px;font-size:13px;color:var(--text-secondary);">Neuroscience doubling to $3.2B (Kisunla Alzheimer's launch) is the most encouraging non-GLP-1 signal — potential second growth vector if diagnostic capacity constraints are resolved.</div>
   </div>
   <!-- V2.1: Segment margin dynamics + management claims vs reality -->
@@ -1652,7 +1653,7 @@ body.tier-full .collapsible.collapsed::after {
       </div>
       <div style="font-size:13px;color:var(--text-secondary);text-align:center;">LOW-MODERATE — trajectory toward better governance</div>
       <div style="margin-top:16px;">
-        <table style="font-size:12px;">
+        <div class="table-wrap"><table class="data-table" style="font-size:12px;">
           <tbody>
             <tr>
               <td style="padding:6px 8px;">Classified Board</td>
@@ -1685,21 +1686,21 @@ body.tier-full .collapsible.collapsed::after {
               <td style="padding:6px 8px;color:var(--text-secondary);">Item 6 (2026): independent chair</td>
             </tr>
           </tbody>
-        </table>
+        </table></div>
       </div>
     </div>
     <div class="card">
       <div class="card-title">CEO Compensation — FY2025</div>
       <div style="font-family:var(--font-serif);font-size:2rem;font-weight:700;color:var(--accent-blue);text-align:center;margin:12px 0;">$36.7M</div>
       <div style="font-size:11px;color:var(--text-muted);text-align:center;margin-bottom:16px;">Total compensation | 95.4% variable</div>
-      <table style="font-size:12px;">
+      <div class="table-wrap"><table class="data-table" style="font-size:12px;">
         <tbody>
           <tr><td>Base Salary</td><td class="num">$1.70M</td></tr>
           <tr><td>Variable (equity/incentive)</td><td class="num positive">$35.0M (95.4%)</td></tr>
           <tr><td>Compensation Actually Paid (CAP)</td><td class="num">$75.2M (mark-to-market)</td></tr>
           <tr><td>Say-on-Pay Approval</td><td class="num positive">&gt;96%</td></tr>
         </tbody>
-      </table>
+      </table></div>
       <div style="margin-top:12px;background:var(--accent-green-dim);border-radius:6px;padding:10px;font-size:12px;">
         <strong style="color:var(--accent-green);">PAY-FOR-PERFORMANCE ALIGNED:</strong> CEO comp grew +25.5% while revenue grew +44.7% and operating income doubled. Management is not capturing a disproportionate share of the GLP-1 windfall.
       </div>
@@ -1725,12 +1726,12 @@ body.tier-full .collapsible.collapsed::after {
   </div>
   <div class="card">
     <div class="card-title">Insider Ownership</div>
-    <table style="font-size:13px;">
+    <div class="table-wrap"><table class="data-table" style="font-size:13px;">
       <tbody>
         <tr><td>Management ownership</td><td class="num">0.17%</td><td style="color:var(--text-muted);">Low but typical for mega-cap pharma (RSU/PSU programs)</td></tr>
         <tr><td>Lilly Endowment Inc.</td><td class="num">10.1%</td><td style="color:var(--text-muted);">Charitable foundation — systematic seller (diversification)</td></tr>
       </tbody>
-    </table>
+    </table></div>
   </div>
   <!-- V2.1: Governance alignment analysis + entrenchment reasoning -->
   <div class="card analyst-insight" data-tier="standard full">
@@ -1773,20 +1774,20 @@ body.tier-full .collapsible.collapsed::after {
     <div class="card-title" style="color:var(--accent-green);">&#9733; August 2025 Conviction Buys — Strongest Insider Signal</div>
     <div style="background:var(--accent-green-dim);border-radius:8px;padding:16px;margin-bottom:12px;">
       <div style="font-weight:700;margin-bottom:8px;">Context: Post-orforglipron Phase 3 miss — stock fell ~14%</div>
-      <table style="font-size:13px;">
+      <div class="table-wrap"><table class="data-table" style="font-size:13px;">
         <tbody>
           <tr><td style="padding:4px 8px;"><strong>David Ricks (CEO)</strong></td><td class="num" style="padding:4px 8px;">1,632 shares @ $644.77</td><td style="padding:4px 8px;color:var(--accent-green);">$1,052,265</td></tr>
           <tr><td style="padding:4px 8px;"><strong>Daniel Skovronsky (CSO)</strong></td><td class="num" style="padding:4px 8px;">~$644/share</td><td style="padding:4px 8px;color:var(--accent-green);">$644,000</td></tr>
           <tr><td style="padding:4px 8px;"><strong>3 Independent Directors</strong></td><td class="num" style="padding:4px 8px;">Same date</td><td style="padding:4px 8px;color:var(--accent-green);">~$1,200,000</td></tr>
           <tr><td style="padding:4px 8px;font-weight:700;">TOTAL</td><td></td><td style="padding:4px 8px;font-weight:700;color:var(--accent-green);">$2,896,265</td></tr>
         </tbody>
-      </table>
+      </table></div>
       <div style="margin-top:12px;font-size:13px;font-weight:600;color:var(--accent-green);">FORENSIC SIGNIFICANCE: CSO bought knowing full pipeline data — strongest credibility signal. Subsequent orforglipron FDA approval validates insider thesis.</div>
     </div>
   </div>
   <div class="card">
     <div class="card-title">Institutional Ownership</div>
-    <table>
+    <div class="table-wrap"><table class="data-table">
       <thead><tr><th>Institution</th><th class="num">Stake %</th><th>Trend</th></tr></thead>
       <tbody>
         <tr><td>Lilly Endowment Inc.</td><td class="num">10.1%</td><td style="color:var(--accent-red);">DECREASING (diversification)</td></tr>
@@ -1794,7 +1795,7 @@ body.tier-full .collapsible.collapsed::after {
         <tr><td>PNC Financial Services</td><td class="num">5.4%</td><td style="color:var(--text-secondary);">STABLE</td></tr>
         <tr><td>BlackRock Inc.</td><td class="num">4.4%</td><td style="color:var(--text-secondary);">STABLE</td></tr>
       </tbody>
-    </table>
+    </table></div>
     <div style="margin-top:10px;font-size:13px;color:var(--text-secondary);">Total institutional: 82.5% | 4,436 unique holders | High-quality base dominated by passive index funds. No activist positions flagged.</div>
   </div>
   <!-- V2.1: Signal interpretation + smart money thesis -->
@@ -1816,7 +1817,7 @@ body.tier-full .collapsible.collapsed::after {
   <h2 class="section-title"><span class="icon">&#9741;</span> Peer Comparison</h2>
   <div class="card">
     <div class="card-title">Financial Metrics vs Peers — FY2025</div>
-    <table>
+    <div class="table-wrap"><table class="data-table">
       <thead>
         <tr>
           <th>Metric</th>
@@ -1921,7 +1922,7 @@ body.tier-full .collapsible.collapsed::after {
           <td class="num">—</td>
         </tr>
       </tbody>
-    </table>
+    </table></div>
   </div>
   <div class="card">
     <div class="card-title">Composite Quality Rankings</div>
@@ -2022,7 +2023,7 @@ body.tier-full .collapsible.collapsed::after {
   </div>
   <div class="card">
     <div class="card-title">Text vs Transcript Divergences</div>
-    <table>
+    <div class="table-wrap"><table class="data-table">
       <thead><tr><th>Topic</th><th>10-K Written Disclosure</th><th>Verbal Tone</th><th>Verdict</th></tr></thead>
       <tbody>
         <tr>
@@ -2050,7 +2051,7 @@ body.tier-full .collapsible.collapsed::after {
           <td><span class="negative">SIGNIFICANT DIVERGENCE</span></td>
         </tr>
       </tbody>
-    </table>
+    </table></div>
   </div>
   <div class="card analyst-insight">
     <div class="card-title">&#9998; Text Analysis Synthesis</div>
@@ -2069,19 +2070,19 @@ body.tier-full .collapsible.collapsed::after {
   <div class="grid-2" style="margin-bottom:16px;">
     <div class="card">
       <div class="card-title">Tax Analysis</div>
-      <table style="font-size:13px;">
+      <div class="table-wrap"><table class="data-table" style="font-size:13px;">
         <tbody>
           <tr><td>FY2023 Effective Tax Rate</td><td class="num">20.0%</td></tr>
           <tr><td>FY2024 Effective Tax Rate</td><td class="num positive">16.5%</td></tr>
           <tr><td>FY2025 Effective Tax Rate</td><td class="num neutral">19.8% (+330 bps)</td></tr>
           <tr><td>Tax Expense FY2025</td><td class="num">$5.1B</td></tr>
         </tbody>
-      </table>
+      </table></div>
       <div style="margin-top:10px;font-size:12px;color:var(--text-secondary);">Increased 330bps in FY2025 vs FY2024. As US-sourced GLP-1 revenue grows, mix toward higher-taxed US income may maintain or slightly elevate the effective rate. OECD Pillar Two (15% global minimum) effective FY2024+ — international operations (33% of revenue) may face incremental tax.</div>
     </div>
     <div class="card">
       <div class="card-title">Stock-Based Compensation Analysis</div>
-      <table style="font-size:13px;">
+      <div class="table-wrap"><table class="data-table" style="font-size:13px;">
         <tbody>
           <tr><td>SBC FY2025</td><td class="num">$626M</td></tr>
           <tr><td>SBC/Revenue FY2023</td><td class="num">1.84%</td></tr>
@@ -2089,7 +2090,7 @@ body.tier-full .collapsible.collapsed::after {
           <tr><td>SBC/Revenue FY2025</td><td class="num positive">0.96%</td></tr>
           <tr><td>Diluted-to-basic EPS gap</td><td class="num positive">$0.05 on $22.95 EPS</td></tr>
         </tbody>
-      </table>
+      </table></div>
       <div style="margin-top:10px;font-size:12px;color:var(--accent-green);">SBC is de minimis relative to revenue scale and declining as revenue grows faster than compensation grants. Effectively zero economic dilution.</div>
     </div>
   </div>
@@ -2105,19 +2106,19 @@ body.tier-full .collapsible.collapsed::after {
         <div style="text-align:center;font-size:11px;color:var(--text-muted);">Interest Coverage</div>
       </div>
     </div>
-    <table style="font-size:13px;">
+    <div class="table-wrap"><table class="data-table" style="font-size:13px;">
       <thead><tr><th>Issuance</th><th class="num">Amount</th><th>Details</th></tr></thead>
       <tbody>
         <tr><td>February 2025</td><td class="num">$6.46B</td><td style="font-size:12px;">6 tranches, 2028-2065 maturities, 4.55%-5.60% coupons</td></tr>
         <tr><td>August 2025</td><td class="num">$6.71B</td><td style="font-size:12px;">7 tranches incl. floating rate, 2028-2065 maturities, 4.00%-5.65% coupons</td></tr>
         <tr><td><strong>2-Year Cumulative New Debt</strong></td><td class="num negative"><strong>$24.6B</strong></td><td style="font-size:12px;color:var(--accent-yellow);">Unprecedented for LLY historically</td></tr>
       </tbody>
-    </table>
+    </table></div>
     <div style="margin-top:12px;font-size:13px;color:var(--text-secondary);">Manufacturing LEAP program — sites: Lebanon Indiana, North Carolina, Wisconsin (US); Germany, Ireland (international). Cumulative commitment $55B+ since 2020. At $27.7B EBITDA, entire $40.9B LTD could be retired in ~18 months.</div>
   </div>
   <div class="card">
     <div class="card-title">Capital Expenditures &amp; Working Capital</div>
-    <table style="font-size:13px;">
+    <div class="table-wrap"><table class="data-table" style="font-size:13px;">
       <thead><tr><th>Metric</th><th class="num">FY2023</th><th class="num">FY2024</th><th class="num">FY2025</th></tr></thead>
       <tbody>
         <tr><td>CapEx</td><td class="num">$3.4B</td><td class="num">$5.1B</td><td class="num negative">$7.8B</td></tr>
@@ -2126,7 +2127,7 @@ body.tier-full .collapsible.collapsed::after {
         <tr><td>Inventory</td><td class="num">—</td><td class="num">$7.6B</td><td class="num negative">$13.7B (+81%)</td></tr>
         <tr><td>Inventory/Revenue</td><td class="num">—</td><td class="num">16.9%</td><td class="num">21.1%</td></tr>
       </tbody>
-    </table>
+    </table></div>
     <div style="margin-top:10px;background:var(--accent-yellow-dim);border:1px solid rgba(234,179,8,0.3);border-radius:6px;padding:10px;font-size:13px;">
       <strong style="color:var(--accent-yellow);">Inventory Binary Risk:</strong> $13.7B build is FY2026's key watch item. Legitimate orforglipron pre-loading (management thesis) vs write-down risk (bear case). If orforglipron Q2-2026 launch generates &lt;$300M first quarter, inventory impairment risk escalates.
     </div>
@@ -2367,7 +2368,7 @@ body.tier-full .collapsible.collapsed::after {
     </div>
     <div style="margin-top:16px;">
       <div class="card-title" style="margin-bottom:12px;">Risk Scenarios</div>
-      <table style="font-size:13px;">
+      <div class="table-wrap"><table class="data-table" style="font-size:13px;">
         <thead><tr><th>Risk</th><th>Probability</th><th>Impact</th></tr></thead>
         <tbody>
           <tr>
@@ -2391,7 +2392,7 @@ body.tier-full .collapsible.collapsed::after {
             <td><span class="negative">HIGH if triggered — balance sheet stress at mega-cap scale</span></td>
           </tr>
         </tbody>
-      </table>
+      </table></div>
     </div>
     <div style="margin-top:16px;">
       <div class="card-title" style="margin-bottom:12px;">Management Behavior Predictions</div>
