@@ -590,66 +590,141 @@ tr:hover { background: var(--bg-card-hover); }
   .gauge-vars { font-size: 11px !important; }
 }
 
-/* ===== MOBILE PATCH v2.1 — April 2026 ===== */
-/* Fix 1: Verdict card oversized letter grades on phone */
+
+/* ===== MOBILE PATCH v2.2 — April 2026 ===== */
+
+/* ── 1. VERDICT CARDS: scale oversized letter grades ── */
 @media (max-width: 768px) {
   #verdicts [style*="font-size:48px"],
   #verdicts [style*="font-size: 48px"],
   #transcript-intelligence [style*="font-size:42px"],
   #transcript-intelligence [style*="font-size: 42px"] {
-    font-size: 2rem !important;
-    line-height: 1 !important;
+    font-size: 2rem !important; line-height: 1 !important;
   }
   #verdicts [style*="font-size:20px"],
-  #verdicts [style*="font-size: 20px"] {
-    font-size: 0.95rem !important;
+  #verdicts [style*="font-size: 20px"] { font-size: 0.95rem !important; }
+  #verdicts .card > div[style*="gap"] { flex-wrap: wrap; gap: 8px !important; }
+
+  /* ── 2. CLOSING SYNTHESIS: comprehensive font-size fix (all class variants) ── */
+  .synthesis-card   { padding: 1.5rem !important; margin: 2rem 0 !important; }
+  .synthesis-card h2 { font-size: 1.25rem !important; margin-bottom: 0.9rem !important; }
+  .synthesis-title  { font-size: 1.25rem !important; }
+  .synthesis-scope  { font-size: 0.85rem !important; margin-bottom: 1.25rem !important; }
+  .synthesis-thesis { font-size: 0.95rem !important; padding: 1rem !important;
+                      margin-bottom: 1.25rem !important; line-height: 1.65 !important; }
+  /* All h3 variants inside synthesis */
+  .synthesis-grid h3,
+  .synthesis-convergence h3,
+  .synthesis-divergence h3,
+  .synthesis-watchpoint h3,
+  .synthesis-col h3 { font-size: 0.9rem !important; margin-bottom: 0.6rem !important; }
+  /* List items */
+  .synthesis-grid li,
+  .synthesis-convergence li,
+  .synthesis-divergence li,
+  .synthesis-col li { font-size: 0.85rem !important; line-height: 1.55 !important; padding: 3px 0 !important; }
+  /* Watchpoint */
+  .watchpoint-box   { padding: 0.9rem !important; }
+  .watchpoint-metric { font-size: 1rem !important; margin-bottom: 0.2rem !important; }
+  .watchpoint-value,
+  .watchpoint-threshold { font-size: 0.875rem !important; display: block !important;
+                          margin-right: 0 !important; margin-bottom: 4px !important; }
+  .watchpoint-box p { font-size: 0.85rem !important; margin-top: 0.5rem !important; }
+  /* TSLA-specific classes */
+  .synthesis-body { font-size: 0.9rem !important; }
+
+  /* ── 3. EXECUTIVE SUMMARY: mobile redesign ── */
+  /* Card shell */
+  .card.exec-summary {
+    padding: 18px 16px !important;
+    background: linear-gradient(180deg, #1c2640 0%, #111827 100%) !important;
+    border-top: 3px solid #3b82f6 !important;
+    border-radius: 12px !important;
   }
-  #verdicts .card > div[style*="gap"] {
-    flex-wrap: wrap;
-    gap: 8px !important;
+  /* Lead paragraph — hero treatment */
+  .exec-summary p:first-child {
+    font-size: 14.5px !important;
+    font-weight: 500 !important;
+    color: #e8eaf0 !important;
+    border-left: 3px solid #3b82f6;
+    padding-left: 11px !important;
+    line-height: 1.75 !important;
+    margin-bottom: 18px !important;
+    padding-bottom: 0 !important;
+    border-bottom: none !important;
   }
-  /* Fix 2: Closing synthesis — missing mobile font size rules */
-  .synthesis-card { padding: 1.5rem !important; margin: 2rem 0 !important; }
-  .synthesis-card h2 { font-size: 1.3rem !important; margin-bottom: 1rem !important; }
-  .synthesis-scope { font-size: 0.9rem !important; margin-bottom: 1.5rem !important; }
-  .synthesis-thesis { font-size: 1rem !important; padding: 1rem !important; margin-bottom: 1.5rem !important; line-height: 1.6 !important; }
-  .synthesis-grid h3 { font-size: 1rem !important; }
-  .synthesis-grid li { font-size: 0.9rem !important; }
-  .watchpoint-box { padding: 1rem !important; }
-  .watchpoint-metric { font-size: 1.1rem !important; margin-bottom: 0.25rem !important; }
-  .watchpoint-value { font-size: 0.95rem !important; }
-  .watchpoint-threshold { font-size: 0.95rem !important; }
-  .watchpoint-box p { font-size: 0.9rem !important; }
+  /* Body paragraphs */
+  .exec-summary p {
+    font-size: 13.5px !important;
+    line-height: 1.75 !important;
+    margin-bottom: 0 !important;
+    padding: 14px 0 !important;
+    border-bottom: 1px solid rgba(255,255,255,0.07) !important;
+    text-align: left !important;
+    color: var(--text-secondary) !important;
+  }
+  .exec-summary p:last-child {
+    border-bottom: none !important;
+    padding-bottom: 0 !important;
+  }
+  /* Key-finding strong tags — styled label */
+  .exec-summary strong {
+    display: block !important;
+    font-size: 10.5px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.9px !important;
+    margin-bottom: 5px !important;
+    opacity: 1 !important;
+  }
 }
-/* Fix 3: Executive summary stat boxes — 2-col grid on small phones */
+
+/* ── SMALL PHONE (<480px) ── */
 @media (max-width: 480px) {
+  /* Verdict grades further reduced */
   #verdicts [style*="font-size:48px"],
   #verdicts [style*="font-size: 48px"],
   #transcript-intelligence [style*="font-size:42px"],
-  #transcript-intelligence [style*="font-size: 42px"] {
-    font-size: 1.75rem !important;
-  }
+  #transcript-intelligence [style*="font-size: 42px"] { font-size: 1.7rem !important; }
+
+  /* Exec summary stat boxes: 2-column grid */
   .stats-row {
     display: grid !important;
     grid-template-columns: 1fr 1fr !important;
-    gap: 8px !important;
+    gap: 7px !important;
+    margin-bottom: 14px !important;
   }
   .stat-box {
     flex-direction: column !important;
     text-align: center !important;
-    justify-content: center !important;
     align-items: center !important;
-    padding: 10px 8px !important;
+    justify-content: center !important;
+    padding: 11px 8px !important;
+    border-radius: 10px !important;
+    border-top: 2px solid rgba(255,255,255,0.12) !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: none !important;
+    background: linear-gradient(160deg,#1a2234,#111827) !important;
+    min-width: unset !important;
   }
-  .stat-value { font-size: 18px !important; }
-  .stat-label { margin-top: 4px !important; }
-  /* Further reduce synthesis on very small screens */
-  .synthesis-card { padding: 1rem !important; margin: 1.5rem 0 !important; }
-  .synthesis-card h2 { font-size: 1.1rem !important; margin-bottom: 0.75rem !important; }
-  .synthesis-thesis { font-size: 0.95rem !important; padding: 0.75rem !important; }
-  .synthesis-watchpoint h3 { font-size: 0.95rem !important; }
+  .stat-value         { font-size: 17px !important; line-height: 1.2 !important; }
+  .stat-value.positive { color: #22c55e !important; }
+  .stat-value.negative { color: #ef4444 !important; }
+  .stat-value.neutral  { color: #eab308 !important; }
+  .stat-label { font-size: 9px !important; margin-top: 5px !important;
+                letter-spacing: 0.4px !important; }
+
+  /* Exec summary card */
+  .card.exec-summary  { padding: 14px 12px !important; }
+  .exec-summary p:first-child { font-size: 13.5px !important; }
+  .exec-summary p     { font-size: 12.5px !important; line-height: 1.7 !important; padding: 12px 0 !important; }
+
+  /* Synthesis further reduced */
+  .synthesis-card     { padding: 1rem !important; margin: 1.5rem 0 !important; }
+  .synthesis-card h2, .synthesis-title { font-size: 1.05rem !important; }
+  .synthesis-thesis   { font-size: 0.9rem !important; padding: 0.75rem !important; }
 }
-/* ===== END MOBILE PATCH v2.1 ===== */
+/* ===== END MOBILE PATCH v2.2 ===== */
 </style>
 </head>
 <body>
