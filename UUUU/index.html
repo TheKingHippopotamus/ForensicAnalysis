@@ -1,0 +1,1902 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<title>Energy Fuels Inc. (UUUU) - SEC Forensic Analysis Report</title>
+<style>
+:root {
+  --bg-primary: #0a0e1a;
+  --bg-secondary: #111827;
+  --bg-card: #1a2234;
+  --bg-card-hover: #1f2a40;
+  --border: #2a3550;
+  --text-primary: #e8edf5;
+  --text-secondary: #8b99b0;
+  --text-muted: #5a6880;
+  --accent-green: #22c55e;
+  --accent-green-dim: rgba(34,197,94,0.15);
+  --accent-yellow: #eab308;
+  --accent-yellow-dim: rgba(234,179,8,0.15);
+  --accent-red: #ef4444;
+  --accent-red-dim: rgba(239,68,68,0.15);
+  --accent-blue: #3b82f6;
+  --accent-blue-dim: rgba(59,130,246,0.12);
+  --accent-purple: #a855f7;
+  --accent-cyan: #06b6d4;
+  --accent-orange: #f97316;
+  --nav-width: 240px;
+  --header-height: 90px;
+  --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --accent-gold: #C9A227;
+  --accent-gold-dim: rgba(201,162,39,0.10);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-padding-top: 100px; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  font-size: 14px;
+}
+a { color: var(--accent-blue); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* Header */
+.site-header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: var(--header-height);
+  background: linear-gradient(135deg, #0B0E13 0%, #141A26 100%);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: max(6px, env(safe-area-inset-top)) 32px 0;
+}
+.site-header::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 3px; background: linear-gradient(90deg, #C9A227 0%, #E0B830 50%, #C9A227 100%);
+}
+.header-left { display: flex; align-items: center; gap: 20px; }
+.home-btn {
+  display: flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px; border-radius: 6px;
+  background: rgba(201,162,39,0.10); border: 1px solid rgba(201,162,39,0.25);
+  color: #C9A227; text-decoration: none; transition: all 0.2s;
+  flex-shrink: 0;
+}
+.home-btn:hover { background: rgba(201,162,39,0.2); border-color: #C9A227; text-decoration: none; }
+.home-btn svg { width: 18px; height: 18px; }
+.header-logo { width: 36px; height: 36px; object-fit: contain; filter: brightness(0) invert(0.85); flex-shrink: 0; }
+.company-name { font-family: var(--font-serif); font-size: 24px; font-weight: 700; letter-spacing: -0.5px; }
+.ticker-badge {
+  background: rgba(201,162,39,0.10); color: #C9A227;
+  padding: 4px 12px; border-radius: 6px; font-weight: 600; font-size: 14px;
+  border: 1px solid rgba(201,162,39,0.25);
+}
+.header-right { display: flex; align-items: center; gap: 12px; }
+.verdict-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 14px; border-radius: 8px; font-size: 12px; font-weight: 600;
+  letter-spacing: 0.3px;
+}
+.verdict-badge .label { opacity: 0.7; font-weight: 400; }
+.badge-green { background: var(--accent-green-dim); color: var(--accent-green); border: 1px solid rgba(34,197,94,0.3); }
+.badge-yellow { background: var(--accent-yellow-dim); color: var(--accent-yellow); border: 1px solid rgba(234,179,8,0.3); }
+.badge-red { background: var(--accent-red-dim); color: var(--accent-red); border: 1px solid rgba(239,68,68,0.3); }
+.badge-blue { background: var(--accent-blue-dim); color: var(--accent-blue); border: 1px solid rgba(59,130,246,0.3); }
+
+/* Sidebar Nav */
+.sidebar {
+  position: fixed; top: var(--header-height); left: 0; bottom: 0;
+  width: var(--nav-width); background: var(--bg-secondary);
+  border-right: 1px solid var(--border);
+  overflow-y: auto; padding: 16px 0; z-index: 90;
+}
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+.nav-link {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 20px; color: var(--text-secondary);
+  font-size: 13px; cursor: pointer; transition: all 0.2s;
+  border-left: 3px solid transparent;
+}
+.nav-link:hover { background: var(--bg-card); color: var(--text-primary); text-decoration: none; }
+.nav-link.active { color: var(--accent-gold); border-left-color: var(--accent-gold); background: var(--accent-gold-dim); }
+.nav-icon { width: 18px; text-align: center; font-size: 14px; }
+
+/* Main Content */
+.main-content {
+  margin-left: var(--nav-width); margin-top: var(--header-height);
+  padding: 32px; max-width: 1200px;
+}
+.section { margin-bottom: 48px; scroll-margin-top: 100px; }
+.section-title {
+  font-family: var(--font-serif); font-size: 22px; font-weight: 700; margin-bottom: 20px;
+  padding-bottom: 12px; border-bottom: 2px solid var(--border);
+  display: flex; align-items: center; gap: 10px;
+}
+.section-title .icon { font-size: 20px; }
+
+/* Cards */
+.card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 24px; margin-bottom: 16px;
+}
+.card-title { font-size: 16px; font-weight: 600; margin-bottom: 12px; }
+
+/* Analyst Insight Cards */
+.analyst-insight {
+  border-left: 3px solid #c9a227;
+  background: linear-gradient(135deg, rgba(201,162,39,0.05), transparent);
+}
+.analyst-insight .card-title {
+  color: #c9a227;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.analyst-insight p { line-height: 1.7; margin-bottom: 12px; }
+.analyst-insight .cross-source {
+  background: rgba(201,162,39,0.08);
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-top: 12px;
+  font-size: 13px;
+}
+.analyst-insight .cross-source strong { color: #c9a227; }
+.analyst-insight .red-flag-inline { color: var(--accent-red); font-weight: 600; }
+.analyst-insight .watch-item { color: var(--accent-yellow); font-style: italic; }
+
+/* Collapsible */
+.collapsible { cursor: pointer; user-select: none; }
+.collapsible::after { content: ' \25BC'; font-size: 10px; opacity: 0.5; }
+.collapsible.collapsed::after { content: ' \25B6'; }
+.collapse-content { overflow: hidden; transition: max-height 0.3s ease; }
+.collapse-content.hidden { max-height: 0 !important; padding: 0; }
+
+/* Tables */
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th {
+  background: var(--bg-secondary); color: var(--text-secondary);
+  padding: 10px 12px; text-align: left; font-weight: 600;
+  border-bottom: 2px solid var(--border); position: sticky; top: 0;
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;
+}
+td { padding: 10px 12px; border-bottom: 1px solid var(--border); }
+tr:nth-child(even) { background: rgba(255,255,255,0.02); }
+tr:hover { background: var(--bg-card-hover); }
+.num { text-align: right; font-variant-numeric: tabular-nums; }
+.positive { color: var(--accent-green); }
+.negative { color: var(--accent-red); }
+.neutral { color: var(--accent-yellow); }
+
+/* Gauges */
+.gauge-container { display: flex; flex-wrap: wrap; gap: 20px; }
+.gauge-card {
+  flex: 1; min-width: 280px; background: var(--bg-card);
+  border: 1px solid var(--border); border-radius: 12px; padding: 20px;
+}
+.gauge-title { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+.gauge-subtitle { font-size: 11px; color: var(--text-secondary); margin-bottom: 16px; }
+.gauge-bar {
+  height: 24px; background: var(--bg-secondary); border-radius: 12px;
+  overflow: hidden; position: relative; margin-bottom: 8px;
+}
+.gauge-fill { height: 100%; border-radius: 12px; transition: width 0.5s ease; position: relative; }
+.gauge-zones {
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  display: flex;
+}
+.gauge-zone { height: 100%; opacity: 0.15; }
+.gauge-marker {
+  position: absolute; top: -4px; width: 4px; height: 32px;
+  background: var(--text-primary); border-radius: 2px;
+  transform: translateX(-50%);
+}
+.gauge-labels { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted); }
+.gauge-score { font-family: var(--font-serif); font-size: 28px; font-weight: 700; margin: 8px 0; }
+.gauge-vars { font-size: 12px; color: var(--text-secondary); line-height: 1.8; }
+
+/* Grid layouts */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+@media (max-width: 1024px) {
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  .header-right { display: none; }
+}
+
+/* Red flag cards */
+.flag-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 20px; margin-bottom: 12px;
+  border-left: 4px solid;
+}
+.flag-card.high { border-left-color: var(--accent-red); }
+.flag-card.moderate { border-left-color: var(--accent-yellow); }
+.flag-card.low { border-left-color: var(--accent-green); }
+.severity-badge {
+  display: inline-block; padding: 2px 8px; border-radius: 4px;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.5px;
+}
+.severity-HIGH { background: var(--accent-red-dim); color: var(--accent-red); }
+.severity-MEDIUM { background: var(--accent-yellow-dim); color: var(--accent-yellow); }
+.severity-LOW { background: var(--accent-green-dim); color: var(--accent-green); }
+.severity-CRITICAL { background: var(--accent-red-dim); color: var(--accent-red); }
+
+/* Timeline */
+.timeline { position: relative; padding-left: 24px; }
+.timeline::before {
+  content: ''; position: absolute; left: 8px; top: 0; bottom: 0;
+  width: 2px; background: var(--border);
+}
+.timeline-item { position: relative; margin-bottom: 20px; }
+.timeline-dot {
+  position: absolute; left: -20px; top: 6px;
+  width: 12px; height: 12px; border-radius: 50%;
+  border: 2px solid; background: var(--bg-primary);
+}
+.timeline-dot.positive { border-color: var(--accent-green); }
+.timeline-dot.negative { border-color: var(--accent-red); }
+.timeline-dot.neutral { border-color: var(--accent-yellow); }
+.timeline-date { font-size: 11px; color: var(--text-muted); margin-bottom: 4px; }
+.timeline-title { font-weight: 600; margin-bottom: 4px; }
+.timeline-detail { font-size: 13px; color: var(--text-secondary); }
+
+/* Watchlist */
+.watchlist-item {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 16px; background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 10px; margin-bottom: 10px;
+}
+.priority-dot {
+  width: 8px; height: 8px; border-radius: 50%; margin-top: 6px; flex-shrink: 0;
+}
+.priority-CRITICAL { background: var(--accent-red); box-shadow: 0 0 8px var(--accent-red); }
+.priority-HIGH { background: var(--accent-orange); }
+.priority-MODERATE { background: var(--accent-yellow); }
+.priority-LOW { background: var(--accent-green); }
+
+/* Bar chart using CSS */
+.bar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+.bar-label { width: 140px; font-size: 12px; text-align: right; color: var(--text-secondary); flex-shrink: 0; }
+.bar-track { flex: 1; height: 22px; background: var(--bg-secondary); border-radius: 4px; overflow: hidden; position: relative; }
+.bar-fill { height: 100%; border-radius: 4px; display: flex; align-items: center; padding-left: 8px; font-size: 11px; font-weight: 600; color: #fff; min-width: 40px; }
+.bar-value { width: 80px; font-size: 12px; text-align: right; font-variant-numeric: tabular-nums; flex-shrink: 0; }
+
+/* Prediction cards */
+.prediction-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 20px; margin-bottom: 12px;
+}
+.confidence-bar {
+  height: 6px; background: var(--bg-secondary); border-radius: 3px;
+  overflow: hidden; margin-top: 8px;
+}
+.confidence-fill { height: 100%; border-radius: 3px; }
+
+/* Footer */
+.site-footer {
+  margin-left: var(--nav-width); padding: 24px 32px;
+  border-top: 1px solid var(--border);
+  color: var(--text-muted); font-size: 12px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+
+/* Summary stats row */
+.stats-row { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 24px; }
+.stat-box {
+  flex: 1; min-width: 150px; background: var(--bg-card);
+  border: 1px solid var(--border); border-radius: 10px; padding: 16px;
+  text-align: center;
+}
+.stat-value { font-size: 24px; font-weight: 700; }
+.stat-label { font-size: 11px; color: var(--text-secondary); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* Entrenchment visual */
+.entrenchment-track {
+  height: 32px; background: linear-gradient(to right, var(--accent-green), var(--accent-yellow), var(--accent-red));
+  border-radius: 16px; position: relative; margin: 16px 0;
+  opacity: 0.3;
+}
+.entrenchment-marker {
+  position: absolute; top: -4px; width: 40px; height: 40px;
+  background: var(--bg-card); border: 3px solid var(--accent-green);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 16px;
+  transform: translateX(-50%);
+}
+
+/* Exec summary */
+.exec-summary { font-size: 15px; line-height: 1.8; color: var(--text-primary); }
+.exec-summary p { margin-bottom: 16px; text-align: justify; }
+
+/* Stacked bar */
+.stacked-bar { display: flex; height: 28px; border-radius: 6px; overflow: hidden; margin-bottom: 4px; }
+.stacked-seg { display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 600; color: #fff; min-width: 20px; }
+
+/* Crash analysis hero */
+.crash-hero {
+  background: linear-gradient(135deg, rgba(34,197,94,0.08) 0%, rgba(59,130,246,0.08) 100%);
+  border: 2px solid rgba(34,197,94,0.3);
+  border-radius: 16px; padding: 32px; margin-bottom: 24px;
+}
+.crash-hero h3 { font-size: 20px; margin-bottom: 12px; color: var(--accent-green); }
+.crash-metric { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 600; margin: 4px; }
+
+/* Table scroll wrapper */
+.table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 -4px; padding: 0 4px; }
+
+/* Piotroski score badges */
+.score-weak        { color: #fff; background-color: #dc3545; }
+.score-moderate    { color: #212529; background-color: #ffc107; }
+.score-fair        { color: #fff; background-color: #6c757d; }
+.score-strong      { color: #fff; background-color: #28a745; }
+.score-very-strong { color: #fff; background-color: #155724; }
+.piotroski-badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 0.85em;
+  letter-spacing: 0.03em;
+}
+
+/* Forensic model label override */
+.model-label {
+  display: inline-block;
+  padding: 3px 12px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 0.8em;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* Disclaimer */
+.report-disclaimer {
+  margin-top: 3rem;
+  margin-bottom: 1.5rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--text-muted);
+  border-radius: 4px;
+  background: rgba(255,255,255,0.02);
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+  font-style: italic;
+}
+.report-disclaimer p { margin: 0; }
+
+/* Closing Synthesis — gold card */
+.synthesis-card {
+  margin: 3rem 0;
+  padding: 2.5rem;
+  border: 2px solid #c8a84e;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  width: 100%;
+  max-width: 100%;
+}
+.synthesis-card h2 {
+  font-size: 1.75rem;
+  color: #c8a84e;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-bottom: none;
+  padding-bottom: 0;
+}
+.synthesis-scope {
+  text-align: center;
+  font-size: 1.05rem;
+  color: #a0a0b8;
+  margin-bottom: 2rem;
+}
+.synthesis-thesis {
+  font-size: 1.2rem;
+  line-height: 1.7;
+  color: #e0e0e8;
+  padding: 1.5rem;
+  border-left: 4px solid #c8a84e;
+  background: rgba(200, 168, 78, 0.06);
+  margin-bottom: 2rem;
+}
+.synthesis-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+.synthesis-grid h3 {
+  color: #c8a84e;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid rgba(200, 168, 78, 0.3);
+  padding-bottom: 0.5rem;
+}
+.synthesis-grid ul { list-style: none; padding: 0; }
+.synthesis-grid li {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  color: #c8c8d8;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+.synthesis-grid li::before { content: "\25B8 "; color: #c8a84e; }
+.synthesis-convergence { margin-bottom: 2rem; }
+.synthesis-convergence h3 { color: #4ecdc4; font-size: 1.1rem; margin-bottom: 0.75rem; }
+.synthesis-convergence ul { list-style: none; padding: 0; }
+.synthesis-convergence li { color: #c8c8d8; padding: 0.5rem 0; line-height: 1.5; }
+.synthesis-convergence li::before { content: "\2714 "; color: #4ecdc4; }
+.synthesis-divergence {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: rgba(231, 76, 60, 0.08);
+  border-radius: 8px;
+  border-left: 4px solid #e74c3c;
+}
+.synthesis-divergence h3 { color: #e74c3c; font-size: 1.1rem; margin-bottom: 0.75rem; }
+.synthesis-divergence ul { list-style: none; padding: 0; }
+.synthesis-divergence li { color: #d8c8c8; padding: 0.5rem 0; font-weight: 500; line-height: 1.5; }
+.synthesis-divergence li::before { content: "\26A0 "; color: #e74c3c; }
+.synthesis-watchpoint h3 { color: #c8a84e; font-size: 1.1rem; margin-bottom: 0.75rem; }
+.watchpoint-box {
+  text-align: center;
+  padding: 1.5rem;
+  background: rgba(200, 168, 78, 0.1);
+  border: 1px solid #c8a84e;
+  border-radius: 8px;
+  margin-top: 1rem;
+}
+.watchpoint-metric { display: block; font-size: 1.3rem; font-weight: 700; color: #c8a84e; margin-bottom: 0.5rem; }
+.watchpoint-value { display: inline-block; font-size: 1.1rem; color: #e0e0e8; margin-right: 2rem; }
+.watchpoint-threshold { display: inline-block; font-size: 1.1rem; color: #e74c3c; font-weight: 600; }
+.watchpoint-box p { margin-top: 1rem; font-size: 1rem; color: #a0a0b8; line-height: 1.6; }
+
+/* ============ TABLET (<1024px) ============ */
+@media (max-width: 1024px) {
+  .main-content { padding: 24px; }
+  .gauge-card { min-width: 220px; }
+  .synthesis-grid { grid-template-columns: 1fr; }
+  .synthesis-card { padding: 1.5rem; }
+}
+
+/* ============ PHONE (<768px) ============ */
+@media (max-width: 768px) {
+  .sidebar { display: none; }
+  .main-content { margin-left: 0; }
+  .site-footer { margin-left: 0; }
+  .site-header { padding: 0 16px; gap: 8px; height: 60px; }
+  .company-name { font-size: 18px; }
+  .header-logo { width: 28px; height: 28px; }
+  .ticker-badge { font-size: 12px; padding: 3px 8px; }
+  .site-header .header-left > span { display: none; }
+  .main-content { padding: 16px; }
+  .section { margin-bottom: 32px; scroll-margin-top: 70px; }
+  .section-title { font-size: 18px; }
+  .stats-row { gap: 8px; }
+  .stat-box { min-width: 100px; padding: 12px 8px; }
+  .stat-value { font-size: 18px; }
+  .stat-label { font-size: 9px; }
+  .card { padding: 16px; border-radius: 10px; }
+  .card-title { font-size: 14px; }
+  .exec-summary { font-size: 14px; line-height: 1.7; }
+  .exec-summary p { text-align: left; }
+  table { font-size: 12px; }
+  th { font-size: 10px; padding: 8px 6px; }
+  td { padding: 8px 6px; }
+  .gauge-container { gap: 12px; }
+  .gauge-card { min-width: unset; padding: 16px; }
+  .gauge-score { font-size: 24px; }
+  .bar-row { gap: 6px; }
+  .bar-label { width: 80px; font-size: 11px; }
+  .bar-value { width: 60px; font-size: 11px; }
+  .bar-fill { font-size: 10px; padding-left: 4px; }
+  .flag-card { padding: 14px; }
+  .watchlist-item { padding: 12px; }
+  .site-footer { padding: 16px; flex-direction: column; gap: 8px; text-align: center; }
+  .nav-link { padding: 14px 20px; font-size: 14px; min-height: 44px; }
+  .stacked-bar { height: 24px; }
+  .prediction-card { padding: 16px; }
+  .timeline { padding-left: 20px; }
+}
+
+/* ============ SMALL PHONE (<480px) ============ */
+@media (max-width: 480px) {
+  .site-header { padding: 0 12px; }
+  .company-name { font-size: 16px; max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .main-content { padding: 12px; }
+  .stats-row { flex-direction: column; gap: 6px; }
+  .stat-box { min-width: unset; flex-direction: row; justify-content: space-between; align-items: center; text-align: left; padding: 10px 14px; }
+  .stat-value { font-size: 20px; }
+  .stat-label { font-size: 10px; margin-top: 0; }
+  .bar-label { width: 60px; font-size: 10px; }
+  .bar-value { width: 50px; font-size: 10px; }
+  .section-title { font-size: 16px; gap: 6px; }
+}
+
+/* ===== MOBILE V2 FIXES (smartphone-specific) ===== */
+
+/* FIX 1: Red flags + cross-layer — more spacing, vertical badge stacking */
+@media (max-width: 768px) {
+  .flag-card { padding: 16px !important; margin-bottom: 16px !important; border-radius: 10px; }
+  .flag-card > div:first-child {
+    flex-direction: column !important; align-items: flex-start !important; gap: 8px !important;
+  }
+  .flag-card .severity-badge { font-size: 11px; }
+  .flag-card p { font-size: 13px; line-height: 1.6; margin-top: 8px; }
+}
+
+/* FIX 2: Insider/Ownership tables — card-style stacking */
+@media (max-width: 768px) {
+  #insiders table, #insiders thead, #insiders tbody, #insiders tr, #insiders th, #insiders td {
+    display: block; width: 100%;
+  }
+  #insiders thead { display: none; }
+  #insiders tr {
+    margin-bottom: 12px; padding: 12px; border-radius: 8px;
+    background: var(--bg-card, #1a2234); border: 1px solid var(--border, #2a3550);
+  }
+  #insiders td { padding: 4px 0; border-bottom: none; text-align: left; }
+  #insiders td.num { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+  #insiders td:last-child { font-size: 12px; color: var(--text-secondary, #8b99b0); line-height: 1.5; }
+}
+
+/* FIX 3: Table scroll hint */
+@media (max-width: 768px) {
+  .table-wrap { position: relative; }
+  .table-wrap::after {
+    content: '\2190 scroll \2192';
+    display: block; text-align: center; font-size: 10px;
+    color: var(--text-muted, #5a6880); padding: 6px 0 2px; opacity: 0.5;
+  }
+}
+
+/* FIX 4: Segments — stacked bar becomes vertical bars on phone */
+@media (max-width: 768px) {
+  .stacked-bar {
+    height: auto !important; flex-direction: column !important; gap: 4px;
+    border-radius: 0 !important;
+  }
+  .stacked-seg {
+    height: 32px !important; width: 100% !important;
+    border-radius: 6px !important;
+    justify-content: flex-start !important; padding-left: 12px !important;
+    font-size: 12px !important;
+  }
+}
+
+/* FIX 5: Forensic models — complete mobile redesign */
+@media (max-width: 768px) {
+  .gauge-container { gap: 16px; flex-direction: column; }
+  .gauge-card {
+    min-width: unset !important; padding: 20px 16px !important;
+    background: var(--bg-secondary, #111827) !important; border-radius: 12px;
+  }
+  .gauge-title { font-size: 16px !important; text-align: center; margin-bottom: 4px; }
+  .gauge-subtitle { font-size: 11px !important; text-align: center; }
+  .gauge-score { font-size: 32px !important; text-align: center; margin: 12px 0 !important; }
+  .gauge-bar { height: 14px !important; border-radius: 7px !important; margin-bottom: 6px; }
+  .gauge-marker { height: 22px !important; top: -4px !important; width: 3px !important; }
+  .gauge-zones .gauge-zone { opacity: 0.25 !important; }
+  .gauge-labels { font-size: 9px !important; padding: 0 2px; }
+  .gauge-labels span:nth-child(2) { opacity: 0.5; font-size: 8px; }
+  .gauge-vars {
+    font-size: 12px !important; line-height: 2.0 !important; margin-top: 12px;
+    padding-top: 12px; border-top: 1px solid var(--border, #2a3550);
+  }
+}
+@media (max-width: 480px) {
+  .flag-card { padding: 14px 12px !important; margin-bottom: 12px !important; border-radius: 8px; }
+  .gauge-score { font-size: 28px !important; }
+  .gauge-title { font-size: 15px !important; }
+  .gauge-labels span:nth-child(2) { display: none; }
+  .gauge-vars { font-size: 11px !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="site-header">
+  <div class="header-left">
+    <a href="../" class="home-btn" title="Back to all reports"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></a>
+    <img src="../static/ticker_logos/UUUU.svg" alt="UUUU" class="header-logo">
+    <div>
+      <div class="company-name">Energy Fuels Inc.</div>
+      <div style="font-size:12px;color:var(--text-muted);">SEC Forensic Analysis Report &middot; April 8, 2026</div>
+    </div>
+    <span class="ticker-badge">UUUU</span>
+    <span style="font-size:12px;color:var(--text-muted);">NYSE American &middot; Uranium Mining &amp; Critical Minerals</span>
+  </div>
+  <div class="header-right">
+    <span class="verdict-badge badge-yellow"><span class="label">Business</span> C+ (58/100)</span>
+    <span class="verdict-badge badge-red"><span class="label">Management</span> C- (44/100)</span>
+    <span class="verdict-badge badge-yellow"><span class="label">Trajectory</span> C+ (57/100)</span>
+  </div>
+</header>
+
+<!-- Sidebar -->
+<nav class="sidebar" id="sidebar">
+  <a class="nav-link" href="#executive-summary"><span class="nav-icon">&#9670;</span> Executive Summary</a>
+  <a class="nav-link" href="#verdicts"><span class="nav-icon">&#9733;</span> Verdicts</a>
+  <a class="nav-link" href="#valuation-context"><span class="nav-icon">&#9670;</span> Valuation Context</a>
+  <a class="nav-link" href="#financial-overview"><span class="nav-icon">&#9635;</span> Financial Overview</a>
+  <a class="nav-link" href="#forensic-models"><span class="nav-icon">&#9878;</span> Forensic Models</a>
+  <a class="nav-link" href="#transcript-intelligence"><span class="nav-icon">&#9835;</span> Transcript Intelligence</a>
+  <a class="nav-link" href="#revenue-segments"><span class="nav-icon">&#9638;</span> Revenue &amp; Segments</a>
+  <a class="nav-link" href="#governance"><span class="nav-icon">&#9881;</span> Governance</a>
+  <a class="nav-link" href="#insider-institutional"><span class="nav-icon">&#9650;</span> Insider &amp; Institutional</a>
+  <a class="nav-link" href="#peer-comparison"><span class="nav-icon">&#9741;</span> Peer Comparison</a>
+  <a class="nav-link" href="#text-analysis"><span class="nav-icon">&#9998;</span> Text Analysis</a>
+  <a class="nav-link" href="#advanced-analysis"><span class="nav-icon">&#9830;</span> Advanced Analysis</a>
+  <a class="nav-link" href="#risk-convergence"><span class="nav-icon">&#9888;</span> Risk &amp; Convergence</a>
+  <a class="nav-link" href="#watchlist-predictions"><span class="nav-icon">&#9745;</span> Watchlist &amp; Predictions</a>
+  <a class="nav-link" href="#closing-synthesis"><span class="nav-icon">&#9670;</span> Closing Synthesis</a>
+</nav>
+
+<!-- Main Content -->
+<main class="main-content">
+
+<!-- ==================== 1. EXECUTIVE SUMMARY ==================== -->
+<section class="section" id="executive-summary">
+  <h2 class="section-title"><span class="icon">&#9670;</span> Executive Summary</h2>
+  <div class="stats-row">
+    <div class="stat-box"><div class="stat-value negative">$65.9M</div><div class="stat-label">FY2025 Revenue</div></div>
+    <div class="stat-box"><div class="stat-value negative">-$85.6M</div><div class="stat-label">FY2025 Net Loss</div></div>
+    <div class="stat-box"><div class="stat-value negative">-$89.5M</div><div class="stat-label">Operating Cash Burn</div></div>
+    <div class="stat-box"><div class="stat-value neutral">$862M</div><div class="stat-label">Total Liquidity</div></div>
+    <div class="stat-box"><div class="stat-value neutral">$189M</div><div class="stat-label">Contract Backlog</div></div>
+  </div>
+  <div class="card exec-summary">
+    <p>Energy Fuels Inc. (UUUU) occupies a peculiar position in the critical minerals landscape: it owns one genuinely irreplaceable asset &mdash; the White Mesa Mill, the only operating conventional uranium processing facility in the United States &mdash; and has spent the past two years layering a &ldquo;critical minerals transformation&rdquo; narrative on top of it that is real in ambition but deeply premature in financial execution.</p>
+    <p>The company ended FY2025 with $65.9M in revenue, an $85.6M net loss, and $89.5M in operating cash burn. Total assets nearly doubled to $1.41B &mdash; but this growth came primarily from the $178.4M Base Resources acquisition (October 2024), which brought the Kwale HMS project in Kenya (already in end-of-mine-life reclamation by December 2024) and the Toliara/Vara Mada mineral sands project in Madagascar ($191.5M on the balance sheet, zero production, permitting pending in a politically unstable jurisdiction). The company subsequently issued $700M in convertible notes at 0.75% (October 2025, Goldman Sachs), transforming its liquidity from $87M to approximately $862M &mdash; eliminating near-term survival risk but dramatically raising the execution bar.</p>
+    <p>Three narratives are running simultaneously at UUUU, and investors must disentangle them. The uranium story is genuinely improving: Pinyon Plain is producing high-grade ore, the cost curve is dropping toward $30&ndash;40/lb in Q1 2026, uranium spot is at $89.50/lb (February 2026), and $189M in contracted backlog provides revenue visibility through 2030. The uranium segment posted only a $10.5M operating loss in FY2025, down from $34M in FY2024 &mdash; a structural improvement. The REE transformation story has crossed the line from ambitious to misleading: Phase 1 REE at White Mesa was declared &ldquo;commercially producing&rdquo; in Q3-2024, yet nine months later NdPr inventory sat at 37,000 kg &mdash; essentially flat &mdash; while revenue totaled $1.87M against $18.2M in operating losses (a 9.7:1 loss-to-revenue ratio). The feedstock constraint (sole-source dependency on Chemours for monazite) was not disclosed until Q2-2025 &mdash; three quarters after the &ldquo;commercial production&rdquo; claim.</p>
+    <p>The governance picture adds concern. Over the 12-month insider trading window, 14 insiders sold $17.85M in stock with zero open-market purchases &mdash; selling into every price rally from $5 to $23 as the uranium cycle recovered. CEO Mark Chalmers sold $2.34M on November 19, 2025, concurrent with five other insiders, three months before his succession was announced (Ross Bhappu, February 26, 2026). Guidance fidelity across five measurable items was 0/5 delivered. At $17.44/share and $4.21B market cap, investors are paying 61x EV/Revenue for a management team with C- management quality and a D+ capital stewardship grade. The uranium thesis is real. The price is not.</p>
+  </div>
+</section>
+
+<!-- ==================== 2. VERDICTS ==================== -->
+<section class="section" id="verdicts">
+  <h2 class="section-title"><span class="icon">&#9733;</span> Verdicts</h2>
+
+  <div class="card" style="border-left: 4px solid var(--accent-yellow);">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+      <h3 class="card-title" style="margin-bottom: 0;">Business Quality</h3>
+      <span class="verdict-badge badge-yellow" style="font-size: 16px;">C+ (58/100)</span>
+    </div>
+    <div class="gauge-bar">
+      <div class="gauge-fill" style="width: 58%; background: linear-gradient(90deg, var(--accent-yellow), var(--accent-orange));"></div>
+    </div>
+    <p style="color: var(--text-secondary); margin-top: 12px;">White Mesa Mill is a genuine strategic asset &mdash; the only conventional uranium processing facility in the US &mdash; but three of four business segments are either burning cash, in reclamation, or years from production. The uranium segment contributes $48.2M (73%) of FY2025 revenue and narrowed its operating loss from $34M to $10.5M YoY. However, the business is at 12.7% of licensed uranium capacity, REE generates $1.87M revenue against $18.2M losses (5% utilization), HMS&rsquo;s only producing asset (Kwale) has ceased operations, and four international development projects are years from cash flow. Business quality would be B+ if measured on uranium operations alone; the acquisition portfolio pulls it to C+.</p>
+  </div>
+
+  <div class="card" style="border-left: 4px solid var(--accent-red);">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+      <h3 class="card-title" style="margin-bottom: 0;">Management Quality</h3>
+      <span class="verdict-badge badge-red" style="font-size: 16px;">C- (44/100)</span>
+    </div>
+    <div class="gauge-bar">
+      <div class="gauge-fill" style="width: 44%; background: linear-gradient(90deg, var(--accent-red), var(--accent-orange));"></div>
+    </div>
+    <p style="color: var(--text-secondary); margin-top: 12px;">Genuine operational competence in uranium mining coexists with systematic strategic misrepresentation, a 0/5 guidance delivery record on measurable items, and an insider trading pattern &mdash; 14 sellers, zero buyers over 12 months &mdash; that directly contradicts the company&rsquo;s public optimism. Operational team earns a B+: Pinyon Plain grade outperformance is real, cost trajectory is credible, Navajo Nation resolution delivered. Strategic management earns D+: REE &ldquo;commercial at 1,000 tpa&rdquo; while operating at 5% capacity; Toliara FID promised &ldquo;early 2026&rdquo; with no confirmation; CEO sold $2.34M before succession. Composite credibility score: 41/100.</p>
+  </div>
+
+  <div class="card" style="border-left: 4px solid var(--accent-yellow);">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+      <h3 class="card-title" style="margin-bottom: 0;">Current Trajectory</h3>
+      <span class="verdict-badge badge-yellow" style="font-size: 16px;">C+ (57/100)</span>
+    </div>
+    <div class="gauge-bar">
+      <div class="gauge-fill" style="width: 57%; background: linear-gradient(90deg, var(--accent-yellow), var(--accent-orange));"></div>
+    </div>
+    <p style="color: var(--text-secondary); margin-top: 12px;">The uranium cost inflection in Q1 2026 is the genuine binary event &mdash; if costs reach $30&ndash;40/lb, uranium approaches profitability; if not, cash burn continues. Positive signals: uranium spot $89.50/lb, contracted deliveries 740K&ndash;880K lbs vs 650K in FY2025, $862M liquidity eliminating survival questions. Negative: $89.5M operating cash burn, HMS revenue falls to ~$0, CEO succession and CFO vacancy create governance uncertainty. Share count grew 47.8% over two years; convertible note dilution (up to 34.4M shares at $20.34) adds overhang. C+ because uranium improvement is real but the execution gap between narrative and operational reality remains.</p>
+  </div>
+</section>
+
+<!-- ==================== 3. VALUATION CONTEXT ==================== -->
+<section class="section" id="valuation-context">
+  <h2 class="section-title"><span class="icon">&#9670;</span> Valuation Context</h2>
+
+  <div class="card">
+    <h3 class="card-title">Valuation Overview &mdash; FY2025</h3>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-value">$17.44</div><div class="stat-label">Stock Price</div></div>
+      <div class="stat-box"><div class="stat-value neutral">$4.21B</div><div class="stat-label">Market Cap</div></div>
+      <div class="stat-box"><div class="stat-value negative">61.1x</div><div class="stat-label">EV/Revenue</div></div>
+      <div class="stat-box"><div class="stat-value negative">-1.70</div><div class="stat-label">EPV / Share</div></div>
+      <div class="stat-box"><div class="stat-value negative">50% CAGR</div><div class="stat-label">Reverse DCF (10yr)</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title collapsible" onclick="toggleCollapse(this)">Trailing Multiples</h3>
+    <div class="collapse-content">
+      <div class="table-wrap"><table class="data-table">
+        <thead>
+          <tr><th>Multiple</th><th class="num">Value</th><th>Assessment</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>EV/Revenue</td><td class="num negative">61.1x</td><td class="negative">Extreme narrative premium — requires transformational execution</td></tr>
+          <tr><td>EV/EBITDA</td><td class="num negative">-149.5x</td><td class="negative">Negative EBITDA — traditional multiple inapplicable</td></tr>
+          <tr><td>Price/FCF</td><td class="num negative">-38.8x</td><td class="negative">Negative FCF — priced on optionality, not earnings</td></tr>
+          <tr><td>P/E (GAAP)</td><td class="num negative">-49.2x</td><td class="negative">Deep loss year — earnings multiple meaningless</td></tr>
+          <tr><td>Forward P/E</td><td class="num negative">60.1x</td><td class="negative">Street estimates embedding significant uranium recovery</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title collapsible" onclick="toggleCollapse(this)">Intrinsic Value Models</h3>
+    <div class="collapse-content">
+      <div class="table-wrap"><table class="data-table">
+        <thead>
+          <tr><th>Model</th><th class="num">Value</th><th>Interpretation</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Earnings Power Value (EPV)</td><td class="num negative">-$1.70/share</td><td class="negative">Normalized earnings power deeply negative — no justified premium</td></tr>
+          <tr><td>Residual Income</td><td class="num negative">-$0.11/share</td><td class="negative">Equity destruction at current ROE levels</td></tr>
+          <tr><td>Graham Number</td><td class="num neutral">N/A</td><td class="neutral">Not calculable — negative earnings and compressed book value</td></tr>
+          <tr><td>Reverse DCF (10yr)</td><td class="num negative">50% CAGR</td><td class="negative">Current price implies 50% revenue growth annually for a decade</td></tr>
+          <tr><td>VIS Verdict</td><td class="num negative">Very Expensive</td><td class="negative">All traditional methods yield values far below market price</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title collapsible" onclick="toggleCollapse(this)">Risk &amp; Momentum</h3>
+    <div class="collapse-content">
+      <div class="table-wrap"><table class="data-table">
+        <thead>
+          <tr><th>Metric</th><th class="num">Value</th><th>Context</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Beta (1yr)</td><td class="num negative">1.72</td><td class="negative">UUUU amplifies uranium market moves ~1.7x in both directions</td></tr>
+          <tr><td>Annualized Volatility</td><td class="num negative">72.8%</td><td class="negative">Extreme; 52-week range $3.36&ndash;$27.90</td></tr>
+          <tr><td>Sharpe Ratio</td><td class="num neutral">0.56</td><td class="neutral">Moderate risk-adjusted return — not compensating for volatility</td></tr>
+          <tr><td>Max Drawdown</td><td class="num negative">-68.7%</td><td class="negative">High historical downside in uranium bear cycles</td></tr>
+          <tr><td>RSI (14-day)</td><td class="num neutral">43.2</td><td class="neutral">Neutral territory — not oversold or overbought</td></tr>
+          <tr><td>12M Price Return</td><td class="num positive">+380%</td><td class="positive">Massive uranium cycle recovery; SMA200 at $15.70</td></tr>
+          <tr><td>SMA50 / SMA200</td><td class="num neutral">$20.54 / $15.70</td><td class="neutral">Above 200dma; below 50dma — some recent weakness</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+
+  <div class="card analyst-insight">
+    <h3 class="card-title">Analyst Insight &mdash; Valuation</h3>
+    <p>At $17.44/share, UUUU is priced as a critical minerals company that has already succeeded. The EPV of -$1.70/share reflects normalized earnings power that remains deeply negative. The reverse DCF requires 50% annual revenue growth for 10 consecutive years &mdash; against a trailing 4-year CAGR driven by acquisitions and commodity cycles, not organic growth. The 61x EV/Revenue multiple makes sense only if White Mesa reaches 3&ndash;4M lbs/year uranium production at $80+/lb AND REE Phase 1 scales to 400+ MT/year AND Toliara eventually produces at scale. Each condition is individually uncertain; all three together represent a highly optimistic base case.</p>
+    <p>The convertible notes at $20.34 conversion price create a technical anchor: above $20.34, note holders convert and dilution materializes; below, notes remain as debt. Beta of 1.72 means UUUU amplifies uranium market moves approximately 1.7x. The &ldquo;Very Expensive&rdquo; VIS verdict is appropriate: there is insufficient current earnings power to support any traditional valuation methodology, and the option value priced in depends on execution milestones that management has a C-grade track record of delivering.</p>
+  </div>
+</section>
+
+<!-- ==================== 4. FINANCIAL OVERVIEW & QUARTERLY TRENDS ==================== -->
+<section class="section" id="financial-overview">
+  <h2 class="section-title"><span class="icon">&#9635;</span> Financial Overview &amp; Quarterly Trends</h2>
+  <div class="card">
+    <h3 class="card-title collapsible" onclick="toggleCollapse(this)">Annual Financial Summary</h3>
+    <div class="collapse-content">
+      <div class="table-wrap"><table class="data-table">
+        <thead>
+          <tr><th>Metric</th><th class="num">FY2023</th><th class="num">FY2024</th><th class="num">FY2025</th><th>Trend</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Revenue</td><td class="num">$37.9M</td><td class="num">$78.1M</td><td class="num negative">$65.9M</td><td class="negative">-15.6% YoY (Kwale wind-down)</td></tr>
+          <tr><td>Operating Income</td><td class="num positive">$102.4M*</td><td class="num negative">-$27.1M</td><td class="num negative">-$32.4M</td><td class="negative">Widening operating loss</td></tr>
+          <tr><td>Net Income</td><td class="num positive">$99.9M*</td><td class="num negative">-$47.8M</td><td class="num negative">-$85.6M</td><td class="negative">Deepening loss YoY</td></tr>
+          <tr><td>Operating Cash Flow</td><td class="num negative">-$15.4M</td><td class="num negative">-$44.0M</td><td class="num negative">-$89.5M</td><td class="negative">Burn rate doubling annually</td></tr>
+          <tr><td>Total Assets</td><td class="num">$401.9M</td><td class="num">$612.0M</td><td class="num">$1,411.9M</td><td class="neutral">Base Resources acquisition</td></tr>
+          <tr><td>Total Liabilities</td><td class="num">—</td><td class="num">$80.3M</td><td class="num negative">$729.3M</td><td class="negative">ARO obligations from Base Resources</td></tr>
+          <tr><td>Equity</td><td class="num">—</td><td class="num">$531.7M</td><td class="num">$682.6M</td><td class="neutral">ATM proceeds partially offsetting losses</td></tr>
+          <tr><td>EPS (Basic)</td><td class="num positive">$0.63*</td><td class="num negative">-$0.28</td><td class="num negative">-$0.38</td><td class="negative">Worsening per share</td></tr>
+          <tr><td>Shares Outstanding</td><td class="num">162.7M</td><td class="num">200.9M</td><td class="num negative">241.6M</td><td class="negative">+20.3% dilution in FY2025</td></tr>
+        </tbody>
+      </table></div>
+      <p style="font-size:11px;color:var(--text-muted);margin-top:8px;">* FY2023 net income included $119.3M Alta Mesa ISR divestiture gain — not operating performance. Underlying business has burned cash every year.</p>
+    </div>
+  </div>
+  <div class="card">
+    <h3 class="card-title collapsible" onclick="toggleCollapse(this)">Quarterly Trends</h3>
+    <div class="collapse-content">
+      <div class="table-wrap"><table class="data-table">
+        <thead>
+          <tr><th>Period</th><th class="num">Revenue</th><th class="num">Gross Profit</th><th class="num">Op. Loss</th><th class="num">Net Loss</th><th class="num">Cash</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Q3 2025</td><td class="num">$17.7M</td><td class="num positive">$4.9M</td><td class="num negative">-$26.7M</td><td class="num negative">-$16.7M</td><td class="num">$94.0M</td></tr>
+          <tr><td>YTD 9M 2025</td><td class="num">$38.8M</td><td class="num">—</td><td class="num negative">-$79.0M</td><td class="num negative">-$64.8M</td><td class="num">—</td></tr>
+          <tr><td>Q4 2025 (implied)</td><td class="num">$27.1M</td><td class="num">—</td><td class="num negative">-$18.2M*</td><td class="num negative">-$20.8M*</td><td class="num">$64.7M</td></tr>
+        </tbody>
+      </table></div>
+      <p style="font-size:11px;color:var(--text-muted);margin-top:8px;">* Q4 2025 figures implied from full-year vs. 9M actuals. YTD 9M 2025 operating loss of $79M vs. $18.9M in 9M 2024 &mdash; primarily HMS integration costs and expanding overhead. Operating burn accelerating.</p>
+      <div class="table-wrap"><table class="data-table" style="margin-top:16px;">
+        <thead>
+          <tr><th>Key Ratio</th><th class="num">FY2025</th><th>Assessment</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Operating Margin</td><td class="num negative">-49.1%</td><td class="negative">Deep loss; every dollar of revenue costs $1.49 to generate</td></tr>
+          <tr><td>Net Margin</td><td class="num negative">-129.9%</td><td class="negative">Net loss exceeds revenue</td></tr>
+          <tr><td>ROA</td><td class="num negative">-8.6%</td><td class="negative">Assets generating deeply negative returns</td></tr>
+          <tr><td>ROE</td><td class="num negative">-14.7%</td><td class="negative">Equity destruction ongoing</td></tr>
+          <tr><td>Quick Ratio</td><td class="num positive">2.07x</td><td class="positive">Adequate short-term liquidity</td></tr>
+          <tr><td>Debt/Assets</td><td class="num negative">51.6%</td><td class="neutral">Primarily ARO obligations, not conventional debt</td></tr>
+          <tr><td>SBC / Revenue</td><td class="num negative">17.7%</td><td class="negative">3-5x mining sector norm; governance concern</td></tr>
+          <tr><td>Monthly Cash Burn</td><td class="num negative">$7.5M</td><td class="negative">Pre-notes: 11.7 months runway</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 5. FORENSIC MODELS ==================== -->
+<section class="section" id="forensic-models">
+  <h2 class="section-title"><span class="icon">&#9878;</span> Forensic Models</h2>
+  <div class="gauge-container">
+    <!-- Beneish M-Score -->
+    <div class="gauge-card">
+      <div class="gauge-title">Beneish M-Score</div>
+      <div class="gauge-subtitle">Earnings Manipulation Detection &middot; FY2025 vs FY2024</div>
+      <div class="gauge-score positive">-3.87</div>
+      <div class="gauge-bar" style="position: relative;">
+        <div class="gauge-zones">
+          <div class="gauge-zone" style="width:60%; background: var(--accent-green);"></div>
+          <div class="gauge-zone" style="width:15%; background: var(--accent-yellow);"></div>
+          <div class="gauge-zone" style="width:25%; background: var(--accent-red);"></div>
+        </div>
+        <div class="gauge-marker" style="left: 8%;"></div>
+      </div>
+      <div class="gauge-labels"><span>-5.0 (Clean)</span><span>-1.78 (Threshold)</span><span>0+ (Manipulator)</span></div>
+      <p style="margin-top: 12px; font-size: 13px; color: var(--text-secondary);"><span class="severity-badge severity-LOW">NOT MANIPULATOR</span> &mdash; M-Score well below -1.78 threshold. TATA near-zero confirms cash losses match reported losses. Model confidence reduced (0.55) due to M&amp;A distortion from Base Resources acquisition.</p>
+      <div class="gauge-vars" style="margin-top: 12px;">
+        <strong>Components:</strong><br>
+        DSRI: 1.000 <span class="positive">(Stable receivables)</span><br>
+        GMI: 0.717 <span class="positive">(Margin compression &mdash; real, not manipulated)</span><br>
+        AQI: 1.156 <span class="neutral">(Asset quality mild concern)</span><br>
+        SGI: 0.844 <span class="positive">(Revenue declined &mdash; no growth padding)</span><br>
+        DEPI: 0.743 <span class="positive">(Depreciation accelerating)</span><br>
+        SGAI: 2.097 <span class="negative">(ALARM &mdash; SGA/Revenue exploded to 98.3%)</span><br>
+        TATA: 0.0038 <span class="positive">(CLEAN &mdash; accruals negligible vs asset base)</span><br>
+        LVGI: 3.937 <span class="negative">(Leverage surged &mdash; M&amp;A driven, not fraud)</span>
+      </div>
+    </div>
+
+    <!-- Altman Z-Score -->
+    <div class="gauge-card">
+      <div class="gauge-title">Altman Z&prime;-Score</div>
+      <div class="gauge-subtitle">Bankruptcy Risk Assessment &middot; FY2025 (mining caveat)</div>
+      <div class="gauge-score negative">0.37</div>
+      <div class="gauge-bar" style="position: relative;">
+        <div class="gauge-zones">
+          <div class="gauge-zone" style="width:30%; background: var(--accent-red);"></div>
+          <div class="gauge-zone" style="width:20%; background: var(--accent-yellow);"></div>
+          <div class="gauge-zone" style="width:50%; background: var(--accent-green);"></div>
+        </div>
+        <div class="gauge-marker" style="left: 8%;"></div>
+      </div>
+      <div class="gauge-labels"><span>0 (Distress)</span><span>1.23</span><span>2.9 (Safe)</span></div>
+      <p style="margin-top: 12px; font-size: 13px; color: var(--text-secondary);"><span class="severity-badge severity-HIGH">DISTRESS ZONE</span> &mdash; But this is a model artifact for development-stage miners. UUUU has $64.7M unrestricted cash + $189M contracted revenues through 2030 + $700M in post-period convertible notes. NOT a standard distress scenario.</p>
+      <div class="gauge-vars" style="margin-top: 12px;">
+        <strong>Components:</strong><br>
+        X1 Working Capital/TA: 0.076 <span class="neutral">(Low but adequate)</span><br>
+        X2 Retained Earnings/TA: -0.065 <span class="negative">(Accumulated losses)</span><br>
+        X3 EBIT/TA: -0.023 <span class="negative">(Negative EBIT)</span><br>
+        X4 Equity/Liabilities: 0.936 <span class="positive">(Key positive contributor)</span><br>
+        X5 Asset Turnover: 4.7% <span class="negative">(Suppressor &mdash; $1.4B assets, $65.9M revenue)</span>
+      </div>
+    </div>
+
+    <!-- Piotroski F-Score -->
+    <div class="gauge-card">
+      <div class="gauge-title">Piotroski F-Score</div>
+      <div class="gauge-subtitle">Financial Quality Signal &middot; FY2025</div>
+      <div class="gauge-score negative">3/9</div>
+      <div class="gauge-bar" style="position: relative;">
+        <div class="gauge-zones">
+          <div class="gauge-zone" style="width:33%; background: var(--accent-red);"></div>
+          <div class="gauge-zone" style="width:34%; background: var(--accent-yellow);"></div>
+          <div class="gauge-zone" style="width:33%; background: var(--accent-green);"></div>
+        </div>
+        <div class="gauge-marker" style="left: 33%;"></div>
+      </div>
+      <div class="gauge-labels"><span>0 (Weak)</span><span>4-5 (Moderate)</span><span>9 (Strong)</span></div>
+      <p style="margin-top: 12px; font-size: 13px; color: var(--text-secondary);"><span class="piotroski-badge score-weak">LOW QUALITY</span> &mdash; Development-stage miner structural profile, not fraud. Chronic failures on profitability (F1, F2) and dilution (F7) are the primary shareholder risks.</p>
+      <div class="gauge-vars" style="margin-top: 12px;">
+        <strong>Passing (3):</strong> ROA trend improving (denominator effect), Liquidity improving (ATM raise), Gross margin improved (limited data)<br>
+        <strong>Failing (6):</strong> ROA negative (-6.1%), CFO negative (-$89.5M), Accrual quality negative, Leverage tripled (M&amp;A), 21.4% share dilution, Asset turnover collapsed (12.8% → 4.7%)
+      </div>
+    </div>
+
+    <!-- Sloan Accrual -->
+    <div class="gauge-card">
+      <div class="gauge-title">Sloan Accrual Ratio</div>
+      <div class="gauge-subtitle">Earnings Quality &middot; Cash vs Accrual Earnings</div>
+      <div class="gauge-score positive">0.38%</div>
+      <div class="gauge-bar" style="position: relative;">
+        <div class="gauge-zones">
+          <div class="gauge-zone" style="width:40%; background: var(--accent-green);"></div>
+          <div class="gauge-zone" style="width:30%; background: var(--accent-yellow);"></div>
+          <div class="gauge-zone" style="width:30%; background: var(--accent-red);"></div>
+        </div>
+        <div class="gauge-marker" style="left: 12%;"></div>
+      </div>
+      <div class="gauge-labels"><span>0% (Pure Cash)</span><span>5% (Threshold)</span><span>10%+ (Concern)</span></div>
+      <p style="margin-top: 12px; font-size: 13px; color: var(--text-secondary);"><span class="severity-badge severity-LOW">CLEAN</span> &mdash; Near-zero accruals relative to asset base. Cash losses ($89.5M CFO) closely match reported losses ($85.6M net income) &mdash; only $3.8M in accruals. No significant non-cash manipulation.</p>
+      <div class="gauge-vars" style="margin-top: 12px;">
+        <strong>TATA: 0.0038</strong> &mdash; The cleanest signal in the forensic model suite: UUUU is burning cash exactly in line with reported losses. Earnings quality on accruals dimension is HIGH.
+      </div>
+    </div>
+
+    <!-- Composite Risk -->
+    <div class="gauge-card">
+      <div class="gauge-title">Composite Forensic Risk</div>
+      <div class="gauge-subtitle">Weighted Aggregate Score &middot; FY2025</div>
+      <div class="gauge-score neutral">51/100</div>
+      <div class="gauge-bar" style="position: relative;">
+        <div class="gauge-zones">
+          <div class="gauge-zone" style="width:33%; background: var(--accent-green);"></div>
+          <div class="gauge-zone" style="width:34%; background: var(--accent-yellow);"></div>
+          <div class="gauge-zone" style="width:33%; background: var(--accent-red);"></div>
+        </div>
+        <div class="gauge-marker" style="left: 51%;"></div>
+      </div>
+      <div class="gauge-labels"><span>0 (Safe)</span><span>50 (Medium)</span><span>100 (High Risk)</span></div>
+      <p style="margin-top: 12px; font-size: 13px; color: var(--text-secondary);"><span class="severity-badge severity-MEDIUM">MEDIUM RISK</span> &mdash; No earnings manipulation (green). Structural financial stress (yellow-red). Manipulation risk LOW; structural risk HIGH.</p>
+      <div class="gauge-vars" style="margin-top: 12px;">
+        <strong>Summary:</strong><br>
+        Beneish: -3.87 → NOT manipulator (GREEN)<br>
+        Altman Z&prime;: 0.37 → Distress zone (RED — caveat applies)<br>
+        Piotroski: 3/9 → Low quality (RED)<br>
+        Sloan TATA: 0.38% → Clean (GREEN)<br>
+        Primary concern: SGAI 2.10 (SGA = 98.3% of revenue)
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 6. TRANSCRIPT INTELLIGENCE ==================== -->
+<section class="section" id="transcript-intelligence">
+  <h2 class="section-title"><span class="icon">&#9835;</span> Transcript Intelligence</h2>
+
+  <div class="stats-row">
+    <div class="stat-box"><div class="stat-value negative">41/100</div><div class="stat-label">Composite Credibility</div></div>
+    <div class="stat-box"><div class="stat-value negative">D+</div><div class="stat-label">Credibility Grade</div></div>
+    <div class="stat-box"><div class="stat-value">4</div><div class="stat-label">Quarters Analyzed</div></div>
+    <div class="stat-box"><div class="stat-value negative">0/5</div><div class="stat-label">Guidance Delivered</div></div>
+    <div class="stat-box"><div class="stat-value negative">8/9</div><div class="stat-label">Layers: REE Overstated</div></div>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title">Credibility Score Bifurcation</h3>
+    <div class="grid-2">
+      <div>
+        <div style="font-weight:600;color:var(--accent-green);margin-bottom:8px;">Uranium Operations: ~75-80/100</div>
+        <p style="font-size:13px;color:var(--text-secondary);">Pinyon Plain grade outperformance is real. Cost trajectory ($30-40/lb target) is credible. Navajo Nation resolution delivered within one quarter. Mine data is trustworthy.</p>
+      </div>
+      <div>
+        <div style="font-weight:600;color:var(--accent-red);margin-bottom:8px;">Strategic Narrative: ~22-28/100</div>
+        <p style="font-size:13px;color:var(--text-secondary);">REE commercialization systematically overstated. Toliara FID missed without explicit acknowledgment. ATM capital deployment opacity. CEO succession sale timing.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title">Highest Convergence Findings</h3>
+    <div class="flag-card high">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+        <span class="severity-badge severity-CRITICAL">CRITICAL</span>
+        <strong>REE Commercial Production Overstated</strong>
+        <span style="color:var(--text-muted);font-size:11px;">8/9 layers agree</span>
+      </div>
+      <p style="color:var(--text-secondary);">Phase 1 declared &ldquo;commercial at 1,000 tpa&rdquo; in Q3-2024. Nine months later: NdPr inventory flat (38,000 → 37,000 kg), REE revenue $1.87M, Phase 1 utilization ~5% of rated capacity. Chemours single-source feedstock constraint not disclosed until Q2-2025 &mdash; three quarters after the commercial claim. XBRL corroboration: $1.87M revenue vs $18.2M operating loss (9.7:1 ratio).</p>
+    </div>
+    <div class="flag-card high">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+        <span class="severity-badge severity-HIGH">HIGH</span>
+        <strong>Toliara FID Quietly Missed</strong>
+        <span style="color:var(--text-muted);font-size:11px;">6/9 layers agree</span>
+      </div>
+      <p style="color:var(--text-secondary);">Q4-2024: &ldquo;FID expected early 2026.&rdquo; April 2026: no FID confirmed. 10-K characterizes Vara Mada as &ldquo;in permitting and development&rdquo; &mdash; retrograde language. $191.5M balance sheet asset depends on this milestone. If FID fails, $100-200M impairment potential.</p>
+    </div>
+    <div class="flag-card high">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+        <span class="severity-badge severity-HIGH">HIGH</span>
+        <strong>HMS Revenue Cliff Unmitigated</strong>
+        <span style="color:var(--text-muted);font-size:11px;">3/9 layers agree</span>
+      </div>
+      <p style="color:var(--text-secondary);">$40M HMS FY2024 → $15.8M FY2025 → ~$0 FY2026. Kwale mining ceased December 31, 2024. No bridging HMS supply. Toliara, Donald, and Bahia are 3-5+ years from production. Base Resources acquisition rationale has not materialized.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title">Hidden Signals Detected</h3>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot negative"></div>
+        <div class="timeline-date">November 19, 2025</div>
+        <div class="timeline-title">CEO sold $2.34M concurrent with 5 other insiders</div>
+        <div class="timeline-detail">99 days before succession announcement &mdash; legally defensible, contextually concerning</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot negative"></div>
+        <div class="timeline-date">Q3-2024 through Q2-2025</div>
+        <div class="timeline-title">ASM acquisition never named in earnings calls</div>
+        <div class="timeline-detail">$280M ATM raise running simultaneously &mdash; material omission during capital deployment</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot negative"></div>
+        <div class="timeline-date">Ongoing since Q3-2024</div>
+        <div class="timeline-title">No permanent CFO through largest capital deployment</div>
+        <div class="timeline-detail">$700M in convertible notes, two acquisitions managed with interim financial leadership</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot negative"></div>
+        <div class="timeline-date">Q2-2025 (delayed disclosure)</div>
+        <div class="timeline-title">Chemours feedstock constraint finally disclosed</div>
+        <div class="timeline-detail">Three quarters after &ldquo;commercial production&rdquo; claim &mdash; timing suggests strategic withholding</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot negative"></div>
+        <div class="timeline-date">Q2-2025</div>
+        <div class="timeline-title">&ldquo;Zero debt&rdquo; reiterated as liabilities grew</div>
+        <div class="timeline-detail">Total liabilities grew from $80.3M to $729.3M while management claimed zero debt</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title">Management Scores</h3>
+    <div class="table-wrap"><table class="data-table">
+      <thead>
+        <tr><th>Dimension</th><th class="num">Score</th><th class="num">Grade</th><th>Assessment</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Management Quality (Composite)</td><td class="num negative">55/100</td><td class="num negative">C</td><td>Operations strong; strategy credibility undermined</td></tr>
+        <tr><td>Transparency</td><td class="num negative">38/100</td><td class="num negative">D+</td><td>Material omissions on REE, Toliara, ATM use of proceeds</td></tr>
+        <tr><td>Capital Stewardship</td><td class="num negative">35/100</td><td class="num negative">D+</td><td>$280M ATM without shareholder vote; insiders selling into raise</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="card analyst-insight">
+    <h3 class="card-title">Analyst Insight &mdash; Transcripts</h3>
+    <p>The transcript intelligence is the most damaging section of this report. When management&rsquo;s public statements are cross-referenced against XBRL-anchored financial data, a systematic pattern emerges: operational achievements (Pinyon Plain grade, Navajo Nation resolution, cost trajectory) are accurately represented, while strategic milestones (REE commercialization, Toliara FID, production guidance, price floors) are consistently overstated, then quietly revised or abandoned without explicit acknowledgment.</p>
+    <p>The composite credibility score of 41/100 means an investor can trust roughly 41 cents of every dollar of management communication &mdash; and that 41 cents is concentrated in the operational mining data, not the strategic narrative. A management team with D+ capital stewardship has been handed $700M in convertible notes to deploy. The uranium core can be trusted. Everything else requires independent verification before acting.</p>
+  </div>
+</section>
+
+<!-- ==================== 7. REVENUE & SEGMENTS ==================== -->
+<section class="section" id="revenue-segments">
+  <h2 class="section-title"><span class="icon">&#9638;</span> Revenue &amp; Segments</h2>
+
+  <div class="card">
+    <h3 class="card-title">FY2025 Revenue Mix</h3>
+    <div class="stacked-bar" style="margin-bottom:8px;">
+      <div class="stacked-seg" style="width:73.1%;background:var(--accent-blue);">Uranium 73.1%</div>
+      <div class="stacked-seg" style="width:24.0%;background:var(--accent-orange);">HMS 24.0%</div>
+      <div class="stacked-seg" style="width:2.9%;background:var(--accent-purple);">REE 2.9%</div>
+    </div>
+    <div style="font-size:11px;color:var(--text-muted);margin-bottom:16px;">Total: $65.9M. Note: HMS (24%) will drop to ~0% in FY2026 as Kwale has ceased mining.</div>
+    <div class="bar-row">
+      <div class="bar-label">Uranium</div>
+      <div class="bar-track"><div class="bar-fill" style="width:73%;background:var(--accent-blue);">$48.2M</div></div>
+      <div class="bar-value">73.1%</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">HMS (Kwale)</div>
+      <div class="bar-track"><div class="bar-fill" style="width:24%;background:var(--accent-orange);">$15.8M</div></div>
+      <div class="bar-value">24.0%</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">REE</div>
+      <div class="bar-track"><div class="bar-fill" style="width:3%;background:var(--accent-purple);">$1.9M</div></div>
+      <div class="bar-value">2.9%</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Vanadium</div>
+      <div class="bar-track"><div class="bar-fill" style="width:1%;background:var(--text-muted);">$0</div></div>
+      <div class="bar-value">0%</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title collapsible" onclick="toggleCollapse(this)">Uranium Segment Detail</h3>
+    <div class="collapse-content">
+      <div class="table-wrap"><table class="data-table">
+        <thead>
+          <tr><th>Metric</th><th class="num">FY2025</th><th class="num">FY2024</th><th>Change</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Uranium Revenue</td><td class="num">$48.2M</td><td class="num">—</td><td class="positive">73% of total</td></tr>
+          <tr><td>Operating Loss</td><td class="num negative">-$10.5M</td><td class="num negative">-$34.0M</td><td class="positive">-69% improvement</td></tr>
+          <tr><td>Lbs Produced</td><td class="num">1,015,000</td><td class="num">—</td><td class="neutral">12.7% of 8M licensed capacity</td></tr>
+          <tr><td>Lbs Sold</td><td class="num">650,000</td><td class="num">—</td><td class="neutral">1,015K produced, 650K sold</td></tr>
+          <tr><td>Avg Realized Price/lb</td><td class="num">$74.21</td><td class="num">—</td><td class="neutral">Below $88 stated floor</td></tr>
+          <tr><td>Spot Sales (350K lbs)</td><td class="num">$26.9M</td><td class="num">—</td><td class="neutral">@$76.90/lb (vs $88 stated floor)</td></tr>
+          <tr><td>Contracted Sales (300K lbs)</td><td class="num">$21.3M</td><td class="num">—</td><td class="neutral">@$71.06/lb</td></tr>
+          <tr><td>Implied Cost/lb FY2025</td><td class="num neutral">~$55-60/lb</td><td class="num">—</td><td class="neutral">Guided $30-40/lb in Q1 2026</td></tr>
+        </tbody>
+      </table></div>
+      <div style="margin-top:16px;">
+        <div style="font-weight:600;margin-bottom:8px;color:var(--text-secondary);">Break-even Analysis</div>
+        <div class="bar-row">
+          <div class="bar-label">At 650K lbs</div>
+          <div class="bar-track"><div class="bar-fill" style="width:90%;background:var(--accent-red);">$90-92/lb needed</div></div>
+          <div class="bar-value negative">Uneconomic</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">At 800K lbs</div>
+          <div class="bar-track"><div class="bar-fill" style="width:75%;background:var(--accent-yellow);">$73-75/lb needed</div></div>
+          <div class="bar-value neutral">Near spot</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">At 1,000K lbs</div>
+          <div class="bar-track"><div class="bar-fill" style="width:60%;background:var(--accent-green);">$58-60/lb needed</div></div>
+          <div class="bar-value positive">Achievable</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title collapsible" onclick="toggleCollapse(this)">REE Segment &mdash; The Critical Problem</h3>
+    <div class="collapse-content">
+      <div class="table-wrap"><table class="data-table">
+        <thead>
+          <tr><th>Metric</th><th class="num">Value</th><th>Assessment</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>REE Revenue FY2025</td><td class="num negative">$1.87M</td><td class="negative">On 1,000 tpa rated capacity — implies $40-50M potential</td></tr>
+          <tr><td>Operating Loss FY2025</td><td class="num negative">-$18.2M</td><td class="negative">9.7:1 loss-to-revenue ratio</td></tr>
+          <tr><td>Implied Production</td><td class="num negative">~40-50 MT/yr</td><td class="negative">~5% of rated 850-1,000 MT/yr capacity</td></tr>
+          <tr><td>NdPr Inventory</td><td class="num neutral">37,000 kg</td><td class="neutral">Essentially FLAT for 9+ months (38K→37K)</td></tr>
+          <tr><td>Break-even Volume</td><td class="num">450-500 MT NdPr/yr</td><td class="neutral">At $40/kg; currently at 10% of break-even</td></tr>
+          <tr><td>Timeline to Profitability</td><td class="num negative">2-4 years</td><td class="negative">Under optimistic scenarios requiring Bahia/Donald monazite</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title collapsible" onclick="toggleCollapse(this)">Mineral Property Concentration</h3>
+    <div class="collapse-content">
+      <div class="table-wrap"><table class="data-table">
+        <thead>
+          <tr><th>Property</th><th class="num">Value</th><th class="num">% of Total</th><th>Impairment Risk</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Vara Mada / Toliara (Madagascar)</td><td class="num negative">$191.5M</td><td class="num negative">61.3%</td><td class="negative">HIGH — FID overdue, politically unstable</td></tr>
+          <tr><td>Sheep Mountain (Wyoming)</td><td class="num">$34.2M</td><td class="num">10.9%</td><td class="neutral">MODERATE</td></tr>
+          <tr><td>Bahia (Brazil)</td><td class="num">$32.6M</td><td class="num">10.4%</td><td class="neutral">MODERATE</td></tr>
+          <tr><td>Uranerz ISR (Wyoming)</td><td class="num">$26.0M</td><td class="num">8.3%</td><td class="neutral">LOW-MODERATE</td></tr>
+          <tr><td>Roca Honda (New Mexico)</td><td class="num">$22.1M</td><td class="num">7.1%</td><td class="neutral">MODERATE</td></tr>
+          <tr><td>Pinyon Plain (Arizona)</td><td class="num positive">$9.3M</td><td class="num">3.0%</td><td class="positive">LOW — producing</td></tr>
+          <tr><td><strong>Total Mineral Properties</strong></td><td class="num"><strong>$312.3M</strong></td><td class="num"><strong>100%</strong></td><td></td></tr>
+        </tbody>
+      </table></div>
+      <p style="font-size:12px;color:var(--text-muted);margin-top:8px;">61.3% concentration in a single undeveloped Madagascar asset with frontier-market permitting risk is the single greatest balance sheet vulnerability in the report.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title collapsible" onclick="toggleCollapse(this)">Contract Backlog $189M</h3>
+    <div class="collapse-content">
+      <div class="table-wrap"><table class="data-table">
+        <thead>
+          <tr><th>Year</th><th class="num">Min. Revenue</th><th>Notes</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>2026</td><td class="num negative">$39.0M</td><td class="negative">BELOW FY2025 uranium revenue ($48.2M) — spot sales required for growth</td></tr>
+          <tr><td>2027</td><td class="num">$48.4M</td><td>Deliveries: 740K-880K lbs expected</td></tr>
+          <tr><td>2028</td><td class="num">$40.5M</td><td>Visibility through 2030</td></tr>
+          <tr><td>2029</td><td class="num">$24.7M</td><td>Floor prices ~$52.75/lb implied</td></tr>
+          <tr><td>2030</td><td class="num">$24.7M</td><td>6 utility customers</td></tr>
+          <tr><td>Thereafter</td><td class="num">$11.8M</td><td></td></tr>
+          <tr><td><strong>Total Backlog</strong></td><td class="num positive"><strong>$189.1M</strong></td><td>Through 2030+</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 8. GOVERNANCE & COMPENSATION ==================== -->
+<section class="section" id="governance">
+  <h2 class="section-title"><span class="icon">&#9881;</span> Governance &amp; Compensation</h2>
+
+  <div class="stats-row">
+    <div class="stat-box"><div class="stat-value neutral">B-</div><div class="stat-label">Governance Grade</div></div>
+    <div class="stat-box"><div class="stat-value positive">2/10</div><div class="stat-label">Entrenchment Score</div></div>
+    <div class="stat-box"><div class="stat-value positive">90.9%</div><div class="stat-label">Board Independence</div></div>
+    <div class="stat-box"><div class="stat-value negative">4/10</div><div class="stat-label">Capital Allocation</div></div>
+    <div class="stat-box"><div class="stat-value negative">5/10</div><div class="stat-label">Comp Alignment</div></div>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title">Board Structure</h3>
+    <div class="entrenchment-track">
+      <div class="entrenchment-marker" style="left:20%;border-color:var(--accent-green);">2</div>
+    </div>
+    <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-muted);margin-bottom:16px;">
+      <span>0 = Fully Aligned</span><span>5 = Moderate</span><span>10 = Entrenched</span>
+    </div>
+    <div class="grid-2">
+      <div>
+        <div style="font-weight:600;color:var(--accent-green);margin-bottom:8px;">Structural Strengths</div>
+        <ul style="color:var(--text-secondary);font-size:13px;line-height:1.8;list-style:none;padding:0;">
+          <li>&#10003; No poison pill or staggered board</li>
+          <li>&#10003; Annual director elections</li>
+          <li>&#10003; 90.9% board independence (10/11)</li>
+          <li>&#10003; Independent chair (J. Birks Bovaird)</li>
+          <li>&#10003; Double-trigger change of control</li>
+          <li>&#10003; KPMG (Big 4) auditor, clean opinion</li>
+          <li>&#10003; 27.3% female directors (3/11)</li>
+          <li>&#10003; 18 board meetings in FY2024</li>
+        </ul>
+      </div>
+      <div>
+        <div style="font-weight:600;color:var(--accent-red);margin-bottom:8px;">Governance Concerns</div>
+        <ul style="color:var(--text-secondary);font-size:13px;line-height:1.8;list-style:none;padding:0;">
+          <li>&#10007; No Say-on-Pay (CBCA exemption)</li>
+          <li>&#10007; $280M ATM without shareholder vote</li>
+          <li>&#10007; No permanent CFO since Q3-2024</li>
+          <li>&#10007; STIP excludes all financial metrics</li>
+          <li>&#10007; CEO sold $2.34M before succession</li>
+          <li>&#10007; CEO comp highest in loss years</li>
+          <li>&#10007; RadTran/Drera conflict of interest</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title collapsible" onclick="toggleCollapse(this)">CEO Compensation Analysis</h3>
+    <div class="collapse-content">
+      <div class="table-wrap"><table class="data-table">
+        <thead>
+          <tr><th>Metric</th><th class="num">Value</th><th>Assessment</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>CEO Total Comp FY2024 (SCT)</td><td class="num">$2.45M</td><td class="neutral">Departing CEO Mark S. Chalmers</td></tr>
+          <tr><td>CEO CAP FY2024</td><td class="num">$1.17M</td><td class="neutral">Compensation actually paid</td></tr>
+          <tr><td>Base Salary FY2024</td><td class="num negative">$621K</td><td class="negative">+10% raise in a $47.8M net loss year</td></tr>
+          <tr><td>STIP Achievement</td><td class="num negative">115% of target</td><td class="negative">Above-target bonus during loss year</td></tr>
+          <tr><td>Net Income FY2024</td><td class="num negative">-$47.8M</td><td class="negative">Inverted pay-for-performance: 3 consecutive years</td></tr>
+          <tr><td>SBC FY2025</td><td class="num negative">$11.7M</td><td class="negative">+116% YoY; 17.7% of revenue (sector norm: 2-5%)</td></tr>
+        </tbody>
+      </table></div>
+      <p style="font-size:12px;color:var(--accent-red);margin-top:8px;">Structural concern: executives can earn above-target STIP bonuses indefinitely while company posts $85M annual losses &mdash; STIP excludes all financial metrics.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title collapsible" onclick="toggleCollapse(this)">Dilution History</h3>
+    <div class="collapse-content">
+      <div class="table-wrap"><table class="data-table">
+        <thead>
+          <tr><th>Event</th><th class="num">Amount</th><th class="num">Shares</th><th>Impact</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>FY2025 ATM Issuance</td><td class="num negative">$280M raised</td><td class="num negative">40.6M shares</td><td class="negative">+20.3% dilution at $6.89 avg price</td></tr>
+          <tr><td>2-Year Cumulative Dilution</td><td class="num negative">47.8%</td><td class="num negative">78.9M new shares</td><td class="negative">162.7M → 241.6M shares FY2023-2025</td></tr>
+          <tr><td>Convertible Notes (post-period)</td><td class="num negative">$700M @ 0.75%</td><td class="num negative">Up to 34.4M shares</td><td class="negative">Conversion at $20.34/share if stock rises</td></tr>
+          <tr><td>Shareholder Vote Required?</td><td class="num negative">No</td><td class="num">—</td><td class="negative">CBCA legal; governance gap vs US peers</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title">CEO Succession</h3>
+    <p style="color:var(--text-secondary);margin-bottom:12px;"><strong>Departing:</strong> Mark S. Chalmers (founder-era, 10+ years) &mdash; sold $2.34M on November 19, 2025 (99 days before succession announced)</p>
+    <p style="color:var(--text-secondary)"><strong>Incoming:</strong> Ross Bhappu (mining finance background) &mdash; announced February 26, 2026. First signal to watch: permanent CFO appointment and whether STIP evolves to include a minimum financial accountability floor.</p>
+  </div>
+</section>
+
+<!-- ==================== 9. INSIDER & INSTITUTIONAL ==================== -->
+<section class="section" id="insider-institutional">
+  <h2 class="section-title"><span class="icon">&#9650;</span> Insider &amp; Institutional Activity</h2>
+
+  <div class="stats-row">
+    <div class="stat-box"><div class="stat-value negative">$17.85M</div><div class="stat-label">Net Insider Sales (12M)</div></div>
+    <div class="stat-box"><div class="stat-value negative">14</div><div class="stat-label">Insiders Selling</div></div>
+    <div class="stat-box"><div class="stat-value negative">0</div><div class="stat-label">Open-Market Buyers</div></div>
+    <div class="stat-box"><div class="stat-value neutral">$11.55</div><div class="stat-label">VWAP Sell Price</div></div>
+    <div class="stat-box"><div class="stat-value negative">+67%</div><div class="stat-label">Premium vs ATM Price</div></div>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title">Insider Cluster Events</h3>
+    <div class="flag-card high">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+        <span class="severity-badge severity-CRITICAL">CRITICAL</span>
+        <strong>November 2025 — CEO + 5 Executives</strong>
+      </div>
+      <p style="color:var(--text-secondary);">6 insiders sold $5.5M simultaneously. CEO Chalmers sold $2.34M at $15.60 &mdash; 99 days before succession. Breadth (6 sellers) and seniority make this the highest-conviction bearish cluster in the dataset.</p>
+    </div>
+    <div class="flag-card high">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+        <span class="severity-badge severity-HIGH">HIGH</span>
+        <strong>August 2025 — 5 Insiders Sold $8.0M</strong>
+      </div>
+      <p style="color:var(--text-secondary);">Stock doubled from $4 lows to $10-12. First significant price recovery immediately monetized. SVP Project Finance (BALLOCH) and EVP HMS (CARSTENS) sold on the same day &mdash; people with maximum visibility into cash requirements.</p>
+    </div>
+    <div class="flag-card moderate">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+        <span class="severity-badge severity-MEDIUM">MEDIUM-HIGH</span>
+        <strong>March 2026 — 4 Insiders at 52-week Highs</strong>
+      </div>
+      <p style="color:var(--text-secondary);">SVP Marketing sold at $23.12 (52-week high). Selling at the highest prices in dataset &mdash; consistent with systematic exit, not reactive trading.</p>
+    </div>
+  </div>
+
+  <div class="card" id="insiders">
+    <h3 class="card-title">Key Insider Transactions</h3>
+    <div class="table-wrap"><table class="data-table">
+      <thead>
+        <tr><th>Name / Title</th><th class="num">Sold (USD)</th><th>Pattern</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>CARSTENS Timothy (EVP HMS)</td><td class="num negative">$6.07M</td><td>Systematic 4-tranche exit Jun-Dec 2025 — likely 10b5-1</td></tr>
+        <tr><td>DRERA Saleem (VP Radioisotopes)</td><td class="num negative">$2.93M</td><td>Near-full position liquidation in single transaction</td></tr>
+        <tr><td>Chalmers Mark (CEO)</td><td class="num negative">$2.34M</td><td>$2.34M Nov 19, 2025 — 99 days before succession</td></tr>
+        <tr><td>BALLOCH Kevin (SVP Project Finance)</td><td class="num negative">$2.08M</td><td>Same-day as CARSTENS Aug 8 — direct ATM program visibility</td></tr>
+        <tr><td>All Other Insiders (10)</td><td class="num negative">$4.47M</td><td>Distributed across 4 cluster events</td></tr>
+        <tr><td><strong>Total Net Sales</strong></td><td class="num negative"><strong>-$17.85M</strong></td><td>Zero open-market purchases in 12-month window</td></tr>
+      </tbody>
+    </table></div>
+    <p style="font-size:12px;color:var(--text-muted);margin-top:8px;">Three insiders bought at $4.08-4.25 in Feb-Mar 2025 (before 12-month window) — total ~$71K. None added during subsequent 4-5x rally. Context: Company dilutes shareholders at $6.89/share ATM while insiders personally exit at $11.55 VWAP &mdash; 67% above dilution price.</p>
+  </div>
+
+  <div class="card analyst-insight">
+    <h3 class="card-title">Analyst Insight &mdash; Insider Activity</h3>
+    <p>The insider trading pattern is the most bearish discrete dataset in this entire report. Fourteen insiders sold $17.85M with zero open-market purchases across a period when uranium spot recovered from $63 to $89.50/lb and the stock rose from $4 to $23. If insiders genuinely believed the uranium secular thesis &mdash; nuclear renaissance, AI data centers, energy transition &mdash; rational insiders would be buyers, not sellers, at $10-15. They are not.</p>
+    <p>The cross-reference with capital stewardship is clarifying: management authorized a $280M ATM raise (diluting shareholders at $6.89/share average) while simultaneously selling their personal holdings at $11.55/share VWAP &mdash; 67% above the dilution price. This is not illegal, but it creates an asymmetric dynamic that prioritizes insider liquidity over shareholder value.</p>
+  </div>
+</section>
+
+<!-- ==================== 10. PEER COMPARISON ==================== -->
+<section class="section" id="peer-comparison">
+  <h2 class="section-title"><span class="icon">&#9741;</span> Peer Comparison</h2>
+
+  <div class="card">
+    <h3 class="card-title collapsible" onclick="toggleCollapse(this)">Peer Financial Metrics Grid</h3>
+    <div class="collapse-content">
+      <div class="table-wrap"><table class="data-table">
+        <thead>
+          <tr><th>Metric</th><th class="num">UUUU</th><th class="num">UEC</th><th class="num">CCJ</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Description</td><td>US conventional mill, REE, HMS</td><td>US ISR uranium developer</td><td>World #2 uranium producer</td></tr>
+          <tr><td>Revenue (annual)</td><td class="num negative">$65.9M</td><td class="num neutral">$40.4M est.</td><td class="num positive">$1.90B</td></tr>
+          <tr><td>Market Cap</td><td class="num">$4.21B</td><td class="num">$3.20B</td><td class="num">$19.0B</td></tr>
+          <tr><td>Cash Position</td><td class="num negative">$87M</td><td class="num positive">$486M</td><td class="num positive">—</td></tr>
+          <tr><td>Operating CF</td><td class="num negative">-$89.5M</td><td class="num negative">-$144.9M est.</td><td class="num positive">+$700M+ est.</td></tr>
+          <tr><td>Annual Production (lbs)</td><td class="num negative">1,015,000</td><td class="num neutral">~500,000 est.</td><td class="num positive">22,400,000</td></tr>
+          <tr><td>Market Cap / lb Produced</td><td class="num negative">$4,151</td><td class="num negative">~$6,400</td><td class="num positive">$848</td></tr>
+          <tr><td>Cost/lb</td><td class="num negative">~$55-60/lb</td><td class="num neutral">ISR model</td><td class="num positive">$29/lb</td></tr>
+          <tr><td>Profitability</td><td class="num negative">Loss</td><td class="num negative">Loss</td><td class="num positive">Profitable</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title">Key Differentials</h3>
+    <div class="grid-2">
+      <div>
+        <div style="font-weight:600;color:var(--text-secondary);margin-bottom:8px;">vs CCJ</div>
+        <ul style="font-size:13px;color:var(--text-secondary);line-height:1.8;list-style:none;padding:0;">
+          <li class="negative">&#9656; UUUU at 4.9x CCJ&rsquo;s market cap per lb produced</li>
+          <li class="negative">&#9656; CCJ profitable at $29/lb; UUUU losing at $74.21/lb</li>
+          <li class="negative">&#9656; CCJ produces 22x more uranium annually</li>
+          <li class="positive">&#9656; UUUU has White Mesa REE moat (CCJ does not)</li>
+        </ul>
+      </div>
+      <div>
+        <div style="font-weight:600;color:var(--text-secondary);margin-bottom:8px;">vs UEC</div>
+        <ul style="font-size:13px;color:var(--text-secondary);line-height:1.8;list-style:none;padding:0;">
+          <li class="negative">&#9656; UEC has 5.6x more cash ($486M vs $87M)</li>
+          <li class="negative">&#9656; UUUU trades at 31% premium despite worse balance sheet</li>
+          <li class="positive">&#9656; UUUU&rsquo;s White Mesa Mill is irreplaceable US infrastructure</li>
+          <li class="positive">&#9656; UUUU has $189M contracted backlog (UEC does not)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card analyst-insight">
+    <h3 class="card-title">Analyst Insight &mdash; Peer Valuation</h3>
+    <p>The peer comparison reveals UUUU&rsquo;s fundamental valuation paradox. At $4.21B market cap, it trades at 4.9x CCJ&rsquo;s market cap per pound of annual uranium production &mdash; a peer that is profitable at $29/lb cost and produces 22x more uranium. The premium exists because White Mesa Mill&rsquo;s regulatory moat is genuinely irreplaceable, the REE story commands a &ldquo;critical minerals&rdquo; multiple, and uranium spot recovery amplifies the entire sector.</p>
+    <p>The most damaging cross-reference: CCJ is profitable at $29/lb cost. UUUU is losing money at $74.21/lb realized. If UUUU reaches $30-40/lb costs in Q1 2026 and uranium spot holds at $89.50, the economics change dramatically &mdash; potential $49-59/lb uranium gross margin on spot sales. This would make UUUU comparable to CCJ economically, without CCJ&rsquo;s 22x production scale, which doesn&rsquo;t justify a 4.9x market cap premium per pound.</p>
+  </div>
+</section>
+
+<!-- ==================== 11. TEXT ANALYSIS ==================== -->
+<section class="section" id="text-analysis">
+  <h2 class="section-title"><span class="icon">&#9998;</span> Text Analysis</h2>
+
+  <div class="card">
+    <h3 class="card-title">MDA Narrative Shift: FY2023 to FY2025</h3>
+    <div class="grid-2">
+      <div>
+        <div style="font-weight:600;color:var(--accent-red);margin-bottom:8px;">Biggest Increases</div>
+        <ul style="font-size:13px;color:var(--text-secondary);line-height:1.8;list-style:none;padding:0;">
+          <li>&#8679; REE language: Low-Medium → High (core pillar)</li>
+          <li>&#8679; HMS/monazite language: Absent → High</li>
+          <li>&#8679; Expansion language: Low → High</li>
+          <li>&#8679; &ldquo;Critical minerals company&rdquo;: Absent → Dominant</li>
+        </ul>
+      </div>
+      <div>
+        <div style="font-weight:600;color:var(--accent-green);margin-bottom:8px;">Biggest Decreases</div>
+        <ul style="font-size:13px;color:var(--text-secondary);line-height:1.8;list-style:none;padding:0;">
+          <li>&#8681; Alta Mesa/ISR divestiture: High → Absent</li>
+          <li>&#8681; CUI investment losses: Medium → Absent</li>
+          <li>&#8681; Vanadium as revenue driver: Medium → Low</li>
+          <li>&#8681; Estonia REE customer: Named → Not mentioned</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title collapsible" onclick="toggleCollapse(this)">New Language Forensics</h3>
+    <div class="collapse-content">
+      <div class="flag-card moderate">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+          <span class="severity-badge severity-MEDIUM">MONITOR</span>
+          <strong>&ldquo;Critical minerals company / supply chain&rdquo;</strong>
+        </div>
+        <p style="color:var(--text-secondary);">Rebranding coincided with uranium spot falling from $91 (Q3-2024) to $73 (Q4-2024). The identity pivot is legitimate strategy but timed to support ATM equity raises when uranium thesis weakened. Revenue mix remains 73% uranium.</p>
+      </div>
+      <div class="flag-card high">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+          <span class="severity-badge severity-HIGH">HIGH</span>
+          <strong>&ldquo;Licensed capacity 8M+ lbs U3O8/year&rdquo;</strong>
+        </div>
+        <p style="color:var(--text-secondary);">Management headlines licensed capacity rather than utilization. Actual: 1,015,000 lbs produced vs 8,000,000 licensed &mdash; 12.7% utilization. Creates optionality narrative without requiring disclosure of current throughput constraints.</p>
+      </div>
+      <div class="flag-card high">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+          <span class="severity-badge severity-HIGH">HIGH</span>
+          <strong>&ldquo;Largest REE mine-to-metal producer outside China&rdquo; (ASM)</strong>
+        </div>
+        <p style="color:var(--text-secondary);">Aspirational claim tied to deal not yet closed (expected June 2026). Valid only if ASM closes, Donald&rsquo;s Korean metal plant operates at scale, and Phase 2 White Mesa REE reaches capacity. Three non-trivial conditions presented as identity.</p>
+      </div>
+      <div class="flag-card moderate">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+          <span class="severity-badge severity-MEDIUM">MONITOR</span>
+          <strong>&ldquo;Navajo Nation landmark agreement&rdquo;</strong>
+        </div>
+        <p style="color:var(--text-secondary);">&ldquo;Landmark&rdquo; framing of a resolution management caused (voluntary 8-month ore transport suspension) as a strategic achievement. The resolution is genuine; the &ldquo;landmark&rdquo; reframe minimizes the 8-month operational disruption of highest-grade ore access.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title">CUI Investment Disappearance</h3>
+    <div class="flag-card moderate">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+        <span class="severity-badge severity-MEDIUM">MEDIUM</span>
+        <strong>CUI (Consolidated Uranium Inc.) &mdash; $8.9M loss vanished</strong>
+      </div>
+      <p style="color:var(--text-secondary);">CUI equity investment ($8.9M losses noted in FY2023 risk factors) has disappeared from FY2025 disclosures without explicit explanation. Material investment loss that was disclosed in FY2023 appears fully written off or disposed &mdash; but management has not directly addressed this transition. Investors in FY2023 were warned about CUI concentration; FY2025 investors see no mention.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 12. ADVANCED ANALYSIS ==================== -->
+<section class="section" id="advanced-analysis">
+  <h2 class="section-title"><span class="icon">&#9830;</span> Advanced Analysis</h2>
+
+  <div class="card">
+    <h3 class="card-title">Cash Survival Analysis</h3>
+    <div class="table-wrap"><table class="data-table">
+      <thead>
+        <tr><th>Scenario</th><th class="num">Runway</th><th>Assumption</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Pre-notes base case</td><td class="num negative">15.6 months</td><td>$87M cash / $89.5M annual burn</td></tr>
+        <tr><td>Post-notes (current)</td><td class="num positive">48-60+ months</td><td>$862M liquidity at current burn rate</td></tr>
+        <tr><td>Notes fund operations</td><td class="num positive">7+ years</td><td>At $89.5M/year burn without improvement</td></tr>
+      </tbody>
+    </table></div>
+    <p style="font-size:12px;color:var(--accent-green);margin-top:8px;">VERDICT: No near-term survival risk post-convertible notes. The $700M notes eliminate imminent dilution question but shift the question to: what is the return on this capital?</p>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title collapsible" onclick="toggleCollapse(this)">Debt Structure</h3>
+    <div class="collapse-content">
+      <div class="table-wrap"><table class="data-table">
+        <thead>
+          <tr><th>Liability Component</th><th class="num">Amount</th><th>Nature</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Current Liabilities (total)</td><td class="num neutral">$31.2M</td><td class="neutral">Manageable — not a near-term threat</td></tr>
+          <tr><td>Asset Retirement Obligations (ARO)</td><td class="num neutral">~$630-680M est.</td><td class="neutral">Real but decades away (Base Resources acquisition)</td></tr>
+          <tr><td>Conventional Financial Debt</td><td class="num positive">$0-50M est.</td><td class="positive">Minimal legacy debt pre-notes</td></tr>
+          <tr><td>Convertible Notes (post-period)</td><td class="num negative">$700M @ 0.75%</td><td class="neutral">$5.25M/year interest; due 2031; NOT distress</td></tr>
+          <tr><td>Total Reported Liabilities</td><td class="num negative">$729.3M</td><td class="neutral">Headline misleading — $31.2M is current; $650M is ARO</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title collapsible" onclick="toggleCollapse(this)">SBC &amp; Dilution Analysis</h3>
+    <div class="collapse-content">
+      <div class="table-wrap"><table class="data-table">
+        <thead>
+          <tr><th>Metric</th><th class="num">FY2024</th><th class="num">FY2025</th><th>Assessment</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Stock-Based Compensation</td><td class="num">$5.4M</td><td class="num negative">$11.7M</td><td class="negative">+116.1% YoY while revenue fell 15.6%</td></tr>
+          <tr><td>SBC as % of Revenue</td><td class="num">6.9%</td><td class="num negative">17.7%</td><td class="negative">Sector norm: 2-5%; UUUU at 3-8x norm</td></tr>
+          <tr><td>Shares Outstanding</td><td class="num">200.9M</td><td class="num negative">241.6M</td><td class="negative">+20.3% dilution in single year</td></tr>
+          <tr><td>3yr Cumulative Dilution</td><td class="num negative">47.8%</td><td class="num">—</td><td class="negative">162.7M → 241.6M shares FY2023-2025</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title">Vanadium Optionality</h3>
+    <p style="color:var(--text-secondary);">905,000 lbs vanadium inventory at $5.89/lb market value = $5.3M (0.13% of market cap). Holding for price recovery; peak was $34/lb in 2018. The meaningful option is White Mesa&rsquo;s ability to co-recover vanadium at near-zero incremental cost from future ore &mdash; potentially $15-30M/year in byproduct revenue if prices recover to $15-20/lb. Current inventory is a minor optionality story financially but symbolically reflects management&rsquo;s willingness to prioritize optionality over near-term liquidity.</p>
+  </div>
+</section>
+
+<!-- ==================== 13. RISK & CONVERGENCE MATRIX ==================== -->
+<section class="section" id="risk-convergence">
+  <h2 class="section-title"><span class="icon">&#9888;</span> Risk &amp; Convergence Matrix</h2>
+
+  <div class="card">
+    <h3 class="card-title">Top Red Flags</h3>
+
+    <div class="flag-card high">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+        <span class="severity-badge severity-CRITICAL">CRITICAL</span>
+        <strong>CEO Insider Sale Before Succession</strong>
+      </div>
+      <p style="color:var(--text-secondary);">Chalmers sold $2.34M on Nov 19, 2025. Succession (Ross Bhappu) announced Feb 26, 2026 &mdash; a 99-day gap. Concurrent with five other insiders. Legally defensible timing; contextually the most damning single transaction in the dataset given concurrent cluster breadth and CEO seniority.</p>
+    </div>
+
+    <div class="flag-card high">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+        <span class="severity-badge severity-HIGH">HIGH</span>
+        <strong>Guidance Failure: 0/5 Delivered</strong>
+      </div>
+      <p style="color:var(--text-secondary);">Zero of five highest-materiality guidance items delivered in FY2025. Uranium production missed pre-raise low-end after guidance was raised 22% intra-year. $88/lb spot floor violated. REE commercial claim at 5% capacity. Toliara FID missed. Median optimism bias ~40%. Systematic, not situational.</p>
+    </div>
+
+    <div class="flag-card high">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+        <span class="severity-badge severity-HIGH">HIGH</span>
+        <strong>HMS Revenue Cliff: ~$0 in FY2026</strong>
+      </div>
+      <p style="color:var(--text-secondary);">Kwale ceased mining December 31, 2024. HMS contributed $15.8M in FY2025 revenue (24% of total). This drops to approximately $0 in FY2026 with no bridging production. Toliara, Donald, and Bahia are 3-5+ years from production. The Base Resources acquisition rationale (monazite feed to White Mesa) has not materialized.</p>
+    </div>
+
+    <div class="flag-card high">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+        <span class="severity-badge severity-HIGH">HIGH</span>
+        <strong>REE at 4% Utilization</strong>
+      </div>
+      <p style="color:var(--text-secondary);">Phase 1 declared &ldquo;commercial production&rdquo; with $1.87M revenue on $18.2M operating loss &mdash; a 9.7:1 loss-to-revenue ratio. Feedstock constraint (Chemours sole-source) withheld for three quarters after the commercial claim. 8 of 9 transcript layers independently flagged this as the highest-severity finding in the entire dataset. Highest convergence finding.</p>
+    </div>
+
+    <div class="flag-card high">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+        <span class="severity-badge severity-HIGH">HIGH</span>
+        <strong>Vara Mada: $191.5M Asset at Risk</strong>
+      </div>
+      <p style="color:var(--text-secondary);">Toliara/Vara Mada is 61.3% of mineral property portfolio ($191.5M of $312.3M). FID promised &ldquo;early 2026&rdquo; has passed without confirmation. Politically unstable Madagascar. New president, permit required. If FID denied: $100-200M impairment potential and collapse of entire REE Phase 2 feedstock thesis.</p>
+    </div>
+
+    <div class="flag-card high">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+        <span class="severity-badge severity-HIGH">HIGH</span>
+        <strong>Insider Alignment: 14 Sellers, Zero Buyers</strong>
+      </div>
+      <p style="color:var(--text-secondary);">$17.85M net insider sales during a 4-5x uranium rally. Zero open-market purchases. Company diluted shareholders at $6.89/share ATM while insiders sold at $11.55 VWAP &mdash; 67% premium. If management believed the uranium secular thesis at any price from $5 to $23, rational behavior would include buying. It did not occur.</p>
+    </div>
+
+    <div class="flag-card moderate">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+        <span class="severity-badge severity-MEDIUM">MEDIUM</span>
+        <strong>No Permanent CFO Since Q3-2024</strong>
+      </div>
+      <p style="color:var(--text-secondary);">Operating without a permanent CFO through the largest capital deployment period in company history: $700M in convertible notes, $178M Base Resources acquisition, $280M ATM raise, two further acquisitions. Under incoming CEO Bhappu, permanent CFO appointment is the first governance signal to watch.</p>
+    </div>
+
+    <div class="flag-card moderate">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+        <span class="severity-badge severity-MEDIUM">MEDIUM</span>
+        <strong>RadTran/Drera Conflict of Interest</strong>
+      </div>
+      <p style="color:var(--text-secondary);">VP Radioisotopes (Saleem Drera) has a $12M earnout interest in the RadTran/Drera acquisition milestones he leads. This creates a structural conflict: the executive responsible for reaching milestones that trigger his personal earnout has a financial incentive beyond his employment compensation.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title">Convergence Matrix &mdash; Triple-Source Findings</h3>
+    <div class="table-wrap"><table class="data-table">
+      <thead>
+        <tr><th>Finding</th><th>Sources</th><th class="num">Convergence</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>REE Commercial Overstating</td><td>XBRL + Transcripts + Guidance</td><td class="num negative">CRITICAL — 8/9 layers</td></tr>
+        <tr><td>Toliara FID Non-Event</td><td>Balance sheet + Transcripts + 10-K language</td><td class="num negative">HIGH — 6/9 layers</td></tr>
+        <tr><td>Insider Selling vs Public Optimism</td><td>Form 4 + Governance + Transcript</td><td class="num negative">CRITICAL — unambiguous</td></tr>
+        <tr><td>Capital Opacity During ATM</td><td>8-K + Transcripts + Governance</td><td class="num negative">HIGH — material omissions confirmed</td></tr>
+        <tr><td>SGA Overhead Explosion</td><td>XBRL SGAI + Segments + Beneish</td><td class="num negative">HIGH — multiple quantitative</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title collapsible" onclick="toggleCollapse(this)">Top 10 Risk Register</h3>
+    <div class="collapse-content">
+      <div class="table-wrap"><table class="data-table">
+        <thead>
+          <tr><th>Rank</th><th>Risk</th><th class="num">Severity</th><th class="num">Probability</th><th class="num">Risk Score</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>Toliara/Vara Mada FID Failure</td><td class="num negative">9</td><td class="num">55%</td><td class="num negative">4.95</td></tr>
+          <tr><td>2</td><td>REE Phase 1 Permanent Stall</td><td class="num negative">8</td><td class="num">50%</td><td class="num negative">4.00</td></tr>
+          <tr><td>3</td><td>Insider Alignment Failure</td><td class="num negative">7</td><td class="num negative">85%</td><td class="num negative">5.95</td></tr>
+          <tr><td>4</td><td>Equity Dilution Ongoing</td><td class="num negative">7</td><td class="num negative">70%</td><td class="num negative">4.90</td></tr>
+          <tr><td>5</td><td>SGA Structural Overhang</td><td class="num negative">6</td><td class="num negative">75%</td><td class="num negative">4.50</td></tr>
+          <tr><td>6</td><td>Uranium Cost Guidance Miss</td><td class="num negative">8</td><td class="num">35%</td><td class="num negative">2.80</td></tr>
+          <tr><td>7</td><td>CEO Succession Disruption</td><td class="num negative">7</td><td class="num">40%</td><td class="num negative">2.80</td></tr>
+          <tr><td>8</td><td>ASM/Donald Execution Risk</td><td class="num negative">7</td><td class="num">45%</td><td class="num negative">3.15</td></tr>
+          <tr><td>9</td><td>Uranium Spot Price Collapse</td><td class="num negative">9</td><td class="num positive">25%</td><td class="num negative">2.25</td></tr>
+          <tr><td>10</td><td>Customer Concentration Risk</td><td class="num negative">7</td><td class="num positive">20%</td><td class="num">1.40</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 14. WATCHLIST & PREDICTIONS ==================== -->
+<section class="section" id="watchlist-predictions">
+  <h2 class="section-title"><span class="icon">&#9745;</span> Watchlist &amp; Predictions</h2>
+  <div class="card">
+    <h3 class="card-title">Monitoring Watchlist</h3>
+
+    <div class="watchlist-item">
+      <div class="priority-dot priority-CRITICAL"></div>
+      <div>
+        <div style="font-weight:600;">Q1 2026 Uranium Cost Per Pound</div>
+        <div style="font-size:12px;color:var(--text-muted);margin:2px 0;">Q1 2026 earnings call (expected May 2026)</div>
+        <div style="font-size:13px;color:var(--text-secondary);">Management guided $30-40/lb direct mine cost. At $30-40/lb cost and $89.50/lb spot: uranium generates $49-59/lb gross margin. Actual cost will validate or falsify the guidance &mdash; management has a 0/5 track record. Bull: confirmed $30-40/lb. Bear: cost above $45/lb.</div>
+      </div>
+    </div>
+
+    <div class="watchlist-item">
+      <div class="priority-dot priority-CRITICAL"></div>
+      <div>
+        <div style="font-weight:600;">Toliara/Vara Mada FID Announcement</div>
+        <div style="font-size:12px;color:var(--text-muted);margin:2px 0;">IMMEDIATE &mdash; window has closed</div>
+        <div style="font-size:13px;color:var(--text-secondary);">&ldquo;Early 2026&rdquo; FID window has passed. $191.5M balance sheet asset, entire REE Phase 2 feedstock thesis depends on this permit. Watch for: FID (bull), indefinite delay (moderate negative), government opposition (severe negative), 10-K impairment charge (worst case).</div>
+      </div>
+    </div>
+
+    <div class="watchlist-item">
+      <div class="priority-dot priority-HIGH"></div>
+      <div>
+        <div style="font-weight:600;">Phase 2 REE Financing Announcement</div>
+        <div style="font-size:12px;color:var(--text-muted);margin:2px 0;">Quarterly monitoring</div>
+        <div style="font-size:13px;color:var(--text-secondary);">Phase 2 at 6,000 tpa NdPr by 2028 requires construction start in 2026. Each quarter without a financing announcement makes 2028 less achievable. Watch for: DOD/DOE contracts, offtake agreements, government loan guarantees.</div>
+      </div>
+    </div>
+
+    <div class="watchlist-item">
+      <div class="priority-dot priority-HIGH"></div>
+      <div>
+        <div style="font-weight:600;">NdPr Inventory Direction</div>
+        <div style="font-size:12px;color:var(--text-muted);margin:2px 0;">Quarterly</div>
+        <div style="font-size:13px;color:var(--text-secondary);">37,000 kg NdPr inventory has been flat for 9+ months. Declining = commercial sales (bull). Stable = Chemours constraint persisting (neutral-bear). Rising = feedstock resolved but no offtake at scale (mixed). Any directional change is a material REE status update.</div>
+      </div>
+    </div>
+
+    <div class="watchlist-item">
+      <div class="priority-dot priority-MODERATE"></div>
+      <div>
+        <div style="font-weight:600;">Permanent CFO Appointment</div>
+        <div style="font-size:12px;color:var(--text-muted);margin:2px 0;">IMMEDIATE &mdash; under new CEO Bhappu</div>
+        <div style="font-size:13px;color:var(--text-secondary);">No permanent CFO since Q3-2024 through largest capital deployment in company history. First major signal about Bhappu&rsquo;s governance intentions. Continued vacancy signals governance concern under new leadership.</div>
+      </div>
+    </div>
+
+    <div class="watchlist-item">
+      <div class="priority-dot priority-MODERATE"></div>
+      <div>
+        <div style="font-weight:600;">ASM Close &amp; Integration Announcement</div>
+        <div style="font-size:12px;color:var(--text-muted);margin:2px 0;">Expected June 2026</div>
+        <div style="font-size:13px;color:var(--text-secondary);">ASM acquisition expected to close June 2026. If closes: UUUU gains Donald Project control and &ldquo;largest REE mine-to-metal producer outside China&rdquo; claim validity. Never named in earnings calls while $280M ATM was running &mdash; Q1 2026 10-Q will be first reconciliation.</div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <h3 class="card-title">Forward Predictions</h3>
+
+    <div class="prediction-card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <strong>Uranium near-breakeven in FY2026</strong>
+        <span class="neutral">55% probability</span>
+      </div>
+      <div style="font-size:13px;color:var(--text-secondary);">Condition: Q1 2026 costs reach $30-40/lb AND uranium spot holds above $80/lb AND contracted volumes deliver 740K-880K lbs. If all three conditions met, uranium segment approaches breakeven for first time.</div>
+      <div class="confidence-bar"><div class="confidence-fill" style="width:55%;background:var(--accent-yellow);"></div></div>
+    </div>
+
+    <div class="prediction-card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <strong>Toliara FID delayed 12-24+ months</strong>
+        <span class="negative">65% probability</span>
+      </div>
+      <div style="font-size:13px;color:var(--text-secondary);">Based on 10-K &ldquo;permitting and development&rdquo; language, new Madagascar president, and historical Base Resources delays on this asset. 2026-2027 realistic FID window.</div>
+      <div class="confidence-bar"><div class="confidence-fill" style="width:65%;background:var(--accent-red);"></div></div>
+    </div>
+
+    <div class="prediction-card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <strong>REE Phase 1 stays below 30% utilization in 2026</strong>
+        <span class="negative">70% probability</span>
+      </div>
+      <div style="font-size:13px;color:var(--text-secondary);">Chemours constraint persists unless Bahia or Donald provides alternative monazite at scale &mdash; both are 2027+ events at best.</div>
+      <div class="confidence-bar"><div class="confidence-fill" style="width:70%;background:var(--accent-red);"></div></div>
+    </div>
+
+    <div class="prediction-card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <strong>New CEO announces strategic review within 6 months</strong>
+        <span class="neutral">55% probability</span>
+      </div>
+      <div style="font-size:13px;color:var(--text-secondary);">Incoming CEO Ross Bhappu (mining finance background) inheriting complex multi-commodity strategy with D+ capital stewardship &mdash; likely to reframe or prioritize. Timeline: Q2-Q3 2026.</div>
+      <div class="confidence-bar"><div class="confidence-fill" style="width:55%;background:var(--accent-yellow);"></div></div>
+    </div>
+
+    <div class="prediction-card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <strong>Additional ATM raise within 18 months</strong>
+        <span class="neutral">40% probability</span>
+      </div>
+      <div style="font-size:13px;color:var(--text-secondary);">If uranium profitability doesn&rsquo;t materialize and Phase 2 REE capex exceeds convertible note earmarks. H2 2026 to Q2 2027 window. Note liquidity reduces probability but doesn&rsquo;t eliminate it.</div>
+      <div class="confidence-bar"><div class="confidence-fill" style="width:40%;background:var(--accent-yellow);"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 15. CLOSING SYNTHESIS ==================== -->
+<section class="section synthesis-card" id="closing-synthesis">
+  <h2>Final Synthesis &mdash; The Complete Picture</h2>
+  <p class="synthesis-scope">
+    After analyzing 7 SEC filing types, 4 quarters of earnings call transcripts across 9 forensic layers, 5 forensic models, and cross-validated insider trading data, here is what we know about <strong>Energy Fuels Inc.</strong>
+  </p>
+  <div class="synthesis-thesis">
+    <p>Energy Fuels Inc. is a case study in the gap between strategic ambition and operational reality &mdash; a gap that is real, documented, and currently priced as if it does not exist. The core assets are genuine: White Mesa Mill is irreplaceable, the uranium secular tailwind is real, the $189M uranium contract backlog provides multi-year revenue visibility, and the $862M in post-notes liquidity eliminates near-term existential risk. If uranium costs reach $30-40/lb in Q1 2026 and spot holds at $89.50, the uranium segment approaches profitability for the first time in years. But the investment case as currently priced (61x EV/Revenue, EPV -$1.70/share) requires executing on a strategy that the same management team has delivered at a 0/5 guidance rate on the five most material commitments. At $17.44/share and $4.21B market cap, the market is paying for the transformation story. The forensic evidence says the transformation is real in architecture but premature in execution, managed by a team with D+ capital stewardship, through a governance structure that allows 20%+ annual dilution without shareholder votes while paying executives above-target bonuses during loss years.</p>
+  </div>
+  <div class="synthesis-grid">
+    <div class="synthesis-col">
+      <h3>What the Numbers Say</h3>
+      <ul>
+        <li>Revenue fell 15.6% YoY to $65.9M as Kwale HMS wound down</li>
+        <li>Net loss deepened to $85.6M; operating cash burn doubled to $89.5M</li>
+        <li>Uranium segment: only $10.5M operating loss (down from $34M in FY2024)</li>
+        <li>REE generates $1.87M on $18.2M losses &mdash; 9.7:1 loss-to-revenue ratio</li>
+        <li>Total liabilities exploded from $80.3M to $729.3M (ARO-driven)</li>
+        <li>Shares diluted 47.8% in two years; SBC grew 116% YoY to 17.7% of revenue</li>
+        <li>$191.5M Vara Mada = 61% of mineral properties, zero production</li>
+        <li>Forensic models: no manipulation detected; structural stress is high</li>
+      </ul>
+    </div>
+    <div class="synthesis-col">
+      <h3>What Management Says</h3>
+      <ul>
+        <li>White Mesa Mill is the only conventional US uranium facility &mdash; TRUE</li>
+        <li>Uranium cost trajectory to $30-40/lb in Q1 2026 &mdash; UNVERIFIED</li>
+        <li>REE Phase 1 is &ldquo;commercially producing&rdquo; &mdash; CONTRADICTED by data</li>
+        <li>Toliara FID expected &ldquo;early 2026&rdquo; &mdash; MISSED without acknowledgment</li>
+        <li>&ldquo;Critical minerals company&rdquo; identity &mdash; 27% of revenue non-uranium</li>
+        <li>$88/lb uranium price floor &mdash; VIOLATED at $76.90 realized in FY2025</li>
+        <li>Zero debt &mdash; said while liabilities grew from $80M to $729M</li>
+        <li>Composite credibility: 41/100; uranium data trusted, strategy discounted</li>
+      </ul>
+    </div>
+  </div>
+  <div class="synthesis-convergence">
+    <h3>Where They Agree</h3>
+    <ul>
+      <li>White Mesa Mill is genuinely irreplaceable US nuclear infrastructure</li>
+      <li>Uranium spot recovery ($89.50/lb) is real and creating legitimate tailwind</li>
+      <li>$862M post-notes liquidity eliminates near-term survival risk</li>
+      <li>$189M contracted uranium backlog provides multi-year revenue floor</li>
+      <li>The critical minerals strategic architecture has coherent long-term logic</li>
+    </ul>
+  </div>
+  <div class="synthesis-divergence">
+    <h3>Where They Conflict</h3>
+    <ul>
+      <li>REE &ldquo;commercial production&rdquo; vs actual 5% capacity utilization and $18.2M operating loss</li>
+      <li>$88/lb uranium floor vs $76.90 actual realized price in FY2025</li>
+      <li>Toliara &ldquo;early 2026 FID&rdquo; vs no confirmation as of April 2026</li>
+      <li>Insider selling $17.85M during a 4-5x rally vs public optimism on critical minerals thesis</li>
+      <li>&ldquo;Zero debt&rdquo; narrative vs total liabilities growing from $80.3M to $729.3M</li>
+    </ul>
+  </div>
+  <div class="synthesis-watchpoint">
+    <h3>The Single Most Important Thing to Watch</h3>
+    <div class="watchpoint-box">
+      <span class="watchpoint-metric">Q1 2026 Uranium Direct Mine Cost Per Pound</span>
+      <span class="watchpoint-value">Currently: ~$55-60/lb (FY2025 implied)</span>
+      <span class="watchpoint-threshold">Threshold: $40/lb or below</span>
+      <p>If Q1 2026 uranium costs reach the guided $30-40/lb range, the uranium segment generates $49-59/lb gross margin at current spot ($89.50). At 800K+ lbs sold annually, this is $39-47M in potential uranium gross margin &mdash; potentially transformative for the P&amp;L and the investment case. If costs remain at $50-55/lb, the uranium segment remains uneconomic at any realistic spot price, cash burn continues at $89.5M/year pace, and the 61x EV/Revenue multiple rests entirely on future optionality in assets that management has a 0/5 guidance delivery track record on. The Q1 2026 earnings call (expected May 2026) is the single most important near-term investment event for UUUU.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="report-disclaimer">
+    <p>This report is an automated analysis of publicly available SEC filings and earnings call transcripts. It does not constitute investment advice, a recommendation, or a solicitation to buy, sell, or hold any security. All ratings, scores, and assessments are algorithmic outputs based on historical data and should not be relied upon for investment decisions. Past performance does not indicate future results. Investors should conduct their own due diligence and consult qualified financial advisors.</p>
+  </div>
+  <div style="display:flex; justify-content:space-between; align-items:center; margin-top:1rem;">
+    <div>SEC Forensic Analysis &middot; Energy Fuels Inc. (UUUU) &middot; Generated April 8, 2026</div>
+    <div>Data sources: FY2025 10-K, Q3-2025 10-Q, DEF 14A, Form 4, 8-K, Earnings Call Transcripts Q3-2024&ndash;Q2-2025, EDGAR Bulk Facts &middot; 7 filing types, 4 transcript quarters, 5 forensic models</div>
+  </div>
+</footer>
+
+<script>
+// Sidebar active link tracking
+const sections = document.querySelectorAll('.section');
+const navLinks = document.querySelectorAll('.nav-link');
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(link => link.classList.remove('active'));
+      const activeLink = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
+      if (activeLink) activeLink.classList.add('active');
+    }
+  });
+}, { rootMargin: '-100px 0px -60% 0px' });
+
+sections.forEach(section => observer.observe(section));
+
+// Smooth scrolling
+document.querySelectorAll('.nav-link').forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    const target = document.querySelector(link.getAttribute('href'));
+    if (target) { target.scrollIntoView({ behavior: 'smooth' }); }
+  });
+});
+
+// Collapsible sections
+function toggleCollapse(el) {
+  el.classList.toggle('collapsed');
+  const content = el.nextElementSibling;
+  if (content) content.classList.toggle('hidden');
+}
+
+// Scroll spy — highlight active section in sidebar
+const spySections = document.querySelectorAll('.section[id]');
+const spyLinks = document.querySelectorAll('.nav-link');
+function updateSpy() {
+  let cur = '';
+  spySections.forEach(s => { if (window.scrollY >= s.offsetTop - 140) cur = s.id; });
+  spyLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + cur));
+}
+window.addEventListener('scroll', updateSpy, { passive: true });
+updateSpy();
+</script>
+</body>
+</html>
