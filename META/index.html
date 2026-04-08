@@ -589,6 +589,67 @@ tr:hover { background: var(--bg-card-hover); }
   .gauge-labels span:nth-child(2) { display: none; }
   .gauge-vars { font-size: 11px !important; }
 }
+
+/* ===== MOBILE PATCH v2.1 — April 2026 ===== */
+/* Fix 1: Verdict card oversized letter grades on phone */
+@media (max-width: 768px) {
+  #verdicts [style*="font-size:48px"],
+  #verdicts [style*="font-size: 48px"],
+  #transcript-intelligence [style*="font-size:42px"],
+  #transcript-intelligence [style*="font-size: 42px"] {
+    font-size: 2rem !important;
+    line-height: 1 !important;
+  }
+  #verdicts [style*="font-size:20px"],
+  #verdicts [style*="font-size: 20px"] {
+    font-size: 0.95rem !important;
+  }
+  #verdicts .card > div[style*="gap"] {
+    flex-wrap: wrap;
+    gap: 8px !important;
+  }
+  /* Fix 2: Closing synthesis — missing mobile font size rules */
+  .synthesis-card { padding: 1.5rem !important; margin: 2rem 0 !important; }
+  .synthesis-card h2 { font-size: 1.3rem !important; margin-bottom: 1rem !important; }
+  .synthesis-scope { font-size: 0.9rem !important; margin-bottom: 1.5rem !important; }
+  .synthesis-thesis { font-size: 1rem !important; padding: 1rem !important; margin-bottom: 1.5rem !important; line-height: 1.6 !important; }
+  .synthesis-grid h3 { font-size: 1rem !important; }
+  .synthesis-grid li { font-size: 0.9rem !important; }
+  .watchpoint-box { padding: 1rem !important; }
+  .watchpoint-metric { font-size: 1.1rem !important; margin-bottom: 0.25rem !important; }
+  .watchpoint-value { font-size: 0.95rem !important; }
+  .watchpoint-threshold { font-size: 0.95rem !important; }
+  .watchpoint-box p { font-size: 0.9rem !important; }
+}
+/* Fix 3: Executive summary stat boxes — 2-col grid on small phones */
+@media (max-width: 480px) {
+  #verdicts [style*="font-size:48px"],
+  #verdicts [style*="font-size: 48px"],
+  #transcript-intelligence [style*="font-size:42px"],
+  #transcript-intelligence [style*="font-size: 42px"] {
+    font-size: 1.75rem !important;
+  }
+  .stats-row {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8px !important;
+  }
+  .stat-box {
+    flex-direction: column !important;
+    text-align: center !important;
+    justify-content: center !important;
+    align-items: center !important;
+    padding: 10px 8px !important;
+  }
+  .stat-value { font-size: 18px !important; }
+  .stat-label { margin-top: 4px !important; }
+  /* Further reduce synthesis on very small screens */
+  .synthesis-card { padding: 1rem !important; margin: 1.5rem 0 !important; }
+  .synthesis-card h2 { font-size: 1.1rem !important; margin-bottom: 0.75rem !important; }
+  .synthesis-thesis { font-size: 0.95rem !important; padding: 0.75rem !important; }
+  .synthesis-watchpoint h3 { font-size: 0.95rem !important; }
+}
+/* ===== END MOBILE PATCH v2.1 ===== */
 </style>
 </head>
 <body>
