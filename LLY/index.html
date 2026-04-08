@@ -1,3 +1,18 @@
+<!--
+  FORENSIC REPORT TEMPLATE v3.0
+  ==============================
+  Source of truth: MSFT/index.html (proven mobile-working design, April 2026)
+  Rebuilt from MSFT reference — NO tier toggles, NO export buttons, NO data-tier attributes.
+
+  DESIGN RULES (HARD CONSTRAINTS):
+    - CARD TITLES: max 40 chars. Enforce in agent prompts.
+    - VERDICT BADGES: use LETTER (score/100) format. e.g. "A (88/100)" — short description in header badges only.
+    - ALL TABLES: must be inside <div class="table-wrap"><table class="data-table"> ... </table></div>
+    - NO data-tier attributes on any element
+    - NO .tier-toggle, .tier-btn, .export-btn, or tier JS
+    - JavaScript: scroll spy + collapsible only
+    - CSS: verbatim from MSFT reference including Mobile V2 fixes and 480px breakpoint
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -126,6 +141,29 @@ a:hover { text-decoration: underline; }
   border-radius: 12px; padding: 24px; margin-bottom: 16px;
 }
 .card-title { font-size: 16px; font-weight: 600; margin-bottom: 12px; }
+
+/* Analyst Insight Cards */
+.analyst-insight {
+  border-left: 3px solid #c9a227;
+  background: linear-gradient(135deg, rgba(201,162,39,0.05), transparent);
+}
+.analyst-insight .card-title {
+  color: #c9a227;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.analyst-insight p { line-height: 1.7; margin-bottom: 12px; }
+.analyst-insight .cross-source {
+  background: rgba(201,162,39,0.08);
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-top: 12px;
+  font-size: 13px;
+}
+.analyst-insight .cross-source strong { color: #c9a227; }
+.analyst-insight .red-flag-inline { color: var(--accent-red); font-weight: 600; }
+.analyst-insight .watch-item { color: var(--accent-yellow); font-style: italic; }
 
 /* Collapsible */
 .collapsible { cursor: pointer; user-select: none; }
@@ -294,16 +332,153 @@ tr:hover { background: var(--bg-card-hover); }
 .stacked-bar { display: flex; height: 28px; border-radius: 6px; overflow: hidden; margin-bottom: 4px; }
 .stacked-seg { display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 600; color: #fff; min-width: 20px; }
 
+/* crash-hero (not used for LLY but keep for template compat) */
+.crash-hero {
+  background: linear-gradient(135deg, rgba(34,197,94,0.08) 0%, rgba(59,130,246,0.08) 100%);
+  border: 2px solid rgba(34,197,94,0.3);
+  border-radius: 16px; padding: 32px; margin-bottom: 24px;
+}
+.crash-hero h3 { font-size: 20px; margin-bottom: 12px; color: var(--accent-green); }
+.crash-metric { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 600; margin: 4px; }
+
 /* Table scroll wrapper */
 .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 -4px; padding: 0 4px; }
 
+/* Piotroski score badges */
+.score-weak        { color: #fff; background-color: #dc3545; }
+.score-moderate    { color: #212529; background-color: #ffc107; }
+.score-fair        { color: #fff; background-color: #6c757d; }
+.score-strong      { color: #fff; background-color: #28a745; }
+.score-very-strong { color: #fff; background-color: #155724; }
+.piotroski-badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 0.85em;
+  letter-spacing: 0.03em;
+}
 
+/* Forensic model label override */
+.model-label {
+  display: inline-block;
+  padding: 3px 12px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 0.8em;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
 
+/* Disclaimer */
+.report-disclaimer {
+  margin-top: 3rem;
+  margin-bottom: 1.5rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--text-muted);
+  border-radius: 4px;
+  background: rgba(255,255,255,0.02);
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+  font-style: italic;
+}
+.report-disclaimer p { margin: 0; }
+
+/* Closing Synthesis — gold card */
+.synthesis-card {
+  margin: 3rem 0;
+  padding: 2.5rem;
+  border: 2px solid #c8a84e;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  width: 100%;
+  max-width: 100%;
+}
+.synthesis-card h2 {
+  font-size: 1.75rem;
+  color: #c8a84e;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-bottom: none;
+  padding-bottom: 0;
+}
+.synthesis-scope {
+  text-align: center;
+  font-size: 1.05rem;
+  color: #a0a0b8;
+  margin-bottom: 2rem;
+}
+.synthesis-thesis {
+  font-size: 1.2rem;
+  line-height: 1.7;
+  color: #e0e0e8;
+  padding: 1.5rem;
+  border-left: 4px solid #c8a84e;
+  background: rgba(200, 168, 78, 0.06);
+  margin-bottom: 2rem;
+}
+.synthesis-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+.synthesis-grid h3 {
+  color: #c8a84e;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid rgba(200, 168, 78, 0.3);
+  padding-bottom: 0.5rem;
+}
+.synthesis-grid ul { list-style: none; padding: 0; }
+.synthesis-grid li {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  color: #c8c8d8;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+.synthesis-grid li::before { content: "\25B8 "; color: #c8a84e; }
+.synthesis-convergence { margin-bottom: 2rem; }
+.synthesis-convergence h3 { color: #4ecdc4; font-size: 1.1rem; margin-bottom: 0.75rem; }
+.synthesis-convergence ul { list-style: none; padding: 0; }
+.synthesis-convergence li { color: #c8c8d8; padding: 0.5rem 0; line-height: 1.5; }
+.synthesis-convergence li::before { content: "\2714 "; color: #4ecdc4; }
+.synthesis-divergence {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: rgba(231, 76, 60, 0.08);
+  border-radius: 8px;
+  border-left: 4px solid #e74c3c;
+}
+.synthesis-divergence h3 { color: #e74c3c; font-size: 1.1rem; margin-bottom: 0.75rem; }
+.synthesis-divergence ul { list-style: none; padding: 0; }
+.synthesis-divergence li { color: #d8c8c8; padding: 0.5rem 0; font-weight: 500; line-height: 1.5; }
+.synthesis-divergence li::before { content: "\26A0 "; color: #e74c3c; }
+.synthesis-watchpoint h3 { color: #c8a84e; font-size: 1.1rem; margin-bottom: 0.75rem; }
+.watchpoint-box {
+  text-align: center;
+  padding: 1.5rem;
+  background: rgba(200, 168, 78, 0.1);
+  border: 1px solid #c8a84e;
+  border-radius: 8px;
+  margin-top: 1rem;
+}
+.watchpoint-metric { display: block; font-size: 1.3rem; font-weight: 700; color: #c8a84e; margin-bottom: 0.5rem; }
+.watchpoint-value { display: inline-block; font-size: 1.1rem; color: #e0e0e8; margin-right: 2rem; }
+.watchpoint-threshold { display: inline-block; font-size: 1.1rem; color: #e74c3c; font-weight: 600; }
+.watchpoint-box p { margin-top: 1rem; font-size: 1rem; color: #a0a0b8; line-height: 1.6; }
 
 /* ============ TABLET (<1024px) ============ */
 @media (max-width: 1024px) {
   .main-content { padding: 24px; }
   .gauge-card { min-width: 220px; }
+  .synthesis-grid { grid-template-columns: 1fr; }
+  .synthesis-card { padding: 1.5rem; }
 }
 
 /* ============ PHONE (<768px) ============ */
@@ -359,7 +534,6 @@ tr:hover { background: var(--bg-card-hover); }
   .bar-value { width: 50px; font-size: 10px; }
   .section-title { font-size: 16px; gap: 6px; }
 }
-
 
 /* ===== MOBILE V2 FIXES (smartphone-specific) ===== */
 
@@ -439,7 +613,6 @@ tr:hover { background: var(--bg-card-hover); }
   .gauge-labels span:nth-child(2) { display: none; }
   .gauge-vars { font-size: 11px !important; }
 }
-
 </style>
 </head>
 <body>
@@ -448,37 +621,38 @@ tr:hover { background: var(--bg-card-hover); }
 <header class="site-header">
   <div class="header-left">
     <a href="../" class="home-btn" title="Back to all reports"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></a>
+    <img src="../static/ticker_logos/LLY.svg" alt="LLY" class="header-logo">
     <div>
       <div class="company-name">Eli Lilly and Company</div>
-      <div style="font-size:12px;color:var(--text-muted);">SEC Forensic Analysis Report &middot; April 7, 2026</div>
+      <div style="font-size:12px;color:var(--text-muted);">SEC Forensic Analysis Report &middot; April 8, 2026</div>
     </div>
     <span class="ticker-badge">LLY</span>
-    <span style="font-size:12px;color:var(--text-muted);">NYSE &middot; Pharmaceuticals | GLP-1 Platform | FY ends December</span>
+    <span style="font-size:12px;color:var(--text-muted);">NYSE &middot; Large-Cap Pharma — GLP-1 Leader</span>
   </div>
   <div class="header-right">
-    <span class="verdict-badge badge-green"><span class="label">Business</span> A (88/100) &mdash; Fortress-Quality GLP-1 Platform</span>
-    <span class="verdict-badge badge-yellow"><span class="label">Management</span> B+ (71/100) &mdash; Operationally Excellent, Forward Opacity</span>
-    <span class="verdict-badge badge-green"><span class="label">Trajectory</span> B+ (74/100) &mdash; Decelerating from Hypergrowth</span>
+    <span class="verdict-badge badge-green"><span class="label">Business</span> A- (85/100)</span>
+    <span class="verdict-badge badge-green"><span class="label">Management</span> B+ (74/100)</span>
+    <span class="verdict-badge badge-green"><span class="label">Trajectory</span> B+ (78/100)</span>
   </div>
 </header>
 
 <!-- Sidebar -->
 <nav class="sidebar" id="sidebar">
-  <a class="nav-link active" href="#executive-summary"><span class="nav-icon">&#9670;</span> Executive Summary</a>
+  <a class="nav-link" href="#executive-summary"><span class="nav-icon">&#9670;</span> Executive Summary</a>
   <a class="nav-link" href="#verdicts"><span class="nav-icon">&#9733;</span> Verdicts</a>
-  <a class="nav-link" href="#valuation"><span class="nav-icon">&#9654;</span> Valuation Context</a>
-  <a class="nav-link" href="#financials"><span class="nav-icon">&#9635;</span> Financial Overview</a>
-  <a class="nav-link" href="#forensic"><span class="nav-icon">&#9878;</span> Forensic Models</a>
-  <a class="nav-link" href="#transcript-intel"><span class="nav-icon">&#9835;</span> Transcript Intelligence</a>
-  <a class="nav-link" href="#segments"><span class="nav-icon">&#9638;</span> Revenue &amp; Segments</a>
+  <a class="nav-link" href="#valuation-context"><span class="nav-icon">&#9670;</span> Valuation Context</a>
+  <a class="nav-link" href="#financial-overview"><span class="nav-icon">&#9635;</span> Financial Overview</a>
+  <a class="nav-link" href="#forensic-models"><span class="nav-icon">&#9878;</span> Forensic Models</a>
+  <a class="nav-link" href="#transcript-intelligence"><span class="nav-icon">&#9835;</span> Transcript Intelligence</a>
+  <a class="nav-link" href="#revenue-segments"><span class="nav-icon">&#9638;</span> Revenue &amp; Segments</a>
   <a class="nav-link" href="#governance"><span class="nav-icon">&#9881;</span> Governance</a>
-  <a class="nav-link" href="#insiders"><span class="nav-icon">&#9650;</span> Insider &amp; Institutional</a>
-  <a class="nav-link" href="#peer-comparison"><span class="nav-icon">&#9670;</span> Peer Comparison</a>
+  <a class="nav-link" href="#insider-institutional"><span class="nav-icon">&#9650;</span> Insider &amp; Institutional</a>
+  <a class="nav-link" href="#peer-comparison"><span class="nav-icon">&#9741;</span> Peer Comparison</a>
   <a class="nav-link" href="#text-analysis"><span class="nav-icon">&#9998;</span> Text Analysis</a>
-  <a class="nav-link" href="#advanced"><span class="nav-icon">&#9830;</span> Advanced Analysis</a>
-  <a class="nav-link" href="#convergence"><span class="nav-icon">&#9888;</span> Risk &amp; Convergence</a>
-  <a class="nav-link" href="#watchlist"><span class="nav-icon">&#9745;</span> Watchlist &amp; Predictions</a>
-  <a class="nav-link" href="#synthesis"><span class="nav-icon">&#9733;</span> Closing Synthesis</a>
+  <a class="nav-link" href="#advanced-analysis"><span class="nav-icon">&#9830;</span> Advanced Analysis</a>
+  <a class="nav-link" href="#risk-convergence"><span class="nav-icon">&#9888;</span> Risk &amp; Convergence</a>
+  <a class="nav-link" href="#watchlist-predictions"><span class="nav-icon">&#9745;</span> Watchlist &amp; Predictions</a>
+  <a class="nav-link" href="#closing-synthesis"><span class="nav-icon">&#9670;</span> Closing Synthesis</a>
 </nav>
 
 <!-- Main Content -->
@@ -488,1055 +662,1056 @@ tr:hover { background: var(--bg-card-hover); }
 <section class="section" id="executive-summary">
   <h2 class="section-title"><span class="icon">&#9670;</span> Executive Summary</h2>
   <div class="stats-row">
-    <div class="stat-box"><div class="stat-value positive">$65.2B</div><div class="stat-label">FY2025 Revenue (+44.7%)</div></div>
-    <div class="stat-box"><div class="stat-value positive">$20.6B</div><div class="stat-label">FY2025 Net Income (+94.9%)</div></div>
-    <div class="stat-box"><div class="stat-value positive">$16.8B</div><div class="stat-label">Operating Cash Flow (+90.6%)</div></div>
-    <div class="stat-box"><div class="stat-value">$7.3B</div><div class="stat-label">Cash &amp; Equivalents</div></div>
-    <div class="stat-box"><div class="stat-value negative">$40.9B</div><div class="stat-label">Long-Term Debt (+43.3%)</div></div>
+    <div class="stat-box"><div class="stat-value positive">$65.2B</div><div class="stat-label">FY2025 Revenue</div></div>
+    <div class="stat-box"><div class="stat-value positive">$20.6B</div><div class="stat-label">FY2025 Net Income</div></div>
+    <div class="stat-box"><div class="stat-value positive">$16.8B</div><div class="stat-label">FY2025 Op. Cash Flow</div></div>
+    <div class="stat-box"><div class="stat-value">$9.0B</div><div class="stat-label">Free Cash Flow</div></div>
+    <div class="stat-box"><div class="stat-value positive">$22.95</div><div class="stat-label">FY2025 Diluted EPS</div></div>
   </div>
   <div class="card exec-summary">
-    <p>Eli Lilly has undergone a business transformation so rapid it strains conventional financial analysis. In three years &mdash; FY2023 through FY2025 &mdash; revenue nearly doubled ($34.1B to $65.2B), operating income quadrupled ($6.6B to $25.7B), and operating margin expanded more than 2,000 basis points (19.2% to 39.5%). The engine is tirzepatide, a dual GIP/GLP-1 agonist marketed as Mounjaro in diabetes and Zepbound in obesity, which together generated $36.6B in FY2025 revenue &mdash; 56.2% of the company&rsquo;s total. No large-cap pharmaceutical company has seen a single molecule contribute this magnitude of revenue in such a compressed timeframe.</p>
-
-    <p>The forensic picture is clean. The Beneish M-Score of -1.89 classifies LLY as an &ldquo;unlikely manipulator,&rdquo; and the key elevating factors (SGI of 1.447 from authentic hypergrowth, DSRI of 1.115 from channel fill during international launches) are cross-validated by management commentary and audited financials. The Altman Z-Score stands at 7.50 &mdash; dramatically above the 2.99 safe-zone threshold &mdash; and the Piotroski F-Score of 7/9 reflects strong financial quality. Ernst &amp; Young issued a clean opinion with no material weaknesses.</p>
-
-    <p>The most important financial story beneath the headline numbers is the leverage bet. LLY issued $13.2B in new long-term debt in FY2025 alone, bringing total LTD to $40.9B (+43% YoY), to fund $7.8B in capital expenditures for manufacturing capacity. The interest coverage ratio of 28.75x and LTD/EBITDA of 1.47x confirm this is strategic leverage, not distress leverage. But borrowing $1.38 per $1.00 of free cash flow generated means LLY is structurally dependent on GLP-1 demand continuing to accelerate. The manufacturing investment thesis is compelling &mdash; but it is concentrated on the same two products that already represent 56% of revenue.</p>
-
-    <p>The bear case for LLY is coherent and specific: (1) The 2026 &ldquo;low to mid-teens&rdquo; pricing headwind is the first non-sandbagged guidance signal management has issued &mdash; take it seriously; (2) Orforglipron&rsquo;s ITT efficacy at ~9% placebo-adjusted weight loss vs semaglutide&rsquo;s ~14% is a real gap; (3) The $13.7B inventory build (+81% YoY) pre-loading the orforglipron launch creates write-down risk if launch disappoints; (4) Canada&rsquo;s generic semaglutide (early 2026) threatens the $16.3B of OUS revenue that is 75% self-pay.</p>
-
-    <p><strong>What to watch:</strong> Q1-2026 call will reveal US realized price vs the &ldquo;low to mid-teens&rdquo; guide. Q2-2026 call is the moment of maximum information: first orforglipron revenue disclosure. If management still does not disaggregate orforglipron revenue in Q2-2026, assume the number is below Street expectations and treat the guidance as under pressure.</p>
-
-    <p><strong>Key Strengths:</strong></p>
-    <ul style="margin-left: 20px; margin-bottom: 16px; color: var(--text-secondary);">
-      <li>Beneish M-Score -1.89 (unlikely manipulator), Altman Z-Score 7.50, Piotroski F-Score 7/9 &mdash; all forensic models indicate clean financials and exceptional health</li>
-      <li>Operating margin expanded from 19.2% to 39.5% in 3 years &mdash; one of the fastest margin expansion events in pharmaceutical history</li>
-      <li>ROIC of 29.5% confirms the GLP-1 economics are real and compounding</li>
-      <li>August 2025 conviction buy: CEO + CSO + 3 directors at orforglipron Phase 3 dip &mdash; strongest insider alignment signal in the dataset</li>
-      <li>#1 composite quality ranking in the LLY/PFE/JNJ/MRK/ABBV/NVO peer set</li>
-      <li>Zero discretionary management sells across 100 Form 4 filings in 12 months</li>
-      <li>Interest coverage of 28.75x and LTD/EBITDA of 1.47x confirm leverage is strategic, not distress</li>
-    </ul>
-
-    <p><strong>Key Risks:</strong></p>
-    <ul style="margin-left: 20px; margin-bottom: 16px; color: var(--text-secondary);">
-      <li>56.2% revenue concentration in tirzepatide (Mounjaro + Zepbound) &mdash; unprecedented at $65B scale, amplified by $40.9B LTD to manufacture those same products</li>
-      <li>$40.9B LTD (+43% YoY) &mdash; $13.2B new debt in FY2025 against $9.0B FCF (borrowing $1.38 per $1.00 FCF)</li>
-      <li>2026 pricing headwind accelerating from 7-8% to &ldquo;low to mid-teens&rdquo; &mdash; credible, not sandbagged</li>
-      <li>Orforglipron revenue contribution systematically withheld despite being the most material 2026 variable</li>
-      <li>DSO expanding 89&rarr;99 days; only 11 days from Beneish manipulation threshold (110 days)</li>
-    </ul>
+    <p>Eli Lilly and Company delivered one of the most extraordinary financial transformations in large-cap pharmaceutical history during FY2025. Revenue reached $65.2 billion, a 44.7% surge from $45.0 billion in FY2024, which itself represented 32% growth from FY2023's $34.1 billion. Net income more than doubled to $20.6 billion (FY2024: $10.6 billion; FY2023: $5.2 billion), producing diluted EPS of $22.95 versus $11.71 the prior year. Operating cash flow accelerated to $16.8 billion from $8.8 billion. Free cash flow tripled to $9.0 billion. These are not incremental improvements — they are the metrics of a company in the midst of a once-in-a-generation product cycle driven by tirzepatide, the dual GIP/GLP-1 agonist sold as Mounjaro (type 2 diabetes) and Zepbound (obesity).</p>
+    <p>The core business reality is breathtaking in its simplicity: two brand names, one active molecule, one biological mechanism — and together they generated $36.6 billion in FY2025 revenue, representing 56.2% of LLY's total. Mounjaro grew 66.6% to $23.0 billion (from $13.8 billion), while Zepbound, launched in late 2023, erupted to $13.7 billion from $5.0 billion in its first full calendar year — a 174% increase. The manufacturing machine required to feed this demand absorbed $7.8 billion in capital expenditures in FY2025 (versus $5.1 billion in FY2024 and $3.4 billion in FY2023), cumulating to over $16 billion in three-year capex. Management disclosed that total manufacturing investments since 2020 have exceeded $55 billion, financed in part through $40.9 billion in long-term debt — a 43% single-year increase from $28.5 billion.</p>
+    <p>The gross margin story is equally impressive. Gross margin expanded from 81.3% in FY2024 to 83.0% in FY2025 (versus 79.3% in FY2023), reflecting the operating leverage inherent in scaling a biologics manufacturing platform. Operating margin expanded from 28.2% to 39.5% — a 1,130 basis point improvement in a single year that puts Lilly in the same league as Novo Nordisk (41.3% operating margin) and far ahead of Pfizer (12.4%), J&amp;J (18.6%), Merck (28.1%), and AbbVie (24.6%). Net margin reached 31.7%, the second highest in the peer set behind only Novo Nordisk at 33.1%.</p>
+    <p>The forensic picture is largely clean but carries specific surveillance flags. Beneish M-Score of -1.89 — 0.11 points below the -1.78 manipulation threshold — is the dominant forensic headline. The score is elevated primarily by two factors: SGI of 1.447 (the 44.7% revenue growth itself pushes up the model) and DSRI of 1.115 (accounts receivable grew 61% to $17.8 billion while revenue grew 45%, expanding DSO from 89 to 99 days). Cross-validation against five earnings call transcripts confirms both signals as organic: the SGI is backed by documented prescription volume growth and supply constraint resolution, while the DSRI is explained by international launch channel-fill dynamics explicitly confirmed by President of International Patrik Jonsson. The Altman Z-Score of 7.50 signals exceptional financial strength — well above the 2.99 safe-zone threshold. The Piotroski F-Score of 7/9 confirms moderate-to-strong fundamental quality, with the two failures (P4 accruals, P5 marginal leverage increase) both traceable to the capital investment cycle rather than financial deterioration.</p>
+    <p>Management credibility earns a B+ (71/100) composite score. The firm sandbagging pattern — initial FY2025 guidance of $58–61 billion beat by $5.7 billion (9.6%) — creates a structural information asymmetry that has become a predictable feature of LLY's reporting cycle. Guidance is raised progressively each quarter, always slightly below the actual run-rate. This is not deception but it is deliberate, and analysts who anchor to initial guidance consistently underestimate LLY revenues. The most consequential forward disclosure is the CFO's Q4-2025 statement that 2026 pricing headwinds will be "low to mid-teens" — an acceleration from FY2025's 7–8% US realized price declines. This is the result of Medicaid rebate reductions and the November 2025 Medicare obesity access agreement ($50/month patient out-of-pocket), which represents a structural change to the pricing architecture, not a transitory headwind.</p>
+    <p>Five confirmed cross-layer findings from the investigation engine warrant direct attention. First, LLY is running a leveraged supply bet: $40.9 billion in long-term debt against $9.0 billion in free cash flow means the company issued $1.38 in debt for every $1 of free cash flow generated in FY2025. Management frames this as manufacturing investment; the forensic reading is that the GLP-1 bet is partially debt-financed, and the interest coverage of 28.75x provides substantial headroom but the leverage trajectory warrants monitoring. Second, revenue concentration in tirzepatide reached 56.2% — the highest single-molecule dependency in LLY's modern history — and is accelerating. Third, the orforglipron revenue opacity issue: CFO Lucas Montarce explicitly refused to quantify orforglipron's contribution to the $80–83 billion FY2026 guidance despite direct analyst probing. The math suggests $2–5 billion of the $14.8–17.8 billion guidance delta is an orforglipron placeholder. Fourth, R&amp;D intensity is structurally declining: 27.3% of revenue in FY2023, 24.4% in FY2024, 20.5% in FY2025. The GLP-1 revenue engine is not proportionally refueling innovation investment even as absolute R&amp;D spending ($13.3 billion) reaches record levels. Fifth, employer opt-in coverage for Zepbound has been structurally flat at 50–55% for 18+ months — the metric was dropped from management reporting after Q2-2025 disclosure of stagnation.</p>
+    <p>On the positive side, governance and insider activity is notably strong. CEO David Ricks, CSO Daniel Skovronsky, and three independent directors all purchased shares on the open market on August 12–13, 2025 — the day the market sold off 14% following orforglipron Phase 3 results. The CSO's purchase is the most meaningful signal: Skovronsky has full visibility into the pipeline and still chose to buy at the trough. The subsequent FDA approval of orforglipron for obesity validated this conviction precisely. CEO compensation grew 25.5% while revenue grew 44.7% and operating income doubled — management is not capturing a disproportionate share of the GLP-1 windfall. SBC dilution is negligible at 0.22% of shares.</p>
+    <p>Valuation at $931.09 per share (as of April 8, 2026) implies a market cap of $833 billion and enterprise value of $870 billion. The trailing P/E of 40.4x is expensive in absolute terms but compresses sharply on forward estimates: the forward P/E of 22.1x reflects consensus expectation of significant earnings growth. PEG ratio of 0.41 reflects the growth-adjusted value. The reverse DCF implies the market requires 31.3% annual revenue growth for 10 years at 9.5% WACC — LLY's trailing 2-year CAGR is 38.2%, above this implied requirement. Graham Formula intrinsic value of $1,088 represents a 14.4% premium to current price. The stock is 17.9% below its 52-week high of $1,133.95.</p>
+    <p>The investment thesis in one sentence: Lilly is the world's premier GLP-1 franchise, demonstrating genuine operating leverage and forensically clean financials, at a valuation that requires continuation of extraordinary growth rates — which face two structural challenges in 2026: pricing headwind acceleration and orforglipron launch uncertainty.</p>
   </div>
 </section>
 
 <!-- ==================== 2. VERDICTS ==================== -->
 <section class="section" id="verdicts">
   <h2 class="section-title"><span class="icon">&#9733;</span> Verdicts</h2>
-
-  <div class="card" style="border-left: 4px solid var(--accent-green);">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-      <h3 class="card-title" style="margin-bottom: 0;">Business Quality</h3>
-      <span class="verdict-badge badge-green" style="font-size: 16px;">A (88/100)</span>
+  <div class="grid-3">
+    <div class="card" style="border-top: 3px solid var(--accent-green);">
+      <div class="card-title" style="color:var(--accent-green);">Business Quality — A- (85/100)</div>
+      <p style="font-size:13px;color:var(--text-secondary);margin-bottom:12px;">Exceptional franchise with dangerous concentration</p>
+      <p style="font-size:13px;line-height:1.7;">Eli Lilly's business quality is anchored by one of the most powerful product cycles in modern pharmaceutical history. Revenue grew 44.7% to $65.2B in FY2025, following 32% growth in FY2024. The underlying franchise demonstrates genuine operating leverage: gross margin expanded from 81.3% to 83.0%, operating margin from 28.2% to 39.5% — a 1,130bp improvement in a single year. Mounjaro ($23.0B, +66.6%) and Zepbound ($13.7B, +174%) have established LLY as the world's premier GLP-1 franchise. Pipeline beyond tirzepatide is credible: orforglipron (oral GLP-1, FDA-approved), retatrutide (triple agonist, 29% weight loss), donanemab/Kisunla (50%+ US Alzheimer's share). R&amp;D at $13.3B (20.5% of revenue) is second highest in absolute terms. Grade capped at A- due to 56.2% revenue concentration in one active molecule (tirzepatide), up 14.6pp in a single year. Biochemically identical Mounjaro + Zepbound hit simultaneously on any safety signal or manufacturing disruption. Trulicity patent cliff 2027. Zepbound 98.7% US-only.</p>
     </div>
-    <div class="gauge-bar">
-      <div class="gauge-fill" style="width: 88%; background: linear-gradient(90deg, var(--accent-green), var(--accent-cyan));"></div>
+    <div class="card" style="border-top: 3px solid var(--accent-green);">
+      <div class="card-title" style="color:var(--accent-green);">Management Quality — B+ (74/100)</div>
+      <p style="font-size:13px;color:var(--text-secondary);margin-bottom:12px;">Operationally credible, strategically transparent, selectively evasive</p>
+      <p style="font-size:13px;line-height:1.7;">Management earns B+ based on L10 composite score of 71/100 and governance cross-validation of 7.5/10. Operational track record is strong: pipeline delivery (orforglipron FDA approval, Kisunla 50%+ market share), manufacturing execution (1.8x incretin doses FY2025 vs FY2024), consistent revenue outperformance vs guidance. CEO David Ricks's compensation grew 25.5% while revenue grew 44.7% — management not extracting disproportionate GLP-1 windfall value. August 2025 conviction buy by Ricks, CSO Skovronsky, and three directors at the orforglipron Phase 3 dip is the strongest insider alignment signal in the dataset — Skovronsky's purchase is especially meaningful given full pipeline visibility. Zero discretionary management sales in 12 months. Compensation structure (95% variable, double-trigger CIC, no tax gross-ups, robust clawbacks, hedging/pledging prohibited) is best-in-class. Grade limited to B+ by five confirmed say-do gaps: $15B buyback vs 0.5% actual share reduction; "low-40s" margin ceiling abandoned at 48.3%; R&amp;D intensity declining despite "robust innovation" narrative; manufacturing debt-financed at $1.38/$1 FCF; CFO full deflection on orforglipron revenue when directly probed.</p>
     </div>
-    <p style="color: var(--text-secondary); margin-top: 12px;">Eli Lilly has executed one of the most remarkable revenue transformations in pharmaceutical history: $65.2B in FY2025 revenue (+44.7% YoY) with operating margins expanding from 19% to 39.5% in just two years &mdash; all driven by a single dual-agonist molecule, tirzepatide. The business is genuinely exceptional on every quality dimension: ROIC of 29.5%, Piotroski F-Score of 7/9, Beneish M-Score of -1.89 (clean), and #1 ranked composite quality in the peer set (LLY, PFE, JNJ, MRK, ABBV, NVO). However, 56.2% of revenue from one molecule is an unprecedented single-product concentration for a company of this scale, amplified by $40.9B in long-term debt (+43% YoY) raised to fund manufacturing capacity that serves those same two products.</p>
-  </div>
-
-  <div class="card" style="border-left: 4px solid var(--accent-yellow);">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-      <h3 class="card-title" style="margin-bottom: 0;">Management Quality</h3>
-      <span class="verdict-badge badge-yellow" style="font-size: 16px;">B+ (71/100)</span>
+    <div class="card" style="border-top: 3px solid var(--accent-green);">
+      <div class="card-title" style="color:var(--accent-green);">Current Trajectory — B+ (78/100)</div>
+      <p style="font-size:13px;color:var(--text-secondary);margin-bottom:12px;">Explosive momentum with 2026 inflection risks</p>
+      <p style="font-size:13px;line-height:1.7;">LLY's trajectory earns B+ based on explosive current momentum tempered by specific 2026 execution risks. The momentum case: revenue 2-year CAGR of 38.2%, operating leverage producing 1,130bp margin expansion, free cash flow tripling to $9.0B, OCF growing 91% to $16.8B. The 2026 guidance of $80–83B, adjusted for confirmed sandbagging (+9.6% average beat), implies an internal expectation of $87–90B. Three sequential H2-2026 catalysts: orforglipron US launch (Q2-2026), Medicare obesity access (July 1, $50/month co-pay), continued Mounjaro international expansion. Scored B+ rather than A because of two structural 2026 headwinds: (1) US pricing erosion accelerating to 13–15% from FY2025's 7–8% — math requires 25%+ volume growth to hold US revenue flat; (2) orforglipron launch uncertainty — management refused to quantify guidance contribution, Phase 3 weight loss data (9% placebo-adjusted vs semaglutide's 14%) is a genuine competitive gap, first-quarter revenue expected $300–800M. Capital allocation shows incremental capital ROI of 2.57x (excellent), but $40.9B LTD against $9.0B FCF creates leverage risk if demand growth disappoints in 2027–2028.</p>
     </div>
-    <div class="gauge-bar">
-      <div class="gauge-fill" style="width: 71%; background: linear-gradient(90deg, var(--accent-green), var(--accent-yellow));"></div>
-    </div>
-    <p style="color: var(--text-secondary); margin-top: 12px;">Management credibility scores 73.7% (adjusted) with a composite trust score of 71/100 &mdash; above average with concentrated gaps. CEO Ricks and CFO Montarce deliver consistently on operational and revenue commitments (systematic sandbagging confirmed: 2025 initial guide beaten by 9.6%), and CSO Skovronsky is the most credible executive (88/100 score) with full pipeline knowledge. The August 2025 conviction buy by CEO + CSO + 3 directors is the strongest insider alignment signal in the dataset. However, five documented say-do gaps exist, and CFO Montarce&rsquo;s complete deflection on orforglipron revenue contribution in Q4-2025 &mdash; the most financially material question of the year &mdash; is the single biggest trust liability entering 2026.</p>
-  </div>
-
-  <div class="card" style="border-left: 4px solid var(--accent-green);">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-      <h3 class="card-title" style="margin-bottom: 0;">Trajectory</h3>
-      <span class="verdict-badge badge-green" style="font-size: 16px;">B+ (74/100)</span>
-    </div>
-    <div class="gauge-bar">
-      <div class="gauge-fill" style="width: 74%; background: linear-gradient(90deg, var(--accent-green), var(--accent-cyan));"></div>
-    </div>
-    <p style="color: var(--text-secondary); margin-top: 12px;">The trajectory is broadly positive but decelerating from hypergrowth into structured growth with headwinds. The GLP-1 market is growing toward $202B by 2033, orforglipron (Q2-2026 US launch) extends the oral platform, and Zepbound international (98.7% US currently) is an enormous untapped lever. Against this, the 2026 pricing headwind is accelerating from ~7-8% to &ldquo;low to mid-teens&rdquo; &mdash; the most bearish explicit signal management has issued in five quarters &mdash; and it is credible because pricing guidance has historically been accurate (not sandbagged). The sandbagging-adjusted expectation of $87-90B is realistic, but H1 2026 (before Medicare access in July) and any orforglipron launch disappointment represent the two key risk windows.</p>
   </div>
 </section>
 
 <!-- ==================== 3. VALUATION CONTEXT ==================== -->
-<section class="section" id="valuation">
-  <h2 class="section-title"><span class="icon">&#9654;</span> Valuation Context</h2>
-
-  <div class="card">
-    <h3 class="card-title">Valuation Summary</h3>
-    <div class="stats-row">
-      <div class="stat-box"><div class="stat-value">$808B</div><div class="stat-label">Market Cap</div></div>
-      <div class="stat-box"><div class="stat-value neutral">39.2x</div><div class="stat-label">Trailing P/E</div></div>
-      <div class="stat-box"><div class="stat-value neutral">30.4x</div><div class="stat-label">EV/EBITDA</div></div>
-      <div class="stat-box"><div class="stat-value neutral">12.4x</div><div class="stat-label">P/S Ratio</div></div>
-    </div>
-    <p style="color: var(--text-secondary);">LLY trades at a 39x trailing P/E premium vs. peer median of ~18x. This premium is warranted by best-in-class growth (+44.7% revenue) and expanding margins, but concentration risk (56% revenue in tirzepatide) and the $40.9B debt load create valuation sensitivity. The &ldquo;real&rdquo; management expectation for 2026 revenue, after applying the confirmed 8-10% sandbagging premium to the $81.5B midpoint, is $87-90B &mdash; implying forward P/E of approximately 25-27x on normalized earnings, which is more defensible. Novo Nordisk is the best comparable: at peak GLP-1 scaling it traded 28-35x earnings. LLY&rsquo;s current multiple is not euphoric by that standard.</p>
-  </div>
-
-  <div class="card">
-    <h3 class="card-title">Peer P/E Context</h3>
-    <div class="bar-row">
-      <div class="bar-label">LLY</div>
-      <div class="bar-track"><div class="bar-fill" style="width:78%; background: var(--accent-gold);">39.2x</div></div>
-      <div class="bar-value neutral">Premium</div>
-    </div>
-    <div class="bar-row">
-      <div class="bar-label">NVO</div>
-      <div class="bar-track"><div class="bar-fill" style="width:64%; background: var(--accent-cyan);">32.0x</div></div>
-      <div class="bar-value">32.0x</div>
-    </div>
-    <div class="bar-row">
-      <div class="bar-label">ABBV</div>
-      <div class="bar-track"><div class="bar-fill" style="width:44%; background: var(--accent-blue);">22.1x</div></div>
-      <div class="bar-value">22.1x</div>
-    </div>
-    <div class="bar-row">
-      <div class="bar-label">PFE</div>
-      <div class="bar-track"><div class="bar-fill" style="width:37%; background: var(--accent-purple);">18.3x</div></div>
-      <div class="bar-value">18.3x</div>
-    </div>
-    <div class="bar-row">
-      <div class="bar-label">JNJ</div>
-      <div class="bar-track"><div class="bar-fill" style="width:34%; background: var(--accent-green);">16.8x</div></div>
-      <div class="bar-value">16.8x</div>
-    </div>
-    <div class="bar-row">
-      <div class="bar-label">MRK</div>
-      <div class="bar-track"><div class="bar-fill" style="width:29%; background: var(--text-muted);">14.5x</div></div>
-      <div class="bar-value">14.5x</div>
-    </div>
-  </div>
-
+<section class="section" id="valuation-context">
+  <h2 class="section-title"><span class="icon">&#9670;</span> Valuation Context</h2>
   <div class="grid-2">
     <div class="card">
-      <h3 class="card-title">Bull Case for Valuation</h3>
-      <p style="font-size: 13px; color: var(--text-secondary);">Multi-decade GLP-1 runway ($202B market by 2033), orforglipron&rsquo;s potential to expand addressable market from 50M to 150M+ patients by eliminating injection barriers, and demonstrated operating leverage (margins 19%&rarr;39% in 3 years). NVO at peak GLP-1 scaling traded 28-35x &mdash; LLY&rsquo;s current multiple is not euphoric by that standard.</p>
+      <div class="card-title">Market &amp; Multiples (April 8, 2026)</div>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Metric</th><th class="num">Value</th></tr></thead>
+          <tbody>
+            <tr><td>Stock Price</td><td class="num">$931.09</td></tr>
+            <tr><td>Market Cap</td><td class="num">$833.3B</td></tr>
+            <tr><td>Enterprise Value</td><td class="num">$869.9B</td></tr>
+            <tr><td>Net Debt</td><td class="num">$36.6B</td></tr>
+            <tr><td>EV / Revenue</td><td class="num">13.35x</td></tr>
+            <tr><td>P/E (GAAP Trailing)</td><td class="num">40.38x</td></tr>
+            <tr><td>P/E (Forward Consensus)</td><td class="num">22.13x</td></tr>
+            <tr><td>PEG Ratio</td><td class="num positive">0.41</td></tr>
+            <tr><td>P / FCF</td><td class="num">92.88x</td></tr>
+            <tr><td>52-Week High</td><td class="num">$1,133.95</td></tr>
+            <tr><td>52-Week Low</td><td class="num">$623.78</td></tr>
+            <tr><td>Distance from 52W High</td><td class="num negative">-17.9%</td></tr>
+            <tr><td>VIS Verdict</td><td class="num neutral">Expensive (39.4/100)</td></tr>
+          </tbody>
+        </table>
+      </div>
     </div>
     <div class="card">
-      <h3 class="card-title">Bear Case for Valuation</h3>
-      <p style="font-size: 13px; color: var(--text-secondary);">Concentration risk (56% tirzepatide), pricing headwind acceleration (-7-8% to -13-15%), and $40.9B debt load as vulnerability if growth disappoints. If pricing hits -16% or worse while orforglipron underperforms, multiple compression is likely. The 2026 pricing math is the near-term acid test.</p>
+      <div class="card-title">Intrinsic Value &amp; Risk/Return</div>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Model</th><th class="num">Value / Score</th></tr></thead>
+          <tbody>
+            <tr><td>Graham Formula IV</td><td class="num positive">$1,088.34 (+14.4% MoS)</td></tr>
+            <tr><td>Reverse DCF Implied CAGR (10yr)</td><td class="num">31.13%</td></tr>
+            <tr><td>LLY 2yr Actual CAGR</td><td class="num positive">38.2%</td></tr>
+            <tr><td>Beta (52-week)</td><td class="num">0.61</td></tr>
+            <tr><td>Annualized Volatility</td><td class="num">32.2%</td></tr>
+            <tr><td>Sharpe Ratio</td><td class="num positive">1.07</td></tr>
+            <tr><td>Sortino Ratio</td><td class="num positive">1.56</td></tr>
+            <tr><td>Max Drawdown</td><td class="num negative">-34.48%</td></tr>
+            <tr><td>RSI (14-day)</td><td class="num">45.65</td></tr>
+            <tr><td>SMA 50</td><td class="num negative">$990.98 (above)</td></tr>
+            <tr><td>SMA 200</td><td class="num positive">$897.21 (above)</td></tr>
+            <tr><td>Golden Cross Date</td><td class="num positive">Nov 5, 2025</td></tr>
+          </tbody>
+        </table>
+      </div>
     </div>
+  </div>
+  <div class="card analyst-insight">
+    <div class="card-title">Analyst Valuation Narrative</div>
+    <p>At $931.09 per share, Lilly trades at 13.35x EV/Revenue and 40.4x trailing P/E — expensive in absolute isolation but compressing sharply on a forward basis. The consensus forward P/E of 22.1x reflects anticipated EPS growth of approximately 50%+ from FY2025's $22.95 diluted EPS. The PEG ratio of 0.41 is the most favorable valuation signal: at 40x P/E against a 99% EPS 2-year CAGR, LLY is technically cheap on a growth-adjusted basis.</p>
+    <p>The reverse DCF calculates that the current enterprise value of $870 billion requires 31.3% annual revenue growth for 10 years at 9.5% WACC to be justified. LLY's trailing 2-year revenue CAGR is 38.2% — which means the market is pricing in a growth rate that is below recent history. The Graham Formula intrinsic value of $1,088 (using $22.95 diluted EPS, 20% growth rate cap, 4.5% AAA yield) implies a 14.4% margin of safety at current price.</p>
+    <p>The VIS quality composite of 79.8/100 (moderate quality) and sector-benchmarked verdict of Expensive (39.4/100) reflect the tension between strong fundamentals and premium pricing. The stock trades at 40.4x earnings vs the healthcare sector fair P/E of ~20x — a 100%+ premium requiring sustained above-sector growth. The stock is 17.9% below its 52-week high of $1,133.95 and above both its 50-day ($990.98) and 200-day ($897.21) moving averages — technically in an above-200DMA trend with a golden cross confirmed November 5, 2025.</p>
+    <div class="cross-source"><strong>Momentum Signal:</strong> RSI at 45.65 is neutral-to-oversold relative to the 2025 highs. Stock has retreated 17.9% from peak, presenting a potential re-entry zone for investors who believe the 2026 pricing headwind is already priced in.</div>
   </div>
 </section>
 
-<!-- ==================== 4. FINANCIAL OVERVIEW ==================== -->
-<section class="section" id="financials">
-  <h2 class="section-title"><span class="icon">&#9635;</span> Financial Overview</h2>
-
+<!-- ==================== 4. FINANCIAL OVERVIEW & QUARTERLY TRENDS ==================== -->
+<section class="section" id="financial-overview">
+  <h2 class="section-title"><span class="icon">&#9635;</span> Financial Overview &amp; Quarterly Trends</h2>
   <div class="card">
-    <h3 class="card-title collapsible" onclick="toggleCollapse(this)">Income Statement &amp; Profitability</h3>
+    <h3 class="card-title collapsible" onclick="toggleCollapse(this)">Annual Financial Summary</h3>
     <div class="collapse-content">
-      <div class="table-wrap"><table>
-        <thead>
-          <tr><th>Metric</th><th class="num">FY2023</th><th class="num">FY2024</th><th class="num">FY2025</th><th>Trend</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Revenue</td><td class="num">$34.1B</td><td class="num">$45.0B</td><td class="num">$65.2B</td><td class="positive">+44.7% YoY &mdash; 7.3x peer median growth</td></tr>
-          <tr><td>Gross Margin</td><td class="num">79.3%</td><td class="num">81.3%</td><td class="num">83.0%</td><td class="positive">+170bps (GLP-1 mix improvement)</td></tr>
-          <tr><td>Operating Margin</td><td class="num">19.2%</td><td class="num">28.2%</td><td class="num">39.5%</td><td class="positive">+1,132bps in FY2025 alone &mdash; historic expansion</td></tr>
-          <tr><td>Net Margin</td><td class="num">15.4%</td><td class="num">23.5%</td><td class="num">31.7%</td><td class="positive">Rapidly expanding</td></tr>
-          <tr><td>Net Income</td><td class="num">$5.2B</td><td class="num">$10.6B</td><td class="num">$20.6B</td><td class="positive">+94.9% YoY</td></tr>
-          <tr><td>OCF</td><td class="num">$4.2B</td><td class="num">$8.8B</td><td class="num">$16.8B</td><td class="positive">+90.6% YoY</td></tr>
-          <tr><td>FCF</td><td class="num">$0.8B</td><td class="num">$3.8B</td><td class="num">$9.0B</td><td class="positive">+139% YoY (still only 43.5% FCF/NI conversion)</td></tr>
-          <tr><td>CapEx</td><td class="num">$3.4B</td><td class="num">$5.1B</td><td class="num">$7.8B</td><td class="negative">+55% YoY &mdash; LEAP manufacturing buildout</td></tr>
-          <tr><td>R&amp;D Expense</td><td class="num">$9.3B</td><td class="num">$11.0B</td><td class="num">$13.3B</td><td class="neutral">+21% YoY but intensity falling: 27.3%&rarr;20.5%</td></tr>
-          <tr><td>EPS (Diluted)</td><td class="num">$5.80</td><td class="num">$11.71</td><td class="num">$22.95</td><td class="positive">+96.0% YoY</td></tr>
-          <tr><td>ROIC</td><td class="num">&mdash;</td><td class="num">22.5%</td><td class="num">29.5%</td><td class="positive">Rapidly expanding &mdash; economics are real</td></tr>
-        </tbody>
-      </table></div>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Metric</th>
+              <th class="num">FY2023</th>
+              <th class="num">FY2024</th>
+              <th class="num">FY2025</th>
+              <th class="num">YoY Change</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Revenue</td><td class="num">$34.1B</td><td class="num">$45.0B</td><td class="num">$65.2B</td><td class="num positive">+44.7%</td></tr>
+            <tr><td>Gross Profit</td><td class="num">$27.0B</td><td class="num">$36.6B</td><td class="num">$54.1B</td><td class="num positive">+47.8%</td></tr>
+            <tr><td>Gross Margin</td><td class="num">79.3%</td><td class="num">81.3%</td><td class="num">83.0%</td><td class="num positive">+170bp</td></tr>
+            <tr><td>R&amp;D Expense</td><td class="num">$9.3B</td><td class="num">$11.0B</td><td class="num">$13.3B</td><td class="num">+21.3%</td></tr>
+            <tr><td>SG&amp;A Expense</td><td class="num">$7.4B</td><td class="num">$8.6B</td><td class="num">$11.1B</td><td class="num">+29.1%</td></tr>
+            <tr><td>Operating Income</td><td class="num">$6.6B</td><td class="num">$12.7B</td><td class="num">$25.7B</td><td class="num positive">+102%</td></tr>
+            <tr><td>Operating Margin</td><td class="num">19.2%</td><td class="num">28.2%</td><td class="num">39.5%</td><td class="num positive">+1,130bp</td></tr>
+            <tr><td>Net Income</td><td class="num">$5.2B</td><td class="num">$10.6B</td><td class="num">$20.6B</td><td class="num positive">+94.9%</td></tr>
+            <tr><td>Net Margin</td><td class="num">15.4%</td><td class="num">23.5%</td><td class="num">31.7%</td><td class="num positive">+820bp</td></tr>
+            <tr><td>EPS (Diluted)</td><td class="num">$5.80</td><td class="num">$11.71</td><td class="num">$22.95</td><td class="num positive">+96.0%</td></tr>
+            <tr><td>Operating Cash Flow</td><td class="num">$4.2B</td><td class="num">$8.8B</td><td class="num">$16.8B</td><td class="num positive">+90.7%</td></tr>
+            <tr><td>Capital Expenditures</td><td class="num">$3.4B</td><td class="num">$5.1B</td><td class="num">$7.8B</td><td class="num">+55.0%</td></tr>
+            <tr><td>Free Cash Flow</td><td class="num">$0.8B</td><td class="num">$3.8B</td><td class="num">$9.0B</td><td class="num positive">+138.6%</td></tr>
+            <tr><td>R&amp;D as % Revenue</td><td class="num">27.3%</td><td class="num">24.4%</td><td class="num">20.5%</td><td class="num negative">-390bp</td></tr>
+            <tr><td>Long-Term Debt</td><td class="num">N/A</td><td class="num">$28.5B</td><td class="num">$40.9B</td><td class="num negative">+43.3%</td></tr>
+            <tr><td>Total Assets</td><td class="num">$64.0B</td><td class="num">$78.7B</td><td class="num">$112.5B</td><td class="num">+42.9%</td></tr>
+            <tr><td>SBC</td><td class="num">$629M</td><td class="num">$646M</td><td class="num">$626M</td><td class="num">-3.1%</td></tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
-
   <div class="card">
-    <h3 class="card-title collapsible" onclick="toggleCollapse(this)">Balance Sheet &amp; Leverage</h3>
+    <h3 class="card-title collapsible" onclick="toggleCollapse(this)">Quarterly Trends</h3>
     <div class="collapse-content">
-      <div class="table-wrap"><table>
-        <thead>
-          <tr><th>Metric</th><th class="num">FY2024</th><th class="num">FY2025</th><th>Assessment</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Total Assets</td><td class="num">$78.7B</td><td class="num">$112.5B</td><td>+42.9% &mdash; inventory, AR, capex-driven</td></tr>
-          <tr><td>Cash &amp; Equivalents</td><td class="num">$3.3B</td><td class="num positive">$7.3B</td><td class="positive">+123% increase</td></tr>
-          <tr><td>Accounts Receivable</td><td class="num">$11.0B</td><td class="num neutral">$17.8B</td><td class="neutral">+61% &mdash; DSO: 89&rarr;99 days (MONITOR)</td></tr>
-          <tr><td>Inventories</td><td class="num">$7.6B</td><td class="num negative">$13.7B</td><td class="negative">+81% &mdash; orforglipron pre-loading (binary risk)</td></tr>
-          <tr><td>Long-Term Debt</td><td class="num">$28.5B</td><td class="num negative">$40.9B</td><td class="negative">+43.5% &mdash; $13.2B new in FY2025 on $9.0B FCF</td></tr>
-          <tr><td>Stockholders&rsquo; Equity</td><td class="num">$14.3B</td><td class="num positive">$26.5B</td><td class="positive">+85.9% &mdash; earnings retention</td></tr>
-          <tr><td>Debt/Equity</td><td class="num">2.00x</td><td class="num neutral">1.54x</td><td class="neutral">Declining despite absolute debt increase</td></tr>
-          <tr><td>LTD/EBITDA</td><td class="num">&mdash;</td><td class="num positive">1.47x</td><td class="positive">Well within investment-grade pharma norms (&lt;3.5x)</td></tr>
-          <tr><td>Interest Coverage</td><td class="num">16.24x</td><td class="num positive">28.75x</td><td class="positive">Strengthening &mdash; earnings growing faster than debt service</td></tr>
-          <tr><td>Current Ratio</td><td class="num">1.15x</td><td class="num neutral">1.17x</td><td class="neutral">Adequate &mdash; not fortress-level</td></tr>
-          <tr><td>DSO</td><td class="num">89</td><td class="num negative">99</td><td class="negative">MONITOR &mdash; 11 days from Beneish watch threshold (110)</td></tr>
-        </tbody>
-      </table></div>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Quarter</th>
+              <th class="num">Revenue</th>
+              <th class="num">Net Income</th>
+              <th class="num">EPS Diluted</th>
+              <th class="num">GLP-1 Combined</th>
+              <th class="num">GLP-1 % Rev</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Q1-2024</td><td class="num">$8.77B</td><td class="num">$2.24B</td><td class="num">$2.48</td><td class="num">$2.32B</td><td class="num">26.5%</td></tr>
+            <tr><td>Q2-2024</td><td class="num">$11.30B</td><td class="num">$2.97B</td><td class="num">$3.28</td><td class="num">$4.33B</td><td class="num">38.3%</td></tr>
+            <tr><td>Q3-2024</td><td class="num">$11.44B</td><td class="num">$970M</td><td class="num">$1.07</td><td class="num">$5.0B est</td><td class="num neutral">43.7%</td></tr>
+            <tr><td>Q4-2024</td><td class="num">$13.54B</td><td class="num">$4.38B</td><td class="num">$4.88</td><td class="num">$7.97B</td><td class="num">58.9%</td></tr>
+            <tr><td>Q1-2025</td><td class="num">$12.73B</td><td class="num">$2.76B</td><td class="num">$3.06</td><td class="num">$6.15B</td><td class="num">48.3%</td></tr>
+            <tr><td>Q2-2025</td><td class="num">$15.56B</td><td class="num">$5.66B</td><td class="num">$6.29</td><td class="num">$9.31B est</td><td class="num">59.8%</td></tr>
+            <tr><td>Q3-2025</td><td class="num">$17.63B est</td><td class="num">$6.11B est</td><td class="num">$6.80 est</td><td class="num">$10.8B est</td><td class="num">61.3%</td></tr>
+            <tr><td>Q4-2025</td><td class="num">$19.26B est</td><td class="num">$6.10B est</td><td class="num">$6.80 est</td><td class="num">$10.4B est</td><td class="num">54.0%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:12px;color:var(--text-muted);margin-top:8px;">Note: Q3-2024 net income depressed by $2.9B Morphic acquisition IPR&amp;D charge. Q3-Q4 2025 estimated from annual totals vs known Q1-Q2.</p>
     </div>
   </div>
-
   <div class="card">
-    <h3 class="card-title collapsible" onclick="toggleCollapse(this)">Cash Flow Quality</h3>
-    <div class="collapse-content">
-      <div class="table-wrap"><table>
-        <thead>
-          <tr><th>Metric</th><th class="num">FY2023</th><th class="num">FY2024</th><th class="num">FY2025</th><th>Verdict</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>OCF/Net Income</td><td class="num">0.809x</td><td class="num">0.833x</td><td class="num positive">0.815x</td><td class="positive">STABLE &mdash; structural working capital investment, not deterioration</td></tr>
-          <tr><td>Sloan Accrual Ratio</td><td class="num">1.56%</td><td class="num">2.25%</td><td class="num neutral">3.40%</td><td class="neutral">Gradually increasing &mdash; watch, should not exceed 6-7% in FY2026</td></tr>
-          <tr><td>FCF/Net Income</td><td class="num">15.1%</td><td class="num">35.5%</td><td class="num neutral">43.5%</td><td class="neutral">Improving but below historical pharma norms; capex drag</td></tr>
-          <tr><td>CapEx/Depreciation</td><td class="num">&mdash;</td><td class="num">&mdash;</td><td class="num">3.93x</td><td>Massive capacity expansion &mdash; not maintenance capex</td></tr>
-        </tbody>
-      </table></div>
-    </div>
+    <div class="card-title">Revenue Growth Trajectory</div>
+    <div class="bar-row"><div class="bar-label">FY2023</div><div class="bar-track"><div class="bar-fill" style="width:52%;background:var(--accent-blue);">52%</div></div><div class="bar-value">$34.1B</div></div>
+    <div class="bar-row"><div class="bar-label">FY2024</div><div class="bar-track"><div class="bar-fill" style="width:69%;background:var(--accent-green);">69%</div></div><div class="bar-value">$45.0B</div></div>
+    <div class="bar-row"><div class="bar-label">FY2025</div><div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--accent-green);">100%</div></div><div class="bar-value">$65.2B</div></div>
+    <div class="bar-row"><div class="bar-label">FY2026 Guide Mid</div><div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--accent-yellow);opacity:0.7;">~125%</div></div><div class="bar-value">$81.5B</div></div>
   </div>
 </section>
 
 <!-- ==================== 5. FORENSIC MODELS ==================== -->
-<section class="section" id="forensic">
+<section class="section" id="forensic-models">
   <h2 class="section-title"><span class="icon">&#9878;</span> Forensic Models</h2>
-
   <div class="gauge-container">
     <!-- Beneish M-Score -->
     <div class="gauge-card">
       <div class="gauge-title">Beneish M-Score</div>
-      <div class="gauge-subtitle">Earnings Manipulation Detection &middot; FY2025</div>
-      <div class="gauge-score positive">-1.89</div>
-      <div class="gauge-bar" style="position: relative;">
+      <div class="gauge-subtitle">Earnings Manipulation Detector | Threshold: -1.78</div>
+      <div class="gauge-score" style="color:var(--accent-yellow);">-1.8895</div>
+      <span class="model-label" style="background:var(--accent-yellow-dim);color:var(--accent-yellow);">UNLIKELY MANIPULATOR</span>
+      <div class="gauge-bar" style="margin-top:12px;">
         <div class="gauge-zones">
-          <div class="gauge-zone" style="width:60%; background: var(--accent-green);"></div>
-          <div class="gauge-zone" style="width:15%; background: var(--accent-yellow);"></div>
-          <div class="gauge-zone" style="width:25%; background: var(--accent-red);"></div>
+          <div class="gauge-zone" style="width:50%;background:var(--accent-green);"></div>
+          <div class="gauge-zone" style="width:30%;background:var(--accent-yellow);"></div>
+          <div class="gauge-zone" style="width:20%;background:var(--accent-red);"></div>
         </div>
-        <div class="gauge-marker" style="left: 55%;"></div>
+        <div class="gauge-marker" style="left:52%;"></div>
       </div>
-      <div class="gauge-labels"><span>-3.0 (Clean)</span><span>-1.78 (Threshold)</span><span>0.0+</span></div>
-      <p style="margin-top: 12px; font-size: 13px; color: var(--text-secondary);"><span class="severity-badge severity-LOW">UNLIKELY MANIPULATOR</span> &mdash; M-Score -1.89, only 0.11 below threshold. Primary elevation from authentic hypergrowth (SGI 1.447) and international launch channel-fill (DSRI 1.115). Clean EY audit opinion.</p>
-      <div class="gauge-vars" style="margin-top: 12px;">
-        <strong>Components:</strong><br>
-        DSRI: 1.1151 <span class="neutral">(WATCH &mdash; AR +61% vs revenue +45%; DSO 89&rarr;99 days)</span><br>
-        GMI: 0.9791 <span class="positive">(Gross margins IMPROVING &mdash; no deterioration to hide)</span><br>
-        AQI: 0.6694 <span class="positive">(Non-current assets decreased &mdash; clean)</span><br>
-        SGI: 1.4470 <span class="neutral">(HIGHEST DRIVER &mdash; authentic GLP-1 hypergrowth)</span><br>
-        DEPI: 1.2738 <span style="color:var(--text-muted)">(New capex assets in early useful life)</span><br>
-        SGAI: 0.8921 <span class="positive">(SG&A efficiency improving)</span><br>
-        TATA: 0.0340 <span class="neutral">(NI exceeded OCF by $3.8B &mdash; working capital investment)</span><br>
-        LVGI: 0.9359 <span class="positive">(Leverage ratio DECREASED despite higher absolute debt)</span>
+      <div class="gauge-labels"><span>Safe (&lt;-2.22)</span><span>Threshold (-1.78)</span><span>Manipulator</span></div>
+      <div class="gauge-vars">
+        SGI: 1.447 &uarr; (44.7% revenue growth elevates)<br>
+        DSRI: 1.115 &uarr; (DSO 89→99 days, OUS stocking)<br>
+        DEPI: 1.274 &uarr; (capex-driven depreciation shift)<br>
+        GMI: 0.979 &#10003; (gross margin improving)<br>
+        AQI: 0.669 &#10003; (asset quality clean)<br>
+        TATA: 0.034 &#10003; (below 0.08 concern threshold)<br>
+        LVGI: 0.936 &#10003; (leverage stable relative to assets)<br>
+        <span style="color:var(--accent-yellow);">DSO Watch: 99 days (Threshold: 110)</span>
       </div>
     </div>
-
     <!-- Altman Z-Score -->
     <div class="gauge-card">
       <div class="gauge-title">Altman Z-Score</div>
-      <div class="gauge-subtitle">Bankruptcy Risk Assessment &middot; FY2025</div>
-      <div class="gauge-score positive">7.50</div>
-      <div class="gauge-bar" style="position: relative;">
+      <div class="gauge-subtitle">Financial Distress Model | Safe Zone: &gt;2.99</div>
+      <div class="gauge-score" style="color:var(--accent-green);">7.497</div>
+      <span class="model-label" style="background:var(--accent-green-dim);color:var(--accent-green);">SAFE ZONE</span>
+      <div class="gauge-bar" style="margin-top:12px;">
         <div class="gauge-zones">
-          <div class="gauge-zone" style="width:18%; background: var(--accent-red);"></div>
-          <div class="gauge-zone" style="width:12%; background: var(--accent-yellow);"></div>
-          <div class="gauge-zone" style="width:70%; background: var(--accent-green);"></div>
+          <div class="gauge-zone" style="width:33%;background:var(--accent-red);"></div>
+          <div class="gauge-zone" style="width:20%;background:var(--accent-yellow);"></div>
+          <div class="gauge-zone" style="width:47%;background:var(--accent-green);"></div>
         </div>
-        <div class="gauge-marker" style="left: 75%;"></div>
+        <div class="gauge-marker" style="left:85%;"></div>
       </div>
-      <div class="gauge-labels"><span>0 (Distress)</span><span>1.81</span><span>2.99 (Safe)</span><span>10+</span></div>
-      <p style="margin-top: 12px; font-size: 13px; color: var(--text-secondary);"><span class="severity-badge severity-LOW">EXTREMELY SAFE</span> &mdash; 2.5x the safe threshold. X4 (Market Cap / Total Liabilities = 9.4x) drives 75% of the Z-Score. Even in a 50% market cap compression scenario, Z-Score falls to ~4.64 &mdash; still firmly safe.</p>
-      <div class="gauge-vars" style="margin-top: 12px;">
-        <strong>Components:</strong><br>
-        X1 (Working Capital/TA): 0.1814 &rarr; +0.218<br>
-        X2 (Retained Earnings/TA): 0.2176 &rarr; +0.305<br>
-        X3 (EBIT/TA): 0.2288 &rarr; +0.755<br>
-        X4 (Market Cap/Total Liabilities): 9.4x &rarr; +5.640<br>
-        X5 (Revenue/TA): 0.5795 &rarr; +0.580
+      <div class="gauge-labels"><span>Distress (&lt;1.81)</span><span>Grey (1.81-2.99)</span><span>Safe (&gt;2.99)</span></div>
+      <div class="gauge-vars">
+        X1 (WC/Assets): 0.1814 (WC $20.4B)<br>
+        X2 (RE/Assets): 0.2176 (RE $24.5B)<br>
+        X3 (EBIT/Assets): 0.2288 (EBIT $25.7B)<br>
+        X4 (Mkt Cap/Liab): 9.4005 (75% of score)<br>
+        X5 (Rev/Assets): 0.5795<br>
+        Interest Coverage: 28.75x<br>
+        Total Liabilities: $85.9B
       </div>
     </div>
-  </div>
-
-  <div class="gauge-container" style="margin-top: 20px;">
     <!-- Piotroski F-Score -->
     <div class="gauge-card">
       <div class="gauge-title">Piotroski F-Score</div>
-      <div class="gauge-subtitle">Financial Health &middot; FY2025</div>
-      <div class="gauge-score positive">7 / 9</div>
-      <div class="gauge-bar">
-        <div class="gauge-fill" style="width: 77.8%; background: linear-gradient(90deg, var(--accent-green), var(--accent-cyan));"></div>
+      <div class="gauge-subtitle">Financial Strength | 7/9 = Moderate-Strong</div>
+      <div class="gauge-score" style="color:var(--accent-green);">7 <span style="font-size:16px;color:var(--text-secondary);">/ 9</span></div>
+      <span class="piotroski-badge score-strong">MODERATE-STRONG</span>
+      <div class="gauge-bar" style="margin-top:12px;">
+        <div class="gauge-fill" style="width:77.8%;background:var(--accent-green);"></div>
       </div>
-      <div class="gauge-labels"><span>0 (Weak)</span><span>4-5 (Average)</span><span>9 (Strong)</span></div>
-      <p style="margin-top: 12px; font-size: 13px; color: var(--text-secondary);"><span class="severity-badge severity-LOW">MODERATE-STRONG</span> &mdash; For a high-growth company investing $7.8B in manufacturing capex, 7/9 is highly favorable. Both failures reflect strategic investment dynamics, not financial deterioration.</p>
-      <div class="gauge-vars" style="margin-top: 12px;">
-        Profitability: <strong>3/4</strong> (Positive NI, OCF, ROA; Failed P4 &mdash; accruals from growth investment)<br>
-        Leverage/Liquidity: <strong>2/3</strong> (Current ratio stable, no dilution; Failed P5 &mdash; marginal LTD/Assets increase)<br>
-        Efficiency: <strong>2/2</strong> (Gross margin expansion +173bps; asset turnover improvement)
+      <div class="gauge-vars">
+        <strong style="color:var(--accent-green);">Profitability (3/4):</strong><br>
+        P1 &#10003; ROA +18.35% | P2 &#10003; OCF $16.8B | P3 &#10003; ROA +490bp<br>
+        P4 &#10007; Accruals (NI &gt; OCF by $3.8B — capex-driven)<br>
+        <strong style="color:var(--accent-green);">Leverage/Liquidity (2/3):</strong><br>
+        P5 &#10007; LTD/Assets +0.09pp (marginal; $12.3B new debt) | P6 &#10003; Current ratio 1.15→1.58 | P7 &#10003; Shares -4.8M<br>
+        <strong style="color:var(--accent-green);">Efficiency (2/2):</strong><br>
+        P8 &#10003; GM +173bp | P9 &#10003; Asset turnover +0.7%
       </div>
     </div>
-
     <!-- Sloan Accrual -->
     <div class="gauge-card">
       <div class="gauge-title">Sloan Accrual Ratio</div>
-      <div class="gauge-subtitle">Earnings Quality &middot; FY2025</div>
-      <div class="gauge-score neutral">3.40%</div>
-      <div class="gauge-bar" style="position: relative;">
+      <div class="gauge-subtitle">Earnings Quality | Concern Threshold: &gt;0.08</div>
+      <div class="gauge-score" style="color:var(--accent-green);">0.034</div>
+      <span class="model-label" style="background:var(--accent-green-dim);color:var(--accent-green);">MODERATE QUALITY</span>
+      <div class="gauge-bar" style="margin-top:12px;">
         <div class="gauge-zones">
-          <div class="gauge-zone" style="width:40%; background: var(--accent-green);"></div>
-          <div class="gauge-zone" style="width:20%; background: var(--accent-yellow);"></div>
-          <div class="gauge-zone" style="width:40%; background: var(--accent-red);"></div>
+          <div class="gauge-zone" style="width:60%;background:var(--accent-green);"></div>
+          <div class="gauge-zone" style="width:20%;background:var(--accent-yellow);"></div>
+          <div class="gauge-zone" style="width:20%;background:var(--accent-red);"></div>
         </div>
-        <div class="gauge-marker" style="left: 37%;"></div>
+        <div class="gauge-marker" style="left:26%;"></div>
       </div>
-      <div class="gauge-labels"><span>-10% (Cash-rich)</span><span>0%</span><span>+10% (Accrual-heavy)</span></div>
-      <p style="margin-top: 12px; font-size: 13px; color: var(--text-secondary);"><span class="severity-badge severity-LOW">MODERATE EARNINGS QUALITY</span> &mdash; Within acceptable range. OCF/NI stable at 0.815x across 3 years confirms structural working capital investment rather than earnings manipulation. Watch threshold: 6-7%.</p>
-      <div class="gauge-vars" style="margin-top: 12px;">
-        FY2023: 1.56% | FY2024: 2.25% | FY2025: 3.40%<br>
-        Trend: Gradually increasing with revenue scaling &mdash; consistent with inventory/AR build for GLP-1 ramp
+      <div class="gauge-labels"><span>Clean (&lt;0.05)</span><span>Watch (&gt;0.08)</span><span>Concern</span></div>
+      <div class="gauge-vars">
+        FY2023: 0.016 | FY2024: 0.023 | FY2025: 0.034<br>
+        OCF/NI Stable: 0.809 / 0.833 / 0.815<br>
+        Gradual increase = structural working capital investment<br>
+        Not deteriorating earnings quality — manufacturing scale-up
+      </div>
+    </div>
+    <!-- Benford's Law -->
+    <div class="gauge-card">
+      <div class="gauge-title">Benford's Law</div>
+      <div class="gauge-subtitle">Digit Distribution Analysis | 81 values</div>
+      <div class="gauge-score" style="color:var(--accent-green);">Clean</div>
+      <span class="model-label" style="background:var(--accent-green-dim);color:var(--accent-green);">NO ANOMALY</span>
+      <div class="gauge-vars" style="margin-top:16px;">
+        Values analyzed: 81 financial figures<br>
+        Digit 5 excess: 3.2% above expected<br>
+        (11.1% observed vs 7.9% expected)<br>
+        Single-digit deviation within normal range<br>
+        No significant deviations from Benford's Law
       </div>
     </div>
   </div>
-
-  <div class="gauge-container" style="margin-top: 20px;">
-    <!-- Benford's Law -->
-    <div class="gauge-card">
-      <div class="gauge-title">Benford&rsquo;s Law Analysis</div>
-      <div class="gauge-subtitle">Digit Distribution Test &middot; 81 Financial Values</div>
-      <div class="gauge-score positive">PASS</div>
-      <div class="gauge-bar">
-        <div class="gauge-fill" style="width: 76%; background: var(--accent-green);"></div>
-      </div>
-      <div class="gauge-labels"><span>Chi-sq: 3.65</span><span>Critical: 15.51</span></div>
-      <p style="margin-top: 12px; font-size: 13px; color: var(--text-secondary);"><span class="severity-badge severity-LOW">NO MANIPULATION SIGNAL</span> &mdash; Chi-squared (3.65) well below critical value (15.51) at p=0.05 with 8 degrees of freedom. First-digit distribution of 81 financial values conforms to Benford&rsquo;s Law. No evidence of fabrication through digit manipulation.</p>
-    </div>
-
-    <!-- Debt Stress Score -->
-    <div class="gauge-card">
-      <div class="gauge-title">Debt Stress Score</div>
-      <div class="gauge-subtitle">Leverage Risk &middot; FY2025</div>
-      <div class="gauge-score positive">2 / 10</div>
-      <div class="gauge-bar">
-        <div class="gauge-fill" style="width: 20%; background: var(--accent-green);"></div>
-      </div>
-      <div class="gauge-labels"><span>0 (No Stress)</span><span>5 (Moderate)</span><span>10 (High)</span></div>
-      <p style="margin-top: 12px; font-size: 13px; color: var(--text-secondary);"><span class="severity-badge severity-LOW">LOW STRESS</span> &mdash; AGGRESSIVE-BUT-SMART: borrowing at investment-grade rates (4-5.65%) to fund manufacturing generating 39.5% operating margins. LTD/EBITDA 1.47x; interest coverage 28.75x. Entire $40.9B LTD retirable in ~18 months of EBITDA.</p>
-      <div class="gauge-vars" style="margin-top: 12px;">
-        LTD/EBITDA: <strong>1.47x</strong> (vs &lt;3.5x pharma norm)<br>
-        Interest Coverage: <strong>28.75x</strong><br>
-        Feb 2025: $6.46B (2028-2065 maturities)<br>
-        Aug 2025: $6.71B (2028-2065 maturities)
-      </div>
-    </div>
+  <div class="card analyst-insight" style="margin-top:16px;">
+    <div class="card-title">Forensic Synthesis</div>
+    <p>All five forensic models return clean or near-clean readings when cross-validated against transcript evidence. The Beneish M-Score of -1.89 is the most nuanced: 0.11 points below the manipulation threshold, it technically signals "unlikely manipulator" but requires context. Five earnings call cross-validations (XV-F01 through XV-F05) confirm that every elevating factor (SGI, DSRI, DEPI) is explained by documented organic business activity — not accounting manipulation. The TATA at 0.034 reflects capital investment, not aggressive accruals. DSO at 99 days is the single active surveillance metric: if it crosses 110 days in FY2026 without new country launches, it would breach the Beneish watch threshold.</p>
+    <div class="cross-source"><strong>Cross-Validation Result:</strong> 5/5 Beneish signals confirmed organic. Confidence levels: XV-F01 (SGI organic, 0.91), XV-F02 (DSRI stocking, 0.80), XV-F03 (TATA manufacturing, 0.88), XV-F04 (pricing disclosed, 0.95), XV-F05 (margin expansion real, 0.93).</div>
   </div>
 </section>
 
 <!-- ==================== 6. TRANSCRIPT INTELLIGENCE ==================== -->
-<section class="section" id="transcript-intel">
+<section class="section" id="transcript-intelligence">
   <h2 class="section-title"><span class="icon">&#9835;</span> Transcript Intelligence</h2>
-
-  <div class="card">
-    <h3 class="card-title">Quarters Analyzed</h3>
-    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-      <span class="verdict-badge badge-blue">Q4-2024</span>
-      <span class="verdict-badge badge-blue">Q1-2025</span>
-      <span class="verdict-badge badge-blue">Q2-2025</span>
-      <span class="verdict-badge badge-blue">Q3-2025</span>
-      <span class="verdict-badge badge-blue">Q4-2025</span>
+  <div class="grid-3">
+    <div class="card" style="text-align:center;border-top:3px solid var(--accent-green);">
+      <div class="card-title">Management Trust Score</div>
+      <div style="font-size:48px;font-weight:700;color:var(--accent-green);font-family:var(--font-serif);">71</div>
+      <div style="font-size:18px;color:var(--accent-green);margin-bottom:8px;">B+</div>
+      <div style="font-size:12px;color:var(--text-secondary);">Track record: 73.7 | Directness: 68 | Consistency: 65 | Insider align: 75</div>
     </div>
-    <p style="margin-top: 12px; font-size: 13px; color: var(--text-secondary);">Layers synthesized: L01-Management Decoder, L02-Credibility Tracker, L03-Analyst Intelligence, L04-Guidance Forensics, L07-Say-Do Gap, L09-Narrative Drift, XV01-Forensic, XV02-Ratios, XV04-Text</p>
+    <div class="card" style="text-align:center;border-top:3px solid var(--accent-yellow);">
+      <div class="card-title">Information Quality Score</div>
+      <div style="font-size:48px;font-weight:700;color:var(--accent-yellow);font-family:var(--font-serif);">64</div>
+      <div style="font-size:18px;color:var(--accent-yellow);margin-bottom:8px;">B-</div>
+      <div style="font-size:12px;color:var(--text-secondary);">Impacted by orforglipron revenue non-disclosure and employer coverage stagnation omission</div>
+    </div>
+    <div class="card" style="text-align:center;border-top:3px solid var(--accent-green);">
+      <div class="card-title">Risk Convergence Score</div>
+      <div style="font-size:48px;font-weight:700;color:var(--accent-green);font-family:var(--font-serif);">78</div>
+      <div style="font-size:18px;color:var(--accent-green);margin-bottom:8px;">B+</div>
+      <div style="font-size:12px;color:var(--text-secondary);">Pricing headwind acknowledged proactively before 10-K; operating leverage confirmed across all sources</div>
+    </div>
   </div>
 
-  <div class="grid-2">
-    <div class="card">
-      <h3 class="card-title">Management Trust Score: B+ (71/100)</h3>
-      <div class="gauge-bar" style="margin-bottom: 16px;">
-        <div class="gauge-fill" style="width: 71%; background: linear-gradient(90deg, var(--accent-green), var(--accent-yellow));"></div>
+  <div class="card">
+    <div class="card-title">Guidance Accuracy — Sandbagging Pattern Confirmed</div>
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Year</th><th class="num">Initial Guide Mid</th><th class="num">Actual</th><th class="num">Beat $</th><th class="num">Beat %</th><th>Assessment</th></tr></thead>
+        <tbody>
+          <tr><td>FY2024</td><td class="num">~$42B</td><td class="num">$45.0B</td><td class="num positive">+$3.0B</td><td class="num positive">+7.1%</td><td><span class="severity-badge severity-MEDIUM">SANDBAGGING</span></td></tr>
+          <tr><td>FY2025</td><td class="num">$59.5B</td><td class="num">$65.2B</td><td class="num positive">+$5.7B</td><td class="num positive">+9.6%</td><td><span class="severity-badge severity-HIGH">SYSTEMATIC</span></td></tr>
+          <tr><td>FY2026 Guide</td><td class="num">$81.5B mid</td><td class="num">~$89B est</td><td class="num positive">+~$7.5B</td><td class="num positive">+~9%</td><td><span class="severity-badge severity-LOW">APPLY PREMIUM</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:13px;color:var(--text-secondary);margin-top:12px;">Pattern confirmed: systematic initial guide set 8–10% below internal expectation for 2nd consecutive year. Apply 8–10% premium to $81.5B FY2026 midpoint for implied internal forecast of $87–90B.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Top 7 Transcript Findings (Ranked by Materiality)</div>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot negative"></div>
+        <div class="timeline-date">FY2025 Annual | HIGHEST MATERIALITY</div>
+        <div class="timeline-title">Leveraged Supply Bet: $1.38 Debt Per $1 FCF</div>
+        <div class="timeline-detail">$40.9B LTD (+43% YoY) against $9.0B FCF — manufacturing investment narrative conceals debt-financed GLP-1 bet.</div>
       </div>
-      <p style="font-size: 13px; color: var(--text-secondary);">Credibility track record (73.7%), directness trend (68%), narrative consistency (65%), insider alignment (75%). Trust reported operational numbers. Apply skepticism to pipeline revenue projections, especially orforglipron contribution.</p>
-    </div>
-    <div class="card">
-      <h3 class="card-title">Information Quality Score: B- (64/100)</h3>
-      <div class="gauge-bar" style="margin-bottom: 16px;">
-        <div class="gauge-fill" style="width: 64%; background: linear-gradient(90deg, var(--accent-yellow), var(--accent-orange));"></div>
+      <div class="timeline-item">
+        <div class="timeline-dot negative"></div>
+        <div class="timeline-date">Q4-2025 Call | HIGH MATERIALITY</div>
+        <div class="timeline-title">2026 Pricing "Low to Mid-Teens" — Most Bearish Statement in 5 Quarters</div>
+        <div class="timeline-detail">CFO Lucas Montarce disclosed US pricing erosion accelerating to 13–15% from FY2025's 7–8%. Government-agreement-driven, structural, not transitory.</div>
       </div>
-      <p style="font-size: 13px; color: var(--text-secondary);">Metric consistency (60%), specificity (65%), guidance accuracy (72%), data transparency (58%). Commercially sensitive data systematically withheld: orforglipron contribution, covered lives, DSO trends, gross-to-net specifics.</p>
+      <div class="timeline-item">
+        <div class="timeline-dot negative"></div>
+        <div class="timeline-date">Q4-2025 Call | HIGH MATERIALITY</div>
+        <div class="timeline-title">Orforglipron Revenue Opacity — CFO Deflected Direct Probe</div>
+        <div class="timeline-detail">Steve Scala (TD Cowen) asked: "Can $80–83B occur without orforglipron being $5B+?" — CFO refused to answer. $2–5B residual placeholder in guidance.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot negative"></div>
+        <div class="timeline-date">FY2025 Trend</div>
+        <div class="timeline-title">R&amp;D Intensity Declining Despite "Robust Innovation" Narrative</div>
+        <div class="timeline-detail">27.3% → 24.4% → 20.5% of revenue over 3 years. GLP-1 windfall not proportionally refueling innovation.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot positive"></div>
+        <div class="timeline-date">August 12–13, 2025 | STRONG POSITIVE</div>
+        <div class="timeline-title">CEO + CSO + 3 Directors Conviction Buy at Phase 3 Dip</div>
+        <div class="timeline-detail">5 insiders purchased $2.9M total at $644–660/share on 14% selloff day. CSO Skovronsky's buy (full pipeline visibility) subsequently vindicated by FDA approval.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot positive"></div>
+        <div class="timeline-date">FY2025 Confirmed</div>
+        <div class="timeline-title">Sandbagging Confirmed — Apply 8–10% Premium to 2026 Guide</div>
+        <div class="timeline-detail">FY2025 beat initial guide by $5.7B (+9.6%). Pattern systematic for 2nd consecutive year. Internal FY2026 expectation ~$87–90B.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot negative"></div>
+        <div class="timeline-date">Q2-2025 Disclosed | UNRESOLVED</div>
+        <div class="timeline-title">Orforglipron Competitive Gap vs Semaglutide (9% vs 14% Weight Loss)</div>
+        <div class="timeline-detail">Phase 3 placebo-adjusted weight loss was 9% vs semaglutide's 14%. CSO deflected with "Wall Street focused on exact numbers" — anomalous for technical rigor.</div>
+      </div>
     </div>
   </div>
 
   <div class="card">
-    <h3 class="card-title">Executive Credibility Scores</h3>
-    <div class="table-wrap"><table>
-      <thead>
-        <tr><th>Executive</th><th class="num">Score</th><th>Key Strength</th><th>Key Weakness / Tell</th></tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><strong>Daniel Skovronsky (CSO)</strong></td>
-          <td class="num positive">88/100</td>
-          <td>Highest credibility. Pipeline milestones delivered. August 2025 conviction buy ($644K with full pipeline knowledge)</td>
-          <td>Q2-2025 orforglipron ITT efficacy deflection &mdash; most anomalous moment in 5 quarters for normally rigorous exec</td>
-        </tr>
-        <tr>
-          <td><strong>Lucas Montarce (CFO)</strong></td>
-          <td class="num positive">78/100</td>
-          <td>Revenue guidance accuracy, pricing transparency when confronted</td>
-          <td>Q4-2025 full deflection on orforglipron &mdash; most evasive across all calls. Tell: &ldquo;Included in guidance.&rdquo;</td>
-        </tr>
-        <tr>
-          <td><strong>David Ricks (CEO)</strong></td>
-          <td class="num neutral">72/100</td>
-          <td>Manufacturing delivery, pricing directness, August 2025 conviction buy ($1.05M)</td>
-          <td>CVS impact underplayed, compounding certainty overstated. Tell: &ldquo;Accumulation of evidence over time.&rdquo;</td>
-        </tr>
-        <tr>
-          <td><strong>Patrik Jonsson</strong></td>
-          <td class="num negative">55/100</td>
-          <td>International execution (OUS Mounjaro $21.7B FY2025)</td>
-          <td>Medicare H2-2025 prediction broken. Tell: &ldquo;Tremendous momentum&rdquo; deployed without data.</td>
-        </tr>
-      </tbody>
-    </table></div>
-  </div>
-
-  <div class="card">
-    <h3 class="card-title">Guidance Accuracy</h3>
-    <div class="table-wrap"><table>
-      <tbody>
-        <tr><td>FY2025 Initial Guide (JPM January 2025)</td><td class="num">$59.5B</td></tr>
-        <tr><td>FY2025 Actual</td><td class="num positive">$65.2B</td></tr>
-        <tr><td>Beat Amount</td><td class="num positive">+$5.7B (+9.6%)</td></tr>
-        <tr><td>FY2026 Guidance Midpoint</td><td class="num">$81.5B</td></tr>
-        <tr><td>Sandbagging-Adjusted Estimate (apply 8-10% premium)</td><td class="num positive">$87-90B real internal expectation</td></tr>
-        <tr><td>Pricing Guidance Accuracy</td><td class="positive">CREDIBLE &mdash; 2025 pricing guide was accurate; 2026 &lsquo;low to mid-teens&rsquo; is NOT sandbagged, take at face value</td></tr>
-      </tbody>
-    </table></div>
-    <p style="margin-top: 12px; font-size: 13px; color: var(--accent-yellow);">CRITICAL ASYMMETRY: Revenue guidance is sandbagged (apply 8-10% premium). Pricing guidance is accurate (take at face value). These two dynamics create opposite analytical adjustments for the same $80-83B guidance.</p>
-  </div>
-
-  <div class="card">
-    <h3 class="card-title">Key Analyst Probe: Q4-2025</h3>
-    <p style="color: var(--text-secondary); margin-bottom: 8px;"><strong>Steve Scala (TD Cowen):</strong> &ldquo;Can $80-83B guidance occur without orforglipron being $5B+?&rdquo;</p>
-    <p style="font-size: 13px; color: var(--text-secondary);">CFO Montarce: Full deflection &mdash; &ldquo;Orforglipron included in guidance but exact contribution not disclosed.&rdquo; Most evasive response across all 5 calls. The $5B threshold Scala identified is the right test. If management does not separately disclose in Q2-2026 call, assume the number is below Street expectations.</p>
-    <p style="margin-top: 8px; font-size: 12px; color: var(--text-muted);">Other significant probes: Umer Raffat (Evercore) &mdash; orforglipron specificity, full deflections both Q3 and Q4-2025. Tim Anderson (BofA) &mdash; Canadian generic semaglutide risk flagged, covered lives data never provided. Terence Flynn (Morgan Stanley) &mdash; pricing net realization trend probed Q3-2025.</p>
+    <div class="card-title">Say-Do Gaps — 5 Confirmed</div>
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead><tr><th>ID</th><th>What Was Said</th><th>What Was Done</th><th>Severity</th></tr></thead>
+        <tbody>
+          <tr><td>SDG-01</td><td>$15B buyback authorized</td><td>$4.1B executed (0.5% shares); 5+ years at current pace</td><td><span class="severity-badge severity-MEDIUM">MEDIUM</span></td></tr>
+          <tr><td>SDG-02</td><td>"Low-40s" operating margin ceiling</td><td>Q3-2025 non-GAAP 48.3% — ceiling abandoned without retraction</td><td><span class="severity-badge severity-MEDIUM">MEDIUM</span></td></tr>
+          <tr><td>SDG-03</td><td>"Robust innovation investment"</td><td>R&amp;D intensity declined from 27.3% to 20.5%</td><td><span class="severity-badge severity-MEDIUM">MEDIUM</span></td></tr>
+          <tr><td>SDG-04</td><td>Manufacturing "capex investment"</td><td>Debt-financed at $1.38/$1 FCF — not organic capex</td><td><span class="severity-badge severity-HIGH">HIGH</span></td></tr>
+          <tr><td>SDG-05</td><td>"39 BD transactions" diversification</td><td>Only $128M Goodwill growth — contradiction</td><td><span class="severity-badge severity-MEDIUM">MEDIUM</span></td></tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </section>
 
 <!-- ==================== 7. REVENUE & SEGMENTS ==================== -->
-<section class="section" id="segments">
+<section class="section" id="revenue-segments">
   <h2 class="section-title"><span class="icon">&#9638;</span> Revenue &amp; Segments</h2>
-
   <div class="card">
-    <h3 class="card-title">Product Revenue Mix &mdash; FY2025</h3>
+    <div class="card-title">FY2025 Product Revenue Breakdown</div>
     <div class="stacked-bar">
-      <div class="stacked-seg" style="width:35.2%; background: var(--accent-blue);">Mounjaro 35.2%</div>
-      <div class="stacked-seg" style="width:21.0%; background: var(--accent-purple);">Zepbound 21.0%</div>
-      <div class="stacked-seg" style="width:14.0%; background: var(--accent-cyan);">Trulicity 14.0%</div>
-      <div class="stacked-seg" style="width:10.4%; background: var(--accent-orange);">Jardiance 10.4%</div>
-      <div class="stacked-seg" style="width:19.4%; background: var(--text-muted);">Other 19.4%</div>
+      <div class="stacked-seg" style="width:35.2%;background:#2563eb;">Mounjaro 35.2%</div>
+      <div class="stacked-seg" style="width:21.0%;background:#16a34a;">Zepbound 21.0%</div>
+      <div class="stacked-seg" style="width:10.4%;background:#7c3aed;">Jardiance 10.4%</div>
+      <div class="stacked-seg" style="width:8.8%;background:#b45309;">Verzenio 8.8%</div>
+      <div class="stacked-seg" style="width:14.0%;background:#64748b;">Trulicity 14.0%</div>
+      <div class="stacked-seg" style="width:6.4%;background:#be123c;">Taltz 6.4%</div>
+      <div class="stacked-seg" style="width:4.2%;background:#374151;">Other</div>
     </div>
-    <div style="display: flex; gap: 16px; margin-top: 8px; font-size: 12px; flex-wrap: wrap;">
-      <span style="color: var(--accent-blue);">Mounjaro (T2D tirzepatide)</span>
-      <span style="color: var(--accent-purple);">Zepbound (Obesity tirzepatide)</span>
-      <span style="color: var(--accent-cyan);">Trulicity (Declining)</span>
-      <span style="color: var(--accent-orange);">Jardiance</span>
-      <span style="color: var(--text-muted);">Other (Verzenio, Taltz, etc.)</span>
-    </div>
-    <div class="table-wrap"><table style="margin-top: 16px;">
-      <thead>
-        <tr><th>Product</th><th class="num">FY2025</th><th class="num">% Total</th><th class="num">FY2024</th><th class="num">YoY Growth</th></tr>
-      </thead>
-      <tbody>
-        <tr><td><strong>Mounjaro</strong> (tirzepatide T2D)</td><td class="num positive">$23.0B</td><td class="num positive">35.2%</td><td class="num">$13.8B</td><td class="num positive">+66.6%</td></tr>
-        <tr><td><strong>Zepbound</strong> (tirzepatide obesity)</td><td class="num positive">$13.7B</td><td class="num positive">21.0%</td><td class="num">$5.0B</td><td class="num positive">+174.1%</td></tr>
-        <tr><td><strong>Trulicity</strong></td><td class="num neutral">$9.1B</td><td class="num neutral">14.0%</td><td class="num">$5.4B</td><td class="num negative">Declining &mdash; US patent expires 2027</td></tr>
-        <tr><td><strong>Jardiance</strong></td><td class="num">$6.8B</td><td class="num">10.4%</td><td class="num">$5.1B</td><td class="num positive">+33.2%</td></tr>
-        <tr><td><strong>Verzenio</strong></td><td class="num">$5.7B</td><td class="num">8.8%</td><td class="num">$5.3B</td><td class="num positive">+7.8%</td></tr>
-        <tr><td><strong>Taltz</strong></td><td class="num">$4.2B</td><td class="num">6.4%</td><td class="num">$3.3B</td><td class="num positive">+27.7%</td></tr>
-        <tr><td>Other</td><td class="num">$2.8B</td><td class="num">4.2%</td><td class="num">&mdash;</td><td class="num">&mdash;</td></tr>
-      </tbody>
-    </table></div>
-  </div>
-
-  <div class="card" style="border-left: 4px solid var(--accent-red);">
-    <h3 class="card-title">Concentration Risk Alert</h3>
-    <p style="color: var(--text-secondary);">Mounjaro + Zepbound combined = <strong>$36.6B (56.2% of FY2025 revenue)</strong>, up from 41.6% in FY2024. This unprecedented single-molecule concentration for a $65B company is amplified by $40.9B in LTD issued to manufacture those same two products. A tirzepatide safety signal or Novo head-to-head CVOT superiority creates catastrophic asymmetric downside &mdash; concentration risk amplified by leverage risk on the same asset.</p>
-  </div>
-
-  <div class="grid-2">
-    <div class="card">
-      <h3 class="card-title">Geographic Revenue &mdash; FY2025</h3>
-      <div class="bar-row">
-        <div class="bar-label">United States</div>
-        <div class="bar-track"><div class="bar-fill" style="width:66.7%; background: var(--accent-blue);">$43.5B</div></div>
-        <div class="bar-value positive">+43.1%</div>
-      </div>
-      <div class="bar-row">
-        <div class="bar-label">Europe</div>
-        <div class="bar-track"><div class="bar-fill" style="width:17.7%; background: var(--accent-green);">$11.6B</div></div>
-        <div class="bar-value positive">+67.0%</div>
-      </div>
-      <div class="bar-row">
-        <div class="bar-label">Rest of World</div>
-        <div class="bar-track"><div class="bar-fill" style="width:9.3%; background: var(--accent-purple);">$6.1B</div></div>
-        <div class="bar-value positive">+37.8%</div>
-      </div>
-      <div class="bar-row">
-        <div class="bar-label">Japan</div>
-        <div class="bar-track"><div class="bar-fill" style="width:3.3%; background: var(--accent-cyan);">$2.1B</div></div>
-        <div class="bar-value">+17.5%</div>
-      </div>
-      <div class="bar-row">
-        <div class="bar-label">China</div>
-        <div class="bar-track"><div class="bar-fill" style="width:3.0%; background: var(--accent-orange);">$2.0B</div></div>
-        <div class="bar-value">+17.5%</div>
-      </div>
-    </div>
-    <div class="card">
-      <h3 class="card-title">Therapeutic Area &mdash; FY2025</h3>
-      <div class="table-wrap"><table>
+    <p style="font-size:12px;color:var(--accent-red);margin:8px 0;font-weight:600;">&#9888; Tirzepatide (Mounjaro + Zepbound) = 56.2% of total revenue — same active molecule, same safety risk</p>
+    <div class="table-wrap" style="margin-top:12px;">
+      <table class="data-table">
+        <thead><tr><th>Product</th><th class="num">FY2025 Revenue</th><th class="num">YoY Growth</th><th class="num">% of Revenue</th><th>Notes</th></tr></thead>
         <tbody>
-          <tr><td>Cardiometabolic Health</td><td class="num positive">$33.9B (52.0%)</td><td class="num positive">+55.0%</td></tr>
-          <tr><td>Oncology</td><td class="num">$5.4B (8.2%)</td><td class="num positive">+6.3%</td></tr>
-          <tr><td>Neuroscience</td><td class="num positive">$3.2B (4.9%)</td><td class="num positive">+101.3%</td></tr>
-          <tr><td>Immunology</td><td class="num">$3.0B (4.5%)</td><td class="num positive">+20.6%</td></tr>
+          <tr><td><strong>Mounjaro</strong> (tirzepatide T2D)</td><td class="num">$22.97B</td><td class="num positive">+66.6%</td><td class="num">35.2%</td><td>US $13.7B, OUS $9.3B; 75% OUS self-pay</td></tr>
+          <tr><td><strong>Zepbound</strong> (tirzepatide obesity)</td><td class="num">$13.66B</td><td class="num positive">+174.1%</td><td class="num">21.0%</td><td>98.7% US; international reimbursement barrier</td></tr>
+          <tr><td colspan="5" style="background:var(--accent-red-dim);color:var(--accent-red);font-weight:600;font-size:12px;">Combined tirzepatide: $36.63B (56.2% of revenue) — up from 41.6% in FY2024 (+14.6pp concentration increase)</td></tr>
+          <tr><td>Jardiance</td><td class="num">$6.77B</td><td class="num positive">+33.2%</td><td class="num">10.4%</td><td>Shared economics with BI</td></tr>
+          <tr><td>Verzenio (oncology CDK4/6)</td><td class="num">$5.72B</td><td class="num positive">+7.8%</td><td class="num">8.8%</td><td>Slowing growth; patent 2030+</td></tr>
+          <tr><td>Trulicity (legacy GLP-1)</td><td class="num">$9.13B</td><td class="num negative">Declining</td><td class="num">14.0%</td><td class="negative">US patent cliff 2027 — structural headwind</td></tr>
+          <tr><td>Taltz (immunology)</td><td class="num">$4.16B</td><td class="num positive">+27.7%</td><td class="num">6.4%</td><td>Outperforming in IL-17A segment</td></tr>
         </tbody>
-      </table></div>
-      <p style="margin-top: 8px; font-size: 12px; color: var(--accent-green);">Neuroscience doubling via Kisunla (donanemab) Alzheimer&rsquo;s launch is the most encouraging non-GLP-1 signal &mdash; potential second growth vector.</p>
+      </table>
     </div>
   </div>
-
-  <div class="card" style="border-left: 4px solid var(--accent-yellow);">
-    <h3 class="card-title">Zepbound International Opportunity</h3>
-    <p style="color: var(--text-secondary);">Zepbound international revenue is virtually zero (98.7% US in FY2025 &mdash; only $19.8M OUS by Q3-2025). This represents the single largest untapped commercial lever: when Zepbound international activates at scale (2026-2027), it adds a material growth layer on top of the already-growing Mounjaro international franchise (Europe +67%). However, 75% of OUS Mounjaro revenue is self-pay obesity patients &mdash; Canadian generic semaglutide (early 2026) is a direct threat worth $1.6-$3.3B revenue risk if 10-20% of OUS self-pay base is captured.</p>
+  <div class="card">
+    <div class="card-title">Geographic Revenue FY2025</div>
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Geography</th><th class="num">Revenue</th><th class="num">% Total</th><th class="num">YoY Growth</th></tr></thead>
+        <tbody>
+          <tr><td>United States</td><td class="num">$43.48B</td><td class="num">66.7%</td><td class="num positive">+43.2%</td></tr>
+          <tr><td>Europe</td><td class="num">$11.56B</td><td class="num">17.7%</td><td class="num positive">+67.0%</td></tr>
+          <tr><td>Japan</td><td class="num">$2.13B</td><td class="num">3.3%</td><td class="num positive">+17.5%</td></tr>
+          <tr><td>China</td><td class="num">$1.95B</td><td class="num">3.0%</td><td class="num positive">+17.5%</td></tr>
+          <tr><td>Rest of World</td><td class="num">$6.06B</td><td class="num">9.3%</td><td class="num positive">+41.8%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:13px;color:var(--text-secondary);margin-top:8px;">Europe growth of +67% reflects Mounjaro obesity reimbursement additions in 2025. China growing but modest at $1.95B. Zepbound remains 98.7% US-concentrated — OUS obesity reimbursement is the key gating factor for next geographic leg of growth.</p>
+  </div>
+  <div class="card">
+    <div class="card-title">R&amp;D Investment Trend</div>
+    <div class="bar-row"><div class="bar-label">FY2023 (27.3%)</div><div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--accent-blue);">$9.3B</div></div><div class="bar-value">$9.3B</div></div>
+    <div class="bar-row"><div class="bar-label">FY2024 (24.4%)</div><div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--accent-blue);">$11.0B</div></div><div class="bar-value">$11.0B</div></div>
+    <div class="bar-row"><div class="bar-label">FY2025 (20.5%)</div><div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--accent-yellow);">$13.3B</div></div><div class="bar-value">$13.3B</div></div>
+    <p style="font-size:12px;color:var(--accent-yellow);margin-top:8px;">&#9888; Absolute R&amp;D growing but intensity declining. Late-stage ($8.5B, 63.4%) vs early-stage ($4.9B, 36.6%).</p>
   </div>
 </section>
 
-<!-- ==================== 8. GOVERNANCE ==================== -->
+<!-- ==================== 8. GOVERNANCE & COMPENSATION ==================== -->
 <section class="section" id="governance">
   <h2 class="section-title"><span class="icon">&#9881;</span> Governance &amp; Compensation</h2>
-
   <div class="grid-2">
     <div class="card">
-      <h3 class="card-title">Entrenchment Score: 2/6</h3>
+      <div class="card-title">Board &amp; Governance Structure</div>
       <div class="entrenchment-track">
-        <div class="entrenchment-marker" style="left: 33%;">2</div>
+        <div class="entrenchment-marker" style="left:33%;">2</div>
       </div>
-      <div class="gauge-labels"><span>0 (Shareholder Friendly)</span><span>6 (Entrenched)</span></div>
-      <p style="margin-top: 12px; font-size: 13px; color: var(--text-secondary);"><span class="severity-badge severity-LOW">LOW-MODERATE &mdash; Trajectory Toward Better Governance</span></p>
-      <div class="table-wrap"><table style="margin-top: 12px;">
-        <tbody>
-          <tr><td>Classified Board</td><td class="neutral">Yes &mdash; Item 4 on 2026 ballot (78% support 2025, needed 80%)</td></tr>
-          <tr><td>Poison Pill</td><td class="positive">No</td></tr>
-          <tr><td>Golden Parachute</td><td class="positive">No &mdash; double-trigger CIC only</td></tr>
-          <tr><td>Supermajority Voting</td><td class="neutral">Yes &mdash; Item 5 on 2026 ballot</td></tr>
-          <tr><td>Dual-Class Shares</td><td class="positive">No &mdash; single class</td></tr>
-          <tr><td>CEO = Chair</td><td class="neutral">Yes (David Ricks) &mdash; Item 6 seeks separation</td></tr>
-        </tbody>
-      </table></div>
+      <p style="font-size:12px;color:var(--text-secondary);text-align:center;margin-bottom:16px;">Entrenchment Index: 2/6 (LOW-MODERATE) — Items 4+5 on 2026 proxy ballot; if passed → 0/6</p>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Feature</th><th>Status</th><th>Assessment</th></tr></thead>
+          <tbody>
+            <tr><td>Board Size</td><td>12 directors</td><td>&#10003;</td></tr>
+            <tr><td>Independent Directors</td><td>11 of 12 (91.7%)</td><td class="positive">&#10003; Strong</td></tr>
+            <tr><td>CEO/Chair Duality</td><td>Yes (Ricks)</td><td class="neutral">&#9888; Moderate risk</td></tr>
+            <tr><td>Classified Board</td><td>Yes (3-year staggered)</td><td class="negative">&#10007; On 2026 ballot</td></tr>
+            <tr><td>Poison Pill</td><td>None</td><td class="positive">&#10003;</td></tr>
+            <tr><td>Golden Parachute</td><td>Double-trigger only</td><td class="positive">&#10003;</td></tr>
+            <tr><td>Supermajority Voting</td><td>Yes (some provisions)</td><td class="negative">&#10007; On 2026 ballot</td></tr>
+            <tr><td>Dual-Class Shares</td><td>None</td><td class="positive">&#10003;</td></tr>
+            <tr><td>Say-on-Pay FY2025</td><td>&gt;96% approval</td><td class="positive">&#10003; Excellent</td></tr>
+            <tr><td>Clawback Policy</td><td>Robust (incentive comp)</td><td class="positive">&#10003;</td></tr>
+            <tr><td>Hedging/Pledging</td><td>Prohibited</td><td class="positive">&#10003;</td></tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-
     <div class="card">
-      <h3 class="card-title">CEO Compensation &amp; Alignment</h3>
-      <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 12px;"><span class="severity-badge severity-LOW">PAY ALIGNED</span> &mdash; CEO comp grew 25.5% while revenue grew 44.7% and OI doubled. Management not capturing a disproportionate share of the GLP-1 windfall.</p>
-      <div class="table-wrap"><table>
-        <tbody>
-          <tr><td>FY2025 Total Comp (David Ricks)</td><td class="num">$36.7M</td></tr>
-          <tr><td>Variable / Performance-Based</td><td class="num positive">95.4%</td></tr>
-          <tr><td>Base Salary</td><td class="num">$1.7M</td></tr>
-          <tr><td>Compensation Actually Paid (CAP)</td><td class="num">$75.2M (mark-to-market on prior equity grants)</td></tr>
-          <tr><td>Say-on-Pay Approval</td><td class="num positive">&gt;96%</td></tr>
-          <tr><td>SBC as % Revenue</td><td class="num positive">1.0% (declining from 1.84% FY2023)</td></tr>
-          <tr><td>EPS Dilution from SBC</td><td class="num positive">$0.05 on $22.95 &mdash; effectively zero</td></tr>
-        </tbody>
-      </table></div>
+      <div class="card-title">CEO Compensation — David Ricks</div>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Component</th><th class="num">FY2025</th></tr></thead>
+          <tbody>
+            <tr><td>Base Salary</td><td class="num">$1,700,000</td></tr>
+            <tr><td>Annual Bonus</td><td class="num">Included in variable 95.4%</td></tr>
+            <tr><td>Long-Term Equity</td><td class="num">~$33.8M est</td></tr>
+            <tr><td><strong>Total Compensation</strong></td><td class="num"><strong>$36,698,337</strong></td></tr>
+            <tr><td>Variable Pay %</td><td class="num">95.4%</td></tr>
+            <tr><td>Comp Actually Paid (SCT)</td><td class="num">$75,185,008</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:13px;color:var(--text-secondary);margin-top:12px;">CEO total comp grew 25.5% while revenue grew 44.7% and operating income doubled — management capturing proportionally less than LLY's outperformance would justify. Revenue-to-comp ratio is favorable.</p>
+      <div style="margin-top:16px;padding:12px;background:var(--accent-green-dim);border-radius:8px;border:1px solid rgba(34,197,94,0.3);">
+        <div style="font-weight:600;color:var(--accent-green);margin-bottom:6px;">Overall Governance Alignment: 7.5/10 — POSITIVE</div>
+        <div style="font-size:12px;color:var(--text-secondary);">IMPROVING trajectory — 2026 proxy votes on board declassification + supermajority elimination. Institutional ownership 82.5% provides shareholder pressure.</div>
+      </div>
     </div>
   </div>
-
   <div class="card">
-    <h3 class="card-title">Board Composition</h3>
-    <div class="table-wrap"><table>
-      <tbody>
-        <tr><td>Total Directors</td><td class="num">12</td></tr>
-        <tr><td>Independent Directors</td><td class="num positive">11/12 (91.7%)</td></tr>
-        <tr><td>Lead Independent Director</td><td class="positive">Yes</td></tr>
-        <tr><td>Notable Addition (Dec 2025)</td><td>Carolyn Bertozzi &mdash; Nobel laureate, click chemistry, Stanford. Strategic science addition relevant to oncology/ADC pipeline.</td></tr>
-      </tbody>
-    </table></div>
+    <div class="card-title">Ownership Structure</div>
+    <div class="bar-row"><div class="bar-label">Institutional</div><div class="bar-track"><div class="bar-fill" style="width:82.5%;background:var(--accent-blue);">82.5%</div></div><div class="bar-value">82.5%</div></div>
+    <div class="bar-row"><div class="bar-label">Lilly Endowment</div><div class="bar-track"><div class="bar-fill" style="width:10.1%;background:var(--accent-yellow);">10.1%</div></div><div class="bar-value">10.1%</div></div>
+    <div class="bar-row"><div class="bar-label">Management</div><div class="bar-track"><div class="bar-fill" style="width:0.17%;background:var(--accent-green);min-width:30px;">0.17%</div></div><div class="bar-value">0.17%</div></div>
+    <p style="font-size:12px;color:var(--text-secondary);margin-top:8px;">Lilly Endowment sold ~$910M+ in 12 months — charitable foundation portfolio diversification, not insider signal.</p>
   </div>
 
-  <div class="grid-2">
-    <div class="card" style="border-left: 4px solid var(--accent-yellow);">
-      <h3 class="card-title">2026 Governance Trajectory</h3>
-      <p style="font-size: 13px; color: var(--text-secondary);">Items 4, 5, 6 on 2026 ballot (board declassification, supermajority elimination, independent chair). Both key proposals got 78% in 2025 &mdash; just 2pp below 80% supermajority threshold. If all three pass in 2026, entrenchment index falls from 2/6 to 0/6. Institutional pressure is building &mdash; 2026 passage is plausible.</p>
-    </div>
-    <div class="card" style="border-left: 4px solid var(--accent-yellow);">
-      <h3 class="card-title">CEO/Chair Duality Risk</h3>
-      <p style="font-size: 13px; color: var(--text-secondary);">David Ricks holds both Chair and CEO simultaneously. At $800B+ market cap with 56% revenue concentration in two products and $40.9B LTD, robust independent board oversight is material, not ceremonial. At $800B scale, governance structures matter more than at smaller companies. Partially mitigated by Lead Independent Director.</p>
-    </div>
-  </div>
 </section>
 
 <!-- ==================== 9. INSIDER & INSTITUTIONAL ==================== -->
-<section class="section" id="insiders">
+<section class="section" id="insider-institutional">
   <h2 class="section-title"><span class="icon">&#9650;</span> Insider &amp; Institutional Activity</h2>
 
-  <div class="card" style="border-left: 4px solid var(--accent-green);">
-    <h3 class="card-title">August 2025 Conviction Buy</h3>
-    <p style="color: var(--text-secondary); margin-bottom: 16px;">Post-orforglipron Phase 3 miss (stock fell ~14%). Five insiders purchased simultaneously on August 12, 2025.</p>
-    <div class="table-wrap"><table>
-      <thead>
-        <tr><th>Insider</th><th class="num">Price</th><th class="num">Value</th><th>Significance</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>David Ricks (CEO) &mdash; 1,632 shares</td><td class="num">$644.77</td><td class="num positive">$1.05M</td><td>CEO buying at maximum negative news flow</td></tr>
-        <tr><td>Daniel Skovronsky (CSO)</td><td class="num">~$644</td><td class="num positive">$644K</td><td><strong>STRONGEST SIGNAL</strong> &mdash; CSO has full pipeline knowledge including all Phase 3 data. Bought anyway.</td></tr>
-        <tr><td>3 Independent Directors (combined)</td><td class="num">~$644</td><td class="num positive">~$1.2M</td><td>Same-date cluster confirms conviction, not coincidence</td></tr>
-        <tr><td><strong>Total</strong></td><td class="num">&mdash;</td><td class="num positive"><strong>~$2.9M</strong></td><td class="positive">Subsequent orforglipron FDA approval vindicates the insider thesis</td></tr>
-      </tbody>
-    </table></div>
+  <div class="card" style="border:2px solid var(--accent-green);background:linear-gradient(135deg,rgba(34,197,94,0.06) 0%,transparent 100%);">
+    <div class="card-title" style="color:var(--accent-green);">August 2025 Conviction Buy — 5 Insiders, $2.9M Total</div>
+    <p style="font-size:13px;line-height:1.7;margin-bottom:16px;">On August 12–13, 2025 — the day the stock fell ~14% on orforglipron Phase 3 results released August 7 — CEO David Ricks, CSO Daniel Skovronsky, and three independent directors all purchased shares at $641–660/share. The CSO's purchase is the most forensically significant: Skovronsky has complete pipeline visibility and chose to buy at the market's most pessimistic moment. The subsequent FDA approval of orforglipron for obesity in January 2026 validated the conviction buy precisely. <strong style="color:var(--accent-green);">STRONGLY POSITIVE insider alignment signal.</strong></p>
+    <div id="insiders">
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Insider</th><th>Role</th><th class="num">Shares</th><th class="num">Price</th><th class="num">Value</th><th>Significance</th></tr></thead>
+          <tbody>
+            <tr><td>David Ricks</td><td>CEO/Chair</td><td class="num">1,632</td><td class="num">$644.77</td><td class="num">$1,052,265</td><td>Open market purchase at trough</td></tr>
+            <tr><td>Daniel Skovronsky</td><td>EVP/CSO</td><td class="num">1,000</td><td class="num">$644.77</td><td class="num positive">$644,770</td><td class="positive">Most significant — full pipeline visibility</td></tr>
+            <tr><td>Gabrielle Sulzberger</td><td>Director</td><td class="num">117</td><td class="num">$641.18</td><td class="num">$75,018</td><td>Independent director buy</td></tr>
+            <tr><td>J. Erik Fyrwald</td><td>Director</td><td class="num">1,005</td><td class="num">$642.30</td><td class="num">$645,242</td><td>Independent director buy</td></tr>
+            <tr><td>Ralph Alvarez</td><td>Director</td><td class="num">758</td><td class="num">$660.25</td><td class="num">$500,310</td><td>Independent director buy</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p style="font-size:12px;color:var(--text-muted);margin-top:8px;">Total: $2,917,605 across 5 buyers. Zero discretionary management sales in 12 months.</p>
   </div>
 
-  <div class="card">
-    <h3 class="card-title">Form 4 Summary (12 Months)</h3>
-    <div class="table-wrap"><table>
-      <tbody>
-        <tr><td>Total Form 4 Filings</td><td class="num">100</td></tr>
-        <tr><td>Discretionary Management Sells</td><td class="num positive"><strong>ZERO</strong></td></tr>
-        <tr><td>Management Transactions</td><td>RSU vests + tax withholding (routine, scheduled) only</td></tr>
-        <tr><td>Lilly Endowment Sells</td><td class="neutral">~907K shares / $696M+ &mdash; charitable foundation portfolio diversification, NOT bearish signal</td></tr>
-        <tr><td>Overall Insider Signal</td><td class="positive"><strong>STRONGLY POSITIVE</strong></td></tr>
-      </tbody>
-    </table></div>
-  </div>
-
-  <div class="card">
-    <h3 class="card-title">Institutional Ownership</h3>
-    <div class="table-wrap"><table>
-      <thead>
-        <tr><th>Rank</th><th>Institution</th><th class="num">% Ownership</th><th>Trend</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>1</td><td>Lilly Endowment Inc</td><td class="num neutral">10.1%</td><td class="neutral">DECREASING (charitable portfolio diversification)</td></tr>
-        <tr><td>2</td><td>Vanguard Group Inc</td><td class="num positive">8.5%</td><td class="positive">STABLE TO INCREASING (+1.17M shares)</td></tr>
-        <tr><td>3</td><td>PNC Financial Services</td><td class="num">5.4%</td><td>STABLE</td></tr>
-        <tr><td>4</td><td>BlackRock Inc</td><td class="num">4.4%</td><td>STABLE</td></tr>
-      </tbody>
-    </table></div>
-    <p style="margin-top: 12px; font-size: 13px; color: var(--text-secondary);">Total institutional ownership: 82.5% across 4,436 unique holders. High-quality passive index base (Vanguard, BlackRock). No activist positions flagged. Lilly Endowment remaining ~9.7% still represents future selling pressure in the open market.</p>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Buyback &amp; Dilution</div>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Metric</th><th class="num">Value</th></tr></thead>
+          <tbody>
+            <tr><td>Buyback Authorization</td><td class="num">$15.0B total</td></tr>
+            <tr><td>Buyback Executed FY2025</td><td class="num">$4.1B</td></tr>
+            <tr><td>Shares Change FY2025</td><td class="num positive">-4.81M (-0.51%)</td></tr>
+            <tr><td>SBC FY2025</td><td class="num">$626M</td></tr>
+            <tr><td>Net Dilution FY2025</td><td class="num positive">-0.22%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:12px;color:var(--accent-yellow);margin-top:8px;">&#9888; SDG-01: $15B authorization vs only $4.1B executed. At current pace, 5+ years to complete. Program is optionality, not committed capital return.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">Institutional Ownership</div>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Category</th><th class="num">Ownership</th></tr></thead>
+          <tbody>
+            <tr><td>Institutional Total</td><td class="num">82.5%</td></tr>
+            <tr><td>Lilly Endowment</td><td class="num neutral">10.1% (selling ~$910M+)</td></tr>
+            <tr><td>Management</td><td class="num">0.17%</td></tr>
+            <tr><td>Combined Affiliated</td><td class="num">10.27%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:12px;color:var(--text-secondary);margin-top:8px;">Endowment selling is charitable foundation portfolio diversification — explicitly confirmed as such, forensically insignificant. High institutional ownership (82.5%) supports shareholder proposal passage on 2026 proxy items.</p>
+    </div>
   </div>
 </section>
 
 <!-- ==================== 10. PEER COMPARISON ==================== -->
 <section class="section" id="peer-comparison">
-  <h2 class="section-title"><span class="icon">&#9670;</span> Peer Comparison</h2>
-
+  <h2 class="section-title"><span class="icon">&#9741;</span> Peer Comparison</h2>
   <div class="card">
-    <h3 class="card-title">Peer Comparison &mdash; FY2025</h3>
-    <div class="table-wrap"><table>
-      <thead>
-        <tr><th>Metric</th><th class="num">LLY</th><th class="num">NVO</th><th class="num">MRK</th><th class="num">JNJ</th><th class="num">PFE</th><th class="num">ABBV</th><th>Peer Median</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>Revenue ($B)</td><td class="num positive"><strong>65.2</strong></td><td class="num">46.8</td><td class="num">65.0</td><td class="num">94.2</td><td class="num">62.6</td><td class="num">61.2</td><td>&mdash;</td></tr>
-        <tr><td>Revenue Growth</td><td class="num positive"><strong>+44.7%</strong></td><td class="num">+11.1%</td><td class="num">+1.3%</td><td class="num">+6.1%</td><td class="num negative">-1.6%</td><td class="num">+8.6%</td><td>6.1%</td></tr>
-        <tr><td>Gross Margin</td><td class="num positive">83.0%</td><td class="num positive"><strong>85.7%</strong></td><td class="num">82.0%</td><td class="num">67.9%</td><td class="num">74.3%</td><td class="num">70.2%</td><td>74.3%</td></tr>
-        <tr><td>Operating Margin</td><td class="num positive">39.5%</td><td class="num positive"><strong>41.3%</strong></td><td class="num">28.1%</td><td class="num">18.6%</td><td class="num negative">12.4%</td><td class="num">24.6%</td><td>24.6%</td></tr>
-        <tr><td>Net Margin</td><td class="num positive">31.7%</td><td class="num positive"><strong>33.1%</strong></td><td class="num">28.1%</td><td class="num">28.5%</td><td class="num">12.4%</td><td class="num negative">6.9%</td><td>28.1%</td></tr>
-        <tr><td>R&amp;D Intensity</td><td class="num neutral">20.5%</td><td class="num">14.1%</td><td class="num positive"><strong>24.3%</strong></td><td class="num">15.6%</td><td class="num">17.5%</td><td class="num negative">10.8%</td><td>17.5%</td></tr>
-        <tr><td>FCF ($B)</td><td class="num">9.0</td><td class="num">12.1</td><td class="num">11.2</td><td class="num positive"><strong>14.8</strong></td><td class="num">8.5</td><td class="num positive">17.8</td><td>&mdash;</td></tr>
-        <tr><td>CapEx/Revenue</td><td class="num negative"><strong>12.0%</strong></td><td class="num">9.5%</td><td class="num">5.8%</td><td class="num">5.2%</td><td class="num">4.5%</td><td class="num positive">2.1%</td><td>5.2%</td></tr>
-        <tr><td>LTD ($B)</td><td class="num">40.9</td><td class="num positive">4.2</td><td class="num">35.1</td><td class="num">41.4</td><td class="num">28.9</td><td class="num negative"><strong>64.5</strong></td><td>&mdash;</td></tr>
-        <tr><td>Composite Quality Rank</td><td class="num positive"><strong>#1</strong></td><td class="num positive">#2</td><td class="num">#3</td><td class="num">#4</td><td class="num">#5</td><td class="num negative">#6</td><td>&mdash;</td></tr>
-      </tbody>
-    </table></div>
+    <div class="card-title">Large-Cap Pharma — FY2025 Financial Metrics</div>
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th class="num" style="color:var(--accent-gold);">LLY</th>
+            <th class="num">PFE</th>
+            <th class="num">JNJ</th>
+            <th class="num">MRK</th>
+            <th class="num">ABBV</th>
+            <th class="num">NVO</th>
+            <th class="num">Peer Median</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Revenue ($B)</td>
+            <td class="num" style="color:var(--accent-gold);font-weight:700;">$65.2</td>
+            <td class="num">$62.6</td>
+            <td class="num">$94.2</td>
+            <td class="num">$65.0</td>
+            <td class="num">$61.2</td>
+            <td class="num">$46.8</td>
+            <td class="num">$62.6</td>
+          </tr>
+          <tr>
+            <td>Revenue Growth</td>
+            <td class="num positive" style="font-weight:700;">+44.7% 🥇</td>
+            <td class="num negative">-1.6%</td>
+            <td class="num">+6.1%</td>
+            <td class="num">+1.3%</td>
+            <td class="num">+8.6%</td>
+            <td class="num">+11.1%</td>
+            <td class="num">+6.1%</td>
+          </tr>
+          <tr>
+            <td>Gross Margin</td>
+            <td class="num" style="color:var(--accent-gold);">83.0%</td>
+            <td class="num">74.3%</td>
+            <td class="num">67.9%</td>
+            <td class="num">82.0%</td>
+            <td class="num">70.2%</td>
+            <td class="num positive">85.7% 🥇</td>
+            <td class="num">—</td>
+          </tr>
+          <tr>
+            <td>Operating Margin</td>
+            <td class="num" style="color:var(--accent-gold);">39.5%</td>
+            <td class="num negative">12.4%</td>
+            <td class="num">18.6%</td>
+            <td class="num">28.1%</td>
+            <td class="num">24.6%</td>
+            <td class="num positive">41.3% 🥇</td>
+            <td class="num">24.6%</td>
+          </tr>
+          <tr>
+            <td>Net Margin</td>
+            <td class="num" style="color:var(--accent-gold);">31.7%</td>
+            <td class="num">12.4%</td>
+            <td class="num">28.5%</td>
+            <td class="num">28.1%</td>
+            <td class="num negative">6.9%</td>
+            <td class="num positive">33.1% 🥇</td>
+            <td class="num">—</td>
+          </tr>
+          <tr>
+            <td>R&amp;D Intensity</td>
+            <td class="num" style="color:var(--accent-gold);">20.5%</td>
+            <td class="num">17.5%</td>
+            <td class="num">15.6%</td>
+            <td class="num positive">24.3% 🥇</td>
+            <td class="num">10.8%</td>
+            <td class="num">14.1%</td>
+            <td class="num">—</td>
+          </tr>
+          <tr>
+            <td>ROE</td>
+            <td class="num positive" style="font-weight:700;">77.8%</td>
+            <td class="num">11.5%</td>
+            <td class="num">32.1%</td>
+            <td class="num">55.7%</td>
+            <td class="num positive">210%+</td>
+            <td class="num">—</td>
+            <td class="num">—</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:13px;color:var(--text-secondary);margin-top:12px;">LLY's revenue growth of +44.7% is 7.3x the peer median of +6.1%. Only Novo Nordisk (NVO) competes on margin metrics, reflecting its more mature GLP-1 franchise (Ozempic/Wegovy). Pfizer experienced -1.6% revenue decline as COVID franchise revenues unwound. In the pure-pharma group (excluding JNJ MedTech), LLY ranks #1 by revenue.</p>
   </div>
-
-  <div class="grid-2">
-    <div class="card">
-      <h3 class="card-title">NVO: Primary Comparable</h3>
-      <p style="font-size: 13px; color: var(--text-secondary);">NVO reached peak GLP-1 scaling first, now decelerating to +11.1% growth. NVO&rsquo;s near-debt-free balance sheet ($4.2B LTD vs LLY&rsquo;s $40.9B) shows that GLP-1 franchises can operate capital-efficiently once manufacturing is established. NVO&rsquo;s deceleration trajectory from peak growth is LLY&rsquo;s 2028+ roadmap. Watch NVO&rsquo;s multiple compression trajectory as forward guide for LLY valuation normalization.</p>
-    </div>
-    <div class="card">
-      <h3 class="card-title">PFE: Cautionary Tale</h3>
-      <p style="font-size: 13px; color: var(--text-secondary);">PFE illustrates how rapidly a pharma mega-cap de-rates without a durable growth platform: -1.6% FY2025 growth, 12.4% operating margin (lowest in peer set), no GLP-1 pipeline after discontinuing its own oral GLP-1 candidates. ABBV&rsquo;s $64.5B debt from Allergan acquisition is the cautionary tale for acquisition-funded diversification. LLY&rsquo;s manufacturing-funded leverage is more defensible but still asymmetric to the downside.</p>
-    </div>
+  <div class="card">
+    <div class="card-title">LLY Peer Rankings</div>
+    <div class="bar-row"><div class="bar-label">Revenue Growth</div><div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--accent-green);">#1 (7.3x peer median)</div></div><div class="bar-value">44.7%</div></div>
+    <div class="bar-row"><div class="bar-label">Gross Margin</div><div class="bar-track"><div class="bar-fill" style="width:96%;background:var(--accent-blue);">#2 (behind NVO 85.7%)</div></div><div class="bar-value">83.0%</div></div>
+    <div class="bar-row"><div class="bar-label">Operating Margin</div><div class="bar-track"><div class="bar-fill" style="width:95%;background:var(--accent-blue);">#2 (behind NVO 41.3%)</div></div><div class="bar-value">39.5%</div></div>
+    <div class="bar-row"><div class="bar-label">Net Margin</div><div class="bar-track"><div class="bar-fill" style="width:94%;background:var(--accent-blue);">#2 (behind NVO 33.1%)</div></div><div class="bar-value">31.7%</div></div>
+    <div class="bar-row"><div class="bar-label">R&amp;D (Absolute)</div><div class="bar-track"><div class="bar-fill" style="width:85%;background:var(--accent-purple);">#3 at $13.3B</div></div><div class="bar-value">$13.3B</div></div>
   </div>
 </section>
 
 <!-- ==================== 11. TEXT ANALYSIS ==================== -->
 <section class="section" id="text-analysis">
   <h2 class="section-title"><span class="icon">&#9998;</span> Text Analysis</h2>
-
   <div class="card">
-    <h3 class="card-title">New Risk Factors FY2025</h3>
-
-    <div class="flag-card high">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-        <strong>NEW-R3: Government Pricing Agreement &mdash; Binding Structural Commitments</strong>
-        <span class="severity-badge severity-HIGH">HIGH</span>
+    <div class="card-title">New FY2025 MD&amp;A Disclosures</div>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot negative"></div>
+        <div class="timeline-title">First Appearance: "Lower Realized Prices" Language for Mounjaro US</div>
+        <div class="timeline-detail">FY2025 10-K MD&amp;A explicitly acknowledges US net price erosion for Mounjaro — language not present in FY2024 annual filing. Corroborates Q2-2025 call disclosure that calls were ahead of written disclosure (XV-T01, confidence 0.97).</div>
       </div>
-      <p style="font-size: 13px; color: var(--text-secondary);">November 2025 agreement commits LLY to lower Medicaid prices and &ldquo;balanced pricing across developed nations&rdquo; for future products. Creates structural pricing ceiling precedent for international orforglipron launches. Most consequential new risk disclosure.</p>
-    </div>
-
-    <div class="flag-card high">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-        <strong>NEW-R4: Compounding Pharmacy Post-Shortage Enforcement Risk</strong>
-        <span class="severity-badge severity-HIGH">HIGH</span>
+      <div class="timeline-item">
+        <div class="timeline-dot negative"></div>
+        <div class="timeline-title">Section 232 Tariff — 3-Year Grace Period Conditioned on US Manufacturing</div>
+        <div class="timeline-detail">New risk factor: pharmaceutical tariff exposure contingent on US manufacturing commitment delivery. Management calls more minimizing than 10-K language (XV-T04, confidence 0.73).</div>
       </div>
-      <p style="font-size: 13px; color: var(--text-secondary);">FDA shortage resolved but compounding continues illegally. Risk qualitatively WORSE in FY2025: in FY2024, compounders had legal basis (shortage exception); now operating illegally but persistent. &ldquo;Cannot guarantee adequate regulation or compliance.&rdquo;</p>
-    </div>
-
-    <div class="flag-card moderate">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-        <strong>NEW-R1: Section 232 Tariff Grace Period Conditioned on Manufacturing Commitments</strong>
-        <span class="severity-badge severity-MEDIUM">MEDIUM-HIGH</span>
+      <div class="timeline-item">
+        <div class="timeline-dot negative"></div>
+        <div class="timeline-title">November 2025 Government Pricing Agreement — Medicaid Reductions</div>
+        <div class="timeline-detail">New disclosure of drug pricing agreement covering both Medicaid and other programs. Drives "low to mid-teens" 2026 pricing headwind. Written disclosure confirms call statements.</div>
       </div>
-      <p style="font-size: 13px; color: var(--text-secondary);">3-year grace period conditioned on US manufacturing commitments. Entirely new in FY2025. Creates capital allocation constraint &mdash; LLY must execute LEAP program or lose trade protection. Commitment quantum not disclosed.</p>
-    </div>
-
-    <div class="flag-card moderate">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-        <strong>NEW-R2: China Supply Chain / BIOSECURE Act Risk</strong>
-        <span class="severity-badge severity-MEDIUM">MEDIUM-HIGH</span>
+      <div class="timeline-item">
+        <div class="timeline-dot negative"></div>
+        <div class="timeline-title">Compounding Pharmacy Risk: "Cannot Guarantee Adequate Regulation"</div>
+        <div class="timeline-detail">10-K is more cautious than Q4-2025 call language, which was bullish on enforcement resolution. Text divergence: calls frame compounding as "unsafe practice that shouldn't exist"; 10-K uses protective legal language. MODERATE DIVERGENCE (XV-T02, confidence 0.78).</div>
       </div>
-      <p style="font-size: 13px; color: var(--text-secondary);">API supply chains run through China. US tariffs + BIOSECURE Act create disruption risk. Potentially underweighted given 56% revenue concentration in tirzepatide manufacturing that depends on these supply chains.</p>
-    </div>
-
-    <div class="flag-card moderate">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-        <strong>NEW-R5: Oral GLP-1 Competitive Risk (Orforglipron + NVO Oral Semaglutide)</strong>
-        <span class="severity-badge severity-MEDIUM">MEDIUM</span>
-      </div>
-      <p style="font-size: 13px; color: var(--text-secondary);">LLY&rsquo;s own orforglipron creates internal cannibalization risk for the injectable GLP-1 franchise. NVO oral semaglutide already marketed. Oral GLP-1 competitive landscape is explicitly new risk in FY2025.</p>
     </div>
   </div>
-
   <div class="card">
-    <h3 class="card-title">Text vs Transcript Divergences</h3>
-    <div class="table-wrap"><table>
-      <thead>
-        <tr><th>Topic</th><th>10-K Disclosure</th><th>Verbal Tone</th><th>Verdict</th></tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Revenue Concentration</td>
-          <td>Explicitly rates 56.2% tirzepatide concentration HIGH severity</td>
-          <td>Deflects to pipeline breadth, &lsquo;39 BD transactions&rsquo; &mdash; never verbally quantifies 56%</td>
-          <td class="negative">DIVERGENCE</td>
-        </tr>
-        <tr>
-          <td>LTD Trajectory</td>
-          <td>Balance sheet clearly shows $40.9B LTD after $13.2B new issuances</td>
-          <td>Zero analyst questions or management discussion across all 5 calls</td>
-          <td class="negative">SIGNIFICANT DIVERGENCE</td>
-        </tr>
-        <tr>
-          <td>US Pricing Trajectory</td>
-          <td>Discloses &lsquo;lower realized prices&rsquo; as ongoing headwind</td>
-          <td>CFO: &lsquo;2026 low to mid-teens headwind&rsquo; &mdash; aligned with written disclosure</td>
-          <td class="positive">ALIGNED</td>
-        </tr>
-        <tr>
-          <td>Compounding Pharmacy</td>
-          <td>&lsquo;Cannot guarantee adequate regulation or compliance&rsquo;</td>
-          <td>Q2-2025: &lsquo;unsafe practice that shouldn&rsquo;t exist&rsquo; &mdash; then topic disappeared from Q3-Q4</td>
-          <td class="neutral">MODERATE DIVERGENCE</td>
-        </tr>
-      </tbody>
-    </table></div>
+    <div class="card-title">Transcript vs 10-K Cross-Validation Results</div>
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Topic</th><th>Verdict</th><th class="num">Confidence</th><th>Key Finding</th></tr></thead>
+        <tbody>
+          <tr><td>US Pricing Headwinds</td><td><span class="severity-badge" style="background:rgba(34,197,94,0.15);color:var(--accent-green);">STRONG CONFIRM</span></td><td class="num positive">0.97</td><td>Calls disclosed before 10-K; CFO language identical in Q2-2025 and MD&amp;A</td></tr>
+          <tr><td>International Reimbursement</td><td><span class="severity-badge" style="background:rgba(34,197,94,0.15);color:var(--accent-green);">CONFIRMATION</span></td><td class="num positive">0.88</td><td>Jonsson confirmed 75% OUS self-pay on both Q3 and Q4-2025 calls</td></tr>
+          <tr><td>Compounding Pharmacy</td><td><span class="severity-badge severity-MEDIUM">MODERATE DIV</span></td><td class="num neutral">0.78</td><td>Calls bullish on enforcement; 10-K "cannot guarantee" language more cautious</td></tr>
+          <tr><td>Tariff Risk</td><td><span class="severity-badge severity-MEDIUM">PARTIAL DIV</span></td><td class="num neutral">0.73</td><td>Both sources vague; calls more minimizing of manufacturing commitment specifics</td></tr>
+          <tr><td>Concentration Risk</td><td><span class="severity-badge severity-HIGH">DIVERGENCE</span></td><td class="num negative">0.85</td><td>10-K rates HIGH severity explicitly; management verbal deflects to pipeline breadth</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title">Narrative Drift Flags</div>
+    <div class="flag-card moderate">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
+        <span class="severity-badge severity-MEDIUM">WATCH</span>
+        <strong>Consumer Platform Identity Intensifying</strong>
+      </div>
+      <p style="font-size:13px;color:var(--text-secondary);">"LillyDirect as brand" narrative is growing in Q4-2025 call language — reframes concentration risk as consumer expansion opportunity. Management positioning the brand rather than the molecule.</p>
+    </div>
+    <div class="flag-card moderate">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
+        <span class="severity-badge severity-MEDIUM">WATCH</span>
+        <strong>CSO Competitive Gap Deflection — Anomalous</strong>
+      </div>
+      <p style="font-size:13px;color:var(--text-secondary);">Skovronsky said "Wall Street focused on exact numbers" regarding orforglipron vs semaglutide weight loss (9% vs 14%). This deflection is anomalous for his usual technical rigor — he typically provides precise data-driven responses.</p>
+    </div>
+    <div class="flag-card moderate">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
+        <span class="severity-badge severity-MEDIUM">WATCH</span>
+        <strong>Employer Coverage Stagnation Quietly Dropped</strong>
+      </div>
+      <p style="font-size:13px;color:var(--text-secondary);">Employer opt-in coverage for Zepbound has been flat at 50–55% for 18+ months. Metric was dropped from management reporting following Q2-2025 stagnation disclosure — key access indicator no longer tracked in public communications.</p>
+    </div>
   </div>
 </section>
 
 <!-- ==================== 12. ADVANCED ANALYSIS ==================== -->
-<section class="section" id="advanced">
+<section class="section" id="advanced-analysis">
   <h2 class="section-title"><span class="icon">&#9830;</span> Advanced Analysis</h2>
-
   <div class="grid-2">
     <div class="card">
-      <h3 class="card-title">Tax Analysis</h3>
-      <div class="table-wrap"><table>
-        <thead>
-          <tr><th>Metric</th><th class="num">FY2023</th><th class="num">FY2024</th><th class="num">FY2025</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Effective Tax Rate</td><td class="num">20.0%</td><td class="num">16.5%</td><td class="num neutral">19.8%</td></tr>
-          <tr><td>Tax Expense</td><td class="num">&mdash;</td><td class="num">&mdash;</td><td class="num">$5.1B</td></tr>
-        </tbody>
-      </table></div>
-      <p style="margin-top: 12px; font-size: 13px; color: var(--text-secondary);">Rate increased 330bps FY2024&rarr;FY2025. As US-sourced GLP-1 revenue grows (with US manufacturing expansion), mix toward higher-taxed US income may maintain or slightly elevate effective rate. OECD Pillar Two global minimum tax (15%) effective FY2024+ may impact international operations in low-tax jurisdictions.</p>
+      <div class="card-title">CapEx &amp; Cash Quality</div>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Metric</th><th class="num">FY2023</th><th class="num">FY2024</th><th class="num">FY2025</th></tr></thead>
+          <tbody>
+            <tr><td>CapEx Intensity (% Rev)</td><td class="num">10.1%</td><td class="num">11.2%</td><td class="num negative">12.0%</td></tr>
+            <tr><td>R&amp;D Intensity (% Rev)</td><td class="num">27.3%</td><td class="num">24.4%</td><td class="num negative">20.5%</td></tr>
+            <tr><td>Incremental Capital ROI</td><td class="num">—</td><td class="num">2.16x</td><td class="num positive">2.57x</td></tr>
+            <tr><td>Growth Efficiency</td><td class="num">—</td><td class="num">—</td><td class="num positive">1.376</td></tr>
+            <tr><td>OCF / NI</td><td class="num">0.809</td><td class="num">0.833</td><td class="num">0.815</td></tr>
+            <tr><td>Cash Conversion Stability</td><td class="num" colspan="2">—</td><td class="num positive">0.988</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:12px;color:var(--text-secondary);margin-top:8px;">Incremental capital ROI improving to 2.57x — excellent return on invested capital. OCF/NI stable 80–83% across 3 years signals healthy, non-manipulated earnings quality.</p>
     </div>
-
     <div class="card">
-      <h3 class="card-title">SBC Analysis</h3>
-      <div class="table-wrap"><table>
-        <tbody>
-          <tr><td>SBC FY2025</td><td class="num">$626M (1.0% of revenue)</td></tr>
-          <tr><td>SBC FY2024</td><td class="num">$645M (1.43%)</td></tr>
-          <tr><td>SBC FY2023</td><td class="num">$627M (1.84%)</td></tr>
-          <tr><td>EPS Dilution</td><td class="positive">De minimis &mdash; $0.05 on $22.95 EPS (0.22%)</td></tr>
-          <tr><td>Verdict</td><td class="positive">Declining as % of revenue &mdash; shareholders not diluted by GLP-1 windfall</td></tr>
-        </tbody>
-      </table></div>
+      <div class="card-title">Leverage Analysis</div>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Metric</th><th class="num">Value</th></tr></thead>
+          <tbody>
+            <tr><td>Long-Term Debt FY2024</td><td class="num">$28.5B</td></tr>
+            <tr><td>Long-Term Debt FY2025</td><td class="num negative">$40.9B (+43%)</td></tr>
+            <tr><td>New Debt Issued FY2025</td><td class="num">$13.2B est</td></tr>
+            <tr><td>Interest Expense FY2025</td><td class="num">$895M</td></tr>
+            <tr><td>Interest Coverage</td><td class="num positive">28.75x</td></tr>
+            <tr><td>Debt-to-FCF</td><td class="num negative">4.55x</td></tr>
+            <tr><td>Debt Per $1 FCF Issued</td><td class="num negative">$1.38</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:12px;color:var(--accent-yellow);margin-top:8px;">&#9888; Strategic leverage — GLP-1 manufacturing capacity financed by debt. Interest coverage 28.75x provides ample headroom currently. Monitor if FCF growth decelerates post-2026 while LTD matures.</p>
     </div>
   </div>
-
-  <div class="card">
-    <h3 class="card-title">LEAP Manufacturing &amp; Debt</h3>
-    <p style="color: var(--text-secondary); margin-bottom: 16px;">LEAP (Lilly Exploratory Advanced Production): sites announced in Indiana, North Carolina, Wisconsin (US); Germany, Ireland (international). Cumulative commitment $55B+ since 2020.</p>
-    <div class="table-wrap"><table>
-      <thead>
-        <tr><th>Issuance</th><th>Amount</th><th>Structure</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>February 2025</td><td class="num">$6.46B</td><td>6 tranches, 2028-2065 maturities, 4.55-5.60% coupons</td></tr>
-        <tr><td>August 2025</td><td class="num">$6.71B</td><td>7 tranches incl. floating rate, 2028-2065 maturities, 4.00-5.65%</td></tr>
-        <tr><td>Cumulative 2yr New Debt</td><td class="num negative">$24.6B</td><td>vs $1.4B cumulative repayments</td></tr>
-      </tbody>
-    </table></div>
-    <p style="margin-top: 12px; font-size: 13px; color: var(--accent-yellow);">Watch: FCF conversion only 43.5% of net income in FY2025 due to heavy capex + working capital. Should improve as manufacturing buildout completes (target 2027+). If net new debt exceeds $10B on FCF &lt;$12B in FY2026, leverage trajectory deteriorates.</p>
-  </div>
-
-  <div class="card">
-    <h3 class="card-title">Working Capital Watch Items</h3>
-    <div class="table-wrap"><table>
-      <thead>
-        <tr><th>Item</th><th>Current</th><th>Threshold</th><th>Action Required</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>DSO (Days Sales Outstanding)</td><td class="num neutral">99 days</td><td class="num negative">110 days</td><td>11 days from Beneish DSRI breach &mdash; monitor quarterly</td></tr>
-        <tr><td>Inventory</td><td class="num negative">$13.7B (+81%)</td><td class="num">No decline in Q2-Q3 2026</td><td>Any management commentary on &lsquo;inventory adjustment&rsquo; is escalation signal</td></tr>
-      </tbody>
-    </table></div>
-  </div>
-
-  <div class="card">
-    <h3 class="card-title">Validation Checks</h3>
-    <div class="table-wrap"><table>
-      <tbody>
-        <tr><td>Going Concern</td><td class="positive">No</td></tr>
-        <tr><td>Material Weakness</td><td class="positive">No</td></tr>
-        <tr><td>Restatement</td><td class="positive">No</td></tr>
-        <tr><td>Auditor Opinion</td><td class="positive">Ernst &amp; Young LLP &mdash; Clean opinion, no qualifications</td></tr>
-        <tr><td>Calculation Errors</td><td class="positive">0</td></tr>
-      </tbody>
-    </table></div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">SBC &amp; Dilution Analysis</div>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Metric</th><th class="num">FY2023</th><th class="num">FY2024</th><th class="num">FY2025</th></tr></thead>
+          <tbody>
+            <tr><td>SBC Expense</td><td class="num">$629M</td><td class="num">$646M</td><td class="num">$626M</td></tr>
+            <tr><td>SBC / Revenue</td><td class="num">1.8%</td><td class="num">1.4%</td><td class="num positive">1.0%</td></tr>
+            <tr><td>Net Dilution</td><td class="num">—</td><td class="num">—</td><td class="num positive">-0.22%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:12px;color:var(--accent-green);margin-top:8px;">&#10003; Negligible dilution. SBC/Revenue declining as revenue grows faster than equity grants. Net share reduction from buyback more than offsets SBC issuance.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">Working Capital</div>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Metric</th><th class="num">FY2024</th><th class="num">FY2025</th></tr></thead>
+          <tbody>
+            <tr><td>Current Ratio</td><td class="num">1.154</td><td class="num positive">1.579</td></tr>
+            <tr><td>Current Assets</td><td class="num">—</td><td class="num">$55.6B</td></tr>
+            <tr><td>Current Liabilities</td><td class="num">—</td><td class="num">$35.2B</td></tr>
+            <tr><td>Working Capital</td><td class="num">—</td><td class="num positive">$20.4B</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:12px;color:var(--accent-green);margin-top:8px;">&#10003; Current ratio improved from 1.15 to 1.58 — Piotroski P6 pass. Liquidity position has strengthened alongside GLP-1 revenue acceleration.</p>
+    </div>
   </div>
 </section>
 
-<!-- ==================== 13. RISK & CONVERGENCE ==================== -->
-<section class="section" id="convergence">
-  <h2 class="section-title"><span class="icon">&#9888;</span> Risk &amp; Convergence</h2>
+<!-- ==================== 13. RISK & CONVERGENCE MATRIX ==================== -->
+<section class="section" id="risk-convergence">
+  <h2 class="section-title"><span class="icon">&#9888;</span> Risk &amp; Convergence Matrix</h2>
 
-  <div class="card">
-    <p style="color: var(--text-secondary); margin-bottom: 16px;">Cross-layer analysis identifies findings where 4-6 independent investigative layers converge. The three confirmed risks are structurally interconnected: concentration risk &times; leverage bet &times; revenue opacity. Any one materializing accelerates the others. The risk cluster is internally correlated.</p>
+  <div class="flag-card high">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
+      <span class="severity-badge severity-HIGH">HIGH</span>
+      <strong>XLFLAG-01: Single-Molecule Revenue Concentration</strong>
+      <span style="font-size:11px;color:var(--text-muted);">6 convergence layers confirmed</span>
+    </div>
+    <p style="font-size:13px;color:var(--text-secondary);">Tirzepatide (Mounjaro+Zepbound) = 56.2% of FY2025 revenue, up from 41.6% in FY2024 — +14.6pp in one year. Same active molecule: any safety signal, manufacturing failure, or regulatory action hits both products simultaneously. $40.9B LTD amplifies downside. Management's "39 BD transactions" diversification narrative is contradicted by only $128M Goodwill growth in FY2025.</p>
+    <p style="font-size:12px;color:var(--accent-red);margin-top:8px;">Trigger: Tirzepatide safety signal in post-market surveillance; Novo cardiovascular outcome superiority claim</p>
   </div>
 
   <div class="flag-card high">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-      <strong>XLFLAG-01: Single-Molecule Revenue Concentration &mdash; 56.2% in Tirzepatide</strong>
-      <span class="severity-badge severity-CRITICAL">CONFIRMED (6 layers)</span>
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
+      <span class="severity-badge severity-HIGH">HIGH</span>
+      <strong>XLFLAG-02: Pricing Headwind Acceleration</strong>
+      <span style="font-size:11px;color:var(--text-muted);">5 layers confirmed</span>
     </div>
-    <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px;">Layers: L7 (SDG-05), L9 (NI-05), XV-4, L8 (revenue math), L5 (competitive), XV-1 (SGI driver)</p>
-    <p style="font-size: 13px; color: var(--text-secondary);">Unprecedented single-molecule concentration for a $65B company. BD Goodwill +$128M and Intangibles +$355M in FY2025 &mdash; trivial vs $65B revenue scale. &ldquo;39 BD transactions&rdquo; diversification narrative is not supported by balance sheet data. Non-GLP-1 revenue = $28.5B but none growing near tirzepatide pace.</p>
-    <p style="font-size: 13px; margin-top: 8px;"><strong>Asymmetric scenario:</strong> Tirzepatide safety signal or Novo CVOT cardiovascular outcome superiority creates catastrophic downside with $40.9B LTD and no near-term revenue offset. <strong>Trigger:</strong> Any MACE signal in post-market surveillance.</p>
-  </div>
-
-  <div class="flag-card high">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-      <strong>XLFLAG-02: Pricing Headwind Acceleration &mdash; 7-8% to 13-15% Without Pre-Telegraphing</strong>
-      <span class="severity-badge severity-HIGH">CONFIRMED (5 layers)</span>
-    </div>
-    <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px;">Layers: L1 (tone shift), L4 (guidance tracker), XV-2 (ratios), XV-4 (text), L5 (IRA/semaglutide)</p>
-    <p style="font-size: 13px; color: var(--text-secondary);">~700bp pricing acceleration appeared as a step-change in Q4-2025. Unlike revenue guidance, pricing guidance has been accurate and is credible. Math: if US price -14% and volume must grow 25%+ to hold $43B US revenue &mdash; requires orforglipron + Medicare access + continued Zepbound growth all firing simultaneously in H2 2026.</p>
-    <p style="font-size: 13px; margin-top: 8px;"><strong>Trigger:</strong> Q1-2026 US realized price. If &gt;-15%, FY2026 guide is at risk.</p>
-  </div>
-
-  <div class="flag-card high">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-      <strong>XLFLAG-03: Orforglipron Revenue Opacity &mdash; Most Material Information Gap in 2026 Guidance</strong>
-      <span class="severity-badge severity-HIGH">CONFIRMED (4 layers)</span>
-    </div>
-    <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px;">Layers: L1 (Montarce deflection), L3 (Scala Q4-2025), L7 (capital allocation math), L9 (narrative drift)</p>
-    <p style="font-size: 13px; color: var(--text-secondary);">$65.2B actual &rarr; $80-83B guide = $14.8-17.8B delta. After Medicare access ($0.6-1.2B), organic GLP-1 (~$8-10B), OUS (~$3-4B), the residual $2-5B is an unaccounted orforglipron placeholder that management refuses to quantify. CFO Montarce&rsquo;s complete deflection is the most evasive response across all 5 calls.</p>
-    <p style="font-size: 13px; margin-top: 8px;"><strong>Trigger:</strong> Q2-2026 call &mdash; first orforglipron revenue disclosure. If not separately disclosed, assume below Street. If &lt;$1B Q2-2026, guidance faces difficulty.</p>
+    <p style="font-size:13px;color:var(--text-secondary);">FY2026 US pricing guide "low to mid-teens" (13–15%) vs FY2025 actual 7–8%. Government Medicaid reductions + Medicare access agreement ($50/month co-pay) create structural irreversible price compression. Math: 14% US price decline requires 25%+ volume growth to hold US revenue at FY2025 levels. This is the most bearish quantitative management statement in 5 quarters.</p>
+    <p style="font-size:12px;color:var(--accent-red);margin-top:8px;">Trigger: Q1-2026 US realized price worse than -15%</p>
   </div>
 
   <div class="flag-card moderate">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-      <strong>XLFLAG-04: Inventory Build / Write-Down Risk &mdash; $13.7B (+81%) Pre-Loading Orforglipron</strong>
-      <span class="severity-badge severity-MEDIUM">CORROBORATED (2 layers)</span>
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
+      <span class="severity-badge severity-MEDIUM">MEDIUM-HIGH</span>
+      <strong>XLFLAG-03: Orforglipron Revenue Opacity</strong>
+      <span style="font-size:11px;color:var(--text-muted);">4 layers confirmed</span>
     </div>
-    <p style="font-size: 13px; color: var(--text-secondary);">Binary risk: legitimate orforglipron pre-loading (management thesis) vs write-down if launch disappoints. Trigger: Q2-2026 orforglipron TRx volume vs pre-launch models ($300-800M first quarter).</p>
+    <p style="font-size:13px;color:var(--text-secondary);">CFO Montarce fully deflected Steve Scala's (TD Cowen) direct probe: "Can $80–83B guidance occur without orforglipron being $5B+?" — most financially material analyst question in 5 quarters, completely unanswered. Residual math implies $2–5B orforglipron placeholder in guidance. Non-disclosure only works pre-launch; Q2-2026 creates a reveal moment.</p>
+    <p style="font-size:12px;color:var(--accent-yellow);margin-top:8px;">Trigger: Q2-2026 orforglipron first-quarter revenue vs $300–800M analyst range</p>
   </div>
 
   <div class="flag-card moderate">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-      <strong>XLFLAG-05: International Self-Pay Revenue Vulnerability (75% OUS Self-Pay)</strong>
-      <span class="severity-badge severity-MEDIUM">CORROBORATED (3 layers)</span>
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
+      <span class="severity-badge severity-MEDIUM">MEDIUM</span>
+      <strong>XLFLAG-04: Leveraged Supply Bet</strong>
+      <span style="font-size:11px;color:var(--text-muted);">4 layers confirmed</span>
     </div>
-    <p style="font-size: 13px; color: var(--text-secondary);">75% of OUS Mounjaro revenue is cash-pay obesity patients. Canadian generic semaglutide (early 2026): 10-20% share capture implies $1.6-$3.3B OUS revenue risk. Trigger: Q1-2026 OUS Mounjaro volume vs Q4-2025 run-rate.</p>
+    <p style="font-size:13px;color:var(--text-secondary);">$40.9B LTD (+43% YoY) against $9.0B FCF — $1.38 issued per $1 FCF in FY2025. Manufacturing investment narrative conceals debt-financed nature. Interest coverage of 28.75x provides substantial headroom currently. Risk materializes if demand growth decelerates in 2027–2028 while LTD matures.</p>
+    <p style="font-size:12px;color:var(--accent-yellow);margin-top:8px;">Trigger: FY2026 FCF below $10B with net new debt &gt;$10B</p>
   </div>
 
   <div class="flag-card low">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-      <strong>POSITIVE CONVICTION: August 2025 Insider Buys at Phase 3 Dip</strong>
-      <span class="severity-badge severity-LOW">CONFIRMED HIGH &mdash; POSITIVE FINDING</span>
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
+      <span class="severity-badge severity-LOW">WATCH</span>
+      <strong>XLFLAG-05: DSO Approaching Watch Threshold</strong>
+      <span style="font-size:11px;color:var(--text-muted);">Single source</span>
     </div>
-    <p style="font-size: 13px; color: var(--text-secondary);">5 insiders, same day, $2.9M total at ~$644/share. CSO Skovronsky (full pipeline knowledge) + CEO Ricks + 3 directors. Subsequent orforglipron FDA approval vindicates the insider thesis. This is the strongest behavioral evidence that management believes the long-term GLP-1 thesis is intact despite near-term orforglipron efficacy concerns.</p>
+    <p style="font-size:13px;color:var(--text-secondary);">DSO expanded from 89 to 99 days in FY2025. International launch stocking explains current level. Zero analyst or management discussion across 5 calls. Beneish watch threshold: 110 days.</p>
+    <p style="font-size:12px;color:var(--accent-green);margin-top:8px;">Trigger: DSO &gt;110 days in FY2026 without new country launch explanation</p>
+  </div>
+
+  <div class="flag-card moderate">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
+      <span class="severity-badge severity-MEDIUM">MEDIUM</span>
+      <strong>XLFLAG-06: International Self-Pay Revenue Quality</strong>
+      <span style="font-size:11px;color:var(--text-muted);">3 layers corroborated</span>
+    </div>
+    <p style="font-size:13px;color:var(--text-secondary);">75% of OUS Mounjaro revenue ($21.7B) is from self-pay obesity patients — not reimbursed. Canadian generic semaglutide (early 2026) at 40–50% price discount could erode $1.6–3.3B of the OUS self-pay base if 10–20% of patients shift.</p>
+    <p style="font-size:12px;color:var(--accent-yellow);margin-top:8px;">Trigger: Q1-2026 OUS Mounjaro volume vs Q4-2025 run-rate; Canadian generic semaglutide adoption</p>
+  </div>
+
+  <div class="card" style="margin-top:24px;">
+    <div class="card-title">Convergent Signals (Where Sources Agree)</div>
+    <ul style="list-style:none;padding:0;">
+      <li style="padding:10px 0;border-bottom:1px solid var(--border);color:var(--text-secondary);"><span style="color:var(--accent-green);margin-right:8px;">&#10003;</span>Pricing headwind acknowledged consistently in both 10-K MD&amp;A and all quarterly calls — calls actually disclosed before written; high transparency</li>
+      <li style="padding:10px 0;border-bottom:1px solid var(--border);color:var(--text-secondary);"><span style="color:var(--accent-green);margin-right:8px;">&#10003;</span>Operating leverage is genuine: gross margin, operating margin, OCF, and ROA all expanded simultaneously — confirmed across financial models and transcript cross-validation</li>
+      <li style="padding:10px 0;border-bottom:1px solid var(--border);color:var(--text-secondary);"><span style="color:var(--accent-green);margin-right:8px;">&#10003;</span>Manufacturing scale-up explains Beneish TATA and Piotroski P4 failures — OCF/NI stable at 81–83% across 3 years shows structural, not manipulative, pattern</li>
+      <li style="padding:10px 0;color:var(--text-secondary);"><span style="color:var(--accent-green);margin-right:8px;">&#10003;</span>August 2025 insider conviction buy by CEO + CSO + 3 directors was vindicated by subsequent orforglipron FDA approval — insider signal was correct</li>
+    </ul>
+  </div>
+
+  <div class="card" style="border-left:4px solid var(--accent-red);">
+    <div class="card-title" style="color:var(--accent-red);">Divergent Signals (Where Sources Conflict)</div>
+    <ul style="list-style:none;padding:0;">
+      <li style="padding:10px 0;border-bottom:1px solid var(--border);color:var(--text-secondary);"><span style="color:var(--accent-red);margin-right:8px;">&#9888;</span>Compounding pharmacy: calls bullish ("unsafe practice that shouldn't exist"); 10-K cautious ("cannot guarantee adequate regulation")</li>
+      <li style="padding:10px 0;border-bottom:1px solid var(--border);color:var(--text-secondary);"><span style="color:var(--accent-red);margin-right:8px;">&#9888;</span>Revenue concentration: 10-K explicitly rates HIGH severity; management verbal tone deflects with pipeline diversification narrative contradicted by balance sheet data</li>
+      <li style="padding:10px 0;border-bottom:1px solid var(--border);color:var(--text-secondary);"><span style="color:var(--accent-red);margin-right:8px;">&#9888;</span>Buyback program: $15B authorization announced vs only $4.1B executed in FY2025 (0.5% shares); 5+ years at current pace</li>
+      <li style="padding:10px 0;color:var(--text-secondary);"><span style="color:var(--accent-red);margin-right:8px;">&#9888;</span>R&amp;D intensity: "robust innovation investment" narrative vs structurally declining from 27.3% to 20.5% of revenue</li>
+    </ul>
   </div>
 </section>
 
 <!-- ==================== 14. WATCHLIST & PREDICTIONS ==================== -->
-<section class="section" id="watchlist">
+<section class="section" id="watchlist-predictions">
   <h2 class="section-title"><span class="icon">&#9745;</span> Watchlist &amp; Predictions</h2>
-
-  <div class="watchlist-item">
-    <div class="priority-dot priority-CRITICAL"></div>
-    <div>
-      <div style="font-weight: 600;">WATCH-01: US Realized Price vs &lsquo;Low to Mid-Teens&rsquo; Guide &mdash; Q1-2026</div>
-      <div style="font-size: 13px; color: var(--text-secondary);">If US realized price shows &gt;-15% erosion in Q1-2026, revise FY2026 estimate downward and escalate pricing risk from HIGH to CRITICAL. Front-loading expected in H1 2026 as Medicaid rebates take effect before Medicare access offset materializes. This is the first acid test of the first non-sandbagged guidance LLY has issued.</div>
+  <div class="card">
+    <h3 class="card-title">Monitoring Watchlist</h3>
+    <div class="watchlist-item">
+      <div class="priority-dot priority-CRITICAL"></div>
+      <div>
+        <div style="font-weight:600;">Q2-2026 Orforglipron Revenue</div>
+        <div style="font-size:12px;color:var(--text-secondary);margin-top:4px;">Current: Launch confirmed Q2-2026 | Threshold: $300M minimum first quarter; $5B+ full-year for guidance math | Monitor: Q2-2026 earnings call (August 2026)</div>
+        <div style="font-size:12px;color:var(--accent-red);margin-top:4px;">Below $300M Q2 → guidance revision risk; leverage concern; narrative credibility damage</div>
+      </div>
+    </div>
+    <div class="watchlist-item">
+      <div class="priority-dot priority-HIGH"></div>
+      <div>
+        <div style="font-weight:600;">Q1-2026 US Realized Price</div>
+        <div style="font-size:12px;color:var(--text-secondary);margin-top:4px;">Current: -7% to -8% in FY2025 | Threshold: Worse than -15% | Monitor: Q1-2026 earnings call (May 2026)</div>
+        <div style="font-size:12px;color:var(--accent-orange);margin-top:4px;">FY2026 guidance at risk; margin compression; FCF shortfall vs fixed $40.9B LTD</div>
+      </div>
+    </div>
+    <div class="watchlist-item">
+      <div class="priority-dot priority-HIGH"></div>
+      <div>
+        <div style="font-weight:600;">DSO (Days Sales Outstanding)</div>
+        <div style="font-size:12px;color:var(--text-secondary);margin-top:4px;">Current: 99 days (FY2025) | Threshold: &gt;110 days without international launch explanation | Monitor: Q1-2026 10-Q</div>
+        <div style="font-size:12px;color:var(--accent-orange);margin-top:4px;">Beneish M-Score breaches -1.78 manipulation threshold; AR quality concern</div>
+      </div>
+    </div>
+    <div class="watchlist-item">
+      <div class="priority-dot priority-MODERATE"></div>
+      <div>
+        <div style="font-weight:600;">OUS Mounjaro Volume</div>
+        <div style="font-size:12px;color:var(--text-secondary);margin-top:4px;">Current: 75% self-pay; 9 countries T2D reimbursement | Threshold: Volume decline &gt;10% without new country launches | Monitor: Canadian generic semaglutide pricing Q1-Q2 2026</div>
+        <div style="font-size:12px;color:var(--accent-yellow);margin-top:4px;">$1–3B OUS revenue headwind from self-pay market displacement</div>
+      </div>
+    </div>
+    <div class="watchlist-item">
+      <div class="priority-dot priority-MODERATE"></div>
+      <div>
+        <div style="font-weight:600;">Proxy Vote Items 4+5 (Board Declassification + Supermajority)</div>
+        <div style="font-size:12px;color:var(--text-secondary);margin-top:4px;">Current: On 2026 proxy ballot | Threshold: Shareholder vote | Monitor: 2026 Annual Meeting</div>
+        <div style="font-size:12px;color:var(--accent-green);margin-top:4px;">Passage drops entrenchment index to 0/6 — positive governance improvement</div>
+      </div>
     </div>
   </div>
-
-  <div class="watchlist-item">
-    <div class="priority-dot priority-CRITICAL"></div>
-    <div>
-      <div style="font-weight: 600;">WATCH-02: Orforglipron Q2-2026 Launch Revenue &mdash; Binary Event</div>
-      <div style="font-size: 13px; color: var(--text-secondary);">If orforglipron Q2-2026 initial TRx uptake is &lt;$300M, management $80-83B guidance is at risk. If still not separately disclosed in Q2-2026 call, assume number is below Street. NTB (new to brand) share &gt;60% of orforglipron TRx confirms market expansion vs cannibalization thesis. The $5B threshold Scala (TD Cowen) identified is the right annual test.</div>
+  <div class="card">
+    <h3 class="card-title">Forward Predictions</h3>
+    <div class="prediction-card">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <strong>FY2026 Revenue Beats Initial Guidance</strong>
+        <span class="severity-badge" style="background:var(--accent-green-dim);color:var(--accent-green);">BEAT | 75%</span>
+      </div>
+      <p style="font-size:13px;color:var(--text-secondary);margin-top:8px;">Systematic sandbagging confirmed 2 consecutive years; apply 8–10% premium to $81.5B midpoint. Internal expectation ~$87–90B.</p>
+      <div class="confidence-bar"><div class="confidence-fill" style="width:75%;background:var(--accent-green);"></div></div>
     </div>
-  </div>
-
-  <div class="watchlist-item">
-    <div class="priority-dot priority-HIGH"></div>
-    <div>
-      <div style="font-weight: 600;">WATCH-03: DSO Trajectory &mdash; Threshold 110 Days</div>
-      <div style="font-size: 13px; color: var(--text-secondary);">Currently at 99 days &mdash; 11 days from Beneish DSRI watch threshold. DSO crossing 110 days in FY2026 Q1-Q2 without proportional new-country launch explanation would push M-Score above manipulation threshold. Currently the single closest forensic tripwire in the dataset.</div>
+    <div class="prediction-card">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <strong>Q1-2026 US Pricing Erosion Front-Loaded in H1</strong>
+        <span class="severity-badge severity-MEDIUM">FRONT-LOADED | 70%</span>
+      </div>
+      <p style="font-size:13px;color:var(--text-secondary);margin-top:8px;">Medicaid rebates effective H1-2026 before Medicare access offset (July 1). H1 will be hardest pricing quarter.</p>
+      <div class="confidence-bar"><div class="confidence-fill" style="width:70%;background:var(--accent-yellow);"></div></div>
     </div>
-  </div>
-
-  <div class="watchlist-item">
-    <div class="priority-dot priority-HIGH"></div>
-    <div>
-      <div style="font-weight: 600;">WATCH-04: OUS Mounjaro Volume vs Canadian Generic Semaglutide</div>
-      <div style="font-size: 13px; color: var(--text-secondary);">Q1-2026 OUS Mounjaro volume below Q4-2025 run-rate or any management commentary on Canada/UK price competition. Risk quantum: $1.6-$3.3B revenue if 10-20% of OUS self-pay base captured by generic semaglutide.</div>
+    <div class="prediction-card">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <strong>Orforglipron Q2-2026 First Quarter Revenue $300–800M</strong>
+        <span class="severity-badge severity-MEDIUM">RANGE | 65%</span>
+      </div>
+      <p style="font-size:13px;color:var(--text-secondary);margin-top:8px;">Management refusal to quantify creates uncertainty; competitive oral semaglutide dynamics unknown. Wide analyst range reflects opacity.</p>
+      <div class="confidence-bar"><div class="confidence-fill" style="width:65%;background:var(--accent-yellow);"></div></div>
     </div>
-  </div>
-
-  <div class="watchlist-item">
-    <div class="priority-dot priority-MODERATE"></div>
-    <div>
-      <div style="font-weight: 600;">WATCH-05: 2026 Annual Meeting Governance Vote (Items 4, 5, 6)</div>
-      <div style="font-size: 13px; color: var(--text-secondary);">Board declassification, supermajority elimination, independent chair. Both key proposals achieved 78% in 2025 &mdash; just 2pp below 80% supermajority threshold. If Items 4 + 5 pass: governance risk drops to 0/6. If board votes against its own shareholder resolutions: treat as governance deterioration signal.</div>
+    <div class="prediction-card">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <strong>Proxy Items 4+5 Pass 2026 Annual Meeting</strong>
+        <span class="severity-badge" style="background:var(--accent-green-dim);color:var(--accent-green);">POSITIVE | 60%</span>
+      </div>
+      <p style="font-size:13px;color:var(--text-secondary);margin-top:8px;">82.5% institutional ownership; ISS/Glass Lewis typically support declassification and supermajority elimination proposals.</p>
+      <div class="confidence-bar"><div class="confidence-fill" style="width:60%;background:var(--accent-green);"></div></div>
     </div>
-  </div>
-
-  <div class="watchlist-item">
-    <div class="priority-dot priority-MODERATE"></div>
-    <div>
-      <div style="font-weight: 600;">WATCH-06: Inventory Normalization Post-Orforglipron Launch</div>
-      <div style="font-size: 13px; color: var(--text-secondary);">Baseline: $13.7B FY2025 year-end. Inventory failing to decline in Q2-Q3 2026 despite orforglipron launch implies write-down risk. Any management commentary on &ldquo;inventory adjustment&rdquo; is an escalation signal. Legitimate thesis: pre-built supply absorbs into orforglipron launch volumes.</div>
-    </div>
-  </div>
-
-  <div class="prediction-card">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-      <strong>PRED-001: FY2026 Revenue Will Beat Official $80-83B Guide</strong>
-      <span class="verdict-badge badge-green">75% Confidence</span>
-    </div>
-    <p style="font-size: 13px; color: var(--text-secondary);">Systematic sandbagging confirmed (9.6% FY2025 beat, ~8% FY2024 beat). Applying confirmed 8-10% premium to $81.5B midpoint &rarr; real management expectation is $87-90B. H1 2026 is lower-catalyzed (no Medicare until July); H2 2026 is where Medicare + orforglipron ramp unlock. Pricing guidance is the counterforce &mdash; treat &lsquo;low to mid-teens&rsquo; as accurate, not sandbagged.</p>
-    <p style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Timeframe: FY2026 full year</p>
-    <div class="confidence-bar"><div class="confidence-fill" style="width:75%; background: var(--accent-green);"></div></div>
-  </div>
-
-  <div class="prediction-card">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-      <strong>PRED-002: Orforglipron Revenue Will Be Separately Disclosed in Q2-2026 or Q3-2026</strong>
-      <span class="verdict-badge badge-green">70% Confidence</span>
-    </div>
-    <p style="font-size: 13px; color: var(--text-secondary);">Management will begin disclosing orforglipron-specific revenue once the Q2-2026 launch is established. Non-disclosure strategy only works pre-launch. By Q3-2026, expect product-level transparency. Escalation: if not disclosed in Q2-2026 call, assume below Street expectations.</p>
-    <p style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Timeframe: Q2-Q3 2026 earnings calls</p>
-    <div class="confidence-bar"><div class="confidence-fill" style="width:70%; background: var(--accent-green);"></div></div>
-  </div>
-
-  <div class="prediction-card">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-      <strong>PRED-003: Governance Reform (Items 4 + 5) Will Pass at 2026 Annual Meeting</strong>
-      <span class="verdict-badge badge-yellow">55% Confidence</span>
-    </div>
-    <p style="font-size: 13px; color: var(--text-secondary);">Both proposals achieved 78% in 2025 &mdash; just 2pp below 80% supermajority. If proxy advisors (ISS, Glass Lewis) recommend FOR and engagement converts the remaining undecided 2pp, passage is plausible. If pass: entrenchment drops from 2/6 to 0/6 &mdash; significant positive governance signal at May 2026 annual meeting.</p>
-    <p style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Timeframe: May 2026 annual meeting</p>
-    <div class="confidence-bar"><div class="confidence-fill" style="width:55%; background: var(--accent-yellow);"></div></div>
   </div>
 </section>
 
 <!-- ==================== 15. CLOSING SYNTHESIS ==================== -->
-<section class="section" id="synthesis">
-  <h2 class="section-title"><span class="icon">&#9733;</span> Closing Synthesis</h2>
-
-  <div class="card exec-summary">
-    <p><strong>Scope:</strong> 15 SEC filings (10-K FY2025, 10-K FY2024, 4 10-Qs, 3 8-Ks, DEF 14A, Form 4 [100 filings], 13F), 5 quarterly earnings calls (Q4-2024 through Q4-2025), and 6 forensic models (Beneish, Altman, Piotroski, Sloan, Benford, Debt Stress).</p>
-
-    <p><strong>Investment Thesis:</strong> Eli Lilly is the highest-quality growth company in large-cap pharmaceuticals &mdash; a statement backed by objective rankings across revenue growth (#1 in peer set), operating margin (#2), composite quality (#1), and forensic health (CLEAN). The GLP-1 franchise has created an operating leverage event that doubled operating income in a single year and expanded operating margins from 19% to 39.5% in three years. The moat &mdash; tirzepatide&rsquo;s superior dual-agonist efficacy, patent protection through 2036-2037, and the manufacturing infrastructure now being purpose-built to serve it &mdash; is durable at a horizon most equity investors cannot fully capitalize. Against this exceptional thesis, the risks are specific: 56% revenue concentration amplified by $40.9B in manufacturing debt, an accelerating pricing headwind (7-8% to 13-15%) that is the first credible management warning in five quarters, and an orforglipron launch whose financial contribution management systematically refuses to quantify. The 2026 investment case is not a simple bull/bear story &mdash; it is a convergence of extraordinary growth credentials against concentrated structural risks that will be resolved in real-time across two critical earnings calls.</p>
+<section class="section synthesis-card" id="closing-synthesis">
+  <h2>Final Synthesis &#8212; The Complete Picture</h2>
+  <p class="synthesis-scope">
+    After analyzing 22 SEC filings (10-K, 10-Q, 8-K, DEF 14A, Form 4, 13F), 5 earnings call transcripts (Q4-2024 through Q4-2025), 5 forensic models (Beneish, Altman, Piotroski, Sloan, Benford), 9 investigation layers, 4 cross-validators, and 13 micro-analysis agents, here is what we know about <strong>Eli Lilly and Company</strong>.
+  </p>
+  <div class="synthesis-thesis">
+    <p>Eli Lilly is the world's premier GLP-1 franchise company — executing flawlessly on the greatest product cycle in modern pharma, with forensically clean financials, exceptional insider alignment, and a management team that consistently under-promises and over-delivers. Revenue grew from $34B to $65B in two years, operating margins exploded from 19% to 40%, and free cash flow tripled. The 2026 thesis demands simultaneous execution on two fronts: managing accelerating pricing headwinds (13–15% US price erosion vs 7–8% in FY2025) while launching orforglipron in Q2-2026 as the next growth engine. The concentration risk (56% in one molecule) is not theoretical — it is the defining structural vulnerability. Management is buying this risk with their own money; the CSO who knows every data point purchased on the day the market panicked. That conviction buy — vindicated by the subsequent FDA approval — is the most important signal in the dataset. The bull case and bear case for 2026 are equally supported by the evidence: the company has earned the right to be believed, but the pricing and orforglipron unknowns are real and unresolved.</p>
   </div>
-
-  <div class="card">
-    <h3 class="card-title">XBRL Evidence Bullets</h3>
-    <ul style="margin-left: 20px; color: var(--text-secondary); line-height: 1.9;">
-      <li>Revenue grew $20.1B (+44.7%) to $65.2B in FY2025 &mdash; $16.9B of that growth (84%) came from Mounjaro (+$9.2B) and Zepbound (+$8.7B) alone. Concentration at 56.2% of revenue is structural, not temporary.</li>
-      <li>Operating margin expanded 1,132 bps in a single year (28.2% to 39.5%) &mdash; one of the most rapid margin expansion events in pharmaceutical history. ROIC of 29.5% confirms the economics are real and compounding.</li>
-      <li>Long-term debt grew $12.3B (+43%) to $40.9B in FY2025 via two bond tranches ($6.46B February, $6.71B August). LLY borrowed $1.38 for every $1.00 of free cash flow generated &mdash; a leveraged manufacturing bet that is rational but creates asymmetric downside if GLP-1 demand disappoints.</li>
-      <li>Beneish M-Score of -1.89 (vs -1.78 threshold) and Benford chi-square of 3.65 (vs 15.51 critical value) confirm clean financial statements. All forensic model elevation is attributable to authentic hypergrowth, not accounting manipulation.</li>
-      <li>Accounts receivable grew 61% to $17.8B (DSO: 89 &rarr; 99 days) while inventory grew 81% to $13.7B &mdash; both confirmed by management as legitimate channel-fill and orforglipron pre-launch build. These are the two near-term forensic watch items for FY2026.</li>
-    </ul>
-  </div>
-
-  <div class="card">
-    <h3 class="card-title">Transcript Intelligence Bullets</h3>
-    <ul style="margin-left: 20px; color: var(--text-secondary); line-height: 1.9;">
-      <li>Management credibility scores 73.7% adjusted, with CSO Skovronsky the most reliable voice (90% adjusted) on pipeline matters and CFO Montarce the weakest in Q4-2025 (complete deflection on orforglipron revenue contribution &mdash; the most financially material question of the year).</li>
-      <li>Systematic revenue guidance sandbagging is confirmed: 2025 initial guide beaten by $5.7B (9.6%). Apply 8-10% premium to $81.5B 2026 midpoint &rarr; $87-90B is management&rsquo;s real internal expectation. Pricing guidance has been accurate &mdash; the &lsquo;low to mid-teens&rsquo; 2026 headwind is credible and not sandbagged.</li>
-      <li>The August 2025 conviction buy (CEO + CSO + 3 directors simultaneously at the orforglipron Phase 3 dip) is the strongest insider alignment signal in the dataset &mdash; particularly the CSO&rsquo;s $644K purchase with full pipeline knowledge. Subsequent FDA approval vindicates the insider thesis.</li>
-      <li>Five say-do gaps documented: the abandoned &lsquo;low-40s&rsquo; margin ceiling, the $15B buyback at 5+ year implied pace, declining R&amp;D intensity vs &lsquo;robust investment&rsquo; narrative, debt-funded manufacturing vs &lsquo;organic capex&rsquo; framing, and &lsquo;39 BD transactions&rsquo; diversification narrative vs trivial balance sheet impact.</li>
-      <li>CSO Skovronsky&rsquo;s Q2-2025 deflection on orforglipron ITT efficacy is the single most anomalous communication moment across 5 quarters. The 9% vs 14% efficacy gap vs semaglutide is real and commercially relevant. The insider conviction buy is the behavioral evidence that management nonetheless believes the long-term thesis.</li>
-    </ul>
-  </div>
-
-  <div class="grid-2">
-    <div class="card">
-      <h3 class="card-title">Convergent Findings</h3>
-      <div class="flag-card low">
-        <strong>GLP-1 demand is organic, durable, and supply-constrained</strong>
-        <p style="font-size: 13px; color: var(--text-secondary); margin-top: 8px;">XBRL: Revenue grew $20B on improving margins, stable OCF/NI (0.815), expanding ROIC. Transcript: management language is supply-constrained (&lsquo;1.8x doses produced in FY2025 vs 2024&rsquo;). Cross-validated.</p>
-      </div>
-      <div class="flag-card low">
-        <strong>Pricing headwind is real and accelerating</strong>
-        <p style="font-size: 13px; color: var(--text-secondary); margin-top: 8px;">XBRL: US revenue +43.1% primarily volume-driven. Transcript: CFO &lsquo;low to mid-teens&rsquo; FY2026 guide is credible because 2025 pricing guidance was accurate. Both channels aligned on this risk.</p>
-      </div>
-      <div class="flag-card low">
-        <strong>Manufacturing investment is legitimate and existential</strong>
-        <p style="font-size: 13px; color: var(--text-secondary); margin-top: 8px;">XBRL: $7.8B capex, $13.2B debt, LTD/EBITDA 1.47x. Transcript: specific, consistent manufacturing language across all 5 calls. Section 232 tariff grace creates policy motivation for US investment.</p>
-      </div>
+  <div class="synthesis-grid">
+    <div class="synthesis-col">
+      <h3>What the Numbers Say</h3>
+      <ul>
+        <li>Revenue $65.2B (+44.7% YoY); 2-year CAGR 38.2% — among fastest-growing large-cap companies globally</li>
+        <li>Gross margin 83.0% (expanded 170bp); operating margin 39.5% (expanded 1,130bp) — top-2 in pharma peer set</li>
+        <li>Free cash flow $9.0B (+138% YoY); OCF $16.8B (+91%) — accelerating cash generation</li>
+        <li>Piotroski F-Score 7/9; Altman Z-Score 7.50; Beneish M-Score -1.89 (all within clean range)</li>
+        <li>Long-term debt $40.9B (+43% YoY); interest coverage 28.75x; debt-to-FCF 4.55x</li>
+        <li>Tirzepatide: 56.2% of revenue ($36.6B); Mounjaro $23.0B (+66.6%), Zepbound $13.7B (+174%)</li>
+      </ul>
     </div>
-
-    <div class="card">
-      <h3 class="card-title">Divergent Findings</h3>
-      <div class="flag-card moderate">
-        <strong>Concentration risk: 10-K candid, calls deflect</strong>
-        <p style="font-size: 13px; color: var(--text-secondary); margin-top: 8px;">XBRL: 56.2% concentration rated HIGH severity explicitly. Verbal: pipeline breadth narrative, &lsquo;39 BD transactions,&rsquo; consumer platform &mdash; never quantifies 56%. Treat 10-K disclosure as the accurate risk signal.</p>
-      </div>
-      <div class="flag-card moderate">
-        <strong>LTD trajectory: balance sheet transparent, calls silent</strong>
-        <p style="font-size: 13px; color: var(--text-secondary); margin-top: 8px;">XBRL: $40.9B LTD after $13.2B new issuances. Verbal: zero analyst questions or management discussion across all 5 calls. Investors relying on transcripts alone are underweighting balance sheet leverage.</p>
-      </div>
-      <div class="flag-card moderate">
-        <strong>Orforglipron efficacy: insider behavior contradicts verbal minimization</strong>
-        <p style="font-size: 13px; color: var(--text-secondary); margin-top: 8px;">Behavioral: insiders bought at Phase 3 miss &mdash; they took the risk seriously and still bought. The 9% vs 14% efficacy gap vs semaglutide is real and commercially relevant. Insiders&rsquo; behavioral evidence outweighs verbal deflection.</p>
-      </div>
+    <div class="synthesis-col">
+      <h3>What Management Says</h3>
+      <ul>
+        <li>Systematic sandbagging confirmed: FY2025 initial guide $59.5B midpoint; actual $65.2B (+9.6%); pattern is deliberate</li>
+        <li>2026 pricing "low to mid-teens" — most bearish CFO statement in 5 quarters; credible and structural; government-agreement-driven</li>
+        <li>Orforglipron revenue non-disclosed despite direct analyst probing — opaque $2–5B placeholder in $80–83B guidance</li>
+        <li>CEO + CSO + 3 directors conviction-bought August 2025 post-Phase 3 dip; FDA approval vindicated the call 6 months later</li>
+        <li>R&amp;D intensity declining 27.3% to 20.5% of revenue — GLP-1 windfall not proportionally refueling innovation pipeline</li>
+        <li>Employer obesity coverage flat 50–55% for 18+ months — quietly dropped from reporting after stagnation disclosed</li>
+      </ul>
     </div>
   </div>
-
-  <div class="card" style="border-left: 4px solid var(--accent-gold);">
-    <h3 class="card-title">Single Most Important Watchpoint</h3>
-    <p style="font-size: 15px; color: var(--text-primary); margin-bottom: 12px;"><strong>Q2-2026 earnings call</strong> &mdash; first orforglipron revenue disclosure combined with first full quarter of Medicare access impact. This single data point resolves the largest information gap in the LLY investment thesis: whether the $80-83B guidance requires orforglipron to be $5B+ (Scala/TD Cowen threshold) and whether the oral GLP-1 market expands or cannibalizes the injectable franchise.</p>
-    <p style="font-size: 13px; color: var(--text-secondary);">If management still does not separately disclose orforglipron revenue in Q2-2026, assume the number is below Street expectations and treat the guidance as under pressure. Secondary watchpoint: Q1-2026 US realized price vs &lsquo;low to mid-teens&rsquo; guide &mdash; the first pricing data point that will confirm or challenge the pricing trajectory that is LLY&rsquo;s most credible near-term financial risk.</p>
+  <div class="synthesis-convergence">
+    <h3>Where They Agree</h3>
+    <ul>
+      <li>Pricing headwind acknowledged consistently in both 10-K and quarterly calls — written disclosure actually lagged verbal; high transparency</li>
+      <li>Operating leverage is real and confirmed: margins, OCF, ROA all expanded simultaneously across financial models and transcript evidence</li>
+      <li>Manufacturing scale-up explains all accrual signals (Beneish TATA, Piotroski P4) — OCF/NI stable 81–83% over 3 years</li>
+      <li>Insider alignment: zero discretionary management sales, coordinated conviction buys, CEO pay growing slower than company performance</li>
+    </ul>
+  </div>
+  <div class="synthesis-divergence">
+    <h3>Where They Conflict</h3>
+    <ul>
+      <li>Concentration risk: 10-K explicit HIGH severity; management deflects verbally to pipeline breadth; BD Goodwill data contradicts</li>
+      <li>Compounding pharmacy: calls bullish on enforcement; 10-K "cannot guarantee adequate regulation" is more conservative</li>
+      <li>Buyback: $15B authorization announced; only $4.1B executed (0.5% shares); program is optionality, not committed capital return</li>
+      <li>R&amp;D "robust innovation" narrative vs structurally declining intensity ratio (27.3% to 20.5%)</li>
+    </ul>
+  </div>
+  <div class="synthesis-watchpoint">
+    <h3>The Single Most Important Thing to Watch</h3>
+    <div class="watchpoint-box">
+      <span class="watchpoint-metric">Q2-2026 Orforglipron Revenue</span>
+      <span class="watchpoint-value">Currently: Not yet reported (Q2-2026 launch)</span>
+      <span class="watchpoint-threshold">Threshold: $300M minimum; $5B+ required for FY2026 guidance math</span>
+      <p>If Q2-2026 orforglipron revenue falls below $300M, the $80–83B guidance becomes mathematically very difficult. Management's refusal to disaggregate creates a "reveal moment" risk — if the number disappoints, narrative credibility damage compounds with leverage risk from $40.9B LTD against potentially lower FCF. This is the single binary event that determines whether 2026 is another beat-and-raise cycle or a guidance revision year.</p>
+    </div>
   </div>
 </section>
 
@@ -1544,8 +1719,13 @@ tr:hover { background: var(--bg-card-hover); }
 
 <!-- Footer -->
 <footer class="site-footer">
-  <div>SEC Forensic Analysis &middot; Eli Lilly and Company (LLY) &middot; Generated April 7, 2026</div>
-  <div>Data sources: SEC EDGAR (10-K, 10-Q, 8-K, DEF 14A, Form 4 [100 filings], 13F), XBRL/iXBRL via Arelle MCP, 5 Earnings Call Transcripts (Q4-2024 through Q4-2025), 6 forensic models &middot; 15 filings analyzed</div>
+  <div class="report-disclaimer">
+    <p>This report is an automated analysis of publicly available SEC filings and earnings call transcripts. It does not constitute investment advice, a recommendation, or a solicitation to buy, sell, or hold any security. All ratings, scores, and assessments are algorithmic outputs based on historical data and should not be relied upon for investment decisions. Past performance does not indicate future results. Investors should conduct their own due diligence and consult qualified financial advisors.</p>
+  </div>
+  <div style="display:flex; justify-content:space-between; align-items:center; margin-top:1rem;">
+    <div>SEC Forensic Analysis &middot; Eli Lilly and Company (LLY) &middot; Generated April 8, 2026</div>
+    <div>Data sources: FY2025 10-K XBRL, DEF 14A, Form 4, 13F, Earnings Call Transcripts Q4-2024 through Q4-2025 &middot; 22 filings analyzed</div>
+  </div>
 </footer>
 
 <script>
@@ -1591,7 +1771,6 @@ function updateSpy() {
 }
 window.addEventListener('scroll', updateSpy, { passive: true });
 updateSpy();
-
 </script>
 </body>
 </html>
