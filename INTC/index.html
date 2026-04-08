@@ -1,0 +1,2120 @@
+<!--
+  FORENSIC REPORT TEMPLATE v3.0
+  Intel Corporation (INTC) — Generated April 9, 2026
+  Source of truth: MSFT/index.html (proven mobile-working design)
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<title>Intel Corporation (INTC) - SEC Forensic Analysis Report</title>
+<style>
+:root {
+  --bg-primary: #0a0e1a;
+  --bg-secondary: #111827;
+  --bg-card: #1a2234;
+  --bg-card-hover: #1f2a40;
+  --border: #2a3550;
+  --text-primary: #e8edf5;
+  --text-secondary: #8b99b0;
+  --text-muted: #5a6880;
+  --accent-green: #22c55e;
+  --accent-green-dim: rgba(34,197,94,0.15);
+  --accent-yellow: #eab308;
+  --accent-yellow-dim: rgba(234,179,8,0.15);
+  --accent-red: #ef4444;
+  --accent-red-dim: rgba(239,68,68,0.15);
+  --accent-blue: #3b82f6;
+  --accent-blue-dim: rgba(59,130,246,0.12);
+  --accent-purple: #a855f7;
+  --accent-cyan: #06b6d4;
+  --accent-orange: #f97316;
+  --nav-width: 240px;
+  --header-height: 90px;
+  --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --accent-gold: #C9A227;
+  --accent-gold-dim: rgba(201,162,39,0.10);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-padding-top: 100px; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  font-size: 14px;
+}
+a { color: var(--accent-blue); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* Header */
+.site-header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: var(--header-height);
+  background: linear-gradient(135deg, #0B0E13 0%, #141A26 100%);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: max(6px, env(safe-area-inset-top)) 32px 0;
+}
+.site-header::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 3px; background: linear-gradient(90deg, #C9A227 0%, #E0B830 50%, #C9A227 100%);
+}
+.header-left { display: flex; align-items: center; gap: 20px; }
+.home-btn {
+  display: flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px; border-radius: 6px;
+  background: rgba(201,162,39,0.10); border: 1px solid rgba(201,162,39,0.25);
+  color: #C9A227; text-decoration: none; transition: all 0.2s;
+  flex-shrink: 0;
+}
+.home-btn:hover { background: rgba(201,162,39,0.2); border-color: #C9A227; text-decoration: none; }
+.home-btn svg { width: 18px; height: 18px; }
+.header-logo { width: 36px; height: 36px; object-fit: contain; filter: brightness(0) invert(0.85); flex-shrink: 0; }
+.company-name { font-family: var(--font-serif); font-size: 24px; font-weight: 700; letter-spacing: -0.5px; }
+.ticker-badge {
+  background: rgba(201,162,39,0.10); color: #C9A227;
+  padding: 4px 12px; border-radius: 6px; font-weight: 600; font-size: 14px;
+  border: 1px solid rgba(201,162,39,0.25);
+}
+.header-right { display: flex; align-items: center; gap: 12px; }
+.verdict-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 14px; border-radius: 8px; font-size: 12px; font-weight: 600;
+  letter-spacing: 0.3px;
+}
+.verdict-badge .label { opacity: 0.7; font-weight: 400; }
+.badge-green { background: var(--accent-green-dim); color: var(--accent-green); border: 1px solid rgba(34,197,94,0.3); }
+.badge-yellow { background: var(--accent-yellow-dim); color: var(--accent-yellow); border: 1px solid rgba(234,179,8,0.3); }
+.badge-red { background: var(--accent-red-dim); color: var(--accent-red); border: 1px solid rgba(239,68,68,0.3); }
+.badge-blue { background: var(--accent-blue-dim); color: var(--accent-blue); border: 1px solid rgba(59,130,246,0.3); }
+
+/* Sidebar Nav */
+.sidebar {
+  position: fixed; top: var(--header-height); left: 0; bottom: 0;
+  width: var(--nav-width); background: var(--bg-secondary);
+  border-right: 1px solid var(--border);
+  overflow-y: auto; padding: 16px 0; z-index: 90;
+}
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+.nav-link {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 20px; color: var(--text-secondary);
+  font-size: 13px; cursor: pointer; transition: all 0.2s;
+  border-left: 3px solid transparent;
+}
+.nav-link:hover { background: var(--bg-card); color: var(--text-primary); text-decoration: none; }
+.nav-link.active { color: var(--accent-gold); border-left-color: var(--accent-gold); background: var(--accent-gold-dim); }
+.nav-icon { width: 18px; text-align: center; font-size: 14px; }
+
+/* Main Content */
+.main-content {
+  margin-left: var(--nav-width); margin-top: var(--header-height);
+  padding: 32px; max-width: 1200px;
+}
+.section { margin-bottom: 48px; scroll-margin-top: 100px; }
+.section-title {
+  font-family: var(--font-serif); font-size: 22px; font-weight: 700; margin-bottom: 20px;
+  padding-bottom: 12px; border-bottom: 2px solid var(--border);
+  display: flex; align-items: center; gap: 10px;
+}
+.section-title .icon { font-size: 20px; }
+
+/* Cards */
+.card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 24px; margin-bottom: 16px;
+}
+.card-title { font-size: 16px; font-weight: 600; margin-bottom: 12px; }
+
+/* Analyst Insight Cards */
+.analyst-insight {
+  border-left: 3px solid #c9a227;
+  background: linear-gradient(135deg, rgba(201,162,39,0.05), transparent);
+}
+.analyst-insight .card-title {
+  color: #c9a227;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.analyst-insight p { line-height: 1.7; margin-bottom: 12px; }
+.analyst-insight .cross-source {
+  background: rgba(201,162,39,0.08);
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-top: 12px;
+  font-size: 13px;
+}
+.analyst-insight .cross-source strong { color: #c9a227; }
+.analyst-insight .red-flag-inline { color: var(--accent-red); font-weight: 600; }
+.analyst-insight .watch-item { color: var(--accent-yellow); font-style: italic; }
+
+/* Collapsible */
+.collapsible { cursor: pointer; user-select: none; }
+.collapsible::after { content: ' \25BC'; font-size: 10px; opacity: 0.5; }
+.collapsible.collapsed::after { content: ' \25B6'; }
+.collapse-content { overflow: hidden; transition: max-height 0.3s ease; }
+.collapse-content.hidden { max-height: 0 !important; padding: 0; }
+
+/* Tables */
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th {
+  background: var(--bg-secondary); color: var(--text-secondary);
+  padding: 10px 12px; text-align: left; font-weight: 600;
+  border-bottom: 2px solid var(--border); position: sticky; top: 0;
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;
+}
+td { padding: 10px 12px; border-bottom: 1px solid var(--border); }
+tr:nth-child(even) { background: rgba(255,255,255,0.02); }
+tr:hover { background: var(--bg-card-hover); }
+.num { text-align: right; font-variant-numeric: tabular-nums; }
+.positive { color: var(--accent-green); }
+.negative { color: var(--accent-red); }
+.neutral { color: var(--accent-yellow); }
+
+/* Gauges */
+.gauge-container { display: flex; flex-wrap: wrap; gap: 20px; }
+.gauge-card {
+  flex: 1; min-width: 280px; background: var(--bg-card);
+  border: 1px solid var(--border); border-radius: 12px; padding: 20px;
+}
+.gauge-title { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+.gauge-subtitle { font-size: 11px; color: var(--text-secondary); margin-bottom: 16px; }
+.gauge-bar {
+  height: 24px; background: var(--bg-secondary); border-radius: 12px;
+  overflow: hidden; position: relative; margin-bottom: 8px;
+}
+.gauge-fill { height: 100%; border-radius: 12px; transition: width 0.5s ease; position: relative; }
+.gauge-zones {
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  display: flex;
+}
+.gauge-zone { height: 100%; opacity: 0.15; }
+.gauge-marker {
+  position: absolute; top: -4px; width: 4px; height: 32px;
+  background: var(--text-primary); border-radius: 2px;
+  transform: translateX(-50%);
+}
+.gauge-labels { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted); }
+.gauge-score { font-family: var(--font-serif); font-size: 28px; font-weight: 700; margin: 8px 0; }
+.gauge-vars { font-size: 12px; color: var(--text-secondary); line-height: 1.8; }
+
+/* Grid layouts */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+@media (max-width: 1024px) {
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  .header-right { display: none; }
+}
+
+/* Red flag cards */
+.flag-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 20px; margin-bottom: 12px;
+  border-left: 4px solid;
+}
+.flag-card.high { border-left-color: var(--accent-red); }
+.flag-card.moderate { border-left-color: var(--accent-yellow); }
+.flag-card.low { border-left-color: var(--accent-green); }
+.severity-badge {
+  display: inline-block; padding: 2px 8px; border-radius: 4px;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.5px;
+}
+.severity-HIGH { background: var(--accent-red-dim); color: var(--accent-red); }
+.severity-MEDIUM { background: var(--accent-yellow-dim); color: var(--accent-yellow); }
+.severity-LOW { background: var(--accent-green-dim); color: var(--accent-green); }
+.severity-CRITICAL { background: var(--accent-red-dim); color: var(--accent-red); }
+
+/* Timeline */
+.timeline { position: relative; padding-left: 24px; }
+.timeline::before {
+  content: ''; position: absolute; left: 8px; top: 0; bottom: 0;
+  width: 2px; background: var(--border);
+}
+.timeline-item { position: relative; margin-bottom: 20px; }
+.timeline-dot {
+  position: absolute; left: -20px; top: 6px;
+  width: 12px; height: 12px; border-radius: 50%;
+  border: 2px solid; background: var(--bg-primary);
+}
+.timeline-dot.positive { border-color: var(--accent-green); }
+.timeline-dot.negative { border-color: var(--accent-red); }
+.timeline-dot.neutral { border-color: var(--accent-yellow); }
+.timeline-date { font-size: 11px; color: var(--text-muted); margin-bottom: 4px; }
+.timeline-title { font-weight: 600; margin-bottom: 4px; }
+.timeline-detail { font-size: 13px; color: var(--text-secondary); }
+
+/* Watchlist */
+.watchlist-item {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 16px; background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 10px; margin-bottom: 10px;
+}
+.priority-dot {
+  width: 8px; height: 8px; border-radius: 50%; margin-top: 6px; flex-shrink: 0;
+}
+.priority-CRITICAL { background: var(--accent-red); box-shadow: 0 0 8px var(--accent-red); }
+.priority-HIGH { background: var(--accent-orange); }
+.priority-MODERATE { background: var(--accent-yellow); }
+.priority-LOW { background: var(--accent-green); }
+
+/* Bar chart using CSS */
+.bar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+.bar-label { width: 140px; font-size: 12px; text-align: right; color: var(--text-secondary); flex-shrink: 0; }
+.bar-track { flex: 1; height: 22px; background: var(--bg-secondary); border-radius: 4px; overflow: hidden; position: relative; }
+.bar-fill { height: 100%; border-radius: 4px; display: flex; align-items: center; padding-left: 8px; font-size: 11px; font-weight: 600; color: #fff; min-width: 40px; }
+.bar-value { width: 80px; font-size: 12px; text-align: right; font-variant-numeric: tabular-nums; flex-shrink: 0; }
+
+/* Prediction cards */
+.prediction-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 20px; margin-bottom: 12px;
+}
+.confidence-bar {
+  height: 6px; background: var(--bg-secondary); border-radius: 3px;
+  overflow: hidden; margin-top: 8px;
+}
+.confidence-fill { height: 100%; border-radius: 3px; }
+
+/* Footer */
+.site-footer {
+  margin-left: var(--nav-width); padding: 24px 32px;
+  border-top: 1px solid var(--border);
+  color: var(--text-muted); font-size: 12px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+
+/* Summary stats row */
+.stats-row { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 24px; }
+.stat-box {
+  flex: 1; min-width: 150px; background: var(--bg-card);
+  border: 1px solid var(--border); border-radius: 10px; padding: 16px;
+  text-align: center;
+}
+.stat-value { font-size: 24px; font-weight: 700; }
+.stat-label { font-size: 11px; color: var(--text-secondary); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* Entrenchment visual */
+.entrenchment-track {
+  height: 32px; background: linear-gradient(to right, var(--accent-green), var(--accent-yellow), var(--accent-red));
+  border-radius: 16px; position: relative; margin: 16px 0;
+  opacity: 0.3;
+}
+.entrenchment-marker {
+  position: absolute; top: -4px; width: 40px; height: 40px;
+  background: var(--bg-card); border: 3px solid var(--accent-green);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 16px;
+  transform: translateX(-50%);
+}
+
+/* Exec summary */
+.exec-summary { font-size: 15px; line-height: 1.8; color: var(--text-primary); }
+.exec-summary p { margin-bottom: 16px; text-align: justify; }
+
+/* Stacked bar */
+.stacked-bar { display: flex; height: 28px; border-radius: 6px; overflow: hidden; margin-bottom: 4px; }
+.stacked-seg { display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 600; color: #fff; min-width: 20px; }
+
+/* Table scroll wrapper */
+.table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 -4px; padding: 0 4px; }
+
+/* Piotroski score badges */
+.score-weak        { color: #fff; background-color: #dc3545; }
+.score-moderate    { color: #212529; background-color: #ffc107; }
+.score-fair        { color: #fff; background-color: #6c757d; }
+.score-strong      { color: #fff; background-color: #28a745; }
+.score-very-strong { color: #fff; background-color: #155724; }
+.piotroski-badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 0.85em;
+  letter-spacing: 0.03em;
+}
+
+/* Forensic model label override */
+.model-label {
+  display: inline-block;
+  padding: 3px 12px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 0.8em;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* Disclaimer */
+.report-disclaimer {
+  margin-top: 3rem;
+  margin-bottom: 1.5rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--text-muted);
+  border-radius: 4px;
+  background: rgba(255,255,255,0.02);
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+  font-style: italic;
+}
+.report-disclaimer p { margin: 0; }
+
+/* Closing Synthesis — gold card */
+.synthesis-card {
+  margin: 3rem 0;
+  padding: 2.5rem;
+  border: 2px solid #c8a84e;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  width: 100%;
+  max-width: 100%;
+}
+.synthesis-card h2 {
+  font-size: 1.75rem;
+  color: #c8a84e;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-bottom: none;
+  padding-bottom: 0;
+}
+.synthesis-scope {
+  text-align: center;
+  font-size: 1.05rem;
+  color: #a0a0b8;
+  margin-bottom: 2rem;
+}
+.synthesis-thesis {
+  font-size: 1.2rem;
+  line-height: 1.7;
+  color: #e0e0e8;
+  padding: 1.5rem;
+  border-left: 4px solid #c8a84e;
+  background: rgba(200, 168, 78, 0.06);
+  margin-bottom: 2rem;
+}
+.synthesis-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+.synthesis-grid h3 {
+  color: #c8a84e;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid rgba(200, 168, 78, 0.3);
+  padding-bottom: 0.5rem;
+}
+.synthesis-grid ul { list-style: none; padding: 0; }
+.synthesis-grid li {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  color: #c8c8d8;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+.synthesis-grid li::before { content: "\25B8 "; color: #c8a84e; }
+.synthesis-convergence { margin-bottom: 2rem; }
+.synthesis-convergence h3 { color: #4ecdc4; font-size: 1.1rem; margin-bottom: 0.75rem; }
+.synthesis-convergence ul { list-style: none; padding: 0; }
+.synthesis-convergence li { color: #c8c8d8; padding: 0.5rem 0; line-height: 1.5; }
+.synthesis-convergence li::before { content: "\2714 "; color: #4ecdc4; }
+.synthesis-divergence {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: rgba(231, 76, 60, 0.08);
+  border-radius: 8px;
+  border-left: 4px solid #e74c3c;
+}
+.synthesis-divergence h3 { color: #e74c3c; font-size: 1.1rem; margin-bottom: 0.75rem; }
+.synthesis-divergence ul { list-style: none; padding: 0; }
+.synthesis-divergence li { color: #d8c8c8; padding: 0.5rem 0; font-weight: 500; line-height: 1.5; }
+.synthesis-divergence li::before { content: "\26A0 "; color: #e74c3c; }
+.synthesis-watchpoint h3 { color: #c8a84e; font-size: 1.1rem; margin-bottom: 0.75rem; }
+.watchpoint-box {
+  text-align: center;
+  padding: 1.5rem;
+  background: rgba(200, 168, 78, 0.1);
+  border: 1px solid #c8a84e;
+  border-radius: 8px;
+  margin-top: 1rem;
+}
+.watchpoint-metric { display: block; font-size: 1.3rem; font-weight: 700; color: #c8a84e; margin-bottom: 0.5rem; }
+.watchpoint-value { display: inline-block; font-size: 1.1rem; color: #e0e0e8; margin-right: 2rem; }
+.watchpoint-threshold { display: inline-block; font-size: 1.1rem; color: #e74c3c; font-weight: 600; }
+.watchpoint-box p { margin-top: 1rem; font-size: 1rem; color: #a0a0b8; line-height: 1.6; }
+
+/* ============ TABLET (<1024px) ============ */
+@media (max-width: 1024px) {
+  .main-content { padding: 24px; }
+  .gauge-card { min-width: 220px; }
+  .synthesis-grid { grid-template-columns: 1fr; }
+  .synthesis-card { padding: 1.5rem; }
+}
+
+/* ============ PHONE (<768px) ============ */
+@media (max-width: 768px) {
+  .sidebar { display: none; }
+  .main-content { margin-left: 0; }
+  .site-footer { margin-left: 0; }
+  .site-header { padding: 0 16px; gap: 8px; height: 60px; }
+  .company-name { font-size: 18px; }
+  .header-logo { width: 28px; height: 28px; }
+  .ticker-badge { font-size: 12px; padding: 3px 8px; }
+  .site-header .header-left > span { display: none; }
+  .main-content { padding: 16px; }
+  .section { margin-bottom: 32px; scroll-margin-top: 70px; }
+  .section-title { font-size: 18px; }
+  .stats-row { gap: 8px; }
+  .stat-box { min-width: 100px; padding: 12px 8px; }
+  .stat-value { font-size: 18px; }
+  .stat-label { font-size: 9px; }
+  .card { padding: 16px; border-radius: 10px; }
+  .card-title { font-size: 14px; }
+  .exec-summary { font-size: 14px; line-height: 1.7; }
+  .exec-summary p { text-align: left; }
+  table { font-size: 12px; }
+  th { font-size: 10px; padding: 8px 6px; }
+  td { padding: 8px 6px; }
+  .gauge-container { gap: 12px; }
+  .gauge-card { min-width: unset; padding: 16px; }
+  .gauge-score { font-size: 24px; }
+  .bar-row { gap: 6px; }
+  .bar-label { width: 80px; font-size: 11px; }
+  .bar-value { width: 60px; font-size: 11px; }
+  .bar-fill { font-size: 10px; padding-left: 4px; }
+  .flag-card { padding: 14px; }
+  .watchlist-item { padding: 12px; }
+  .site-footer { padding: 16px; flex-direction: column; gap: 8px; text-align: center; }
+  .nav-link { padding: 14px 20px; font-size: 14px; min-height: 44px; }
+  .stacked-bar { height: 24px; }
+  .prediction-card { padding: 16px; }
+  .timeline { padding-left: 20px; }
+}
+
+/* ============ SMALL PHONE (<480px) ============ */
+@media (max-width: 480px) {
+  .site-header { padding: 0 12px; }
+  .company-name { font-size: 16px; max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .main-content { padding: 12px; }
+  .stats-row { flex-direction: column; gap: 6px; }
+  .stat-box { min-width: unset; flex-direction: row; justify-content: space-between; align-items: center; text-align: left; padding: 10px 14px; }
+  .stat-value { font-size: 20px; }
+  .stat-label { font-size: 10px; margin-top: 0; }
+  .bar-label { width: 60px; font-size: 10px; }
+  .bar-value { width: 50px; font-size: 10px; }
+  .section-title { font-size: 16px; gap: 6px; }
+}
+
+/* ===== MOBILE V2 FIXES (smartphone-specific) ===== */
+
+/* FIX 1: Red flags + cross-layer — more spacing, vertical badge stacking */
+@media (max-width: 768px) {
+  .flag-card { padding: 16px !important; margin-bottom: 16px !important; border-radius: 10px; }
+  .flag-card > div:first-child {
+    flex-direction: column !important; align-items: flex-start !important; gap: 8px !important;
+  }
+  .flag-card .severity-badge { font-size: 11px; }
+  .flag-card p { font-size: 13px; line-height: 1.6; margin-top: 8px; }
+}
+
+/* FIX 2: Insider/Ownership tables — card-style stacking */
+@media (max-width: 768px) {
+  #insiders table, #insiders thead, #insiders tbody, #insiders tr, #insiders th, #insiders td {
+    display: block; width: 100%;
+  }
+  #insiders thead { display: none; }
+  #insiders tr {
+    margin-bottom: 12px; padding: 12px; border-radius: 8px;
+    background: var(--bg-card, #1a2234); border: 1px solid var(--border, #2a3550);
+  }
+  #insiders td { padding: 4px 0; border-bottom: none; text-align: left; }
+  #insiders td.num { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+  #insiders td:last-child { font-size: 12px; color: var(--text-secondary, #8b99b0); line-height: 1.5; }
+}
+
+/* FIX 3: Table scroll hint */
+@media (max-width: 768px) {
+  .table-wrap { position: relative; }
+  .table-wrap::after {
+    content: '\2190 scroll \2192';
+    display: block; text-align: center; font-size: 10px;
+    color: var(--text-muted, #5a6880); padding: 6px 0 2px; opacity: 0.5;
+  }
+}
+
+/* FIX 4: Segments — stacked bar becomes vertical bars on phone */
+@media (max-width: 768px) {
+  .stacked-bar {
+    height: auto !important; flex-direction: column !important; gap: 4px;
+    border-radius: 0 !important;
+  }
+  .stacked-seg {
+    height: 32px !important; width: 100% !important;
+    border-radius: 6px !important;
+    justify-content: flex-start !important; padding-left: 12px !important;
+    font-size: 12px !important;
+  }
+}
+
+/* FIX 5: Forensic models — complete mobile redesign */
+@media (max-width: 768px) {
+  .gauge-container { gap: 16px; flex-direction: column; }
+  .gauge-card {
+    min-width: unset !important; padding: 20px 16px !important;
+    background: var(--bg-secondary, #111827) !important; border-radius: 12px;
+  }
+  .gauge-title { font-size: 16px !important; text-align: center; margin-bottom: 4px; }
+  .gauge-subtitle { font-size: 11px !important; text-align: center; }
+  .gauge-score { font-size: 32px !important; text-align: center; margin: 12px 0 !important; }
+  .gauge-bar { height: 14px !important; border-radius: 7px !important; margin-bottom: 6px; }
+  .gauge-marker { height: 22px !important; top: -4px !important; width: 3px !important; }
+  .gauge-zones .gauge-zone { opacity: 0.25 !important; }
+  .gauge-labels { font-size: 9px !important; padding: 0 2px; }
+  .gauge-labels span:nth-child(2) { opacity: 0.5; font-size: 8px; }
+  .gauge-vars {
+    font-size: 12px !important; line-height: 2.0 !important; margin-top: 12px;
+    padding-top: 12px; border-top: 1px solid var(--border, #2a3550);
+  }
+}
+@media (max-width: 480px) {
+  .flag-card { padding: 14px 12px !important; margin-bottom: 12px !important; border-radius: 8px; }
+  .gauge-score { font-size: 28px !important; }
+  .gauge-title { font-size: 15px !important; }
+  .gauge-labels span:nth-child(2) { display: none; }
+  .gauge-vars { font-size: 11px !important; }
+}
+
+
+/* ===== MOBILE PATCH v2.2 — April 2026 ===== */
+
+/* ── 1. VERDICT CARDS: scale oversized letter grades ── */
+@media (max-width: 768px) {
+  #verdicts [style*="font-size:48px"],
+  #verdicts [style*="font-size: 48px"],
+  #transcript-intelligence [style*="font-size:42px"],
+  #transcript-intelligence [style*="font-size: 42px"] {
+    font-size: 2rem !important; line-height: 1 !important;
+  }
+  #verdicts [style*="font-size:20px"],
+  #verdicts [style*="font-size: 20px"] { font-size: 0.95rem !important; }
+  #verdicts .card > div[style*="gap"] { flex-wrap: wrap; gap: 8px !important; }
+
+  /* ── 2. CLOSING SYNTHESIS: comprehensive font-size fix (all class variants) ── */
+  .synthesis-card   { padding: 1.5rem !important; margin: 2rem 0 !important; }
+  .synthesis-card h2 { font-size: 1.25rem !important; margin-bottom: 0.9rem !important; }
+  .synthesis-title  { font-size: 1.25rem !important; }
+  .synthesis-scope  { font-size: 0.85rem !important; margin-bottom: 1.25rem !important; }
+  .synthesis-thesis { font-size: 0.95rem !important; padding: 1rem !important;
+                      margin-bottom: 1.25rem !important; line-height: 1.65 !important; }
+  /* All h3 variants inside synthesis */
+  .synthesis-grid h3,
+  .synthesis-convergence h3,
+  .synthesis-divergence h3,
+  .synthesis-watchpoint h3,
+  .synthesis-col h3 { font-size: 0.9rem !important; margin-bottom: 0.6rem !important; }
+  /* List items */
+  .synthesis-grid li,
+  .synthesis-convergence li,
+  .synthesis-divergence li,
+  .synthesis-col li { font-size: 0.85rem !important; line-height: 1.55 !important; padding: 3px 0 !important; }
+  /* Watchpoint */
+  .watchpoint-box   { padding: 0.9rem !important; }
+  .watchpoint-metric { font-size: 1rem !important; margin-bottom: 0.2rem !important; }
+  .watchpoint-value,
+  .watchpoint-threshold { font-size: 0.875rem !important; display: block !important;
+                          margin-right: 0 !important; margin-bottom: 4px !important; }
+  .watchpoint-box p { font-size: 0.85rem !important; margin-top: 0.5rem !important; }
+
+  /* ── 3. EXECUTIVE SUMMARY: mobile redesign ── */
+  /* Card shell */
+  .card.exec-summary {
+    padding: 18px 16px !important;
+    background: linear-gradient(180deg, #1c2640 0%, #111827 100%) !important;
+    border-top: 3px solid #3b82f6 !important;
+    border-radius: 12px !important;
+  }
+  /* Lead paragraph — hero treatment */
+  .exec-summary p:first-child {
+    font-size: 14.5px !important;
+    font-weight: 500 !important;
+    color: #e8eaf0 !important;
+    border-left: 3px solid #3b82f6;
+    padding-left: 11px !important;
+    line-height: 1.75 !important;
+    margin-bottom: 18px !important;
+    padding-bottom: 0 !important;
+    border-bottom: none !important;
+  }
+  /* Body paragraphs */
+  .exec-summary p {
+    font-size: 13.5px !important;
+    line-height: 1.75 !important;
+    margin-bottom: 0 !important;
+    padding: 14px 0 !important;
+    border-bottom: 1px solid rgba(255,255,255,0.07) !important;
+    text-align: left !important;
+    color: var(--text-secondary) !important;
+  }
+  .exec-summary p:last-child {
+    border-bottom: none !important;
+    padding-bottom: 0 !important;
+  }
+  /* Key-finding strong tags — styled label */
+  .exec-summary strong {
+    display: block !important;
+    font-size: 10.5px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.9px !important;
+    margin-bottom: 5px !important;
+    opacity: 1 !important;
+  }
+}
+
+/* ── SMALL PHONE (<480px) ── */
+@media (max-width: 480px) {
+  /* Verdict grades further reduced */
+  #verdicts [style*="font-size:48px"],
+  #verdicts [style*="font-size: 48px"],
+  #transcript-intelligence [style*="font-size:42px"],
+  #transcript-intelligence [style*="font-size: 42px"] { font-size: 1.7rem !important; }
+
+  /* Exec summary stat boxes: 2-column grid */
+  .stats-row {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 7px !important;
+    margin-bottom: 14px !important;
+  }
+  .stat-box {
+    flex-direction: column !important;
+    text-align: center !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 11px 8px !important;
+    border-radius: 10px !important;
+    border-top: 2px solid rgba(255,255,255,0.12) !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: none !important;
+    background: linear-gradient(160deg,#1a2234,#111827) !important;
+    min-width: unset !important;
+  }
+  .stat-value         { font-size: 17px !important; line-height: 1.2 !important; }
+  .stat-value.positive { color: #22c55e !important; }
+  .stat-value.negative { color: #ef4444 !important; }
+  .stat-value.neutral  { color: #eab308 !important; }
+  .stat-label { font-size: 9px !important; margin-top: 5px !important;
+                letter-spacing: 0.4px !important; }
+
+  /* Exec summary card */
+  .card.exec-summary  { padding: 14px 12px !important; }
+  .exec-summary p:first-child { font-size: 13.5px !important; }
+  .exec-summary p     { font-size: 12.5px !important; line-height: 1.7 !important; padding: 12px 0 !important; }
+
+  /* Synthesis further reduced */
+  .synthesis-card     { padding: 1rem !important; margin: 1.5rem 0 !important; }
+  .synthesis-card h2, .synthesis-title { font-size: 1.05rem !important; }
+  .synthesis-thesis   { font-size: 0.9rem !important; padding: 0.75rem !important; }
+}
+/* ===== END MOBILE PATCH v2.2 ===== */
+
+/* ===== START MOBILE PATCH v2.3 ===== */
+@media (max-width: 768px) {
+  /* H3 SUPPRESSION — all h3 become tiny uppercase category labels */
+  h3, .card-title {
+    font-size: 9px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1.2px !important;
+    color: var(--text-muted, #6b7280) !important;
+    margin-bottom: 6px !important;
+    padding-bottom: 0 !important;
+    border-bottom: none !important;
+    line-height: 1.3 !important;
+  }
+
+  /* EXEC SUMMARY — dramatic dark card, clear paragraph breaks */
+  .card.exec-summary {
+    background: linear-gradient(175deg, #0f1e3d 0%, #111827 70%, #0a0f1a 100%) !important;
+    border: 1px solid rgba(59,130,246,0.2) !important;
+    border-top: 3px solid #3b82f6 !important;
+    border-radius: 12px !important;
+    padding: 16px 14px !important;
+  }
+
+  .exec-summary p {
+    font-size: 14px !important;
+    line-height: 1.85 !important;
+    color: #d1d5db !important;
+    border-left: none !important;
+    border-bottom: 1px solid rgba(59,130,246,0.12) !important;
+    padding: 14px 0 !important;
+    margin: 0 !important;
+  }
+
+  .exec-summary p:last-child {
+    border-bottom: none !important;
+    padding-bottom: 4px !important;
+  }
+
+  /* Numbers/metrics → inline highlight chip (overrides v2.2 display:block) */
+  .exec-summary strong {
+    display: inline !important;
+    color: #93c5fd !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    text-transform: none !important;
+    letter-spacing: 0 !important;
+    background: rgba(59,130,246,0.12) !important;
+    padding: 1px 5px !important;
+    border-radius: 4px !important;
+    border: 1px solid rgba(59,130,246,0.22) !important;
+  }
+}
+@media (max-width: 480px) {
+  .exec-summary p { font-size: 13.5px !important; }
+  .exec-summary strong { font-size: 13.5px !important; }
+}
+/* ===== END MOBILE PATCH v2.3 ===== */
+
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="site-header">
+  <div class="header-left">
+    <a href="../" class="home-btn" title="Back to all reports"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></a>
+    <img src="../static/ticker_logos/INTC.svg" alt="INTC" class="header-logo">
+    <div>
+      <div class="company-name">Intel Corporation</div>
+      <div style="font-size:12px;color:var(--text-muted);">SEC Forensic Analysis Report &middot; April 9, 2026</div>
+    </div>
+    <span class="ticker-badge">INTC</span>
+    <span style="font-size:12px;color:var(--text-muted);">NASDAQ &middot; FY2025 10-K</span>
+  </div>
+  <div class="header-right">
+    <span class="verdict-badge badge-yellow"><span class="label">Business</span> C+ (58/100)</span>
+    <span class="verdict-badge badge-yellow"><span class="label">Management</span> C+ (62/100)</span>
+    <span class="verdict-badge badge-yellow"><span class="label">Trajectory</span> C (52/100)</span>
+  </div>
+</header>
+
+<!-- Sidebar -->
+<nav class="sidebar" id="sidebar">
+  <a class="nav-link" href="#executive-summary"><span class="nav-icon">&#9670;</span> Executive Summary</a>
+  <a class="nav-link" href="#verdicts"><span class="nav-icon">&#9733;</span> Verdicts</a>
+  <a class="nav-link" href="#valuation-context"><span class="nav-icon">&#9670;</span> Valuation Context</a>
+  <a class="nav-link" href="#financial-overview"><span class="nav-icon">&#9635;</span> Financial Overview</a>
+  <a class="nav-link" href="#forensic-models"><span class="nav-icon">&#9878;</span> Forensic Models</a>
+  <a class="nav-link" href="#transcript-intelligence"><span class="nav-icon">&#9835;</span> Transcript Intelligence</a>
+  <a class="nav-link" href="#revenue-segments"><span class="nav-icon">&#9638;</span> Revenue &amp; Segments</a>
+  <a class="nav-link" href="#governance"><span class="nav-icon">&#9881;</span> Governance</a>
+  <a class="nav-link" href="#insider-institutional"><span class="nav-icon">&#9650;</span> Insider &amp; Institutional</a>
+  <a class="nav-link" href="#peer-comparison"><span class="nav-icon">&#9741;</span> Peer Comparison</a>
+  <a class="nav-link" href="#text-analysis"><span class="nav-icon">&#9998;</span> Text Analysis</a>
+  <a class="nav-link" href="#advanced-analysis"><span class="nav-icon">&#9830;</span> Advanced Analysis</a>
+  <a class="nav-link" href="#risk-convergence"><span class="nav-icon">&#9888;</span> Risk &amp; Convergence</a>
+  <a class="nav-link" href="#watchlist-predictions"><span class="nav-icon">&#9745;</span> Watchlist &amp; Predictions</a>
+  <a class="nav-link" href="#closing-synthesis"><span class="nav-icon">&#9670;</span> Closing Synthesis</a>
+</nav>
+
+<!-- Main Content -->
+<main class="main-content">
+
+<!-- ==================== 1. EXECUTIVE SUMMARY ==================== -->
+<section class="section" id="executive-summary">
+  <h2 class="section-title"><span class="icon">&#9670;</span> Executive Summary</h2>
+  <div class="stats-row">
+    <div class="stat-box"><div class="stat-value neutral">$52.9B</div><div class="stat-label">FY2025 Revenue</div></div>
+    <div class="stat-box"><div class="stat-value negative">-$267M</div><div class="stat-label">FY2025 Net Income</div></div>
+    <div class="stat-box"><div class="stat-value positive">$9.7B</div><div class="stat-label">FY2025 Op. Cash Flow</div></div>
+    <div class="stat-box"><div class="stat-value neutral">$14.3B</div><div class="stat-label">Cash &amp; Equivalents</div></div>
+    <div class="stat-box"><div class="stat-value negative">$49.1B</div><div class="stat-label">Total Debt</div></div>
+  </div>
+  <div class="card exec-summary">
+    <p>Intel Corporation enters April 2026 in a condition that defies simple characterization. On the surface, the numbers describe a company in managed decline: revenue of $52.9 billion in FY2025 is 33% below the FY2021 peak of $79 billion, operating income is negative for the third consecutive year at -$2.2 billion, and free cash flow remains deeply negative at -$4.9 billion on a GAAP basis. Yet beneath those consolidated numbers lives a bifurcated reality that renders the headline metrics almost meaningless for analytical purposes. Intel Products — the CCG and DCAI segments that design and sell chips — generated $13.0 billion in combined operating income in FY2025. Intel Foundry — the manufacturing infrastructure business — posted -$13.3 billion in operating losses, bringing consolidated operating income to -$2.2 billion. These two businesses operating within a single corporate structure are pulling in opposite directions with roughly equal force. Investors who do not separate them cannot understand Intel.</p>
+
+    <p>The Intel Products business is, by most measures, a genuinely good company. Client Computing Group generated $32.2 billion in revenue at a 31.4% operating margin, powering 7 of every 10 personal computers on the planet. Data Center and AI (including former Network and Edge) produced $16.9 billion in revenue and $3.4 billion in operating income, recovering from the FY2024 trough. Custom ASIC design services crossed the $1 billion annualized run rate ahead of expectations, representing a new and growing revenue vector. Five consecutive quarterly earnings beats under Lip-Bu Tan demonstrate both genuine operational improvement and a guidance philosophy designed for conservative anchoring. The Intel Products business, if it existed as a standalone fabless chipmaker, would be a profitable, cash-generative company with a 55% server market share, premium client CPU positioning, and a growing custom silicon practice. That business is not in crisis.</p>
+
+    <p>Intel Foundry is a different entity entirely. In FY2025 it posted -$13.3 billion in operating losses on $17.8 billion in total revenue — but $17.5 billion of that revenue consists of internal transfer charges from Intel Products. External foundry revenue, representing actual commercial customers paying for wafer manufacturing, totaled just $307 million in FY2025. That is not a typo. External foundry revenue has declined consecutively for three years: $953 million (FY2023), $385 million (FY2024), $307 million (FY2025). Every management narrative about 'commercial traction,' 'external customer wins,' and 'building a world-class foundry' has been systematically contradicted by this single data point. Cumulative Intel Foundry operating losses from FY2022 through FY2025 stand at -$38.8 billion.</p>
+
+    <p>The management transition is the most forensically significant narrative arc in this dataset. Gelsinger's final earnings call on October 31, 2024 — 31 days before his ouster — was a masterclass in credibility destruction. He declared: 'What will be one of the most seminal restructurings in the history. We're well on our way.' None of his four major multi-year commitments survived contact with reality. Gelsinger's composite credibility score is 22-39 out of 100 across all measured dimensions. His insider purchase of Intel shares 27 days before his forced ouster suggests the board had information materially at odds with his public declarations.</p>
+
+    <p>Lip-Bu Tan represents a genuine and documented improvement. His communication style is measurably different: specific metrics (7-8% monthly 18A yield improvement), specific dates (14A customer decisions H2 2026), and explicit acknowledgment of past failures. 'Our last full fiscal year of positive adjusted free cash flow was 2021. This is completely unacceptable.' All resolved commitments under Tan have been delivered on schedule. His credibility scores at 71 out of 100 — provisional, because all five major tests remain unverified. The Tan credibility reset is real. It does not solve the foundry problem.</p>
+
+    <p>The China omission is the largest single material risk absent from earnings call transcripts. China revenue grew from $12.7 billion (FY2023) to $15.5 billion (FY2025) — a 22% increase over three years of escalating US-China semiconductor tensions. At 29.4% of consolidated revenue, China is essentially equal to the entire US market ($15.8 billion). Across all five earnings calls from Q3-2024 through Q4-2025, Intel management never voluntarily discussed China revenue growth or export control risk. A single export control expansion targeting Intel's server processors could create a $15.5 billion revenue shock.</p>
+
+    <p>The valuation paradox may be the most dangerous element of the Intel investment thesis. At $58.95 per share on April 9, 2026, Intel trades near its 52-week high of $59.17. The VIS residual income model produces a value of $17.16 per share, implying a -243.5% margin of safety at current prices. The reverse DCF model implies the market is pricing in 50% annual revenue growth for ten years — against a trailing 5-year CAGR of -7.5%. The forward verdict is binary, not directional. The H2 2026 14A customer decision window is the single most important catalyst in the dataset. Investors entering at current prices are not buying a recovering semiconductor company — they are buying an option on the foundry binary with a premium that exceeds the strike price by -243%.</p>
+  </div>
+</section>
+
+<!-- ==================== 2. VERDICTS ==================== -->
+<section class="section" id="verdicts">
+  <h2 class="section-title"><span class="icon">&#9733;</span> Verdicts</h2>
+
+  <div class="card">
+    <div style="display:flex;align-items:flex-start;gap:24px;">
+      <div style="text-align:center;min-width:80px;">
+        <div style="font-size:48px;font-weight:700;font-family:var(--font-serif);color:var(--accent-yellow);">C+</div>
+        <div style="font-size:20px;color:var(--text-secondary);">58/100</div>
+        <div class="verdict-badge badge-yellow" style="margin-top:8px;">YELLOW</div>
+      </div>
+      <div style="flex:1;">
+        <h3 class="card-title">Business Quality</h3>
+        <p style="font-weight:600;margin-bottom:8px;">Intel Products is a genuinely profitable business (B grade standalone); Intel Foundry destroys equivalent value at -$13.3B annually. The consolidated entity is structurally impaired until the foundry binary resolves.</p>
+        <p style="color:var(--text-secondary);font-size:13px;line-height:1.7;">Business quality earns C+ (58/100) — a grade that reflects the weighted reality of two fundamentally different businesses co-existing within one legal entity. Intel Products (CCG + DCAI combined) generated $13.0 billion in operating income in FY2025 at a blended ~26% operating margin. CCG ($32.2B revenue, 31.4% margin) powers 7 of 10 PCs globally and benefits from genuine AI PC architectural momentum (200+ Panther Lake notebook designs). DCAI ($16.9B revenue, 20.2% margin) is recovering from a trough, with custom ASIC crossing $1B annualized run rate — a new and credible revenue vector. On these merits alone, Intel Products would earn a B grade as a standalone business. Intel Foundry is an existential drag. At -$13.3 billion in FY2025 operating losses on just $307 million of external revenue, the foundry destroys $43 of value for every dollar it earns externally. The Altman Z-Score of 1.528 places Intel squarely in the distress zone (threshold: 1.81). Piotroski F-Score of 6/9 reflects genuine operational quality signals offset by share dilution (15.4%) and negative ROA.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div style="display:flex;align-items:flex-start;gap:24px;">
+      <div style="text-align:center;min-width:80px;">
+        <div style="font-size:48px;font-weight:700;font-family:var(--font-serif);color:var(--accent-yellow);">C+</div>
+        <div style="font-size:20px;color:var(--text-secondary);">62/100</div>
+        <div class="verdict-badge badge-yellow" style="margin-top:8px;">YELLOW</div>
+      </div>
+      <div style="flex:1;">
+        <h3 class="card-title">Management Quality</h3>
+        <p style="font-weight:600;margin-bottom:8px;">Tan era is a genuine improvement (71/100 credibility) operating against a catastrophic Gelsinger legacy (28/100). Institutional credibility — accounting for the full multi-CEO track record — is 38/100.</p>
+        <p style="color:var(--text-secondary);font-size:13px;line-height:1.7;">Management quality earns C+ (62/100) — a grade that holds two contradictory assessments simultaneously. Lip-Bu Tan's personal credibility and operational execution would earn B/B+ in isolation. All resolved commitments have been delivered: Germany and Poland exits, headcount to 75,000, Panther Lake on 18A in HVM by year-end, OpEx $16.5 billion versus $17 billion target (beat by $500 million). Communication quality improved dramatically. However, Tan's three calls carry a critical omission: China revenue at 29.4% of total is never discussed. A CEO who named 2021 as the last year of positive FCF with moral condemnation yet never discusses the company's largest geographic concentration risk is selectively candid. Pat Gelsinger's legacy dominates the institutional credibility calculation. His composite score of 28/100 reflects four consecutive multi-year commitment failures, the final-call credibility destruction ('seminal restructuring' rhetoric 31 days before ouster), and the forensic signal of insider purchases 27 days before forced departure. Institutional credibility scores 38/100.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div style="display:flex;align-items:flex-start;gap:24px;">
+      <div style="text-align:center;min-width:80px;">
+        <div style="font-size:48px;font-weight:700;font-family:var(--font-serif);color:var(--accent-yellow);">C</div>
+        <div style="font-size:20px;color:var(--text-secondary);">52/100</div>
+        <div class="verdict-badge badge-yellow" style="margin-top:8px;">YELLOW</div>
+      </div>
+      <div style="flex:1;">
+        <h3 class="card-title">Current Trajectory</h3>
+        <p style="font-weight:600;margin-bottom:8px;">Near-term operational momentum is real (five beats, yield improving, OpEx declining) but the medium-term is a binary event tree — not a directional trajectory. The foundry H2 2026 customer decision window determines whether trajectory resolves upward or catastrophically.</p>
+        <p style="color:var(--text-secondary);font-size:13px;line-height:1.7;">Trajectory earns C (52/100) — genuine near-term operational improvement paired with extreme medium-term uncertainty. The near-term signals are positive: five consecutive quarterly beats, Q4-2025 first FCF-positive quarter in years ($2.2 billion adjusted), OpEx declined to $16.5 billion from the $17 billion guidance, Panther Lake 18A yield improving at 7-8% monthly, custom ASIC exceeding $1B run rate. The medium-term trajectory is binary, not directional. The H2 2026 14A customer decision window is the single most important event in the dataset. The $34.5 billion CIP balance will generate $3-5 billion in incremental annual depreciation as assets commission over 2025-2028, creating a structural margin headwind regardless of strategic choices. Three-year revenue CAGR is -5.7%. Five-year CAGR is -7.5%. The rate of decline is narrowing (from -20% in FY2022 to -0.5% in FY2025), but narrowing decline is not growth.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 3. VALUATION CONTEXT ==================== -->
+<section class="section" id="valuation-context">
+  <h2 class="section-title"><span class="icon">&#9670;</span> Valuation Context</h2>
+
+  <div class="card analyst-insight">
+    <h3 class="card-title">Analyst Verdict — Severely Overvalued</h3>
+    <p>At $58.95, Intel trades within $0.22 of its 52-week high of $59.17 — a positioning that is among the most forensically divergent in this analysis suite. The fundamentals have not recovered to justify a price near 52-week highs: revenue is 33% below the FY2021 peak, operating income is negative for the third consecutive year, and GAAP FCF has been negative for four consecutive years. The stock is pricing a story, not earnings power.</p>
+    <p>The story being priced is coherent: Lip-Bu Tan is a credible CEO with a track record of operational delivery, the NVIDIA $5 billion investment validates Intel's packaging capabilities, Panther Lake is shipping on 18A ahead of schedule, and the CHIPS Act provides $8+ billion in grant funding that directly backstops the foundry build. If the 14A external customer announcement materializes in H2 2026, a bull case stock re-rating to $75-100 is plausible. This is the option Intel's current price embeds.</p>
+    <div class="cross-source">
+      <strong>VIS Verdict:</strong> Severely Overvalued — only applicable model (residual income) produces <strong>$17.16 intrinsic value</strong> vs $58.95 market price. <strong>Margin of safety: -243.5%.</strong> Reverse DCF requires 50% annual revenue growth for 10 years against a company with a -7.5% 5-year CAGR. RSI at 72 signals technical overbought conditions.
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3 class="card-title">Trailing Multiples</h3>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Metric</th><th class="num">Value</th><th>Signal</th></tr></thead>
+          <tbody>
+            <tr><td>P/E (GAAP)</td><td class="num negative">-1,108.6x</td><td><span class="severity-badge severity-HIGH">NEGATIVE EPS</span></td></tr>
+            <tr><td>P/E (Non-GAAP adj.)</td><td class="num negative">136.6x</td><td><span class="severity-badge severity-HIGH">EXTREME</span></td></tr>
+            <tr><td>EV/Revenue</td><td class="num neutral">5.78x</td><td><span class="severity-badge severity-MEDIUM">ELEVATED</span></td></tr>
+            <tr><td>EV/EBITDA</td><td class="num negative">-138.1x</td><td><span class="severity-badge severity-HIGH">NEG EBITDA</span></td></tr>
+            <tr><td>Price/OCF</td><td class="num neutral">30.5x</td><td><span class="severity-badge severity-MEDIUM">ELEVATED</span></td></tr>
+            <tr><td>Price/Book</td><td class="num neutral">2.59x</td><td><span class="severity-badge severity-MEDIUM">MODERATE</span></td></tr>
+            <tr><td>FCF Yield (GAAP)</td><td class="num negative">-1.67%</td><td><span class="severity-badge severity-HIGH">NEGATIVE</span></td></tr>
+            <tr><td>Forward P/E (consensus)</td><td class="num neutral">58.7x</td><td><span class="severity-badge severity-MEDIUM">ELEVATED</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card">
+      <h3 class="card-title">VIS Intrinsic Value Models</h3>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Model</th><th class="num">Value/Share</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>Earnings Power Value (EPV)</td><td class="num negative">-$15.10</td><td><span class="severity-badge severity-HIGH">N/A — Neg EBIT</span></td></tr>
+            <tr><td>Residual Income Model</td><td class="num neutral">$17.16</td><td><span class="severity-badge severity-MEDIUM">APPLICABLE</span></td></tr>
+            <tr><td>Graham Number</td><td class="num">N/A</td><td><span class="severity-badge severity-HIGH">N/A — Neg EPS</span></td></tr>
+            <tr><td>Current Market Price</td><td class="num negative">$58.95</td><td>Apr 9, 2026</td></tr>
+            <tr><td>52-Week High</td><td class="num">$59.17</td><td>Near high</td></tr>
+            <tr><td>52-Week Low</td><td class="num positive">$17.98</td><td>—</td></tr>
+            <tr><td>Margin of Safety</td><td class="num negative">-243.5%</td><td><span class="severity-badge severity-CRITICAL">NO MARGIN</span></td></tr>
+            <tr><td>RSI (14-day)</td><td class="num negative">72</td><td><span class="severity-badge severity-HIGH">OVERBOUGHT</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title">DuPont 5-Factor ROE Decomposition (FY2025)</h3>
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Factor</th><th class="num">Value</th><th>Interpretation</th></tr></thead>
+        <tbody>
+          <tr><td>Tax Burden</td><td class="num negative">-0.211</td><td>Negative — tax expense exceeds pre-tax income (121.1% ETR)</td></tr>
+          <tr><td>Interest Burden</td><td class="num negative">-0.571</td><td>Dominant drag — amplifies negative operating income</td></tr>
+          <tr><td>EBIT Margin</td><td class="num negative">-4.19%</td><td>Negative operating income (-$2.2B on $52.9B revenue)</td></tr>
+          <tr><td>Asset Turnover</td><td class="num neutral">0.259x</td><td>Low — capital-intensive fab model ($211B total assets)</td></tr>
+          <tr><td>Equity Multiplier</td><td class="num neutral">1.910x</td><td>Moderate leverage</td></tr>
+          <tr><td>Computed ROE</td><td class="num negative">-0.25%</td><td>Marginally negative — driven by interest burden and tax anomaly</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="margin-top:12px;font-size:13px;color:var(--text-secondary);">Dominant driver: Interest burden (-0.571 vs 1.000 neutral) — GAAP losses are amplified by the interest cost structure given negative operating income. The DuPont decomposition confirms Intel is not a financial leverage problem — it is a negative operating income problem.</p>
+  </div>
+</section>
+
+<!-- ==================== 4. FINANCIAL OVERVIEW & QUARTERLY TRENDS ==================== -->
+<section class="section" id="financial-overview">
+  <h2 class="section-title"><span class="icon">&#9635;</span> Financial Overview &amp; Quarterly Trends</h2>
+  <div class="card">
+    <h3 class="card-title collapsible" onclick="toggleCollapse(this)">Annual Financial Summary</h3>
+    <div class="collapse-content">
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Metric</th>
+              <th class="num">FY2021</th>
+              <th class="num">FY2022</th>
+              <th class="num">FY2023</th>
+              <th class="num">FY2024</th>
+              <th class="num">FY2025</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Revenue</td><td class="num">$79.0B</td><td class="num">$63.1B</td><td class="num">$54.2B</td><td class="num">$53.1B</td><td class="num">$52.9B</td></tr>
+            <tr><td>Revenue Growth</td><td class="num">—</td><td class="num negative">-20.2%</td><td class="num negative">-14.0%</td><td class="num negative">-2.1%</td><td class="num negative">-0.5%</td></tr>
+            <tr><td>Gross Profit</td><td class="num">—</td><td class="num">$26.9B</td><td class="num">$21.7B</td><td class="num">$17.3B</td><td class="num">$18.4B</td></tr>
+            <tr><td>Gross Margin</td><td class="num">—</td><td class="num neutral">42.6%</td><td class="num neutral">40.0%</td><td class="num negative">32.7%</td><td class="num neutral">34.8%</td></tr>
+            <tr><td>Operating Income</td><td class="num">—</td><td class="num positive">$2.3B</td><td class="num neutral">$93M</td><td class="num negative">-$11.7B</td><td class="num negative">-$2.2B</td></tr>
+            <tr><td>Operating Margin</td><td class="num">—</td><td class="num neutral">3.7%</td><td class="num neutral">0.2%</td><td class="num negative">-22.0%</td><td class="num negative">-4.2%</td></tr>
+            <tr><td>Net Income</td><td class="num positive">$19.9B</td><td class="num positive">$8.0B</td><td class="num positive">$1.7B</td><td class="num negative">-$18.8B</td><td class="num negative">-$267M</td></tr>
+            <tr><td>Net Margin</td><td class="num positive">25.2%</td><td class="num neutral">12.7%</td><td class="num neutral">3.1%</td><td class="num negative">-35.3%</td><td class="num negative">-0.5%</td></tr>
+            <tr><td>EPS (Diluted)</td><td class="num positive">$4.86</td><td class="num positive">$1.94</td><td class="num neutral">$0.40</td><td class="num negative">-$4.38</td><td class="num negative">-$0.06</td></tr>
+            <tr><td>Operating Cash Flow</td><td class="num">—</td><td class="num positive">$15.4B</td><td class="num positive">$11.5B</td><td class="num positive">$8.3B</td><td class="num positive">$9.7B</td></tr>
+            <tr><td>CapEx</td><td class="num">—</td><td class="num negative">$24.8B</td><td class="num negative">$25.8B</td><td class="num negative">$23.9B</td><td class="num negative">$14.6B</td></tr>
+            <tr><td>GAAP FCF</td><td class="num">—</td><td class="num negative">-$9.4B</td><td class="num negative">-$14.3B</td><td class="num negative">-$15.7B</td><td class="num negative">-$4.9B</td></tr>
+            <tr><td>EBITDA</td><td class="num">—</td><td class="num">—</td><td class="num positive">$7.9B</td><td class="num negative">-$1.7B</td><td class="num positive">$8.5B</td></tr>
+            <tr><td>R&amp;D Expense</td><td class="num">—</td><td class="num">—</td><td class="num">$16.0B</td><td class="num">$16.5B</td><td class="num">$13.8B</td></tr>
+            <tr><td>SBC</td><td class="num">—</td><td class="num">—</td><td class="num">$3.2B</td><td class="num">$3.4B</td><td class="num">$2.4B</td></tr>
+            <tr><td>D&amp;A</td><td class="num">—</td><td class="num">—</td><td class="num">$7.8B</td><td class="num">$10.0B</td><td class="num">$10.8B</td></tr>
+            <tr><td>Cash &amp; Equivalents</td><td class="num">—</td><td class="num">—</td><td class="num">$7.1B</td><td class="num">$8.2B</td><td class="num">$14.3B</td></tr>
+            <tr><td>Total Debt</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">$49.1B</td></tr>
+            <tr><td>Net Debt</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">$45.5B</td><td class="num">$34.8B</td></tr>
+            <tr><td>Total Assets</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">$196.5B</td><td class="num">$211.4B</td></tr>
+            <tr><td>Equity</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">$99.3B</td><td class="num">$114.3B</td></tr>
+            <tr><td>Current Ratio</td><td class="num">—</td><td class="num">—</td><td class="num">1.54x</td><td class="num neutral">1.33x</td><td class="num positive">2.02x</td></tr>
+            <tr><td>Debt/Equity</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num neutral">0.43x</td></tr>
+            <tr><td>CIP Balance</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num negative">$34.5B</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="margin-top:16px;">
+        <p style="font-size:13px;color:var(--text-secondary);margin-bottom:12px;"><strong>Revenue CAGR:</strong> 5-Year: -7.5% &nbsp;|&nbsp; 3-Year: -5.7% &nbsp;|&nbsp; Peak-to-FY2025: -33.1%</p>
+        <div class="bar-row"><div class="bar-label">FY2025 Revenue</div><div class="bar-track"><div class="bar-fill" style="width:67%;background:#eab308;">$52.9B</div></div><div class="bar-value neutral">$52.9B</div></div>
+        <div class="bar-row"><div class="bar-label">FY2024 Revenue</div><div class="bar-track"><div class="bar-fill" style="width:67%;background:#6b7280;">$53.1B</div></div><div class="bar-value">$53.1B</div></div>
+        <div class="bar-row"><div class="bar-label">FY2022 Revenue</div><div class="bar-track"><div class="bar-fill" style="width:80%;background:#6b7280;">$63.1B</div></div><div class="bar-value">$63.1B</div></div>
+        <div class="bar-row"><div class="bar-label">FY2021 Peak</div><div class="bar-track"><div class="bar-fill" style="width:100%;background:#22c55e;">$79.0B</div></div><div class="bar-value positive">$79.0B</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <h3 class="card-title collapsible" onclick="toggleCollapse(this)">Quarterly Trends (FY2024–FY2025)</h3>
+    <div class="collapse-content">
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Quarter</th>
+              <th class="num">Revenue</th>
+              <th class="num">Gross Margin</th>
+              <th class="num">Op. Income</th>
+              <th class="num">Non-GAAP EPS</th>
+              <th>CEO / Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Q3-2024</td><td class="num">$13.3B</td><td class="num neutral">~38%</td><td class="num negative">-$0.3B</td><td class="num neutral">$0.17</td><td>Gelsinger — Final call, ouster 31 days later</td></tr>
+            <tr><td>Q4-2024</td><td class="num">$14.3B</td><td class="num neutral">~33%</td><td class="num negative">-$3.5B</td><td class="num neutral">$0.13</td><td>Holthaus/Zinsner interim co-CEOs</td></tr>
+            <tr><td>Q1-2025</td><td class="num">$12.7B</td><td class="num neutral">~36%</td><td class="num negative">-$0.8B</td><td class="num neutral">$0.13</td><td>Tan transition quarter</td></tr>
+            <tr><td>Q2-2025</td><td class="num">$13.3B</td><td class="num neutral">~34%</td><td class="num negative">-$0.4B</td><td class="num neutral">$0.23</td><td>Tan first full quarter — 5-beat streak begins</td></tr>
+            <tr><td>Q3-2025</td><td class="num">$13.3B</td><td class="num neutral">~35%</td><td class="num negative">-$0.4B</td><td class="num positive">$0.23</td><td>Non-GAAP EPS vs $0.00 guided — 100% upside</td></tr>
+            <tr><td>Q4-2025</td><td class="num">$13.4B</td><td class="num neutral">~36%</td><td class="num negative">-$0.6B</td><td class="num neutral">$0.13</td><td>First FCF-positive quarter (+$2.2B adjusted)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card analyst-insight" style="margin-top:16px;">
+        <h3 class="card-title">Quarterly Forensic Commentary</h3>
+        <p>The five consecutive beats under Tan reflect a deliberate guidance philosophy — structurally conservative anchoring to ensure delivery. Q3-2025's $0.23 non-GAAP EPS versus $0.00 guided represents a 100% upside "beat" that tells you more about guidance architecture than underlying trajectory. The most important quarterly signal is Q4-2025: first FCF-positive quarter in years, achieved through Altera divestiture proceeds, SoftBank $2B investment, and CHIPS Act grant receipts — not purely operational improvement. This distinction matters for FY2026 FCF modeling.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 5. FORENSIC MODELS ==================== -->
+<section class="section" id="forensic-models">
+  <h2 class="section-title"><span class="icon">&#9878;</span> Forensic Models</h2>
+  <div class="gauge-container">
+
+    <!-- Beneish M-Score -->
+    <div class="gauge-card">
+      <div class="gauge-title">Beneish M-Score</div>
+      <div class="gauge-subtitle">Earnings manipulation probability. Threshold: -1.78 (above = manipulator)</div>
+      <div class="gauge-score positive">-2.59</div>
+      <span class="model-label" style="background:var(--accent-green-dim);color:var(--accent-green);">UNLIKELY MANIPULATOR</span>
+      <div class="gauge-bar" style="margin-top:12px;">
+        <div class="gauge-zones">
+          <div class="gauge-zone" style="width:60%;background:var(--accent-green);"></div>
+          <div class="gauge-zone" style="width:20%;background:var(--accent-yellow);"></div>
+          <div class="gauge-zone" style="width:20%;background:var(--accent-red);"></div>
+        </div>
+        <div class="gauge-marker" style="left:32%;"></div>
+      </div>
+      <div class="gauge-labels"><span>Clean (-3.0)</span><span>Threshold (-1.78)</span><span>Manipulator (0)</span></div>
+      <div class="gauge-vars">
+        DSRI: 1.109 (mild elevation — DSO rose 2.6 days)<br>
+        GMI: 0.940 (counter-manipulation signal — GM improved)<br>
+        AQI: 0.954 (asset quality improved)<br>
+        SGI: 0.995 (revenue essentially flat — no inflation)<br>
+        TATA: -0.047 (strongly negative = excellent cash quality)<br>
+        <br>
+        Intel's accounting issues relate to structural losses and non-GAAP framing, not manipulation. The mild DSRI elevation likely reflects mix shift toward slower-paying government/CHIPS Act customers.
+      </div>
+    </div>
+
+    <!-- Altman Z-Score -->
+    <div class="gauge-card">
+      <div class="gauge-title">Altman Z-Score</div>
+      <div class="gauge-subtitle">Financial distress predictor. Safe &gt;2.99 | Grey 1.81-2.99 | Distress &lt;1.81</div>
+      <div class="gauge-score negative">1.528</div>
+      <span class="model-label" style="background:var(--accent-red-dim);color:var(--accent-red);">DISTRESS ZONE</span>
+      <div class="gauge-bar" style="margin-top:12px;">
+        <div class="gauge-zones">
+          <div class="gauge-zone" style="width:35%;background:var(--accent-red);"></div>
+          <div class="gauge-zone" style="width:25%;background:var(--accent-yellow);"></div>
+          <div class="gauge-zone" style="width:40%;background:var(--accent-green);"></div>
+        </div>
+        <div class="gauge-marker" style="left:25%;"></div>
+      </div>
+      <div class="gauge-labels"><span>Distress (&lt;1.81)</span><span>Grey zone</span><span>Safe (&gt;2.99)</span></div>
+      <div class="gauge-vars">
+        X1 Working Capital/Assets: 0.152 (adequate)<br>
+        X2 Retained Earnings/Assets: 0.232 (positive contribution)<br>
+        X3 EBIT/Assets: -0.011 (primary drag — negative EBIT)<br>
+        X4 Equity/Liabilities: 1.343 (strong book equity)<br>
+        X5 Revenue/Assets: 0.250 (low asset turnover)<br>
+        <br>
+        Z'' (non-manufacturing): 3.092 — safe zone. Manufacturing formula penalizes Intel's capital-intensive fab model. Immediate bankruptcy risk is low given $22B+ liquidity and CHIPS Act funding.
+      </div>
+    </div>
+
+    <!-- Piotroski F-Score -->
+    <div class="gauge-card">
+      <div class="gauge-title">Piotroski F-Score</div>
+      <div class="gauge-subtitle">Financial health signal (0-9). Higher = stronger quality signals.</div>
+      <div class="gauge-score neutral">6 / 9</div>
+      <span class="piotroski-badge score-moderate">MODERATE</span>
+      <div class="gauge-bar" style="margin-top:12px;">
+        <div class="gauge-fill" style="width:67%;background:var(--accent-yellow);"></div>
+      </div>
+      <div class="gauge-labels"><span>Weak (0-3)</span><span>Moderate (4-6)</span><span>Strong (7-9)</span></div>
+      <div class="gauge-vars">
+        <strong style="color:var(--accent-green);">PASSING (6 signals):</strong><br>
+        F2: OCF positive ($9.7B) ✓<br>
+        F3: ROA improved +9.4pp year-over-year ✓<br>
+        F4: OCF exceeds net income (cash quality) ✓<br>
+        F5: Long-term debt ratio declined 25.5% → 22.0% ✓<br>
+        F6: Current ratio improved 1.33 → 2.02 ✓<br>
+        F8: Gross margin improved 210bps ✓<br>
+        <strong style="color:var(--accent-red);">FAILING (3 signals):</strong><br>
+        F1: ROA negative (-0.1%) ✗<br>
+        F7: 15.4% share dilution (665M new shares) ✗<br>
+        F9: Asset turnover declined ✗
+      </div>
+    </div>
+
+    <!-- Sloan Accrual -->
+    <div class="gauge-card">
+      <div class="gauge-title">Sloan Accrual Ratio</div>
+      <div class="gauge-subtitle">Earnings quality signal. Negative = cash earnings exceed accounting earnings (good).</div>
+      <div class="gauge-score positive">-4.7%</div>
+      <span class="model-label" style="background:var(--accent-green-dim);color:var(--accent-green);">NEGATIVE ACCRUAL — EXCELLENT</span>
+      <div class="gauge-bar" style="margin-top:12px;">
+        <div class="gauge-zones">
+          <div class="gauge-zone" style="width:33%;background:var(--accent-green);"></div>
+          <div class="gauge-zone" style="width:34%;background:var(--accent-yellow);"></div>
+          <div class="gauge-zone" style="width:33%;background:var(--accent-red);"></div>
+        </div>
+        <div class="gauge-marker" style="left:12%;"></div>
+      </div>
+      <div class="gauge-labels"><span>Excellent (&lt;-5%)</span><span>Neutral</span><span>Poor (&gt;+5%)</span></div>
+      <div class="gauge-vars">
+        OCF: $9.7B &nbsp;|&nbsp; Net Income: -$267M<br>
+        Total Assets: $211.4B<br>
+        <br>
+        OCF of $9.7B substantially exceeds net income of -$267M. Intel's GAAP losses are driven by non-cash charges (D&amp;A $10.8B, SBC $2.4B, impairments $0.5B, tax valuation allowances) — not cash outflows. This is the cleanest quality signal in Intel's financial dataset.
+      </div>
+    </div>
+
+    <!-- Non-GAAP Forensics -->
+    <div class="gauge-card">
+      <div class="gauge-title">Non-GAAP Forensics</div>
+      <div class="gauge-subtitle">Gap between GAAP and non-GAAP — and the DTA contradiction</div>
+      <div class="gauge-score negative">$5.2B</div>
+      <span class="model-label" style="background:var(--accent-red-dim);color:var(--accent-red);">DTA CONTRADICTION</span>
+      <div class="gauge-bar" style="margin-top:12px;">
+        <div class="gauge-fill" style="width:80%;background:var(--accent-red);"></div>
+      </div>
+      <div class="gauge-labels"><span>GAAP: -$267M</span><span>Non-GAAP: +$4.9B</span></div>
+      <div class="gauge-vars">
+        GAAP Net Income: -$267M<br>
+        Estimated Non-GAAP Net Income: $4.9B<br>
+        GAAP / Non-GAAP Gap: $5.2B<br>
+        Key addbacks: SBC $2.4B, Restructuring $1.8B, Intangible amort. $0.9B, Impairments $0.5B<br>
+        <br>
+        <strong style="color:var(--accent-red);">CRITICAL CONTRADICTION:</strong> Non-GAAP EPS of ~$0.42 implies $5B+ normalized profitability. But auditors placed $16.6B+ in deferred tax valuation allowances — formal assertion Intel will NOT generate sufficient taxable income to use those DTAs. Both cannot be simultaneously true. SBC ($2.4-3.4B annually for 3 years) and restructuring ($4.27B over 2 years) are recurring — not one-time.
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ==================== 6. TRANSCRIPT INTELLIGENCE ==================== -->
+<section class="section" id="transcript-intelligence">
+  <h2 class="section-title"><span class="icon">&#9835;</span> Transcript Intelligence</h2>
+
+  <div class="grid-3">
+    <div class="card" style="text-align:center;">
+      <div class="card-title">Composite Credibility</div>
+      <div style="font-size:42px;font-weight:700;color:var(--accent-yellow);">65</div>
+      <div style="color:var(--text-secondary);font-size:12px;">/ 100 — 5 quarters</div>
+    </div>
+    <div class="card" style="text-align:center;">
+      <div class="card-title">Tan-Era Credibility</div>
+      <div style="font-size:42px;font-weight:700;color:var(--accent-yellow);">71</div>
+      <div style="color:var(--text-secondary);font-size:12px;">/ 100 — provisional (all 5 tests pending)</div>
+    </div>
+    <div class="card" style="text-align:center;">
+      <div class="card-title">Institutional Credibility</div>
+      <div style="font-size:42px;font-weight:700;color:var(--accent-red);">38</div>
+      <div style="color:var(--text-secondary);font-size:12px;">/ 100 — multi-CEO weighted average</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title">Earnings Calls Analyzed (Q3-2024 through Q4-2025)</h3>
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Quarter</th><th>Date</th><th>CEO</th><th>Credibility</th><th>Key Signal</th></tr></thead>
+        <tbody>
+          <tr><td>Q3-2024</td><td>Oct 31, 2024</td><td>Pat Gelsinger</td><td><span class="negative">28/100</span></td><td class="negative">Final call — ousted 31 days later. "Seminal restructuring" rhetoric.</td></tr>
+          <tr><td>Q4-2024</td><td>Jan 30, 2025</td><td>Holthaus/Zinsner (interim)</td><td><span class="neutral">52/100</span></td><td class="neutral">Transition — IDM 2.0 abandonment signal. First candid foundry admissions.</td></tr>
+          <tr><td>Q2-2025</td><td>Aug 5, 2025</td><td>Lip-Bu Tan</td><td><span class="neutral">71/100</span></td><td class="neutral">First full quarter. Named 2021 failure explicitly. "Completely unacceptable."</td></tr>
+          <tr><td>Q3-2025</td><td>Oct 23, 2025</td><td>Lip-Bu Tan</td><td><span class="neutral">71/100</span></td><td class="neutral">Diamond Rapids SMT failure acknowledged. Coral Rapids H2 2026 fix.</td></tr>
+          <tr><td>Q4-2025</td><td>Jan 23, 2026</td><td>Lip-Bu Tan</td><td><span class="neutral">71/100</span></td><td class="neutral">Full-year results. First FCF-positive quarter. 5th consecutive beat.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card analyst-insight">
+    <h3 class="card-title">Five Hidden Signals — Transcript Layer Analysis</h3>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot negative"></div>
+        <div class="timeline-date">Signal #1 — VERY HIGH confidence</div>
+        <div class="timeline-title">The Foundry Binary Option</div>
+        <div class="timeline-detail">Intel Foundry is not a cost-center drag — it is a ~$40B binary bet where there is no middle outcome. Either Intel becomes a leading commercial foundry (transformative upside) or writes off ~$40B in assets (CIP $34.5B + goodwill). The decision window is H2 2026. No middle path exists.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot negative"></div>
+        <div class="timeline-date">Signal #2 — HIGH confidence</div>
+        <div class="timeline-title">The NVIDIA Relationship Paradox</div>
+        <div class="timeline-detail">NVIDIA invested $5B in Intel (validation) while remaining Intel's most existential competitive threat. NVIDIA simultaneously destroyed Gaudi ($1.3B charges), became Intel's largest strategic partner, and holds 15.4% dilution leverage over Intel equity — without committing any wafer manufacturing to Intel Foundry.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot negative"></div>
+        <div class="timeline-date">Signal #3 — VERY HIGH confidence</div>
+        <div class="timeline-title">The China Accumulation Trap</div>
+        <div class="timeline-detail">China revenue grew 22% (FY2023-FY2025) to $15.5B = 29.4% of total — essentially equal to the entire US market ($15.8B). Never voluntarily discussed in any of five earnings calls. A single export control expansion targeting Intel's server processors could simultaneously impair $15.5B of revenue.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot neutral"></div>
+        <div class="timeline-date">Signal #4 — HIGH confidence</div>
+        <div class="timeline-title">The Credibility Reset Architecture</div>
+        <div class="timeline-detail">The board deliberately chose Tan to absorb Gelsinger's failed commitments and reset all strategic scoring from zero. Each CEO transition enabled the next leader's license to drop prior commitments without acknowledgment. The credibility reset buys time; it does not solve the foundry problem.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot negative"></div>
+        <div class="timeline-date">Signal #5 — HIGH confidence</div>
+        <div class="timeline-title">The Non-GAAP / DTA Contradiction</div>
+        <div class="timeline-detail">Non-GAAP EPS of $0.42 implies ~$5B normalized annual profitability. But the FY2024 DTA valuation allowance of $13.97B (+ $2.6B additional in FY2025) is auditors' formal assertion Intel will NOT generate sufficient taxable income. Both cannot be simultaneously true.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title">Key CEO Quotes — Forensic Analysis</h3>
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Speaker</th><th>Call</th><th>Quote</th><th>Forensic Significance</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Pat Gelsinger</td>
+            <td class="negative">Q3-2024 (31 days before ouster)</td>
+            <td><em>"What will be one of the most seminal restructurings in the history. We're well on our way."</em></td>
+            <td class="negative">Final-call credibility destruction — all four major strategic commitments subsequently failed</td>
+          </tr>
+          <tr>
+            <td>Lip-Bu Tan</td>
+            <td class="positive">Q2-2025</td>
+            <td><em>"Our last full fiscal year of positive adjusted free cash flow was 2021. This is completely unacceptable."</em></td>
+            <td class="positive">Most candid CEO statement in five calls — named the failure year, applied moral framing, broke the euphemism pattern</td>
+          </tr>
+          <tr>
+            <td>David Zinsner</td>
+            <td class="negative">Q4-2024</td>
+            <td><em>"We have some very small amount [of external customers] that we've assumed for '27."</em></td>
+            <td class="negative">Confirmed the 2027 foundry breakeven is an internal-transfer accounting construct, not a market achievement</td>
+          </tr>
+          <tr>
+            <td>Lip-Bu Tan</td>
+            <td class="neutral">Q2-2025</td>
+            <td><em>"Capacity investments were well ahead of demand and were unwise and excessive."</em></td>
+            <td class="positive">Most important CEO statement on capital allocation — explicit repudiation of Gelsinger-era strategy without deflection</td>
+          </tr>
+          <tr>
+            <td>Michelle Holthaus</td>
+            <td class="neutral">Q4-2024</td>
+            <td><em>"It would not be unfathomable that I would put a data center product outside."</em></td>
+            <td class="positive">Historic inflection — IDM 2.0 doctrine formally abandoned in a single sentence</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3 class="card-title">Guidance Accuracy — Gelsinger Era</h3>
+      <p style="color:var(--text-secondary);font-size:13px;line-height:1.7;margin-bottom:8px;"><strong>Quarterly delivery:</strong> <span class="positive">A — consistently beat short-term guidance</span></p>
+      <p style="color:var(--text-secondary);font-size:13px;line-height:1.7;"><strong>Strategic commitments:</strong> <span class="negative">F — all four multi-year commitments missed catastrophically:</span></p>
+      <ul style="margin-top:8px;margin-left:16px;color:var(--text-secondary);font-size:13px;line-height:1.9;">
+        <li>FY2025 revenue growth 3-5% → actual -0.5%</li>
+        <li>FY2025 positive adjusted FCF → actual -$1.6B</li>
+        <li>Gaudi AI accelerator market success → $1.3B charges, explicit failure admission</li>
+        <li>$15B external foundry revenue by 2030 → on pace for $200M</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3 class="card-title">Guidance Accuracy — Tan Era</h3>
+      <p style="color:var(--text-secondary);font-size:13px;line-height:1.7;margin-bottom:8px;"><strong>Consecutive quarterly beats:</strong> <span class="positive">5 (structural conservatism)</span></p>
+      <p style="color:var(--text-secondary);font-size:13px;line-height:1.7;margin-bottom:8px;"><strong>Notable:</strong> Q3-2025 EPS of $0.23 vs $0.00 guided — 100% upside miss reflects guidance architecture, not volatility</p>
+      <p style="color:var(--text-secondary);font-size:13px;line-height:1.7;"><strong>Pending 5 major tests (all unverified):</strong></p>
+      <ul style="margin-top:8px;margin-left:16px;color:var(--text-secondary);font-size:13px;line-height:1.9;">
+        <li>FCF positive FY2026</li>
+        <li>14A external customer H2 2026</li>
+        <li>Foundry breakeven 2027</li>
+        <li>18A yields at target end-2026</li>
+        <li>DCAI competitive recovery</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 7. REVENUE & SEGMENTS ==================== -->
+<section class="section" id="revenue-segments">
+  <h2 class="section-title"><span class="icon">&#9638;</span> Revenue &amp; Segments</h2>
+
+  <div class="card">
+    <h3 class="card-title">FY2025 Segment Overview — The Bifurcated Reality</h3>
+    <div class="stacked-bar" style="margin-bottom:8px;">
+      <div class="stacked-seg" style="width:61%;background:#3b82f6;">CCG 61%</div>
+      <div class="stacked-seg" style="width:32%;background:#8b5cf6;">DCAI 32%</div>
+      <div class="stacked-seg" style="width:7%;background:#6b7280;">Other 7%</div>
+    </div>
+    <div style="font-size:11px;color:var(--text-muted);margin-bottom:16px;">Revenue by segment (FY2025 consolidated $52.9B)</div>
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Segment</th><th class="num">Revenue</th><th class="num">Op. Income</th><th class="num">Op. Margin</th><th>Key Notes</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Client Computing Group (CCG)</strong></td>
+            <td class="num">$32.2B</td>
+            <td class="num positive">$10.1B</td>
+            <td class="num positive">31.4%</td>
+            <td>7 of 10 PCs globally. 200+ Panther Lake designs on 18A. AI PC NPU integration.</td>
+          </tr>
+          <tr>
+            <td><strong>Data Center &amp; AI (DCAI, incl. former NEX)</strong></td>
+            <td class="num">$16.9B</td>
+            <td class="num positive">$3.4B</td>
+            <td class="num positive">20.2%</td>
+            <td class="negative">Reported +32% growth is reorganization artifact. True comparable: -9.3% decline. Server ASPs -8% YoY.</td>
+          </tr>
+          <tr>
+            <td><strong>Intel Products (combined)</strong></td>
+            <td class="num positive">$49.1B</td>
+            <td class="num positive">$13.1B</td>
+            <td class="num positive">26.5%</td>
+            <td class="positive">The profitable core. Standalone fabless would be a B-grade business.</td>
+          </tr>
+          <tr>
+            <td><strong>Intel Foundry (total)</strong></td>
+            <td class="num">$17.8B</td>
+            <td class="num negative">-$13.3B</td>
+            <td class="num negative">-74.6%</td>
+            <td class="negative">98.3% of revenue is internal transfers. External revenue: only $307M.</td>
+          </tr>
+          <tr style="background:rgba(239,68,68,0.05);">
+            <td>&#x21B3; <em>External Foundry Revenue</em></td>
+            <td class="num negative">$307M</td>
+            <td class="num">—</td>
+            <td class="num">—</td>
+            <td class="negative">Declined 3 consecutive years: $953M → $385M → $307M. Zero named commercial customers.</td>
+          </tr>
+          <tr>
+            <td><strong>All Other (Altera residual, Corporate)</strong></td>
+            <td class="num">$3.6B</td>
+            <td class="num positive">$1.5B</td>
+            <td class="num">—</td>
+            <td>Altera FPGA divested September 2025.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title">Geographic Revenue — The China Omission</h3>
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Region</th><th class="num">FY2023</th><th class="num">FY2024</th><th class="num">FY2025</th><th class="num">3yr Change</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>United States</td>
+            <td class="num">—</td>
+            <td class="num">—</td>
+            <td class="num">$15.8B</td>
+            <td class="num">—</td>
+          </tr>
+          <tr style="background:rgba(239,68,68,0.05);">
+            <td><strong>China</strong></td>
+            <td class="num negative">$12.7B</td>
+            <td class="num negative">$14.9B</td>
+            <td class="num negative">$15.5B</td>
+            <td class="num negative">+22.4%</td>
+          </tr>
+          <tr>
+            <td>Other Regions</td>
+            <td class="num">—</td>
+            <td class="num">—</td>
+            <td class="num">$21.6B</td>
+            <td class="num">—</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="margin-top:12px;padding:12px 16px;background:rgba(239,68,68,0.08);border-radius:8px;border-left:3px solid var(--accent-red);">
+      <p style="color:var(--accent-red);font-weight:600;font-size:13px;">CRITICAL OMISSION: China = 29.4% of FY2025 Revenue ($15.5B)</p>
+      <p style="color:var(--text-secondary);font-size:13px;margin-top:4px;">China revenue is essentially equal to the entire US market ($15.8B). It grew 22% over three years of escalating US-China semiconductor tensions — and was never voluntarily discussed in any of five consecutive earnings calls. A single export control event targeting Intel's server processors (Xeon families) could create a simultaneous $15.5B revenue impairment. This is the most forensically significant omission in the five-quarter transcript dataset.</p>
+    </div>
+  </div>
+
+  <div class="card analyst-insight">
+    <h3 class="card-title">The DCAI "32% Growth" Accounting Illusion</h3>
+    <p>In FY2025, Intel reorganized its segments: Network and Edge (NEX, $5.8 billion in FY2024 revenue) was absorbed into Data Center and AI. The FY2025 DCAI revenue of $16.9 billion compared against FY2024 DCAI standalone of $12.8 billion produces an apparent 32% growth rate — the number prominently cited by management and media.</p>
+    <p>The correct comparison — DCAI plus NEX combined in both years — shows FY2025 at $16.9 billion versus the FY2024 combined figure of $18.7 billion: a decline of 9.3%. On the same segment definition, data center revenue has been essentially flat since FY2022's $16.9 billion peak. The recovery narrative is driven by cost cuts (primarily the 15% headcount reduction and the reduction in Gaudi inventory charges from $922 million to $375 million) — not by genuine competitive market share recovery. Server ASPs declined 8% year-over-year per Q2-2025 10-Q disclosure.</p>
+    <div class="cross-source">
+      <strong>Confirmed by:</strong> XBRL segment data (L2), DCAI/NEX prior-period restatement analysis (L6), management call transcript comparative analysis (VL1). Confidence: HIGH.
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 8. GOVERNANCE & COMPENSATION ==================== -->
+<section class="section" id="governance">
+  <h2 class="section-title"><span class="icon">&#9881;</span> Governance &amp; Compensation</h2>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3 class="card-title">Board Structure</h3>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Metric</th><th>Value</th><th>Assessment</th></tr></thead>
+          <tbody>
+            <tr><td>Total Directors</td><td>11</td><td>Standard</td></tr>
+            <tr><td>Independent Directors</td><td>10 (90.9%)</td><td class="positive">Strong independence</td></tr>
+            <tr><td>Chair/CEO Separation</td><td>Yes</td><td class="positive">Frank Yeary (Chair)</td></tr>
+            <tr><td>Annual Elections</td><td>Yes</td><td class="positive">Full accountability</td></tr>
+            <tr><td>Dual-Class Stock</td><td>No</td><td class="positive">One share one vote</td></tr>
+            <tr><td>Staggered Board</td><td>No</td><td class="positive">No entrenchment</td></tr>
+            <tr><td>Poison Pill</td><td>No</td><td class="positive">No anti-takeover</td></tr>
+            <tr><td>Overall Governance Score</td><td>61/100</td><td class="neutral">MODERATE</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="margin-top:12px;padding:10px;background:rgba(239,68,68,0.08);border-radius:6px;border-left:3px solid var(--accent-red);">
+        <p style="font-size:13px;color:var(--text-secondary);"><strong style="color:var(--accent-red);">Chair Vacuum Risk:</strong> Frank Yeary (Board Chair) retiring at May 2026 annual meeting — no successor named, creating leadership gap at critical foundry turnaround juncture. Only 2 of 11 directors have direct semiconductor manufacturing experience relevant to the foundry transformation.</p>
+      </div>
+    </div>
+    <div class="card">
+      <h3 class="card-title">CEO Compensation (FY2025)</h3>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Component</th><th class="num">Amount</th></tr></thead>
+          <tbody>
+            <tr><td>Total Compensation (SCT)</td><td class="num">$93.0M</td></tr>
+            <tr><td>Base Salary</td><td class="num">$1.0M</td></tr>
+            <tr><td>Annual Bonus (target)</td><td class="num">$2.0M</td></tr>
+            <tr><td>Annual Bonus (actual paid)</td><td class="num neutral">$2.37M (118.7%)</td></tr>
+            <tr><td>% At-Risk Compensation</td><td class="num positive">96%</td></tr>
+            <tr><td>Personal Investment</td><td class="num positive">$25.0M</td></tr>
+            <tr><td>CEO Pay Ratio</td><td class="num">812:1</td></tr>
+            <tr><td>Median Employee Comp.</td><td class="num">$114,900</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="card analyst-insight">
+    <h3 class="card-title">Pay-for-Performance Concerns</h3>
+    <p>The FY2025 compensation structure reflects structural conflicts in performance metrics. The OpEx metric scored 200% (maximum bonus payout) — rewarding cost-cutting during a foundry turnaround that requires investment, not extraction. CEO bonus paid 118.7% of target in a year of net loss (-$267M) and negative GAAP FCF (-$4.9B). All bonus metrics are Non-GAAP — excluding restructuring, SBC, and impairments.</p>
+    <p>The most significant forensic concern: no foundry-specific milestone metrics exist in compensation structure. There is no 18A yield rate target, no external foundry customer revenue target, no 14A customer commitment milestone. The single most important strategic decision at Intel is generating zero compensation accountability.</p>
+    <div class="cross-source">
+      <strong>FY2026 redesign:</strong> Replaces OpEx metric with Operating Margin % — marginally better but still susceptible to cost-gaming over revenue generation. PSUs tied to 3-year relative TSR vs. S&amp;P 500 provide long-term alignment but have a 3-year lag before resolution.
+    </div>
+  </div>
+
+</section>
+
+<!-- ==================== 9. INSIDER & INSTITUTIONAL ==================== -->
+<section class="section" id="insider-institutional" id="insiders">
+  <h2 class="section-title"><span class="icon">&#9650;</span> Insider &amp; Institutional Activity</h2>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3 class="card-title">Key Insider Activity (FY2024–FY2026)</h3>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Insider</th><th>Type</th><th class="num">Value</th><th>Signal</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>Lip-Bu Tan (CEO)</td>
+              <td>Personal investment (contractual)</td>
+              <td class="num positive">$25.0M</td>
+              <td class="positive">Real capital deployment at ~$20.66/share (Mar 2026)</td>
+            </tr>
+            <tr>
+              <td>David Zinsner (CFO)</td>
+              <td>Open-market purchase</td>
+              <td class="num positive">$249,985</td>
+              <td class="positive">Genuine conviction — not contractually required, $42.50/share</td>
+            </tr>
+            <tr style="background:rgba(239,68,68,0.05);">
+              <td>Pat Gelsinger (ex-CEO)</td>
+              <td>Share purchase</td>
+              <td class="num negative">—</td>
+              <td class="negative">Purchased shares ~27 days before forced ouster (Dec 1, 2024) — most credibility-damaging signal in dataset</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:12px;font-size:13px;color:var(--text-secondary);">Total insider ownership: 2.98M shares (0.059% of diluted shares) — de minimis collective ownership. Management does not have meaningful economic alignment through share count.</p>
+    </div>
+    <div class="card">
+      <h3 class="card-title">Institutional Ownership</h3>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Holder</th><th class="num">Shares</th><th class="num">%</th><th>Type</th></tr></thead>
+          <tbody>
+            <tr><td>BlackRock, Inc.</td><td class="num">397.8M</td><td class="num">9.09%</td><td>Passive index</td></tr>
+            <tr><td>Vanguard Group</td><td class="num">390.8M</td><td class="num">8.80%</td><td>Passive index</td></tr>
+            <tr><td>State Street Corp.</td><td class="num">202.8M</td><td class="num">4.64%</td><td>Passive index</td></tr>
+            <tr><td>NVIDIA Corporation</td><td class="num" style="color:var(--accent-purple);">~$5.0B</td><td class="num">~15.4% dilution</td><td>Strategic equity</td></tr>
+            <tr><td>SoftBank Group</td><td class="num" style="color:var(--accent-purple);">~$2.0B</td><td class="num">Strategic</td><td>Strategic equity</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:12px;font-size:13px;color:var(--text-secondary);">Total institutional ownership: 68.4% (Q3 2025). More funds decreasing (1,155) than increasing (909) in Q3 2025. Top-3 passive holders represent ~22.5% combined — mandatory S&amp;P 500 holdings that anchor the stock regardless of fundamental performance.</p>
+    </div>
+  </div>
+
+  <div class="card analyst-insight">
+    <h3 class="card-title">The NVIDIA Paradox — Strategic Investor Analysis</h3>
+    <p>NVIDIA's $5 billion equity investment in Intel is the most forensically complex institutional event in this dataset. On the surface, it validates Intel's packaging capabilities (EMIB, Foveros) and creates strategic CPU+GPU product opportunities (NVLink partnership). Intel's stock re-rated dramatically on this announcement.</p>
+    <p>The paradox: NVIDIA simultaneously holds equity in Intel and remains Intel's most existential competitive threat. NVIDIA's CUDA ecosystem is the reason Gaudi failed ($1.3B in charges). NVIDIA has made no wafer manufacturing commitment to Intel Foundry — the single metric that actually matters for foundry economics. NVIDIA invested in Intel's CPU design and packaging capabilities while capturing the AI accelerator market Intel failed to penetrate. This is not a partnership — it is a strategic inversion that benefits NVIDIA far more than Intel.</p>
+  </div>
+</section>
+
+<!-- ==================== 10. PEER COMPARISON ==================== -->
+<section class="section" id="peer-comparison">
+  <h2 class="section-title"><span class="icon">&#9741;</span> Peer Comparison</h2>
+
+  <div class="card">
+    <h3 class="card-title">Semiconductor Peer Financial Metrics (FY2024)</h3>
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Company</th>
+            <th class="num">Revenue</th>
+            <th class="num">Gross Margin</th>
+            <th class="num">Op. Margin</th>
+            <th class="num">Net Income</th>
+            <th class="num">R&amp;D Intensity</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background:rgba(234,179,8,0.05);">
+            <td><strong>INTC — Intel</strong></td>
+            <td class="num">$53.1B</td>
+            <td class="num negative">32.7%</td>
+            <td class="num negative">-22.0%</td>
+            <td class="num negative">-$18.8B</td>
+            <td class="num">31.2%</td>
+          </tr>
+          <tr>
+            <td>AMD — Advanced Micro Devices</td>
+            <td class="num">$34.6B</td>
+            <td class="num positive">36.7%</td>
+            <td class="num positive">10.7%</td>
+            <td class="num positive">$4.3B</td>
+            <td class="num">18.6%</td>
+          </tr>
+          <tr>
+            <td>NVDA — NVIDIA</td>
+            <td class="num positive">$130.5B</td>
+            <td class="num positive">75.0%</td>
+            <td class="num positive">65.7%</td>
+            <td class="num positive">$72.9B</td>
+            <td class="num">9.9%</td>
+          </tr>
+          <tr>
+            <td>QCOM — Qualcomm</td>
+            <td class="num">$39.0B</td>
+            <td class="num">—</td>
+            <td class="num">—</td>
+            <td class="num">—</td>
+            <td class="num">22.8%</td>
+          </tr>
+          <tr>
+            <td>TXN — Texas Instruments</td>
+            <td class="num">$15.6B</td>
+            <td class="num">—</td>
+            <td class="num">—</td>
+            <td class="num">—</td>
+            <td class="num">—</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="margin-top:12px;font-size:12px;color:var(--text-muted);">Note: INTC FY2024 used for peer consistency. INTC FY2025 data available in Financial Overview section.</p>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title">Competitive Positioning Summary</h3>
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Market</th><th>Intel Position</th><th>Trend</th><th>Key Threat</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>CPU — Client (PC)</td>
+            <td class="positive">~70% market share — dominant</td>
+            <td class="neutral">STABLE but threatened</td>
+            <td>Qualcomm Snapdragon X ARM-based Windows PCs; Apple Silicon eliminated Intel from Mac</td>
+          </tr>
+          <tr>
+            <td>CPU — Server (Data Center)</td>
+            <td class="neutral">~55% market share</td>
+            <td class="negative">DECLINING — AMD EPYC gaining</td>
+            <td>AMD EPYC; Diamond Rapids SMT failure; Coral Rapids H2 2026 expected fix</td>
+          </tr>
+          <tr>
+            <td>GPU — AI Accelerators</td>
+            <td class="negative">Failed (Gaudi)</td>
+            <td class="negative">ABANDONED</td>
+            <td>NVIDIA CUDA ecosystem — dominant. AMD MI300X/MI350 is only credible second source.</td>
+          </tr>
+          <tr>
+            <td>Foundry — Commercial</td>
+            <td class="negative">Building toward 14A</td>
+            <td class="negative">BUILDING — zero commercial scale</td>
+            <td>TSMC — global standard. Samsung — second-source foundry. Both have years of external customer relationships.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 11. TEXT ANALYSIS ==================== -->
+<section class="section" id="text-analysis">
+  <h2 class="section-title"><span class="icon">&#9998;</span> Text Analysis</h2>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3 class="card-title">MD&amp;A Tone Shift: FY2024 → FY2025</h3>
+      <div style="margin-bottom:12px;">
+        <p style="font-size:13px;color:var(--text-secondary);margin-bottom:4px;"><strong>FY2024 tone:</strong> DEFENSIVE</p>
+        <p style="font-size:13px;color:var(--text-secondary);">"Transformational journey" — euphemistic framing, no explicit failure acknowledgment.</p>
+      </div>
+      <div style="margin-bottom:12px;padding:10px;background:rgba(34,197,94,0.08);border-radius:6px;border-left:3px solid var(--accent-green);">
+        <p style="font-size:13px;color:var(--text-secondary);margin-bottom:4px;"><strong>FY2025 tone:</strong> CAUTIOUSLY REFORMIST</p>
+        <p style="font-size:13px;color:var(--text-secondary);">Contingency framing, explicit failure admissions — unusually candid for a 10-K.</p>
+      </div>
+      <div style="margin-top:12px;">
+        <p style="font-size:12px;color:var(--text-muted);font-weight:600;margin-bottom:8px;">MOST CANDID 10-K ADMISSIONS:</p>
+        <ul style="margin-left:16px;color:var(--text-secondary);font-size:13px;line-height:1.9;">
+          <li>"Unsuccessful to date in becoming a meaningful participant in that [GPU AI] market"</li>
+          <li>"If we are unable to secure a significant external foundry customer for Intel 14A, we may pause or discontinue..."</li>
+          <li>"AMD gaining share in data center CPU market"</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card">
+      <h3 class="card-title">Notable Absences from FY2025 10-K</h3>
+      <div style="padding:12px;background:rgba(239,68,68,0.08);border-radius:6px;border-left:3px solid var(--accent-red);margin-bottom:12px;">
+        <p style="font-size:13px;font-weight:600;color:var(--accent-red);margin-bottom:8px;">Material Omissions:</p>
+        <ul style="margin-left:16px;color:var(--text-secondary);font-size:13px;line-height:1.9;">
+          <li>China revenue growth ($15.5B, 29.4% of total) — zero discussion</li>
+          <li>Gelsinger-era commitment outcomes — no explicit reconciliation</li>
+          <li>CHIPS Act clawback risk if milestones missed</li>
+          <li>Foundry 2027 breakeven probability range</li>
+        </ul>
+      </div>
+      <div>
+        <p style="font-size:12px;color:var(--text-muted);font-weight:600;margin-bottom:8px;">CREDIBILITY BY TOPIC:</p>
+        <div class="bar-row"><div class="bar-label">Capital Allocation</div><div class="bar-track"><div class="bar-fill" style="width:80%;background:#22c55e;">HIGH</div></div><div class="bar-value positive">HIGH</div></div>
+        <div class="bar-row"><div class="bar-label">AI Competitive</div><div class="bar-track"><div class="bar-fill" style="width:75%;background:#22c55e;">HIGH</div></div><div class="bar-value positive">HIGH</div></div>
+        <div class="bar-row"><div class="bar-label">Server Position</div><div class="bar-track"><div class="bar-fill" style="width:55%;background:#eab308;">MOD.</div></div><div class="bar-value neutral">MOD.</div></div>
+        <div class="bar-row"><div class="bar-label">Foundry Framing</div><div class="bar-track"><div class="bar-fill" style="width:50%;background:#eab308;">MOD.</div></div><div class="bar-value neutral">MOD.</div></div>
+        <div class="bar-row"><div class="bar-label">China Exposure</div><div class="bar-track"><div class="bar-fill" style="width:20%;background:#ef4444;">LOW</div></div><div class="bar-value negative">LOW</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title">New Risk Factors in FY2025 vs FY2024</h3>
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead><tr><th>New Risk Factor</th><th>Materiality</th><th>Forensic Assessment</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>14A abandonment contingency — explicit acknowledgment that leading-edge roadmap beyond 18A is customer-dependent</td>
+            <td class="num"><span class="severity-badge severity-CRITICAL">CRITICAL</span></td>
+            <td>Binary event risk disclosed for first time in 10-K — consistent with Tan's candor doctrine</td>
+          </tr>
+          <tr>
+            <td>CHIPS Act clawback risk — failure to meet performance conditions would affect capital plans</td>
+            <td class="num"><span class="severity-badge severity-HIGH">HIGH</span></td>
+            <td>$8B+ grant backstop could be reversed; triggers on specific milestone failures</td>
+          </tr>
+          <tr>
+            <td>US government potential equity acquisition — governance implications flagged</td>
+            <td class="num"><span class="severity-badge severity-MEDIUM">MEDIUM</span></td>
+            <td>Reflects CHIPS Act strategic nationalization option; unprecedented disclosure</td>
+          </tr>
+          <tr>
+            <td>18A yield and production cost — $878M LCM inventory charges in FY2025</td>
+            <td class="num"><span class="severity-badge severity-HIGH">HIGH</span></td>
+            <td>Yield not yet at target; lower-of-cost-or-market charges signal economic production cost above revenue realization</td>
+          </tr>
+          <tr>
+            <td>$34.5B CIP depreciation wave — $3-5B incremental D&amp;A as assets commission</td>
+            <td class="num"><span class="severity-badge severity-HIGH">HIGH</span></td>
+            <td>Structural, largely unavoidable margin headwind baked into the P&amp;L for 2025-2028</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 12. ADVANCED ANALYSIS ==================== -->
+<section class="section" id="advanced-analysis">
+  <h2 class="section-title"><span class="icon">&#9830;</span> Advanced Analysis</h2>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3 class="card-title">Cash Flow Quality — FCF Improvement Decomposition</h3>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Metric</th><th class="num">FY2024</th><th class="num">FY2025</th></tr></thead>
+          <tbody>
+            <tr><td>Operating Cash Flow</td><td class="num positive">$8.3B</td><td class="num positive">$9.7B</td></tr>
+            <tr><td>CapEx</td><td class="num negative">$23.9B</td><td class="num neutral">$14.6B</td></tr>
+            <tr><td>GAAP Free Cash Flow</td><td class="num negative">-$15.7B</td><td class="num negative">-$4.9B</td></tr>
+            <tr><td>Adjusted FCF</td><td class="num negative">~-$9.0B</td><td class="num negative">-$1.6B</td></tr>
+            <tr><td>Q4-2025 Quarterly FCF</td><td class="num">—</td><td class="num positive">$2.2B (adj.)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="margin-top:12px;padding:12px;background:rgba(234,179,8,0.08);border-radius:6px;border-left:3px solid var(--accent-yellow);">
+        <p style="font-size:13px;font-weight:600;color:var(--accent-yellow);">FCF Improvement Decomposition:</p>
+        <p style="font-size:13px;color:var(--text-secondary);margin-top:4px;"><strong>Total FY2025 improvement: $10.7B</strong><br>From capex cuts: $9.3B (87% of improvement)<br>From OCF improvement: $1.4B (13% of improvement)</p>
+        <p style="font-size:13px;color:var(--accent-red);margin-top:8px;font-weight:600;">This lever is now exhausted at the $14-15B floor. FY2026 FCF positive requires revenue and margin improvement — the same drivers that have been elusive for four years.</p>
+      </div>
+    </div>
+    <div class="card">
+      <h3 class="card-title">Tax Anomaly — The 121% Effective Tax Rate</h3>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Metric</th><th class="num">FY2025</th></tr></thead>
+          <tbody>
+            <tr><td>Pre-Tax Income</td><td class="num">$1.264B</td></tr>
+            <tr><td>Tax Expense</td><td class="num negative">$1.531B</td></tr>
+            <tr><td>Net Income (GAAP)</td><td class="num negative">-$267M</td></tr>
+            <tr><td>Effective Tax Rate</td><td class="num negative">121.1%</td></tr>
+            <tr><td>FY2025 DTA Valuation Allowance (incremental)</td><td class="num negative">$2.6B</td></tr>
+            <tr><td>FY2024 DTA Valuation Allowance</td><td class="num negative">$13.97B</td></tr>
+            <tr><td>Total DTA Valuation Allowance</td><td class="num negative">$16.6B+</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:12px;font-size:13px;color:var(--text-secondary);">Tax expense of $1.53B exceeds pre-tax income of $1.26B — explaining how Intel generates a pre-tax profit yet reports a net loss. Auditors have formally asserted Intel will <strong>more likely than not NOT</strong> generate sufficient taxable income to utilize $16.6B+ in deferred tax assets. Non-GAAP EPS implying $5B+ normalized profitability is structurally contradicted by this auditor stance.</p>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3 class="card-title">Dilution Analysis — 15.4% in One Year</h3>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Metric</th><th class="num">Value</th></tr></thead>
+          <tbody>
+            <tr><td>FY2024 Diluted Shares</td><td class="num">4,330M</td></tr>
+            <tr><td>FY2025 Diluted Shares</td><td class="num">4,995M</td></tr>
+            <tr><td>Net New Shares</td><td class="num negative">+665M shares</td></tr>
+            <tr><td>Dilution %</td><td class="num negative">15.4%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:12px;font-size:13px;color:var(--text-secondary);">Sources: NVIDIA $5B equity investment, SoftBank $2B investment, Apollo/Brookfield JV contributions, ongoing SBC awards. This is the largest dilution event in Intel's five-year dataset. Existing shareholders absorbed 15 cents of dilution per dollar held. Piotroski F7=0 (failing signal). Distressed companies resort to dilutive equity when operational cash flow cannot fund capital needs.</p>
+    </div>
+    <div class="card">
+      <h3 class="card-title">CIP Depreciation Liability</h3>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Metric</th><th class="num">Value</th></tr></thead>
+          <tbody>
+            <tr><td>CIP Balance (FY2025)</td><td class="num negative">$34.5B</td></tr>
+            <tr><td>Current Annual D&amp;A</td><td class="num">$10.8B</td></tr>
+            <tr><td>Incremental D&amp;A (est.)</td><td class="num negative">$3-5B/year additional</td></tr>
+            <tr><td>Commission Window</td><td class="num">2025–2028 (Ohio, Ireland, Arizona)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:12px;font-size:13px;color:var(--text-secondary);">The $34.5B CIP represents a structural margin headwind baked into Intel's P&amp;L regardless of strategy. Gelsinger-era overbuilding will burden Tan's era for 3-5 years through higher depreciation charges. This is an unavoidable mathematical consequence of capex already committed — it cannot be avoided through cost cuts or restructuring.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 13. RISK & CONVERGENCE MATRIX ==================== -->
+<section class="section" id="risk-convergence">
+  <h2 class="section-title"><span class="icon">&#9888;</span> Risk &amp; Convergence Matrix</h2>
+
+  <div class="flag-card high">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
+      <span class="severity-badge severity-CRITICAL">CRITICAL</span>
+      <strong>Foundry Binary Resolution — No External 14A Customer by End 2026</strong>
+    </div>
+    <p style="color:var(--text-secondary);font-size:13px;line-height:1.7;">Probability of negative resolution: 40-45%. Impact: Severe — potential $34.5B CIP impairment, CHIPS Act clawback, foundry abandonment. Key indicator: Language shift from "customer decisions H2 2026" to "continued engagement" in Q2/Q3 2026 calls. Confirmed by L7, L6, VL3, L2, L4 (5 independent investigation layers).</p>
+  </div>
+
+  <div class="flag-card high">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
+      <span class="severity-badge severity-CRITICAL">CRITICAL</span>
+      <strong>China Export Control Expansion — $15.5B Revenue at Risk</strong>
+    </div>
+    <p style="color:var(--text-secondary);font-size:13px;line-height:1.7;">Probability: Moderate (escalating US-China semiconductor policy). Impact: Catastrophic — simultaneous $15.5B revenue impairment with no manufacturing complexity offset. China grew from 23.4% to 29.4% of revenue across three years of increasing export control scrutiny. Management has never disclosed or discussed this risk in five consecutive earnings calls. Key indicator: US government expanded export control guidance targeting Intel's commercial processor families. Confirmed by VL1, L6, L8.</p>
+  </div>
+
+  <div class="flag-card high">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
+      <span class="severity-badge severity-HIGH">HIGH</span>
+      <strong>FCF Positive FY2026 Commitment — Capex Lever Exhausted</strong>
+    </div>
+    <p style="color:var(--text-secondary);font-size:13px;line-height:1.7;">Probability of failure: 35% (65-70% probability of success). Impact: High — fourth consecutive missed FCF commitment destroys Tan credibility, institutional credibility score below 35. 87% of FY2025 FCF improvement came from capex cuts now exhausted at $14-15B floor. Revenue and margin improvement must carry remaining gap. Confirmed by L4, L7, VL3.</p>
+  </div>
+
+  <div class="flag-card moderate">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
+      <span class="severity-badge severity-HIGH">HIGH</span>
+      <strong>$34.5B CIP Depreciation Wave — Structural Margin Headwind</strong>
+    </div>
+    <p style="color:var(--text-secondary);font-size:13px;line-height:1.7;">Probability: HIGH — structural and largely unavoidable. Impact: Significant — $3-5B incremental annual D&amp;A as Ohio/Ireland/Arizona assets commission 2025-2028. D&amp;A already at $10.8B. Monitor annual D&amp;A trajectory in FY2026-2028 financial statements. Confirmed by VL3, L3, L4, L7.</p>
+  </div>
+
+  <div class="flag-card moderate">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
+      <span class="severity-badge severity-MEDIUM">MEDIUM</span>
+      <strong>Non-GAAP vs DTA Contradiction — Investor Perception Risk</strong>
+    </div>
+    <p style="color:var(--text-secondary);font-size:13px;line-height:1.7;">Probability: Moderate — currently unchallenged by analyst community. Impact: Moderate — forces repricing of non-GAAP-dependent bull case when analyst coverage shifts toward GAAP metrics or auditors expand DTA disclosure. Non-GAAP implies $5B+ profitability; auditors formally assert insufficient future taxable income. Confirmed by VL2, L2.</p>
+  </div>
+
+  <div class="card analyst-insight" style="margin-top:16px;">
+    <h3 class="card-title">Top Convergent Findings — Multi-Source Confirmation</h3>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot negative"></div>
+        <div class="timeline-title">Intel Foundry is not a viable standalone commercial foundry</div>
+        <div class="timeline-detail">External revenue declined 3 consecutive years to $307M while losses totaled -$38.8B cumulatively. Confirmed by 7 independent data sources.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot negative"></div>
+        <div class="timeline-title">All four Gelsinger multi-year commitments failed</div>
+        <div class="timeline-detail">FCF positive 2025, revenue 3-5%, Gaudi strategy, $15B external foundry target — all missed. Confirmed by 6 independent sources.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot negative"></div>
+        <div class="timeline-title">Gaudi AI strategy failed completely</div>
+        <div class="timeline-detail">$1.3B charges, 10-K explicit failure admission, Intel pivoted from GPU competitor to NVIDIA partner in under 12 months. Confirmed by 6 sources.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot negative"></div>
+        <div class="timeline-title">China $15.5B revenue grew — never discussed in any transcript</div>
+        <div class="timeline-detail">29.4% of total, 22% growth over 3 years, zero voluntary disclosure across 5 consecutive earnings calls. Confirmed by 5 sources.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot negative"></div>
+        <div class="timeline-title">DCAI "32% growth" is a segment reorganization artifact</div>
+        <div class="timeline-detail">On comparable DCAI+NEX basis, data center revenue DECLINED 9.3% in FY2025. Confirmed by 4 sources.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 14. WATCHLIST & PREDICTIONS ==================== -->
+<section class="section" id="watchlist-predictions">
+  <h2 class="section-title"><span class="icon">&#9745;</span> Watchlist &amp; Predictions</h2>
+  <div class="card">
+    <h3 class="card-title">Monitoring Watchlist</h3>
+    <div class="watchlist-item">
+      <div class="priority-dot priority-CRITICAL"></div>
+      <div>
+        <div style="font-weight:600;margin-bottom:4px;">14A Foundry Customer Language — Q2/Q3 2026 Calls</div>
+        <div style="font-size:13px;color:var(--text-secondary);">CRITICAL — binary foundry outcome determined by H2 2026 window. Positive signal: named hyperscaler or major fabless customer disclosed. Negative signal: language softens to "engagement" and "feedback" without commitments. This single signal determines the Intel bull vs bear case resolution.</div>
+        <div style="font-size:12px;color:var(--text-muted);margin-top:6px;">Next date: Q2 2026 earnings call (expected July/August 2026) | EDGAR: <a href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0000050863&type=8-K&dateb=&owner=include&count=40" target="_blank">INTC 8-Ks</a></div>
+      </div>
+    </div>
+    <div class="watchlist-item">
+      <div class="priority-dot priority-CRITICAL"></div>
+      <div>
+        <div style="font-weight:600;margin-bottom:4px;">China Export Control Policy — Intel Commercial Processor Thresholds</div>
+        <div style="font-size:13px;color:var(--text-secondary);">HIGH — $15.5B revenue at risk. Positive signal: US maintains current thresholds below Intel's commercial product families. Negative signal: Policy expansion targeting server CPUs triggers export license requirements. Monitor US Bureau of Industry and Security (BIS) rulemaking.</div>
+        <div style="font-size:12px;color:var(--text-muted);margin-top:6px;">Monitor: US BIS export control guidance | Status: Ongoing escalation risk</div>
+      </div>
+    </div>
+    <div class="watchlist-item">
+      <div class="priority-dot priority-HIGH"></div>
+      <div>
+        <div style="font-weight:600;margin-bottom:4px;">FY2026 FCF Trajectory — GAAP vs Adjusted</div>
+        <div style="font-size:13px;color:var(--text-secondary);">HIGH — credibility of third consecutive FCF positive commitment. Positive signal: GAAP FCF positive in H2 2026, adjusted FCF positive for full year. Negative signal: Adjusted definition continues to stretch to include more exclusions.</div>
+        <div style="font-size:12px;color:var(--text-muted);margin-top:6px;">Next date: FY2026 Q1 results (April/May 2026) | Annual resolution: January 2027</div>
+      </div>
+    </div>
+    <div class="watchlist-item">
+      <div class="priority-dot priority-HIGH"></div>
+      <div>
+        <div style="font-weight:600;margin-bottom:4px;">18A Yield Improvement — Absolute Target vs Current Level</div>
+        <div style="font-size:13px;color:var(--text-secondary);">HIGH — yield economics determine foundry unit cost competitiveness. Positive signal: Management discloses absolute yield percentages and target levels (currently reported only as "7-8% monthly improvement" without baseline). Negative signal: Language remains relative improvement without baseline or target disclosure.</div>
+        <div style="font-size:12px;color:var(--text-muted);margin-top:6px;">Monitor: Quarterly earnings call disclosures | Current: "7-8% monthly improvement" — no baseline disclosed</div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <h3 class="card-title">Forward Predictions</h3>
+
+    <div class="prediction-card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+        <strong>Q1 2026 Revenue Misses Guidance Midpoint (~$12.2B)</strong>
+        <span class="severity-badge severity-HIGH">85% Confidence</span>
+      </div>
+      <p style="font-size:13px;color:var(--text-secondary);">Due to tariff uncertainty, supply trough, and Panther Lake margin dilution. Q2 2026 guided conservatively to maintain beat cadence. Time horizon: Q1 2026 results (expected April/May 2026).</p>
+      <div class="confidence-bar"><div class="confidence-fill" style="width:85%;background:var(--accent-orange);"></div></div>
+    </div>
+
+    <div class="prediction-card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+        <strong>No Named Major External 14A Foundry Customer Before Q3 2026</strong>
+        <span class="severity-badge severity-HIGH">80% Confidence</span>
+      </div>
+      <p style="font-size:13px;color:var(--text-secondary);">H2 2026 customer window will produce "encouraging engagement" language, not firm volume commitments. If wrong: named hyperscaler (Azure, AWS, Broadcom, Marvell) commits to 14A volume — foundry bull case substantially strengthens and warrants stock re-rating to $75-100. Time horizon: H2 2026 earnings calls.</p>
+      <div class="confidence-bar"><div class="confidence-fill" style="width:80%;background:var(--accent-orange);"></div></div>
+    </div>
+
+    <div class="prediction-card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+        <strong>FY2026 Adjusted FCF Turns Positive (Intel's "Adjusted" Definition)</strong>
+        <span class="severity-badge severity-MEDIUM">65% Confidence</span>
+      </div>
+      <p style="font-size:13px;color:var(--text-secondary);">GAAP FCF likely remains negative. "Adjusted" definition excludes CHIPS Act grants, JV contributions, asset monetization. Key risk: China export control expansion or supply constraint failure makes even adjusted FCF positive impossible. Time horizon: FY2026 full-year results (January 2027).</p>
+      <div class="confidence-bar"><div class="confidence-fill" style="width:65%;background:var(--accent-yellow);"></div></div>
+    </div>
+
+    <div class="prediction-card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+        <strong>GAAP Interest Coverage Remains Negative Through FY2026</strong>
+        <span class="severity-badge severity-MEDIUM">62% Confidence</span>
+      </div>
+      <p style="font-size:13px;color:var(--text-secondary);">Requires $3.3B+ EBIT improvement from FY2025's -$2.2B — depends on foundry loss narrowing from -$13.3B to approximately -$9B. Time horizon: FY2026 full-year results.</p>
+      <div class="confidence-bar"><div class="confidence-fill" style="width:62%;background:var(--accent-yellow);"></div></div>
+    </div>
+
+    <div class="prediction-card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+        <strong>No AI Partnership Converts to $500M+ Annual Foundry Revenue Within 18 Months</strong>
+        <span class="severity-badge severity-LOW">40% Confidence</span>
+      </div>
+      <p style="font-size:13px;color:var(--text-secondary);">14A risk production is late 2027, volume 2028 — partnership announcements in H2 2026 would not generate revenue until 2028 at earliest. Time horizon: Through end of 2027.</p>
+      <div class="confidence-bar"><div class="confidence-fill" style="width:40%;background:var(--accent-green);"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 15. CLOSING SYNTHESIS ==================== -->
+<section class="section synthesis-card" id="closing-synthesis">
+  <h2>Final Synthesis &#8212; The Complete Picture</h2>
+  <p class="synthesis-scope">
+    After analyzing 10 SEC filings, 5 quarters of earnings calls, and 6 forensic models across 14 investigation layers, here is what we know about <strong>Intel Corporation</strong>.
+  </p>
+  <div class="synthesis-thesis">
+    <p>Intel Corporation in April 2026 is not a simple buy-or-sell decision — it is a structured option pricing problem with a binary payoff. The Intel Products business (CCG + DCAI) is genuinely profitable at $13 billion in operating income, demonstrating real franchise value that a restructured, foundry-divested Intel could create. The Intel Foundry business is accumulating losses at -$13.3 billion annually, building toward a decision point in H2 2026 that will define Intel's next decade. At $58.95, the market is pricing in foundry transformation success probability of approximately 30-35%. The VIS residual income intrinsic value of $17.16 represents the fundamental baseline if the foundry binary resolves poorly. Investors who enter at $58.95 are making an implicit bet on foundry success at a price that offers no safety margin if it does not. That is not a value investment position — it is a speculation on a specific industrial policy outcome whose downside the market appears to underweight.</p>
+  </div>
+  <div class="synthesis-grid">
+    <div class="synthesis-col">
+      <h3>What the Numbers Say</h3>
+      <ul>
+        <li>Revenue -33% from FY2021 peak ($79B → $52.9B); 5-year CAGR -7.5%</li>
+        <li>Intel Products generated $13.0B operating income at 26.5% margin — genuinely profitable standalone</li>
+        <li>Intel Foundry: -$13.3B operating loss on $307M external revenue — destroying value at $43 per external dollar earned</li>
+        <li>Cumulative foundry losses FY2022–FY2025: -$38.8B</li>
+        <li>Altman Z-Score 1.528: distress zone. Beneish -2.59: clean accounting. Sloan -4.7%: excellent cash quality.</li>
+        <li>VIS intrinsic value $17.16 vs $58.95 market price: -243.5% margin of safety</li>
+        <li>15.4% share dilution in FY2025 — largest in five-year dataset</li>
+        <li>$34.5B CIP balance: $3-5B/year incremental D&amp;A headwind as assets commission 2025-2028</li>
+      </ul>
+    </div>
+    <div class="synthesis-col">
+      <h3>What Management Says</h3>
+      <ul>
+        <li>Tan: "Our last full fiscal year of positive adjusted free cash flow was 2021. This is completely unacceptable." — named the failure</li>
+        <li>Tan: "Capacity investments were well ahead of demand and were unwise and excessive." — explicit Gelsinger-era repudiation</li>
+        <li>10-K admission: "unsuccessful to date in becoming a meaningful participant in [GPU AI] market" — Gaudi failure confirmed</li>
+        <li>10-K contingency: 14A development may be paused or discontinued if no external customer — binary disclosed</li>
+        <li>5 consecutive quarterly beats under Tan — deliberate conservatism, not operational momentum</li>
+        <li>China revenue at 29.4% of total — never voluntarily discussed in any of five earnings calls</li>
+        <li>Zinsner Q4-2024: foundry 2027 breakeven requires only "very small amount" of external customers — accounting construct confirmed</li>
+      </ul>
+    </div>
+  </div>
+  <div class="synthesis-convergence">
+    <h3>Where They Agree</h3>
+    <ul>
+      <li>Intel Foundry has zero meaningful commercial traction — external revenue of $307M confirms management's own contingency disclosure language</li>
+      <li>The FY2021 positive FCF baseline and subsequent four-year negative FCF streak are undisputed — Tan named it, the numbers confirm it</li>
+      <li>Gaudi failed: management admitted it, $1.3B in charges documented it, the NVIDIA inversion validated it</li>
+      <li>The H2 2026 14A customer decision window is the single most important catalyst — both XBRL segment trends and transcript language converge on this</li>
+      <li>China concentration at 29.4% is confirmed by XBRL geographic data; the transcript silence is the divergence, not the fact</li>
+    </ul>
+  </div>
+  <div class="synthesis-divergence">
+    <h3>Where They Conflict</h3>
+    <ul>
+      <li>DCAI growth: management reports "32% growth" — XBRL comparable analysis shows -9.3% decline on equivalent basis</li>
+      <li>Non-GAAP profitability vs DTA: management reports non-GAAP EPS $0.42 implying $5B+ normalized earnings; auditors placed $16.6B in DTA valuation allowances asserting insufficient future taxable income — structural contradiction</li>
+      <li>China exposure: XBRL shows growing concentration (22% revenue growth, $15.5B = 29.4%); transcript provides zero disclosure — material gap between data and communication</li>
+      <li>Q4-2025 FCF positive: management frames as operational milestone; XBRL confirms it was asset monetization (Altera divestiture, SoftBank investment, CHIPS Act grants) — the drivers were one-time, not operational</li>
+      <li>Foundry 2027 "breakeven": management frames as commercial progress; Zinsner confirmed it requires only "very small amount" of external customers — it is an internal-transfer accounting event, not market achievement</li>
+    </ul>
+  </div>
+  <div class="synthesis-watchpoint">
+    <h3>The Single Most Important Thing to Watch</h3>
+    <div class="watchpoint-box">
+      <span class="watchpoint-metric">Intel 14A External Customer Decision Language</span>
+      <span class="watchpoint-value">Currently: "Customer decisions H2 2026"</span>
+      <span class="watchpoint-threshold">Threshold: Named hyperscaler or major fabless customer by Q4 2026</span>
+      <p>If H2 2026 produces named customer commitments (Azure, AWS commercial wafers, Broadcom, Marvell), the foundry binary resolves positively — the $34.5B CIP asset begins earning productive returns, CHIPS Act backstop is secured, and the NVIDIA/SoftBank investments are validated. Bull case $75-100 stock becomes defensible. If H2 2026 produces only "encouraging engagement" language without named customers, the window closes, the 14A abandonment clause becomes operational, and the choice becomes: continue building a foundry with no external revenue, write off $34.5B in CIP, or pursue a joint-venture or sale. The current stock price at $58.95 — near the 52-week high — prices in foundry success at a 30-35% probability event while offering no downside protection for the 40-45% probability negative resolution scenario.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="report-disclaimer">
+    <p>This report is an automated analysis of publicly available SEC filings and earnings call transcripts. It does not constitute investment advice, a recommendation, or a solicitation to buy, sell, or hold any security. All ratings, scores, and assessments are algorithmic outputs based on historical data and should not be relied upon for investment decisions. Past performance does not indicate future results. Investors should conduct their own due diligence and consult qualified financial advisors.</p>
+  </div>
+  <div style="display:flex; justify-content:space-between; align-items:center; margin-top:1rem;">
+    <div>SEC Forensic Analysis &middot; Intel Corporation (INTC) &middot; Generated April 9, 2026</div>
+    <div>Data sources: 10-K FY2025 (XBRL via Arelle), DEF 14A FY2025, 5 earnings call transcripts (Q3-2024 through Q4-2025), Phase 2-8 analysis &middot; 14 investigation layers analyzed</div>
+  </div>
+</footer>
+
+<script>
+// Sidebar active link tracking
+const sections = document.querySelectorAll('.section');
+const navLinks = document.querySelectorAll('.nav-link');
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(link => link.classList.remove('active'));
+      const activeLink = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
+      if (activeLink) activeLink.classList.add('active');
+    }
+  });
+}, { rootMargin: '-100px 0px -60% 0px' });
+
+sections.forEach(section => observer.observe(section));
+
+// Smooth scrolling
+document.querySelectorAll('.nav-link').forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    const target = document.querySelector(link.getAttribute('href'));
+    if (target) { target.scrollIntoView({ behavior: 'smooth' }); }
+  });
+});
+
+// Collapsible sections
+function toggleCollapse(el) {
+  el.classList.toggle('collapsed');
+  const content = el.nextElementSibling;
+  if (content) content.classList.toggle('hidden');
+}
+
+// Scroll spy — highlight active section in sidebar
+const spySections = document.querySelectorAll('.section[id]');
+const spyLinks = document.querySelectorAll('.nav-link');
+function updateSpy() {
+  let cur = '';
+  spySections.forEach(s => { if (window.scrollY >= s.offsetTop - 140) cur = s.id; });
+  spyLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + cur));
+}
+window.addEventListener('scroll', updateSpy, { passive: true });
+updateSpy();
+</script>
+</body>
+</html>
