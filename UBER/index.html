@@ -1,0 +1,1616 @@
+<!--
+  FORENSIC REPORT TEMPLATE v3.0
+  Uber Technologies, Inc. (UBER) — Generated April 13, 2026
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<title>Uber Technologies, Inc. (UBER) - SEC Forensic Analysis Report</title>
+<style>
+:root {
+  --bg-primary: #0a0e1a;
+  --bg-secondary: #111827;
+  --bg-card: #1a2234;
+  --bg-card-hover: #1f2a40;
+  --border: #2a3550;
+  --text-primary: #e8edf5;
+  --text-secondary: #8b99b0;
+  --text-muted: #5a6880;
+  --accent-green: #22c55e;
+  --accent-green-dim: rgba(34,197,94,0.15);
+  --accent-yellow: #eab308;
+  --accent-yellow-dim: rgba(234,179,8,0.15);
+  --accent-red: #ef4444;
+  --accent-red-dim: rgba(239,68,68,0.15);
+  --accent-blue: #3b82f6;
+  --accent-blue-dim: rgba(59,130,246,0.12);
+  --accent-purple: #a855f7;
+  --accent-cyan: #06b6d4;
+  --accent-orange: #f97316;
+  --nav-width: 240px;
+  --header-height: 90px;
+  --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --accent-gold: #C9A227;
+  --accent-gold-dim: rgba(201,162,39,0.10);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-padding-top: 100px; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  font-size: 14px;
+}
+a { color: var(--accent-blue); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.site-header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: var(--header-height);
+  background: linear-gradient(135deg, #0B0E13 0%, #141A26 100%);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: max(6px, env(safe-area-inset-top)) 32px 0;
+}
+.site-header::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 3px; background: linear-gradient(90deg, #C9A227 0%, #E0B830 50%, #C9A227 100%);
+}
+.header-left { display: flex; align-items: center; gap: 20px; }
+.home-btn {
+  display: flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px; border-radius: 6px;
+  background: rgba(201,162,39,0.10); border: 1px solid rgba(201,162,39,0.25);
+  color: #C9A227; text-decoration: none; transition: all 0.2s; flex-shrink: 0;
+}
+.home-btn:hover { background: rgba(201,162,39,0.2); border-color: #C9A227; text-decoration: none; }
+.home-btn svg { width: 18px; height: 18px; }
+.company-name { font-family: var(--font-serif); font-size: 24px; font-weight: 700; letter-spacing: -0.5px; }
+.ticker-badge {
+  background: rgba(201,162,39,0.10); color: #C9A227;
+  padding: 4px 12px; border-radius: 6px; font-weight: 600; font-size: 14px;
+  border: 1px solid rgba(201,162,39,0.25);
+}
+.header-right { display: flex; align-items: center; gap: 12px; }
+.verdict-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 14px; border-radius: 8px; font-size: 12px; font-weight: 600; letter-spacing: 0.3px;
+}
+.verdict-badge .label { opacity: 0.7; font-weight: 400; }
+.badge-green { background: var(--accent-green-dim); color: var(--accent-green); border: 1px solid rgba(34,197,94,0.3); }
+.badge-yellow { background: var(--accent-yellow-dim); color: var(--accent-yellow); border: 1px solid rgba(234,179,8,0.3); }
+.badge-red { background: var(--accent-red-dim); color: var(--accent-red); border: 1px solid rgba(239,68,68,0.3); }
+.sidebar {
+  position: fixed; top: var(--header-height); left: 0; bottom: 0;
+  width: var(--nav-width); background: var(--bg-secondary);
+  border-right: 1px solid var(--border);
+  overflow-y: auto; padding: 16px 0; z-index: 90;
+}
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+.nav-link {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 20px; color: var(--text-secondary);
+  font-size: 13px; cursor: pointer; transition: all 0.2s;
+  border-left: 3px solid transparent;
+}
+.nav-link:hover { background: var(--bg-card); color: var(--text-primary); text-decoration: none; }
+.nav-link.active { color: var(--accent-gold); border-left-color: var(--accent-gold); background: var(--accent-gold-dim); }
+.nav-icon { width: 18px; text-align: center; font-size: 14px; }
+.main-content {
+  margin-left: var(--nav-width); margin-top: var(--header-height);
+  padding: 32px; max-width: 1200px;
+}
+.section { margin-bottom: 48px; scroll-margin-top: 100px; }
+.section-title {
+  font-family: var(--font-serif); font-size: 22px; font-weight: 700; margin-bottom: 20px;
+  padding-bottom: 12px; border-bottom: 2px solid var(--border);
+  display: flex; align-items: center; gap: 10px;
+}
+.section-title .icon { font-size: 20px; }
+.card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 24px; margin-bottom: 16px;
+}
+.card-title { font-size: 16px; font-weight: 600; margin-bottom: 12px; }
+.analyst-insight {
+  border-left: 3px solid #c9a227;
+  background: linear-gradient(135deg, rgba(201,162,39,0.05), transparent);
+}
+.analyst-insight .card-title { color: #c9a227; font-size: 14px; text-transform: uppercase; letter-spacing: 0.05em; }
+.analyst-insight p { line-height: 1.7; margin-bottom: 12px; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th {
+  background: var(--bg-secondary); color: var(--text-secondary);
+  padding: 10px 12px; text-align: left; font-weight: 600;
+  border-bottom: 2px solid var(--border); position: sticky; top: 0;
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;
+}
+td { padding: 10px 12px; border-bottom: 1px solid var(--border); }
+tr:nth-child(even) { background: rgba(255,255,255,0.02); }
+tr:hover { background: var(--bg-card-hover); }
+.num { text-align: right; font-variant-numeric: tabular-nums; }
+.positive { color: var(--accent-green); }
+.negative { color: var(--accent-red); }
+.neutral { color: var(--accent-yellow); }
+.gauge-container { display: flex; flex-wrap: wrap; gap: 20px; }
+.gauge-card {
+  flex: 1; min-width: 280px; background: var(--bg-card);
+  border: 1px solid var(--border); border-radius: 12px; padding: 20px;
+}
+.gauge-title { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+.gauge-subtitle { font-size: 11px; color: var(--text-secondary); margin-bottom: 16px; }
+.gauge-bar {
+  height: 24px; background: var(--bg-secondary); border-radius: 12px;
+  overflow: hidden; position: relative; margin-bottom: 8px;
+}
+.gauge-fill { height: 100%; border-radius: 12px; transition: width 0.5s ease; position: relative; }
+.gauge-score { font-family: var(--font-serif); font-size: 28px; font-weight: 700; margin: 8px 0; }
+.gauge-vars { font-size: 12px; color: var(--text-secondary); line-height: 1.8; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+@media (max-width: 1024px) {
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  .header-right { display: none; }
+}
+.flag-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 20px; margin-bottom: 12px; border-left: 4px solid;
+}
+.flag-card.high { border-left-color: var(--accent-red); }
+.flag-card.moderate { border-left-color: var(--accent-yellow); }
+.flag-card.low { border-left-color: var(--accent-green); }
+.severity-badge {
+  display: inline-block; padding: 2px 8px; border-radius: 4px;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.5px;
+}
+.severity-HIGH { background: var(--accent-red-dim); color: var(--accent-red); }
+.severity-MEDIUM { background: var(--accent-yellow-dim); color: var(--accent-yellow); }
+.severity-LOW { background: var(--accent-green-dim); color: var(--accent-green); }
+.severity-CRITICAL { background: var(--accent-red-dim); color: var(--accent-red); }
+.timeline { position: relative; padding-left: 24px; }
+.timeline::before { content: ''; position: absolute; left: 8px; top: 0; bottom: 0; width: 2px; background: var(--border); }
+.timeline-item { position: relative; margin-bottom: 20px; }
+.timeline-dot { position: absolute; left: -20px; top: 6px; width: 12px; height: 12px; border-radius: 50%; border: 2px solid; background: var(--bg-primary); }
+.timeline-dot.positive { border-color: var(--accent-green); }
+.timeline-dot.negative { border-color: var(--accent-red); }
+.timeline-dot.neutral { border-color: var(--accent-yellow); }
+.timeline-date { font-size: 11px; color: var(--text-muted); margin-bottom: 4px; }
+.timeline-title { font-weight: 600; margin-bottom: 4px; }
+.timeline-detail { font-size: 13px; color: var(--text-secondary); }
+.watchlist-item {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 16px; background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 10px; margin-bottom: 10px;
+}
+.priority-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 6px; flex-shrink: 0; }
+.priority-CRITICAL { background: var(--accent-red); box-shadow: 0 0 8px var(--accent-red); }
+.priority-HIGH { background: var(--accent-orange); }
+.priority-MODERATE { background: var(--accent-yellow); }
+.priority-LOW { background: var(--accent-green); }
+.bar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+.bar-label { width: 140px; font-size: 12px; text-align: right; color: var(--text-secondary); flex-shrink: 0; }
+.bar-track { flex: 1; height: 22px; background: var(--bg-secondary); border-radius: 4px; overflow: hidden; position: relative; }
+.bar-fill { height: 100%; border-radius: 4px; display: flex; align-items: center; padding-left: 8px; font-size: 11px; font-weight: 600; color: #fff; min-width: 40px; }
+.bar-value { width: 80px; font-size: 12px; text-align: right; font-variant-numeric: tabular-nums; flex-shrink: 0; }
+.prediction-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 20px; margin-bottom: 12px;
+}
+.confidence-bar { height: 6px; background: var(--bg-secondary); border-radius: 3px; overflow: hidden; margin-top: 8px; }
+.confidence-fill { height: 100%; border-radius: 3px; }
+.site-footer {
+  margin-left: var(--nav-width); padding: 24px 32px;
+  border-top: 1px solid var(--border);
+  color: var(--text-muted); font-size: 12px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.stats-row { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 24px; }
+.stat-box {
+  flex: 1; min-width: 150px; background: var(--bg-card);
+  border: 1px solid var(--border); border-radius: 10px; padding: 16px; text-align: center;
+}
+.stat-value { font-size: 24px; font-weight: 700; }
+.stat-label { font-size: 11px; color: var(--text-secondary); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+.entrenchment-track {
+  height: 32px; background: linear-gradient(to right, var(--accent-green), var(--accent-yellow), var(--accent-red));
+  border-radius: 16px; position: relative; margin: 16px 0; opacity: 0.3;
+}
+.entrenchment-marker {
+  position: absolute; top: -4px; width: 40px; height: 40px;
+  background: var(--bg-card); border: 3px solid var(--accent-green);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 16px; transform: translateX(-50%);
+}
+.exec-summary { font-size: 15px; line-height: 1.8; color: var(--text-primary); }
+.exec-summary p { margin-bottom: 16px; text-align: justify; }
+.stacked-bar { display: flex; height: 28px; border-radius: 6px; overflow: hidden; margin-bottom: 4px; }
+.stacked-seg { display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 600; color: #fff; min-width: 20px; }
+.table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 -4px; padding: 0 4px; }
+.piotroski-badge { display: inline-block; padding: 2px 10px; border-radius: 4px; font-weight: 700; font-size: 0.85em; letter-spacing: 0.03em; }
+.score-strong { color: #fff; background-color: #28a745; }
+.score-moderate { color: #212529; background-color: #ffc107; }
+.model-label { display: inline-block; padding: 3px 12px; border-radius: 6px; font-weight: 700; font-size: 0.8em; letter-spacing: 0.04em; text-transform: uppercase; }
+.report-disclaimer {
+  margin-top: 3rem; margin-bottom: 1.5rem; padding: 1rem 1.25rem;
+  border: 1px solid var(--border); border-left: 3px solid var(--text-muted);
+  border-radius: 4px; background: rgba(255,255,255,0.02);
+  font-size: 0.78rem; line-height: 1.5; color: var(--text-muted); font-style: italic;
+}
+.report-disclaimer p { margin: 0; }
+.synthesis-card {
+  margin: 3rem 0; padding: 2.5rem; border: 2px solid #c8a84e;
+  border-radius: 12px; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  width: 100%; max-width: 100%;
+}
+.synthesis-card h2 {
+  font-size: 1.75rem; color: #c8a84e; margin-bottom: 1.5rem; text-align: center;
+  letter-spacing: 0.05em; text-transform: uppercase;
+}
+.synthesis-scope { text-align: center; font-size: 1.05rem; color: #a0a0b8; margin-bottom: 2rem; }
+.synthesis-thesis {
+  font-size: 1.2rem; line-height: 1.7; color: #e0e0e8; padding: 1.5rem;
+  border-left: 4px solid #c8a84e; background: rgba(200, 168, 78, 0.06); margin-bottom: 2rem;
+}
+.synthesis-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem; }
+.synthesis-grid h3 { color: #c8a84e; font-size: 1.1rem; margin-bottom: 1rem; border-bottom: 1px solid rgba(200, 168, 78, 0.3); padding-bottom: 0.5rem; }
+.synthesis-grid ul { list-style: none; padding: 0; }
+.synthesis-grid li { padding: 0.75rem 0; border-bottom: 1px solid rgba(255, 255, 255, 0.05); color: #c8c8d8; font-size: 0.95rem; line-height: 1.5; }
+.synthesis-grid li::before { content: "\25B8 "; color: #c8a84e; }
+.synthesis-convergence { margin-bottom: 2rem; }
+.synthesis-convergence h3 { color: #4ecdc4; font-size: 1.1rem; margin-bottom: 0.75rem; }
+.synthesis-convergence ul { list-style: none; padding: 0; }
+.synthesis-convergence li { color: #c8c8d8; padding: 0.5rem 0; line-height: 1.5; }
+.synthesis-convergence li::before { content: "\2714 "; color: #4ecdc4; }
+.synthesis-divergence {
+  margin-bottom: 2rem; padding: 1.5rem;
+  background: rgba(231, 76, 60, 0.08); border-radius: 8px; border-left: 4px solid #e74c3c;
+}
+.synthesis-divergence h3 { color: #e74c3c; font-size: 1.1rem; margin-bottom: 0.75rem; }
+.synthesis-divergence ul { list-style: none; padding: 0; }
+.synthesis-divergence li { color: #d8c8c8; padding: 0.5rem 0; font-weight: 500; line-height: 1.5; }
+.synthesis-divergence li::before { content: "\26A0 "; color: #e74c3c; }
+.synthesis-watchpoint h3 { color: #c8a84e; font-size: 1.1rem; margin-bottom: 0.75rem; }
+.watchpoint-box {
+  text-align: center; padding: 1.5rem; background: rgba(200, 168, 78, 0.1);
+  border: 1px solid #c8a84e; border-radius: 8px; margin-top: 1rem;
+}
+.watchpoint-metric { display: block; font-size: 1.3rem; font-weight: 700; color: #c8a84e; margin-bottom: 0.5rem; }
+.watchpoint-value { display: inline-block; font-size: 1.1rem; color: #e0e0e8; margin-right: 2rem; }
+.watchpoint-threshold { display: inline-block; font-size: 1.1rem; color: #e74c3c; font-weight: 600; }
+.watchpoint-box p { margin-top: 1rem; font-size: 1rem; color: #a0a0b8; line-height: 1.6; }
+@media (max-width: 1024px) {
+  .main-content { padding: 24px; }
+  .gauge-card { min-width: 220px; }
+  .synthesis-grid { grid-template-columns: 1fr; }
+  .synthesis-card { padding: 1.5rem; }
+}
+@media (max-width: 768px) {
+  .sidebar { display: none; }
+  .main-content { margin-left: 0; }
+  .site-footer { margin-left: 0; }
+  .site-header { padding: 0 16px; height: 60px; }
+  .company-name { font-size: 18px; }
+  .main-content { padding: 16px; }
+  .section { margin-bottom: 32px; }
+  .card { padding: 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-left">
+    <a href="https://thekinghippopotamus.github.io/ForensicAnalysis/" class="home-btn" title="All Reports">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    </a>
+    <span class="company-name">Uber Technologies</span>
+    <span class="ticker-badge">UBER</span>
+    <span style="color:var(--text-muted);font-size:12px;">NYSE · April 13, 2026</span>
+  </div>
+  <div class="header-right">
+    <div class="verdict-badge badge-green"><span class="label">Rating</span> BUY</div>
+    <div class="verdict-badge badge-green"><span class="label">Price</span> $72.34</div>
+    <div class="verdict-badge badge-yellow"><span class="label">12mo Target</span> $97.00</div>
+    <div class="verdict-badge badge-yellow"><span class="label">Conviction</span> Medium-High</div>
+  </div>
+</header>
+
+<!-- SIDEBAR -->
+<nav class="sidebar">
+  <a class="nav-link active" href="#executive-summary"><span class="nav-icon">📋</span>Executive Summary</a>
+  <a class="nav-link" href="#verdicts"><span class="nav-icon">⚖️</span>Verdicts</a>
+  <a class="nav-link" href="#valuation"><span class="nav-icon">💰</span>Valuation</a>
+  <a class="nav-link" href="#financials"><span class="nav-icon">📊</span>Financials</a>
+  <a class="nav-link" href="#forensic-models"><span class="nav-icon">🔬</span>Forensic Models</a>
+  <a class="nav-link" href="#transcript-intelligence"><span class="nav-icon">🎙️</span>Transcript Intelligence</a>
+  <a class="nav-link" href="#segments"><span class="nav-icon">🗂️</span>Revenue Segments</a>
+  <a class="nav-link" href="#governance"><span class="nav-icon">🏛️</span>Governance</a>
+  <a class="nav-link" href="#insiders"><span class="nav-icon">👥</span>Insiders &amp; Institutions</a>
+  <a class="nav-link" href="#peers"><span class="nav-icon">🏁</span>Peer Comparison</a>
+  <a class="nav-link" href="#text-analysis"><span class="nav-icon">📝</span>Text Analysis</a>
+  <a class="nav-link" href="#advanced"><span class="nav-icon">🚀</span>Advanced Analysis</a>
+  <a class="nav-link" href="#risks"><span class="nav-icon">⚠️</span>Risk Convergence</a>
+  <a class="nav-link" href="#watchlist"><span class="nav-icon">👁️</span>Watchlist &amp; Predictions</a>
+  <a class="nav-link" href="#synthesis"><span class="nav-icon">🔮</span>Closing Synthesis</a>
+</nav>
+
+<main class="main-content">
+
+<!-- ===== SECTION 1: EXECUTIVE SUMMARY ===== -->
+<section class="section" id="executive-summary">
+  <h2 class="section-title"><span class="icon">📋</span>Executive Summary</h2>
+
+  <div class="stats-row">
+    <div class="stat-box">
+      <div class="stat-value">$72.34</div>
+      <div class="stat-label">Current Price</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value positive">BUY</div>
+      <div class="stat-label">Rating</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value">$97</div>
+      <div class="stat-label">12-Month Target</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value negative">-29%</div>
+      <div class="stat-label">From 52w High $101.99</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value">$193.5B</div>
+      <div class="stat-label">Gross Bookings FY25</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value positive">6.6%</div>
+      <div class="stat-label">FCF Yield</div>
+    </div>
+  </div>
+
+  <div class="card analyst-insight">
+    <div class="card-title">Analyst Verdict — April 13, 2026</div>
+    <p>Uber at 29% Discount to Peak: Compounding Platform With Underappreciated Earnings Quality</p>
+    <p>Uber's FY2025 results confirm the operating leverage thesis: operating income nearly doubled (+99% to $5.6B) on only 18% revenue growth. This is the third consecutive year of operating income doubling — confirming fixed-cost absorption, not one-quarter luck. The stock trades at $72.34, 29% below its 52-week high of $101.99, on the same business that just delivered record $193.5B gross bookings and $9.8B free cash flow.</p>
+    <p><strong style="color:var(--accent-red)">CRITICAL DTA NOTE:</strong> GAAP net income of $10.1B includes $4.779B in non-cash deferred tax asset (DTA) benefit — a one-time accounting release, not operating income. Economic NI is $5.3B. The market trades at 14.8x reported P/E but 28x economic P/E. This nuance is almost universally underweighted in retail analysis. FY2026 GAAP NI will decline to ~$6.1B (base case) as DTA normalizes — this will look like a 40% earnings drop but is not business deterioration.</p>
+    <p>Entry range $68–75. 12-month target $97. 24-month target $120. Bear floor $62. Risk/reward 6:1 in favor of upside. Analyst consensus: 46 Buy / 8 Hold / 1 Sell, avg target $107.03 (+47.6% upside).</p>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title" style="color:var(--accent-green)">&#x2714; Key Findings — Bull Case</div>
+      <ul style="list-style:none;padding:0;">
+        <li style="padding:8px 0;border-bottom:1px solid var(--border);">&#x25B8; Operating income +99% YoY to $5.6B on 18% revenue growth — third consecutive doubling</li>
+        <li style="padding:8px 0;border-bottom:1px solid var(--border);">&#x25B8; 46M Uber One members (+55% YoY) spending 3.4x vs non-members = 156M economic-equivalent consumers</li>
+        <li style="padding:8px 0;border-bottom:1px solid var(--border);">&#x25B8; FCF $9.8B at 6.6% yield — rarely offered for a 17%+ growth company</li>
+        <li style="padding:8px 0;border-bottom:1px solid var(--border);">&#x25B8; Insurance cost normalized: carrier terms finalized Q4-2024, 'high single digits per trip' locked in for 2025</li>
+        <li style="padding:8px 0;border-bottom:1px solid var(--border);">&#x25B8; Advertising $2B+ run rate at ~80% gross margins — structural quality multiplier</li>
+        <li style="padding:8px 0;">&#x25B8; Q1 2026 earnings May 6 + FIFA World Cup June 11 = near-term catalyst stack</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title" style="color:var(--accent-red)">&#x26A0; Key Risks — Bear Case</div>
+      <ul style="list-style:none;padding:0;">
+        <li style="padding:8px 0;border-bottom:1px solid var(--border);">&#x25B8; Insurance reserves $12.5B exceed LTD $10.5B, grew 27% vs 18% revenue — structural liability growing faster than business</li>
+        <li style="padding:8px 0;border-bottom:1px solid var(--border);">&#x25B8; DTA depletion: $10.95B remaining; GAAP EPS will drop in FY2026 even as operations improve</li>
+        <li style="padding:8px 0;border-bottom:1px solid var(--border);">&#x25B8; Frequency deceleration: 6%&#8594;6%&#8594;4% (Q1–Q3 2024) — not disclosed Q4-2024. Critical watchpoint at May 6 earnings</li>
+        <li style="padding:8px 0;border-bottom:1px solid var(--border);">&#x25B8; Tesla robotaxi never mentioned in 5 quarters of Q&amp;A — management blind spot on #1 long-term risk</li>
+        <li style="padding:8px 0;border-bottom:1px solid var(--border);">&#x25B8; Seattle minimum wage template: -45% delivery volumes after one city's wage regulation. Replication risk unaddressed</li>
+        <li style="padding:8px 0;">&#x25B8; UK revenue 20.4% of total ($10.6B) with formalized 'worker' status — any escalation is material</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 2: VERDICTS ===== -->
+<section class="section" id="verdicts">
+  <h2 class="section-title"><span class="icon">⚖️</span>Verdicts</h2>
+  <div class="gauge-container">
+    <div class="gauge-card">
+      <div class="gauge-title">Business Quality</div>
+      <div class="gauge-subtitle">Platform economics, FCF conversion, moat durability</div>
+      <div style="display:flex;align-items:center;gap:16px;margin-bottom:12px;">
+        <div style="font-size:48px;font-family:var(--font-serif);font-weight:700;color:var(--accent-green);">A-</div>
+        <div>
+          <div style="font-size:20px;font-weight:700;">85 / 100</div>
+          <div style="font-size:12px;color:var(--text-secondary);">Strong</div>
+        </div>
+      </div>
+      <div class="gauge-bar"><div class="gauge-fill" style="width:85%;background:var(--accent-green);"></div></div>
+      <div class="gauge-vars" style="margin-top:12px;">
+        <div>&#x2714; FCF $9.8B at 6.6% yield; asset-light model (CapEx 0.65% of revenue)</div>
+        <div>&#x2714; Gross margin stable 39.8% across 3 years despite 63% revenue growth</div>
+        <div>&#x2714; Beneish -2.23, Altman 3.69, Piotroski 8/9 — all forensic models clean</div>
+        <div>&#x26A0; Insurance reserves $12.5B growing 27% YoY vs 18% revenue — deduction</div>
+      </div>
+    </div>
+    <div class="gauge-card">
+      <div class="gauge-title">Management Quality</div>
+      <div class="gauge-subtitle">Guidance accuracy, credibility, transparency, alignment</div>
+      <div style="display:flex;align-items:center;gap:16px;margin-bottom:12px;">
+        <div style="font-size:48px;font-family:var(--font-serif);font-weight:700;color:var(--accent-yellow);">B+</div>
+        <div>
+          <div style="font-size:20px;font-weight:700;">78 / 100</div>
+          <div style="font-size:12px;color:var(--text-secondary);">Above Average</div>
+        </div>
+      </div>
+      <div class="gauge-bar"><div class="gauge-fill" style="width:78%;background:var(--accent-yellow);"></div></div>
+      <div class="gauge-vars" style="margin-top:12px;">
+        <div>&#x2714; 100% guidance beat rate (3/3 quarters); EBITDA sandbagging confirmed</div>
+        <div>&#x2714; Management credibility composite: 82/100 across 5 transcript quarters</div>
+        <div>&#x2714; 90% board independence; dual-class eliminated</div>
+        <div>&#x26A0; Tesla blind spot; BYD silence; Gross Bookings as primary CEO pay metric</div>
+      </div>
+    </div>
+    <div class="gauge-card">
+      <div class="gauge-title">Current Trajectory</div>
+      <div class="gauge-subtitle">Growth momentum, operating leverage, forward indicators</div>
+      <div style="display:flex;align-items:center;gap:16px;margin-bottom:12px;">
+        <div style="font-size:48px;font-family:var(--font-serif);font-weight:700;color:var(--accent-green);">A</div>
+        <div>
+          <div style="font-size:20px;font-weight:700;">88 / 100</div>
+          <div style="font-size:12px;color:var(--text-secondary);">Excellent</div>
+        </div>
+      </div>
+      <div class="gauge-bar"><div class="gauge-fill" style="width:88%;background:var(--accent-green);"></div></div>
+      <div class="gauge-vars" style="margin-top:12px;">
+        <div>&#x2714; Operating income: -$1.8B (FY22) &#8594; $5.6B (FY25) — $7.4B swing in 3 years</div>
+        <div>&#x2714; OCF grew 15x in 3 years ($642M &#8594; $10.1B)</div>
+        <div>&#x2714; Q1 2026 guidance: $52–53.5B GB (17%+ growth)</div>
+        <div>&#x26A0; Frequency deceleration 6%&#8594;4% is the key leading-indicator watchpoint</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 3: VALUATION ===== -->
+<section class="section" id="valuation">
+  <h2 class="section-title"><span class="icon">💰</span>Valuation Context</h2>
+
+  <div class="stats-row">
+    <div class="stat-box"><div class="stat-value">$148.9B</div><div class="stat-label">Market Cap</div></div>
+    <div class="stat-box"><div class="stat-value">$153.6B</div><div class="stat-label">Enterprise Value</div></div>
+    <div class="stat-box"><div class="stat-value neutral">14.8x</div><div class="stat-label">P/E GAAP (misleading — DTA)</div></div>
+    <div class="stat-box"><div class="stat-value">28x</div><div class="stat-label">P/E Economic (correct)</div></div>
+    <div class="stat-box"><div class="stat-value positive">17.4x</div><div class="stat-label">EV/EBITDA Adj</div></div>
+    <div class="stat-box"><div class="stat-value positive">0.86</div><div class="stat-label">PEG Ratio</div></div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Valuation Multiples</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Metric</th><th class="num">Value</th><th>Note</th></tr></thead>
+          <tbody>
+            <tr><td>P/E GAAP</td><td class="num neutral">14.8x</td><td>Inflated by $4.8B DTA — misleading</td></tr>
+            <tr><td>P/E Economic</td><td class="num">28x</td><td>DTA-adjusted — use this for comparison</td></tr>
+            <tr><td>Forward P/E (consensus)</td><td class="num">16.85x</td><td>Consensus EPS $3.46</td></tr>
+            <tr><td>EV/EBITDA GAAP</td><td class="num">24.4x</td><td></td></tr>
+            <tr><td>EV/EBITDA Adj</td><td class="num positive">17.4x</td><td>Adds back SBC $1.8B</td></tr>
+            <tr><td>Price/FCF</td><td class="num positive">15.3x</td><td>FCF $9.8B</td></tr>
+            <tr><td>FCF Yield</td><td class="num positive">6.6%</td><td>Attractive for 17%+ growth</td></tr>
+            <tr><td>P/S Ratio</td><td class="num">2.95x</td><td></td></tr>
+            <tr><td>P/Gross Bookings</td><td class="num positive">0.77x</td><td>Below 1x on $193.5B GB</td></tr>
+            <tr><td>PEG Ratio</td><td class="num positive">0.86</td><td>Below 1 = undervalued vs growth</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Intrinsic Value Estimates (VIS System)</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Model</th><th class="num">Value</th><th>vs $72.34</th></tr></thead>
+          <tbody>
+            <tr><td>Graham Formula</td><td class="num">$203.32</td><td class="num positive">+181%</td></tr>
+            <tr><td>VIS Central IV</td><td class="num">$123.91</td><td class="num positive">+71%</td></tr>
+            <tr><td>Mean Reversion Target</td><td class="num">$123.93</td><td class="num positive">+71%</td></tr>
+            <tr><td>Analyst Avg Target</td><td class="num positive">$107.03</td><td class="num positive">+48%</td></tr>
+            <tr><td>12-Month Target (this report)</td><td class="num positive">$97.00</td><td class="num positive">+34%</td></tr>
+            <tr><td>EPV (normalized)</td><td class="num negative">$5.49</td><td colspan="1" style="font-size:11px;color:var(--text-muted)">Understates — rapid margin expansion</td></tr>
+            <tr><td>52-Week High</td><td class="num">$101.99</td><td class="num negative">-29%</td></tr>
+            <tr><td>52-Week Low / Bear Floor</td><td class="num">$68.46</td><td class="num negative">-5%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="margin-top:12px;padding:10px;background:var(--bg-secondary);border-radius:6px;font-size:12px;color:var(--text-secondary);">
+        <strong style="color:var(--accent-yellow)">Reverse DCF:</strong> Market implies 10.8% 10-year revenue CAGR. Trailing 3-year actual CAGR: 17.7%. Market is pricing in 7pp deceleration from current trajectory.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Options Market Signals</div>
+    <div class="grid-3">
+      <div style="text-align:center;padding:16px;background:var(--bg-secondary);border-radius:8px;">
+        <div style="font-size:28px;font-weight:700;color:var(--accent-yellow);">28.6%</div>
+        <div style="font-size:11px;color:var(--text-secondary);margin-top:4px;">IV 30-Day</div>
+      </div>
+      <div style="text-align:center;padding:16px;background:var(--bg-secondary);border-radius:8px;">
+        <div style="font-size:28px;font-weight:700;color:var(--accent-orange);">43.3%</div>
+        <div style="font-size:11px;color:var(--text-secondary);margin-top:4px;">IV 120-Day</div>
+      </div>
+      <div style="text-align:center;padding:16px;background:var(--bg-secondary);border-radius:8px;">
+        <div style="font-size:28px;font-weight:700;color:var(--accent-green);">0.87</div>
+        <div style="font-size:11px;color:var(--text-secondary);margin-top:4px;">Put/Call Ratio (bullish &lt;1)</div>
+      </div>
+    </div>
+    <div style="margin-top:16px;font-size:13px;color:var(--text-secondary);">
+      <div style="margin-bottom:8px;"><strong style="color:var(--text-primary)">IV Term Premium +14.7pp:</strong> Market pricing catalyst uncertainty around May 6 earnings and pre-World Cup period. The 120-day elevated IV reflects event risk around both Q1 earnings and FIFA World Cup 2026 (June 11).</div>
+      <div style="margin-bottom:8px;"><strong style="color:var(--text-primary)">Institutional Flow:</strong> 77% bullish, 22% bearish (Benzinga, March 2026). Largest trade: $82.50 December 2026 calls at $618K — institutional upside range target $75–$97.50.</div>
+      <div><strong style="color:var(--text-primary)">Implied Earnings Move:</strong> ±8–12% on May 6 earnings day. Options market expects a meaningful move; directional bias is bullish based on flow composition.</div>
+      <div style="margin-top:8px;font-size:11px;color:var(--text-muted);">Source: Benzinga, AlphaQuery.com (March–April 2026)</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Technical Indicators</div>
+    <div class="grid-3">
+      <div>
+        <div style="font-size:12px;color:var(--text-muted);margin-bottom:4px;">50-Day SMA</div>
+        <div style="font-size:18px;font-weight:700;color:var(--accent-red);">$73.59</div>
+        <div style="font-size:11px;color:var(--text-muted);">Price below 50-DMA</div>
+      </div>
+      <div>
+        <div style="font-size:12px;color:var(--text-muted);margin-bottom:4px;">200-Day SMA</div>
+        <div style="font-size:18px;font-weight:700;color:var(--accent-red);">$86.48</div>
+        <div style="font-size:11px;color:var(--text-muted);">Death cross Jan 6, 2026</div>
+      </div>
+      <div>
+        <div style="font-size:12px;color:var(--text-muted);margin-bottom:4px;">RSI (14-day)</div>
+        <div style="font-size:18px;font-weight:700;color:var(--accent-yellow);">48.25</div>
+        <div style="font-size:11px;color:var(--text-muted);">Neutral — no extremes</div>
+      </div>
+    </div>
+    <div style="margin-top:12px;font-size:12px;color:var(--text-secondary);">Death cross (50-DMA crossed below 200-DMA on Jan 6, 2026) is a technical headwind but often a lagging indicator at valuation inflection points. 3-month momentum -15.3%; 12-month -0.5% — stock has been effectively flat for 12 months despite substantial fundamental improvement.</div>
+  </div>
+</section>
+
+<!-- ===== SECTION 4: FINANCIALS ===== -->
+<section class="section" id="financials">
+  <h2 class="section-title"><span class="icon">📊</span>Financial Overview</h2>
+
+  <div class="card" style="border-left:4px solid var(--accent-red);">
+    <div class="card-title" style="color:var(--accent-red);">&#x26A0; DTA Distortion Warning — Read Before Interpreting Net Income</div>
+    <div style="font-size:13px;color:var(--text-secondary);line-height:1.7;">
+      FY2025 GAAP net income of $10.1B includes <strong style="color:var(--accent-red);">$4.779B in non-cash deferred tax asset (DTA) benefit</strong> — an accounting recognition event from releasing a valuation allowance against accumulated net operating losses. FY2024 NI included $6.027B of the same benefit. These are real (represent future taxes Uber won't pay) but non-recurring in the year they boost net income. <strong>Economic NI strips out DTA: FY2025 = $5.274B; FY2024 = $3.829B.</strong> All P/E comparisons should use economic NI. The GAAP P/E of 14.8x is misleading; 28x economic P/E is the correct valuation figure. FY2026 GAAP NI will be ~$6.1B (base case) — this is lower than FY2025's $10.1B but represents continued strong growth in the underlying business.
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Three-Year Income Statement ($ millions)</div>
+    <div style="font-size:11px;color:var(--text-muted);margin-bottom:12px;">Source: FY2025 10-K (SEC EDGAR); Gross Bookings from DEF 14A Pay vs. Performance table</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Metric</th><th class="num">FY2023</th><th class="num">FY2024</th><th class="num">FY2025</th><th class="num">YoY Growth</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Gross Bookings</strong></td><td class="num">$137,865</td><td class="num">$162,773</td><td class="num"><strong>$193,454</strong></td><td class="num positive">+18.8%</td></tr>
+          <tr><td><strong>Revenue</strong></td><td class="num">$37,281</td><td class="num">$43,978</td><td class="num"><strong>$52,017</strong></td><td class="num positive">+18.3%</td></tr>
+          <tr><td>Cost of Revenue (excl. D&amp;A)</td><td class="num">$22,457</td><td class="num">$26,651</td><td class="num">$31,338</td><td class="num">+17.6%</td></tr>
+          <tr><td><strong>Gross Profit</strong></td><td class="num">$14,824</td><td class="num">$17,327</td><td class="num"><strong>$20,679</strong></td><td class="num positive">+19.3%</td></tr>
+          <tr><td>Gross Margin %</td><td class="num">39.8%</td><td class="num">39.4%</td><td class="num positive"><strong>39.8%</strong></td><td class="num positive">+0.4pp</td></tr>
+          <tr><td><strong>Operating Income</strong></td><td class="num">$1,110</td><td class="num">$2,799</td><td class="num positive"><strong>$5,565</strong></td><td class="num positive">+99%</td></tr>
+          <tr><td>Operating Margin %</td><td class="num">3.0%</td><td class="num">6.4%</td><td class="num positive"><strong>10.7%</strong></td><td class="num positive">+4.3pp</td></tr>
+          <tr><td>EBITDA (GAAP)</td><td class="num">$1,933</td><td class="num">$3,510</td><td class="num positive">$6,284</td><td class="num positive">+79%</td></tr>
+          <tr><td>Adjusted EBITDA</td><td class="num">—</td><td class="num">—</td><td class="num positive">$8,700</td><td class="num positive">+43%</td></tr>
+          <tr><td>Net Income GAAP <span style="color:var(--accent-red);font-size:10px;">⚠ DTA</span></td><td class="num">$1,887</td><td class="num neutral">$9,856</td><td class="num neutral">$10,053</td><td class="num">+2.0%</td></tr>
+          <tr><td><strong>Economic Net Income</strong></td><td class="num">$1,887</td><td class="num">$3,829</td><td class="num positive"><strong>$5,274</strong></td><td class="num positive">+37.7%</td></tr>
+          <tr><td>Diluted EPS (GAAP)</td><td class="num">$0.87</td><td class="num neutral">$4.56</td><td class="num neutral">$4.73</td><td class="num">+3.7%</td></tr>
+          <tr><td>EPS (Economic)</td><td class="num">$0.87</td><td class="num">$1.83</td><td class="num positive">$2.56</td><td class="num positive">+39.9%</td></tr>
+          <tr><td><strong>Operating Cash Flow</strong></td><td class="num">$3,585</td><td class="num">$7,137</td><td class="num positive"><strong>$10,099</strong></td><td class="num positive">+41.5%</td></tr>
+          <tr><td>Capital Expenditures</td><td class="num">$223</td><td class="num">$242</td><td class="num">$336</td><td class="num">+38.8%</td></tr>
+          <tr><td><strong>Free Cash Flow</strong></td><td class="num">$3,362</td><td class="num">$6,895</td><td class="num positive"><strong>$9,763</strong></td><td class="num positive">+41.6%</td></tr>
+          <tr><td>Take Rate (Rev/GB)</td><td class="num">27.0%</td><td class="num">27.0%</td><td class="num positive">26.9%</td><td class="num">Stable</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Balance Sheet Snapshot (Dec 31, 2025)</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Item</th><th class="num">$ Millions</th></tr></thead>
+          <tbody>
+            <tr><td>Cash &amp; Equivalents</td><td class="num positive">$7,105</td></tr>
+            <tr><td>Total Assets</td><td class="num">$61,802</td></tr>
+            <tr><td>Goodwill</td><td class="num">$8,931</td></tr>
+            <tr><td>DTA Balance</td><td class="num neutral">$10,951</td></tr>
+            <tr><td>Long-Term Debt</td><td class="num">$10,521</td></tr>
+            <tr><td><strong style="color:var(--accent-red)">Insurance Reserves (Total)</strong></td><td class="num negative"><strong>$12,463</strong></td></tr>
+            <tr><td>&#x21B3; Current Portion</td><td class="num">$3,387</td></tr>
+            <tr><td>&#x21B3; Non-Current Portion</td><td class="num">$9,076</td></tr>
+            <tr><td>Total Liabilities</td><td class="num">$33,719</td></tr>
+            <tr><td>Shareholders' Equity</td><td class="num positive">$28,083</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="margin-top:12px;padding:10px;background:rgba(239,68,68,0.08);border-radius:6px;border-left:3px solid var(--accent-red);font-size:12px;">
+        <strong style="color:var(--accent-red);">Insurance Flag:</strong> $12.5B reserves exceed LTD $10.5B (1.19x coverage ratio). Grew 27% YoY vs 18% revenue — structural liability growing faster than the business. This is the most underemphasized balance sheet risk in Uber's filings.
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Key Ratios</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Ratio</th><th class="num">Value</th><th>Assessment</th></tr></thead>
+          <tbody>
+            <tr><td>Gross Margin</td><td class="num positive">39.8%</td><td>Stable 3 years</td></tr>
+            <tr><td>Operating Margin</td><td class="num positive">10.7%</td><td>Strong expansion</td></tr>
+            <tr><td>Adj EBITDA Margin</td><td class="num positive">16.7%</td><td>Of revenue</td></tr>
+            <tr><td>Economic Net Margin</td><td class="num">10.1%</td><td>DTA-adjusted</td></tr>
+            <tr><td>ROIC</td><td class="num positive">16.3%</td><td>Above WACC</td></tr>
+            <tr><td>ROE (Economic)</td><td class="num positive">20.9%</td><td>Strong</td></tr>
+            <tr><td>Current Ratio</td><td class="num positive">1.14x</td><td>Adequate</td></tr>
+            <tr><td>Interest Coverage</td><td class="num positive">12.65x</td><td>Conservative leverage</td></tr>
+            <tr><td>Debt/Adj EBITDA</td><td class="num positive">1.21x</td><td>Low leverage</td></tr>
+            <tr><td>Revenue CAGR 3yr</td><td class="num positive">17.7%</td><td>Consistent compounding</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Debt Maturity Schedule</div>
+    <div style="font-size:13px;color:var(--text-secondary);margin-bottom:16px;">No near-term maturities. First material maturity in 2028 ($2.85B). Well-staggered schedule.</div>
+    <div class="bar-row"><div class="bar-label">2026</div><div class="bar-track"><div class="bar-fill" style="width:0%;background:var(--accent-green);"></div></div><div class="bar-value positive">$0</div></div>
+    <div class="bar-row"><div class="bar-label">2027</div><div class="bar-track"><div class="bar-fill" style="width:0%;background:var(--accent-green);"></div></div><div class="bar-value positive">$0</div></div>
+    <div class="bar-row"><div class="bar-label">2028</div><div class="bar-track"><div class="bar-fill" style="width:57%;background:var(--accent-yellow);">$2.85B</div></div><div class="bar-value neutral">$2,850M</div></div>
+    <div class="bar-row"><div class="bar-label">2029</div><div class="bar-track"><div class="bar-fill" style="width:30%;background:var(--accent-yellow);">$1.5B</div></div><div class="bar-value">$1,500M</div></div>
+    <div class="bar-row"><div class="bar-label">2030</div><div class="bar-track"><div class="bar-fill" style="width:25%;background:var(--accent-yellow);">$1.25B</div></div><div class="bar-value">$1,250M</div></div>
+    <div class="bar-row"><div class="bar-label">Thereafter</div><div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--accent-blue);">$5.0B</div></div><div class="bar-value">$5,000M</div></div>
+  </div>
+</section>
+
+<!-- ===== SECTION 5: FORENSIC MODELS ===== -->
+<section class="section" id="forensic-models">
+  <h2 class="section-title"><span class="icon">🔬</span>Forensic Models</h2>
+
+  <div class="card" style="border-left:4px solid var(--accent-green);">
+    <div class="card-title" style="color:var(--accent-green);">Overall Verdict: CLEAN — No Manipulation Signal Detected</div>
+    <div style="font-size:13px;color:var(--text-secondary);">All six forensic models return favorable scores. The primary risk is DTA presentation opacity (misleading GAAP NI), not earnings manipulation. OCF $10.1B far exceeds economic NI $5.3B — earnings are strongly cash-backed. Source: phase2/forensic-models.json</div>
+  </div>
+
+  <div class="gauge-container">
+    <div class="gauge-card">
+      <div class="gauge-title">Beneish M-Score</div>
+      <div class="gauge-subtitle">Earnings manipulation detector (threshold: &lt;-1.78 = clean)</div>
+      <div class="gauge-score positive">-2.23</div>
+      <div class="gauge-bar">
+        <div class="gauge-fill" style="width:30%;background:var(--accent-green);"></div>
+      </div>
+      <div class="gauge-vars">
+        <div><span class="model-label badge-green">CLEAN</span></div>
+        <div style="margin-top:8px;">Score -2.23 well below -1.78 threshold. DTA-adjusted score: -2.59 (even stronger). Revenue growth (SGI=1.18), operating leverage, and stable gross margins all contribute. $4.8B DTA benefit inflates NI but does not trigger manipulation flags — OCF and EBIT are internally consistent.</div>
+        <div style="margin-top:6px;font-size:11px;color:var(--text-muted);">Confidence: MEDIUM-HIGH</div>
+      </div>
+    </div>
+    <div class="gauge-card">
+      <div class="gauge-title">Altman Z-Score</div>
+      <div class="gauge-subtitle">Bankruptcy predictor (safe zone: &gt;2.99)</div>
+      <div class="gauge-score positive">3.69</div>
+      <div class="gauge-bar">
+        <div class="gauge-fill" style="width:62%;background:var(--accent-green);"></div>
+      </div>
+      <div class="gauge-vars">
+        <div><span class="model-label badge-green">SAFE ZONE</span></div>
+        <div style="margin-top:8px;">Driven by X4 = Market Cap / Total Liabilities = $149B / $33.7B = 4.4x. Interest coverage 12.65x confirms debt service capacity. Insurance reserves ($12.5B) are included in liabilities but not traditional debt obligations.</div>
+        <div style="margin-top:6px;font-size:11px;color:var(--text-muted);">Confidence: MEDIUM</div>
+      </div>
+    </div>
+    <div class="gauge-card">
+      <div class="gauge-title">Piotroski F-Score</div>
+      <div class="gauge-subtitle">Financial strength (0-9; &gt;6 = strong)</div>
+      <div class="gauge-score positive">8 / 9</div>
+      <div class="gauge-bar">
+        <div class="gauge-fill" style="width:89%;background:var(--accent-green);"></div>
+      </div>
+      <div class="gauge-vars">
+        <div><span class="piotroski-badge score-strong">STRONG</span></div>
+        <div style="margin-top:8px;">8 of 9 criteria pass. Passes: Positive ROA, Positive OCF, ROA improving, OCF &gt; NI (cash quality), Leverage decreasing, Liquidity improving, No dilution, Gross margin improving. Single deduction: Asset turnover declining (caused by DTA asset inflation, not operational deterioration).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:16px;">
+    <div class="card">
+      <div class="card-title">Sloan Accrual Ratio</div>
+      <div style="font-size:28px;font-weight:700;color:var(--accent-green);margin-bottom:8px;">-7.8%</div>
+      <div style="font-size:13px;color:var(--text-secondary);">
+        <span class="severity-badge severity-LOW">HIGH CASH QUALITY</span>
+        <div style="margin-top:8px;">Negative accruals confirm OCF far exceeds economic earnings. OCF $10.1B vs Economic NI $5.3B = 190% OCF/NI ratio. Earnings are strongly backed by cash — the clearest earnings quality signal possible.</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Cash Quality Composite</div>
+      <div style="font-size:13px;color:var(--text-secondary);">
+        <div class="table-wrap">
+          <table>
+            <tbody>
+              <tr><td>OCF / Net Income</td><td class="num positive">100.5%</td></tr>
+              <tr><td>FCF / Adj EBITDA</td><td class="num positive">155.4%</td></tr>
+              <tr><td>CapEx Intensity</td><td class="num positive">0.65% of revenue</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="margin-top:8px;"><span class="severity-badge severity-LOW">HEALTHY</span> Cash conversion confirmed. Note: If insurance reserve build ($2.67B YoY) treated as operating outflow, adjusted FCF = ~$7.1B. Still strong but 30% below headline OCF.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 6: TRANSCRIPT INTELLIGENCE ===== -->
+<section class="section" id="transcript-intelligence">
+  <h2 class="section-title"><span class="icon">🎙️</span>Transcript Intelligence</h2>
+  <div style="font-size:12px;color:var(--text-muted);margin-bottom:16px;">Source: 5 quarters of earnings call transcripts (Q4-2023 through Q4-2024) — 54 total Q&amp;A pairs. Layers L1–L10 from phase8/.</div>
+
+  <div class="stats-row">
+    <div class="stat-box">
+      <div class="stat-value positive">82/100</div>
+      <div class="stat-label">Credibility Score (A-)</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value positive">100%</div>
+      <div class="stat-label">Guidance Beat Rate</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value">7/10</div>
+      <div class="stat-label">Promises Tracked: HIT</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value positive">0</div>
+      <div class="stat-label">Guidance Misses</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value neutral">300-500bp</div>
+      <div class="stat-label">EBITDA Under-Guidance</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Top 5 Signals From Transcripts</div>
+    <div class="flag-card high" style="margin-top:12px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+        <span class="severity-badge severity-HIGH">SIGNAL #1</span>
+        <strong>Frequency Deceleration is the Hidden Growth Risk</strong>
+      </div>
+      <div style="font-size:13px;color:var(--text-secondary);">Frequency growth decelerated 6%→6%→4% across Q1–Q3 2024. Not disclosed in Q4-2024. If frequency falls to 2–3%, Uber's growth algorithm converges to audience-only growth (~10–11%), compressing the earnings story materially. <strong style="color:var(--text-primary)">Watch Q1 2026 transcript (May 6) for frequency disclosure — its absence is itself a warning signal.</strong></div>
+    </div>
+    <div class="flag-card moderate" style="margin-top:8px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+        <span class="severity-badge severity-MEDIUM">SIGNAL #2</span>
+        <strong>AV Narrative Successfully Converted from Threat to Opportunity</strong>
+      </div>
+      <div style="font-size:13px;color:var(--text-secondary);">Q1-2024: analysts framed AV as existential risk. Q4-2024: analysts asked how to invest more in AV assets. 4-quarter narrative inversion via systematic Q&amp;A framing and Waymo partnership announcements. The underlying structural risk (Waymo/Tesla going direct) was reframed, not resolved. Monitor Waymo strategic announcements.</div>
+    </div>
+    <div class="flag-card low" style="margin-top:8px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+        <span class="severity-badge severity-LOW">SIGNAL #3</span>
+        <strong>Insurance Cost Normalization Locked In for 2025</strong>
+      </div>
+      <div style="font-size:13px;color:var(--text-secondary);">CFO Mahendra-Rajah Q4-2024: "Finalized terms with all carriers — market pricing is stable." Motor vehicle CPI decelerated from 20%+ to 11% YoY. 2025 guidance: "high single digits per trip." This is a completed negotiation, not a projection — most concrete near-term earnings catalyst.</div>
+    </div>
+    <div class="flag-card low" style="margin-top:8px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+        <span class="severity-badge severity-LOW">SIGNAL #4</span>
+        <strong>Uber One Flywheel Underweighted in Consensus Models</strong>
+      </div>
+      <div style="font-size:13px;color:var(--text-secondary);">46M members (FY2025 proxy) at 3.4x spend vs non-members = economically equivalent to 156M non-member consumers. This cohort generates compounding revenue growth without new customer acquisition. XBRL has no membership metric, no ARPU by cohort — this quality is entirely invisible in standard financial data.</div>
+    </div>
+    <div class="flag-card high" style="margin-top:8px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+        <span class="severity-badge severity-HIGH">SIGNAL #5</span>
+        <strong>Seattle Minimum Wage Template Risk Systematically Underweighted</strong>
+      </div>
+      <div style="font-size:13px;color:var(--text-secondary);">Q1-2024: CEO disclosed Delivery order volumes fell 45% in Seattle; NYC couriers cut 25% after wage regulations. Mentioned once — never revisited by management or analysts in 4 subsequent quarters. If the Seattle model spreads to 5–10 major US markets, cumulative Delivery GB impact would be severe. Most underweighted systematic risk in consensus.</div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">AV Narrative Arc (5 Quarters)</div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot negative"></div>
+          <div class="timeline-date">Q4-2023</div>
+          <div class="timeline-title">Not Discussed</div>
+          <div class="timeline-detail">Zero AV Q&amp;A mentions</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot negative"></div>
+          <div class="timeline-date">Q1-2024</div>
+          <div class="timeline-title">RISK — Analyst Threat Frame</div>
+          <div class="timeline-detail">CEO reassures: "long transition period"</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot neutral"></div>
+          <div class="timeline-date">Q2-2024</div>
+          <div class="timeline-title">MATH ADVANTAGE</div>
+          <div class="timeline-detail">20% take rate math = marketplace advantage</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot positive"></div>
+          <div class="timeline-date">Q3-2024</div>
+          <div class="timeline-title">ACTIVE PARTNERSHIP</div>
+          <div class="timeline-detail">14 AV partners; SF market share data; Austin/Atlanta announced</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot positive"></div>
+          <div class="timeline-date">Q4-2024</div>
+          <div class="timeline-title">STRATEGIC CENTERPIECE</div>
+          <div class="timeline-detail">9 AV companies named; 5-factor commercialization model; Austin launch imminent</div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Topics Management Avoids</div>
+      <div style="font-size:13px;color:var(--text-secondary);">
+        <div class="flag-card high" style="margin-bottom:8px;padding:12px;">
+          <strong>Tesla Robotaxi</strong> — Never explicitly named in 5 quarters of Q&amp;A despite representing the #1 long-term disintermediation risk (millions of vehicles at scale)
+        </div>
+        <div class="flag-card high" style="margin-bottom:8px;padding:12px;">
+          <strong>Rivian Production Risk</strong> — $1.25B commitment; zero transcript mentions. 15-city rollout target for 2026 is aspirational with no operational validation.
+        </div>
+        <div class="flag-card moderate" style="margin-bottom:8px;padding:12px;">
+          <strong>BYD EV Partnership Progress</strong> — 100K EV commitment made Q2-2024 with enthusiastic CEO endorsement. Silent since. US tariffs on Chinese vehicles may have killed the economics.
+        </div>
+        <div class="flag-card moderate" style="padding:12px;">
+          <strong>Frequency Deceleration</strong> — Explicitly disclosed Q1–Q3 2024; dropped from Q4-2024 prepared remarks and Q&amp;A. Absence of disclosure is itself a signal.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 7: REVENUE SEGMENTS ===== -->
+<section class="section" id="segments">
+  <h2 class="section-title"><span class="icon">🗂️</span>Revenue Segments</h2>
+
+  <div class="stats-row">
+    <div class="stat-box"><div class="stat-value">$193.5B</div><div class="stat-label">Gross Bookings</div></div>
+    <div class="stat-box"><div class="stat-value">40M</div><div class="stat-label">Daily Trips</div></div>
+    <div class="stat-box"><div class="stat-value">46M</div><div class="stat-label">Uber One Members</div></div>
+    <div class="stat-box"><div class="stat-value">9.7M</div><div class="stat-label">Drivers &amp; Couriers</div></div>
+    <div class="stat-box"><div class="stat-value">70</div><div class="stat-label">Countries</div></div>
+    <div class="stat-box"><div class="stat-value positive">26.9%</div><div class="stat-label">Blended Take Rate</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Revenue by Segment (FY2025, $ millions)</div>
+    <div style="margin-bottom:12px;">
+      <div class="stacked-bar">
+        <div class="stacked-seg" style="width:57%;background:#3b82f6;">Mobility 57%</div>
+        <div class="stacked-seg" style="width:33%;background:#22c55e;">Delivery 33%</div>
+        <div class="stacked-seg" style="width:10%;background:#6b7280;">Freight 10%</div>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Segment</th><th class="num">FY2023</th><th class="num">FY2024</th><th class="num">FY2025</th><th class="num">YoY</th><th>Assessment</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Mobility</strong></td>
+            <td class="num">$19,832</td>
+            <td class="num">$25,087</td>
+            <td class="num positive"><strong>$29,670</strong></td>
+            <td class="num positive">+18.3%</td>
+            <td><span class="severity-badge severity-LOW">STRONG</span></td>
+          </tr>
+          <tr>
+            <td><strong>Delivery</strong></td>
+            <td class="num">$12,204</td>
+            <td class="num">$13,750</td>
+            <td class="num positive"><strong>$17,248</strong></td>
+            <td class="num positive">+25.4%</td>
+            <td><span class="severity-badge severity-LOW">RE-ACCELERATING</span></td>
+          </tr>
+          <tr>
+            <td><strong>Freight</strong></td>
+            <td class="num">$5,099</td>
+            <td class="num">$5,141</td>
+            <td class="num neutral"><strong>$5,245</strong></td>
+            <td class="num neutral">+2.0%</td>
+            <td><span class="severity-badge severity-MEDIUM">DIVEST-LEANING</span></td>
+          </tr>
+          <tr style="background:rgba(201,162,39,0.05);">
+            <td><strong>Total</strong></td>
+            <td class="num">$37,281</td>
+            <td class="num">$43,978</td>
+            <td class="num positive"><strong>$52,017</strong></td>
+            <td class="num positive">+18.3%</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title" style="color:var(--accent-blue);">Mobility — Key Drivers &amp; Risks</div>
+      <div style="font-size:13px;color:var(--text-secondary);">
+        <div style="margin-bottom:8px;"><strong style="color:var(--text-primary)">Take rate: 28–30%</strong> | 57% of total revenue</div>
+        <div style="margin-bottom:6px;">&#x2714; AV partnerships: 7 cities, 25+ partners (Waymo Austin live)</div>
+        <div style="margin-bottom:6px;">&#x2714; Less-dense market expansion growing 1.5x faster than core cities</div>
+        <div style="margin-bottom:6px;">&#x2714; Uber Teens — new demographic acquisition; doubled countries Q4-2024</div>
+        <div style="margin-bottom:6px;">&#x2714; Insurance cost normalization locked in for 2025</div>
+        <div style="margin-bottom:6px;">&#x26A0; Driver classification — UK 'worker' status; Netherlands exposure</div>
+        <div style="margin-bottom:6px;">&#x26A0; AV disintermediation if Waymo/Tesla scale direct-to-consumer</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title" style="color:var(--accent-green);">Delivery — Re-acceleration Story</div>
+      <div style="font-size:13px;color:var(--text-secondary);">
+        <div style="margin-bottom:8px;"><strong style="color:var(--text-primary)">Re-accelerated from 12.7% (FY2024) to 25.4% (FY2025)</strong></div>
+        <div style="margin-bottom:6px;">&#x2714; Uber One flywheel: members spend 3.4x; 50% of delivery GB covered</div>
+        <div style="margin-bottom:6px;">&#x2714; Advertising: $2B+ run rate (+50% YoY) at ~80% gross margins</div>
+        <div style="margin-bottom:6px;">&#x2714; Trendyol Go acquisition (Turkey, June 2025) adds grocery scale</div>
+        <div style="margin-bottom:6px;">&#x2714; First-time Eats consumers highest in 5 quarters (Q2-2024)</div>
+        <div style="margin-bottom:6px;">&#x26A0; Seattle template: -45% delivery volumes after wage regulation</div>
+        <div style="margin-bottom:6px;">&#x26A0; DoorDash is official FIFA World Cup food delivery partner</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Geographic Revenue Breakdown (FY2025)</div>
+    <div class="bar-row"><div class="bar-label">US &amp; Canada</div><div class="bar-track"><div class="bar-fill" style="width:51%;background:var(--accent-blue);">$26.5B</div></div><div class="bar-value">50.9% <span class="positive">+12.1%</span></div></div>
+    <div class="bar-row"><div class="bar-label">EMEA</div><div class="bar-track"><div class="bar-fill" style="width:31%;background:var(--accent-green);">$16.4B</div></div><div class="bar-value">31.5% <span class="positive">+30.6%</span></div></div>
+    <div class="bar-row"><div class="bar-label">APAC</div><div class="bar-track"><div class="bar-fill" style="width:11%;background:var(--accent-yellow);">$5.9B</div></div><div class="bar-value">11.3% <span class="positive">+16.3%</span></div></div>
+    <div class="bar-row"><div class="bar-label">Latin America</div><div class="bar-track"><div class="bar-fill" style="width:6%;background:var(--accent-orange);">$3.3B</div></div><div class="bar-value">6.4% <span class="positive">+19.0%</span></div></div>
+    <div style="margin-top:12px;padding:10px;background:rgba(239,68,68,0.08);border-radius:6px;border-left:3px solid var(--accent-red);font-size:12px;">
+      <strong style="color:var(--accent-red);">UK Concentration Flag:</strong> UK revenue $10.609B = 20.4% of global total (+26.8% YoY). UK Supreme Court 2021 classified drivers as 'workers' (intermediate status). Any escalation to full 'employee' would materially impact unit economics in Uber's single largest country.
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 8: GOVERNANCE ===== -->
+<section class="section" id="governance">
+  <h2 class="section-title"><span class="icon">🏛️</span>Governance</h2>
+
+  <div class="card">
+    <div class="card-title">Entrenchment Score: 3.5 / 10 (Lower = Better)</div>
+    <div class="entrenchment-track">
+      <div class="entrenchment-marker" style="left:35%;border-color:var(--accent-green);">3.5</div>
+    </div>
+    <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-muted);margin-bottom:12px;">
+      <span>0 — Best Governance</span><span>5 — Average</span><span>10 — Worst</span>
+    </div>
+    <div style="font-size:13px;color:var(--text-secondary);">Above average governance for post-IPO tech. Dual-class shares eliminated, 90% board independence, clawback policy exceeds regulatory requirements. Primary concerns: Gross Bookings as primary CEO pay metric (volume incentive over profitability) and related-party dual-role conflicts. Source: phase2/governance.json; DEF 14A 2026.</div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Board &amp; Compensation</div>
+      <div class="table-wrap">
+        <table>
+          <tbody>
+            <tr><td>Board Directors</td><td class="num">10</td></tr>
+            <tr><td>Independent Directors</td><td class="num positive">9 (90%)</td></tr>
+            <tr><td>Dual-Class Shares</td><td class="num positive">Eliminated</td></tr>
+            <tr><td>S&amp;P 100 Membership</td><td class="num positive">September 2025</td></tr>
+            <tr><td>CEO Total Comp (FY2025)</td><td class="num">$35.6M</td></tr>
+            <tr><td>Pay Ratio</td><td class="num neutral">360:1</td></tr>
+            <tr><td>Median Employee</td><td class="num">$98,826</td></tr>
+            <tr><td>Primary Pay Metric</td><td class="num neutral">Gross Bookings</td></tr>
+            <tr><td>SBC FY2025</td><td class="num">$1,826M (3.5%)</td></tr>
+            <tr><td>Evergreen Plan</td><td class="num positive">Eliminated 2026</td></tr>
+            <tr><td>Golden Parachute Gross-ups</td><td class="num positive">None</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Related Party Flags</div>
+      <div class="flag-card moderate" style="margin-bottom:8px;padding:12px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+          <strong>Aurora</strong><span class="severity-badge severity-MEDIUM">MEDIUM</span>
+        </div>
+        <div style="font-size:12px;color:var(--text-secondary);">$1.25B equity stake + AV partner. Dual role creates incentive to favor Aurora over other AV partners. $802M unrealized loss FY2025.</div>
+      </div>
+      <div class="flag-card moderate" style="margin-bottom:8px;padding:12px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+          <strong>Moove</strong><span class="severity-badge severity-MEDIUM">MEDIUM</span>
+        </div>
+        <div style="font-size:12px;color:var(--text-secondary);">Equity investment + term loan + vehicle financing. Uber steers driver financing to Moove where it has equity interest.</div>
+      </div>
+      <div class="flag-card moderate" style="margin-bottom:8px;padding:12px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+          <strong>Lime (Neutron Holdings)</strong><span class="severity-badge severity-MEDIUM">MEDIUM</span>
+        </div>
+        <div style="font-size:12px;color:var(--text-secondary);">$190M convertible note — Level 3 fair value (not market-observable). Subjective valuation risk.</div>
+      </div>
+      <div class="flag-card low" style="padding:12px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+          <strong>SoftBank via Arora</strong><span class="severity-badge severity-LOW">LOW-MEDIUM</span>
+        </div>
+        <div style="font-size:12px;color:var(--text-secondary);">Nikesh Arora (new director 2025) is former SoftBank President. SoftBank is a significant UBER holder.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 9: INSIDERS & INSTITUTIONS ===== -->
+<section class="section" id="insiders">
+  <h2 class="section-title"><span class="icon">👥</span>Insiders &amp; Institutional Holdings</h2>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Insider Sentiment</div>
+      <div style="text-align:center;margin-bottom:16px;">
+        <div style="font-size:32px;font-weight:700;color:var(--accent-yellow);">NEUTRAL</div>
+        <div style="font-size:12px;color:var(--text-secondary);">All Form 4 clusters align with RSU vesting schedules</div>
+      </div>
+      <div style="font-size:13px;color:var(--text-secondary);">
+        <div style="margin-bottom:8px;">&#x2714; 96 Form 4 filings analyzed (6-month window)</div>
+        <div style="margin-bottom:8px;">&#x2714; All major clusters consistent with pre-arranged 10b5-1 plans</div>
+        <div style="margin-bottom:8px;">&#x2714; CEO sold 300K shares September 2025 under 10b5-1 plan (adopted November 2024) — scheduled, not opportunistic</div>
+        <div style="margin-bottom:8px;">&#x2714; CEO received 97,879 RSU grants March 2026 — board confidence in long-term retention</div>
+        <div>No unscheduled open-market buys detected. No pre-earnings cluster. No red flags.</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Institutional Ownership Overview</div>
+      <div class="table-wrap">
+        <table>
+          <tbody>
+            <tr><td>Total Institutional Ownership</td><td class="num neutral">79.4%</td></tr>
+            <tr><td>Prior Quarter</td><td class="num">82.4%</td></tr>
+            <tr><td>Change</td><td class="num negative">-3.0pp</td></tr>
+            <tr><td>Period</td><td class="num">December 2025</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="margin-top:12px;padding:10px;background:rgba(234,179,8,0.08);border-radius:6px;border-left:3px solid var(--accent-yellow);font-size:12px;">
+        <strong>Net Signal: NEUTRAL-TO-CAUTIOUS</strong> — Net institutional selling in Q4 2025, anchored by passive/sovereign holders limiting downside. Largest buyer: Norges Bank +30.8M shares (Norway SWF — long-term valuation confidence). Largest sellers: Tudor Investment -43.7M, Fidelity -29.4M.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Top 10 Institutional Holders</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>#</th><th>Institution</th><th class="num">Shares (M)</th><th>Type</th><th>Activity</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>Vanguard Group</td><td class="num">192.5 (9.06%)</td><td>Passive Index</td><td class="neutral">Stable</td></tr>
+          <tr><td>2</td><td>BlackRock</td><td class="num">154.8</td><td>Passive Index</td><td class="neutral">Stable</td></tr>
+          <tr><td>3</td><td>Capital Research Global</td><td class="num">113.5</td><td>Active</td><td class="neutral">—</td></tr>
+          <tr><td>4</td><td>State Street</td><td class="num">90.9</td><td>Passive Index</td><td class="neutral">Stable</td></tr>
+          <tr><td>5</td><td>Morgan Stanley</td><td class="num">80.2</td><td>Active / Prime Brokerage</td><td class="neutral">—</td></tr>
+          <tr><td>6</td><td>Public Investment Fund (Saudi Arabia)</td><td class="num">72.8</td><td>Sovereign Wealth</td><td class="positive">Strategic long-term</td></tr>
+          <tr><td>7</td><td>Geode Capital Management</td><td class="num">47.9</td><td>Passive</td><td class="neutral">Stable</td></tr>
+          <tr><td>8</td><td>FMR LLC (Fidelity)</td><td class="num">31.6</td><td>Active</td><td class="negative">SOLD -29.4M shares Q4</td></tr>
+          <tr><td>9</td><td>Norges Bank (Norway SWF)</td><td class="num">30.8</td><td>Sovereign Wealth</td><td class="positive">BOUGHT +30.8M shares Q4</td></tr>
+          <tr><td>10</td><td>Pershing Square (Ackman)</td><td class="num">30.2</td><td>Activist/Hedge Fund</td><td class="neutral">Potential activist angle</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 10: PEER COMPARISON ===== -->
+<section class="section" id="peers">
+  <h2 class="section-title"><span class="icon">🏁</span>Peer Comparison</h2>
+
+  <div class="card">
+    <div class="card-title">UBER vs LYFT vs DASH — FY2025</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Metric</th><th class="num">UBER</th><th class="num">LYFT</th><th class="num">DASH</th></tr></thead>
+        <tbody>
+          <tr><td>Gross Bookings ($B)</td><td class="num positive"><strong>$193.0</strong></td><td class="num">$18.5</td><td class="num">—</td></tr>
+          <tr><td>Revenue ($B)</td><td class="num positive"><strong>$52.0</strong></td><td class="num">$6.3</td><td class="num">$13.7</td></tr>
+          <tr><td>Revenue YoY Growth</td><td class="num positive">+18.3%</td><td class="num">+9.0%</td><td class="num positive">+27.9%</td></tr>
+          <tr><td>Adj EBITDA ($B)</td><td class="num positive"><strong>$8.7</strong></td><td class="num">$0.53</td><td class="num">$1.55</td></tr>
+          <tr><td>Adj EBITDA Margin (% of GB)</td><td class="num positive"><strong>4.5%</strong></td><td class="num">2.9%</td><td class="num">2.6%</td></tr>
+          <tr><td>OCF ($B)</td><td class="num positive"><strong>$10.1</strong></td><td class="num">—</td><td class="num">—</td></tr>
+          <tr><td>Geographic Scope</td><td class="num positive">Global (70+ countries)</td><td class="num negative">US &amp; Canada only</td><td class="num">US + 25 int'l markets</td></tr>
+          <tr><td>World Cup Beneficiary Rank</td><td class="num positive"><strong>#1</strong></td><td class="num">#3</td><td class="num">#2 (official partner)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="margin-top:12px;font-size:12px;color:var(--text-secondary);">
+      UBER gross bookings are <strong>10.4x Lyft</strong> and <strong>3.8x DoorDash revenue</strong>. EBITDA margin (4.5% of GB) leads peers by 55-73%. Lyft remains US-only with no international tourist capture for World Cup 2026. DoorDash IS the official FIFA World Cup food delivery partner, providing temporary brand advantage in summer 2026.
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">FIFA World Cup 2026 — Beneficiary Ranking</div>
+    <div class="flag-card low" style="margin-bottom:8px;padding:12px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div><strong>#1 — UBER</strong>: $377M GB uplift (J.P. Morgan base). Kiosk infrastructure at US host city airports. Global tourist advantage in 70+ countries. Waymo AV potential in host cities.</div>
+        <span class="severity-badge severity-LOW">PRIMARY BENEFICIARY</span>
+      </div>
+    </div>
+    <div class="flag-card moderate" style="margin-bottom:8px;padding:12px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div><strong>#2 — DoorDash</strong>: Official FIFA World Cup food delivery partner. Brand marketing exclusivity but limited gross bookings uplift vs Uber's transportation volume.</div>
+        <span class="severity-badge severity-MEDIUM">OFFICIAL PARTNER</span>
+      </div>
+    </div>
+    <div class="flag-card low" style="padding:12px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div><strong>#3 — Lyft</strong>: $153M GB uplift (J.P. Morgan). US-only; no international tourist capture; no airport kiosk infrastructure.</div>
+        <span class="severity-badge severity-LOW">LIMITED BENEFICIARY</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 11: TEXT ANALYSIS ===== -->
+<section class="section" id="text-analysis">
+  <h2 class="section-title"><span class="icon">📝</span>Text Analysis — 10-K &amp; Proxy</h2>
+
+  <div class="card">
+    <div class="card-title">Linguistic Credibility Score: 7.5/10 — Above Average</div>
+    <div style="font-size:13px;color:var(--text-secondary);margin-bottom:16px;">Above average. Narrative is credible but selectively transparent. Management discloses risks being managed; opaque on risks not yet acknowledged. Source: phase2/text-analysis.json</div>
+
+    <div class="card-title">MDA Key Narratives — Verified</div>
+    <div style="font-size:13px;color:var(--text-secondary);">
+      <div style="padding:10px 0;border-bottom:1px solid var(--border);">
+        <strong style="color:var(--text-primary);">Platform at Scale — Operating Leverage Visible:</strong> $5.6B operating income on 18% revenue growth is the 'operating leverage story' management built toward since 2021. Verified by $10.1B OCF — cash quality confirms the narrative.
+      </div>
+      <div style="padding:10px 0;border-bottom:1px solid var(--border);">
+        <strong style="color:var(--text-primary);">Mobility + Delivery + Advertising Flywheel:</strong> 46M Uber One members, $2B+ advertising at ~80% margins, 40M daily trips, 9.7M drivers are mutually reinforcing. Advertising is increasingly material at near-zero marginal cost.
+      </div>
+      <div style="padding:10px 0;">
+        <strong style="color:var(--text-primary);">Uber as AV Platform — Not Replaced by AV:</strong> 7 AV cities, 25+ partners, asset-light strategy. Credibility: MEDIUM — bull case is compelling but Aurora $802M unrealized loss undermines the AV partnership thesis.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Risks Potentially Downplayed in Filings</div>
+    <div class="flag-card high" style="margin-bottom:8px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <strong>Insurance Reserve Trajectory</strong><span class="severity-badge severity-HIGH">HIGH</span>
+      </div>
+      <div style="font-size:13px;color:var(--text-secondary);">27% YoY growth vs 18% revenue. $12.5B figure buried in balance sheet footnotes, not in headline metrics. Management controls timing and disclosure. Effective $12.5B of future cash obligations growing faster than the business.</div>
+    </div>
+    <div class="flag-card high" style="margin-bottom:8px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <strong>DTA Depletion and EPS Normalization</strong><span class="severity-badge severity-HIGH">HIGH — Communication Risk</span>
+      </div>
+      <div style="font-size:13px;color:var(--text-secondary);">$4.3B tax benefit in FY2025 and $5.8B in FY2024. $10.95B DTA balance remaining. As DTA depletes, GAAP EPS will decline year-over-year even as operating income grows. FY2026 GAAP NI will be materially lower than FY2025 — widespread investor confusion risk.</div>
+    </div>
+    <div class="flag-card moderate">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <strong>Aurora Strategic Assessment</strong><span class="severity-badge severity-MEDIUM">MEDIUM</span>
+      </div>
+      <div style="font-size:13px;color:var(--text-secondary);">$802M unrealized loss in FY2025; $1.25B remaining position. Management has not discussed exit strategy. Is this a strategic asset or a zombie investment awaiting write-down?</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Regulatory Landscape</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Jurisdiction</th><th>Status</th><th>Risk Level</th></tr></thead>
+        <tbody>
+          <tr><td><strong>UK</strong> ($10.6B, 20.4% revenue)</td><td>Drivers = 'workers' (Supreme Court 2021)</td><td><span class="severity-badge severity-HIGH">HIGH</span></td></tr>
+          <tr><td>Netherlands</td><td>2021 court ruled drivers employees under taxi CBA</td><td><span class="severity-badge severity-HIGH">ONGOING</span></td></tr>
+          <tr><td>France</td><td>Supreme Court July 2025 — drivers ARE independent contractors</td><td><span class="severity-badge severity-LOW">RESOLVED (favorable)</span></td></tr>
+          <tr><td>Massachusetts</td><td>AG complaint resolved June 2024; drivers remain ICs</td><td><span class="severity-badge severity-LOW">RESOLVED</span></td></tr>
+          <tr><td>California Prop 22</td><td>Upheld — drivers remain ICs</td><td><span class="severity-badge severity-MEDIUM">Litigation ongoing</span></td></tr>
+          <tr><td>EU Platform Directive</td><td>Country-by-country determination preserved</td><td><span class="severity-badge severity-LOW">FAVORABLE</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 12: ADVANCED ANALYSIS ===== -->
+<section class="section" id="advanced">
+  <h2 class="section-title"><span class="icon">🚀</span>Advanced Analysis</h2>
+
+  <!-- FIFA World Cup 2026 -->
+  <div class="card" style="border-left:4px solid var(--accent-gold);">
+    <div class="card-title" style="color:var(--accent-gold);">&#x26BD; FIFA World Cup 2026 — Revenue Analysis</div>
+    <div style="font-size:12px;color:var(--text-muted);margin-bottom:12px;">Source: J.P. Morgan analyst note (via oninvest.com); Uber Newsroom; Smart Cities Dive Feb 2026; phase4/champions-world-cup-analysis.json; phase5/fifa-revenue-model.json</div>
+
+    <div style="padding:10px;background:rgba(239,68,68,0.08);border-radius:6px;border-left:3px solid var(--accent-red);font-size:12px;margin-bottom:16px;">
+      <strong style="color:var(--accent-red);">TIMELINE CLARIFICATION:</strong> The FIFA Club World Cup 2025 (June 14 – July 13, 2025) is <strong>already completed</strong> — a historical event reflected in Q2/Q3 2025 reported earnings. It is NOT a forward catalyst. The upcoming event is <strong>FIFA World Cup 2026: June 11 – July 19, 2026 (59 days from April 13, 2026).</strong>
+    </div>
+    <div style="padding:10px;background:rgba(234,179,8,0.08);border-radius:6px;border-left:3px solid var(--accent-yellow);font-size:12px;margin-bottom:16px;">
+      <strong style="color:var(--accent-yellow);">PARTNERSHIP STATUS:</strong> Uber is <strong>NOT</strong> an official FIFA World Cup 2026 partner. <strong>DoorDash IS</strong> the official food delivery partner. Uber's role: transportation infrastructure provider via Adyen kiosk deployment at 11 US host city airports and hotels for international tourists.
+    </div>
+
+    <div class="grid-3" style="margin-bottom:16px;">
+      <div class="prediction-card" style="border-left:3px solid var(--accent-red);">
+        <div style="font-size:11px;color:var(--text-muted);">BEAR CASE (20%)</div>
+        <div style="font-size:22px;font-weight:700;color:var(--accent-red);">$200M GB</div>
+        <div style="font-size:12px;color:var(--text-secondary);">Adverse weather; limited kiosk adoption; host city congestion</div>
+        <div class="confidence-bar"><div class="confidence-fill" style="width:20%;background:var(--accent-red);"></div></div>
+      </div>
+      <div class="prediction-card" style="border-left:3px solid var(--accent-gold);">
+        <div style="font-size:11px;color:var(--text-muted);">BASE CASE (55%) — J.P. Morgan</div>
+        <div style="font-size:22px;font-weight:700;color:var(--accent-gold);">$377M GB</div>
+        <div style="font-size:12px;color:var(--text-secondary);">$102M revenue · $17M adj EBITDA · $3.8M net income</div>
+        <div class="confidence-bar"><div class="confidence-fill" style="width:55%;background:var(--accent-gold);"></div></div>
+      </div>
+      <div class="prediction-card" style="border-left:3px solid var(--accent-green);">
+        <div style="font-size:11px;color:var(--text-muted);">BULL CASE (25%)</div>
+        <div style="font-size:22px;font-weight:700;color:var(--accent-green);">$550M GB</div>
+        <div style="font-size:12px;color:var(--text-secondary);">Rivian AV pilot in host cities; viral media coverage</div>
+        <div class="confidence-bar"><div class="confidence-fill" style="width:25%;background:var(--accent-green);"></div></div>
+      </div>
+    </div>
+
+    <div style="padding:10px;background:rgba(59,130,246,0.08);border-radius:6px;font-size:12px;">
+      <strong>Materiality Assessment: IMMATERIAL.</strong> Base case $377M GB = &lt;1% of Q2/Q3 2026 combined gross bookings. Financially negligible. Strategic brand value exceeds P&amp;L impact. World Cup serves as operational dry run for <strong>LA28 Olympics (2028)</strong> where Uber IS the official rideshare and on-demand delivery partner — a meaningfully larger opportunity with marketing exclusivity and longer duration.
+    </div>
+  </div>
+
+  <!-- FY2026 Net Income Prediction -->
+  <div class="card" style="border-left:4px solid var(--accent-blue);">
+    <div class="card-title" style="color:var(--accent-blue);">FY2026 Net Income Prediction — Bear / Base / Bull</div>
+    <div style="font-size:12px;color:var(--text-muted);margin-bottom:8px;">Source: phase5/net-income-prediction.json; anchored to FY2025 actuals and Q1 2026 guidance (Feb 4, 2026 earnings call)</div>
+    <div style="padding:10px;background:rgba(239,68,68,0.08);border-radius:6px;border-left:3px solid var(--accent-red);font-size:12px;margin-bottom:16px;">
+      <strong style="color:var(--accent-red);">DTA NORMALIZATION WARNING:</strong> GAAP NI will decline from FY2025 $10.1B to ~$6.1B (base) in FY2026 as the $4.8B DTA benefit does not repeat. <strong>This is NOT business deterioration.</strong> Operating income grows from $5.6B to ~$7.0B. Economic NI (DTA-adjusted) grows from $5.3B to ~$5.1B (base). Watch adj. EBITDA and economic NI — not GAAP NI — for performance assessment. Consensus EPS of $3.46 appears optimistic vs. our base case $2.92 economic EPS.
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th class="num" style="color:var(--accent-red);">Bear (20%)</th>
+            <th class="num" style="color:var(--accent-gold);">Base (55%)</th>
+            <th class="num" style="color:var(--accent-green);">Bull (25%)</th>
+            <th class="num">Prob-Weighted</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Gross Bookings ($B)</td><td class="num negative">$216.2 (+12%)</td><td class="num neutral">$225.8 (+17%)</td><td class="num positive">$235.5 (+22%)</td><td class="num">—</td></tr>
+          <tr><td>Revenue ($B)</td><td class="num negative">$57.5</td><td class="num neutral">$60.7</td><td class="num positive">$64.0</td><td class="num">—</td></tr>
+          <tr><td>Operating Income ($B)</td><td class="num">$6.04</td><td class="num positive">$6.99</td><td class="num positive">$8.2</td><td class="num">—</td></tr>
+          <tr><td>Adj EBITDA ($B)</td><td class="num">$9.76</td><td class="num positive">$10.9</td><td class="num positive">$12.4</td><td class="num positive">$11.0</td></tr>
+          <tr><td><strong>GAAP NI ($B) ⚠ DTA</strong></td><td class="num negative">$4.71</td><td class="num neutral">$6.11</td><td class="num">$7.58</td><td class="num neutral">$5.80</td></tr>
+          <tr><td><strong>Economic NI ($B)</strong></td><td class="num">$4.21</td><td class="num">$5.11</td><td class="num positive">$6.08</td><td class="num">—</td></tr>
+          <tr><td>EPS GAAP</td><td class="num negative">$2.25</td><td class="num neutral">$2.92</td><td class="num positive">$3.62</td><td class="num neutral">$2.99</td></tr>
+          <tr><td>EPS Economic</td><td class="num">$2.01</td><td class="num">$2.44</td><td class="num positive">$2.90</td><td class="num">$2.44</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="margin-top:12px;font-size:12px;color:var(--text-secondary);">
+      <strong>Consensus EPS (FactSet/Bloomberg):</strong> $3.46. Our base case EPS ($2.92 GAAP) is 16% below consensus — suggesting either consensus includes DTA assumptions we don't model, or consensus will require downward revision when FY2026 actuals arrive.
+    </div>
+  </div>
+
+  <!-- AV Strategy -->
+  <div class="card">
+    <div class="card-title">Autonomous Vehicle Strategy</div>
+    <div class="grid-2">
+      <div>
+        <div style="font-size:13px;color:var(--text-secondary);">
+          <div style="margin-bottom:8px;"><strong style="color:var(--text-primary);">Strategy: Asset-Light Partnership Model</strong></div>
+          <div style="margin-bottom:6px;">&#x2714; 25+ AV partners (proxy FY2025); 7 cities active</div>
+          <div style="margin-bottom:6px;">&#x2714; Waymo Austin live; Atlanta preparing</div>
+          <div style="margin-bottom:6px;">&#x2714; Rivian partnership: $1.25B, 50K robotaxi vehicles, 15 cities by 2026</div>
+          <div style="margin-bottom:6px;">&#x2714; Fleet supply: 15% of mobility hours already fleet-sourced</div>
+          <div style="margin-bottom:6px;">&#x26A0; Aurora: $802M unrealized loss FY2025 on $1.25B investment</div>
+          <div style="margin-bottom:6px;">&#x26A0; Rivian: zero transcript mentions despite $1.25B commitment</div>
+          <div>&#x26A0; Tesla: never explicitly discussed — #1 long-term disintermediation risk</div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:13px;color:var(--text-secondary);">
+          <div style="margin-bottom:8px;"><strong style="color:var(--text-primary);">The AV Thesis: Bull vs Bear</strong></div>
+          <div style="padding:8px;background:rgba(34,197,94,0.08);border-radius:6px;margin-bottom:8px;">
+            <strong style="color:var(--accent-green);">Bull:</strong> AV companies need Uber's demand infrastructure (9.7M passengers/day) more than Uber needs any one AV provider. 20% take rate math: at $20 AV ride, Uber earns $4 without driver payment — higher margin than human driver rides.
+          </div>
+          <div style="padding:8px;background:rgba(239,68,68,0.08);border-radius:6px;">
+            <strong style="color:var(--accent-red);">Bear:</strong> If Waymo or Tesla achieves sufficient scale to distribute directly to consumers (like Netflix bypassed cable), Uber's AV position becomes irrelevant. Tesla has the unique advantage of potential millions of owner-operated vehicles — a distribution scale no fleet partner can match.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 13: RISK CONVERGENCE ===== -->
+<section class="section" id="risks">
+  <h2 class="section-title"><span class="icon">⚠️</span>Risk Convergence</h2>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title" style="color:var(--accent-green);">&#x2714; Green Flags (Multi-Source Confirmed)</div>
+      <ul style="list-style:none;padding:0;font-size:13px;color:var(--text-secondary);">
+        <li style="padding:8px 0;border-bottom:1px solid var(--border);">&#x2714; Beneish -2.23, Altman 3.69, Piotroski 8/9 — all three models clean</li>
+        <li style="padding:8px 0;border-bottom:1px solid var(--border);">&#x2714; 100% guidance beat rate across 5 quarters — systematic sandbagging confirmed</li>
+        <li style="padding:8px 0;border-bottom:1px solid var(--border);">&#x2714; FCF yield 6.6% — attractive floor for a 17%+ growth company</li>
+        <li style="padding:8px 0;border-bottom:1px solid var(--border);">&#x2714; 46M Uber One members at 3.4x spend — compounding flywheel</li>
+        <li style="padding:8px 0;border-bottom:1px solid var(--border);">&#x2714; Insurance cost normalization locked in for 2025 (carrier terms finalized Q4-2024)</li>
+        <li style="padding:8px 0;border-bottom:1px solid var(--border);">&#x2714; Dual-class shares eliminated — gold standard shareholder governance</li>
+        <li style="padding:8px 0;">&#x2714; Norges Bank +30.8M shares; Saudi PIF strategic anchor holders</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title" style="color:var(--accent-red);">&#x26A0; Red Flags (Multi-Source Confirmed)</div>
+      <ul style="list-style:none;padding:0;font-size:13px;color:var(--text-secondary);">
+        <li style="padding:8px 0;border-bottom:1px solid var(--border);">&#x26A0; Insurance reserves $12.5B &gt; LTD $10.5B, growing 27% vs 18% revenue</li>
+        <li style="padding:8px 0;border-bottom:1px solid var(--border);">&#x26A0; DTA depletion: $10.95B balance will produce declining GAAP NI vs growing operations</li>
+        <li style="padding:8px 0;border-bottom:1px solid var(--border);">&#x26A0; Frequency deceleration: 6%&#8594;6%&#8594;4% — watch for continuation at May 6 earnings</li>
+        <li style="padding:8px 0;border-bottom:1px solid var(--border);">&#x26A0; Tesla robotaxi never mentioned in 5 quarters — management blind spot</li>
+        <li style="padding:8px 0;border-bottom:1px solid var(--border);">&#x26A0; BYD EV partnership silent since Q2-2024 announcement of 100K EVs</li>
+        <li style="padding:8px 0;border-bottom:1px solid var(--border);">&#x26A0; Rivian zero transcript mentions despite $1.25B commitment</li>
+        <li style="padding:8px 0;border-bottom:1px solid var(--border);">&#x26A0; Aurora $802M unrealized loss — AV investment thesis impaired</li>
+        <li style="padding:8px 0;">&#x26A0; UK 20.4% revenue concentration with formalized worker rights</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Risk Matrix</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Risk</th><th>Severity</th><th>Probability</th><th>Time Horizon</th></tr></thead>
+        <tbody>
+          <tr><td>AV Disintermediation (Waymo/Tesla direct)</td><td><span class="severity-badge severity-CRITICAL">CRITICAL</span></td><td>LOW near-term / MEDIUM medium-term</td><td>2–5 years</td></tr>
+          <tr><td>Insurance Reserve Escalation</td><td><span class="severity-badge severity-HIGH">HIGH</span></td><td>MEDIUM (ongoing)</td><td>Structural — grows with platform</td></tr>
+          <tr><td>Frequency Deceleration</td><td><span class="severity-badge severity-HIGH">HIGH</span></td><td>MEDIUM</td><td>Q1 2026 earnings critical</td></tr>
+          <tr><td>UK Regulatory Escalation</td><td><span class="severity-badge severity-HIGH">HIGH</span></td><td>LOW-MEDIUM</td><td>12–24 months</td></tr>
+          <tr><td>DTA EPS Normalization (communication risk)</td><td><span class="severity-badge severity-MEDIUM">MEDIUM</span></td><td>HIGH — inevitable</td><td>FY2026</td></tr>
+          <tr><td>Seattle Wage Template Replication</td><td><span class="severity-badge severity-HIGH">HIGH if national scale</span></td><td>MEDIUM</td><td>State-by-state over 2–3 years</td></tr>
+          <tr><td>Driver Classification (full employment)</td><td><span class="severity-badge severity-CRITICAL">CRITICAL if full</span></td><td>LOW probability of full employment</td><td>Ongoing</td></tr>
+          <tr><td>Freight Structural Weakness</td><td><span class="severity-badge severity-MEDIUM">LOW-MEDIUM</span></td><td>HIGH (ongoing)</td><td>Strategic decision pending</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Multi-Source Convergence — Findings Confirmed by 2+ Independent Sources</div>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot positive"></div>
+        <div class="timeline-title">DTA Distortion is the Primary Disclosure Risk</div>
+        <div class="timeline-detail">Sources: 10-K (XBRL), forensic-models.json, financial-ratios.json, text-analysis.json, L10-synthesis.json — CONFIRMED. $4.779B non-cash DTA benefit inflates FY2025 NI by 90%. Economic NI $5.3B is the correct figure.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot negative"></div>
+        <div class="timeline-title">Insurance Reserves Growing Faster Than Business</div>
+        <div class="timeline-detail">Sources: 10-K (balance sheet), text-analysis.json, financial-ratios.json, L10-synthesis.json — CONFIRMED. $12.5B reserves (+27% YoY) vs 18% revenue growth. Exceeds LTD by 1.19x.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot positive"></div>
+        <div class="timeline-title">Uber One Flywheel is the Primary Earnings Quality Driver</div>
+        <div class="timeline-detail">Sources: DEF 14A (46M members), track-b-complete.json (3.4x spend), L8-customer-growth.json, segments.json — CONFIRMED. 46M × 3.4x = 156M economic-equivalent consumers.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot positive"></div>
+        <div class="timeline-title">Management Guidance Systematically Conservative on EBITDA</div>
+        <div class="timeline-detail">Sources: L2-credibility-tracker.json, L4-guidance-forensics.json, L10-synthesis.json — CONFIRMED. 100% beat rate, 300–500bps EBITDA sandbagging. Deliberate underpromise/overdeliver pattern.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 14: WATCHLIST & PREDICTIONS ===== -->
+<section class="section" id="watchlist">
+  <h2 class="section-title"><span class="icon">👁️</span>Watchlist &amp; Predictions</h2>
+
+  <div class="watchlist-item">
+    <div class="priority-dot priority-CRITICAL"></div>
+    <div style="flex:1;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+        <strong>#1 — Q1 2026 Earnings Report</strong>
+        <span class="severity-badge severity-HIGH">May 6, 2026 · 23 days</span>
+      </div>
+      <div style="font-size:13px;color:var(--text-secondary);">
+        <div style="margin-bottom:6px;"><strong style="color:var(--text-primary);">VERY HIGH significance.</strong> Implied options move: ±8–12%.</div>
+        <div style="margin-bottom:4px;">&#x25B8; Gross bookings vs $53.5B ceiling (guided $52–53.5B). Beat = stock $78–82.</div>
+        <div style="margin-bottom:4px;">&#x25B8; <strong>Frequency growth rate — CRITICAL.</strong> If disclosed above 5%: bull intact. Below 3% or absent: bearish signal.</div>
+        <div style="margin-bottom:4px;">&#x25B8; Adj EBITDA vs ~$2.45B estimate</div>
+        <div style="margin-bottom:4px;">&#x25B8; GAAP NI will look lower vs Q1 2025 (DTA normalization) — do NOT interpret as deterioration</div>
+        <div style="margin-bottom:4px;">&#x25B8; Insurance cost per trip — should confirm 'high single digits'</div>
+        <div>Miss case: Q1 GB below $52B floor → stock tests 52-week low $68.34</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="watchlist-item">
+    <div class="priority-dot priority-HIGH"></div>
+    <div style="flex:1;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+        <strong>#2 — FIFA World Cup 2026 Begins</strong>
+        <span class="severity-badge severity-MEDIUM">June 11, 2026 · 59 days</span>
+      </div>
+      <div style="font-size:13px;color:var(--text-secondary);">
+        MEDIUM significance — strategic, not financial. $377M additional gross bookings (J.P. Morgan base) = financially immaterial (&lt;1% of quarterly GB). Watch for: Adyen kiosk deployment metrics, any Rivian AV pilot announcement in host cities, media coverage of Uber operations, brand visibility among 5–7M international tourists.
+      </div>
+    </div>
+  </div>
+
+  <div class="watchlist-item">
+    <div class="priority-dot priority-HIGH"></div>
+    <div style="flex:1;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+        <strong>#3 — Frequency Growth Rate Trajectory</strong>
+        <span class="severity-badge severity-HIGH">Ongoing — key at every call</span>
+      </div>
+      <div style="font-size:13px;color:var(--text-secondary);">
+        Leading indicator #1 for Uber's growth algorithm durability. 6%→6%→4% across Q1–Q3 2024; not disclosed Q4-2024. Bull threshold: rebounds to 5%+ (Uber One flywheel working). Bear threshold: falls to 2–3% or stops being disclosed for two consecutive quarters = structural maturity concern. Audience × Frequency × Price: frequency is the lever most at risk.
+      </div>
+    </div>
+  </div>
+
+  <div class="watchlist-item">
+    <div class="priority-dot priority-HIGH"></div>
+    <div style="flex:1;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+        <strong>#4 — Rivian Robotaxi Commercial Launch</strong>
+        <span class="severity-badge severity-MEDIUM">H2 2026 (aspirational)</span>
+      </div>
+      <div style="font-size:13px;color:var(--text-secondary);">
+        HIGH structural significance. $1.25B deal; 50K robotaxi vehicles; target 15 cities by end 2026. Zero transcript mentions despite $1.25B commitment — execution risk is real. Watch which cities launch first (World Cup host cities = bonus PR), vehicle count vs 50K target, and take rate on AV trips vs human driver trips.
+      </div>
+    </div>
+  </div>
+
+  <div class="watchlist-item">
+    <div class="priority-dot priority-MODERATE"></div>
+    <div style="flex:1;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+        <strong>#5 — Insurance Reserve Trajectory (Annual)</strong>
+        <span class="severity-badge severity-MEDIUM">FY2026 10-K · February 2027</span>
+      </div>
+      <div style="font-size:13px;color:var(--text-secondary);">
+        Current: $12.5B (+27% YoY vs 18% revenue). If insurance grows &gt;2x revenue growth for a second year, structural liability concern escalates materially. If normalizes below revenue growth, flag diminishes. Watch each quarterly balance sheet for current vs non-current split changes.
+      </div>
+    </div>
+  </div>
+
+  <div class="watchlist-item">
+    <div class="priority-dot priority-MODERATE"></div>
+    <div style="flex:1;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+        <strong>#6 — DTA Depletion Pacing</strong>
+        <span class="severity-badge severity-MEDIUM">Each earnings report</span>
+      </div>
+      <div style="font-size:13px;color:var(--text-secondary);">
+        $10.95B DTA balance remaining; FY2025 released $4.779B. As DTA depletes, GAAP EPS drops even as operations improve. Watch for management guidance on future DTA release expectations. If management provides explicit FY2026 tax rate guidance, it will help investors anticipate the EPS normalization.
+      </div>
+    </div>
+  </div>
+
+  <div class="watchlist-item">
+    <div class="priority-dot priority-LOW"></div>
+    <div style="flex:1;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+        <strong>#7 — LA28 Olympics Official Partnership</strong>
+        <span class="severity-badge severity-LOW">Summer 2028</span>
+      </div>
+      <div style="font-size:13px;color:var(--text-secondary);">
+        HIGH long-term strategic significance. Uber IS the official rideshare and on-demand delivery partner for LA28 — more strategically important than World Cup 2026. Official partner status gives marketing exclusivity, longer duration, and LA metro concentration. World Cup 2026 is the operational dry run. Revenue potential: potentially 3–5x World Cup 2026 impact.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 15: CLOSING SYNTHESIS ===== -->
+<section class="section" id="synthesis">
+  <h2 class="section-title"><span class="icon">🔮</span>Closing Synthesis</h2>
+
+  <div class="synthesis-card">
+    <h2>Synthesis Engine — UBER</h2>
+    <div class="synthesis-scope">30+ source files · 5 transcript quarters · 54 Q&amp;A pairs · 15 analysis layers · April 13, 2026</div>
+
+    <div class="synthesis-thesis">
+      Uber is the world's largest mobility-and-delivery marketplace, generating $193.5B in gross bookings with a self-reinforcing Uber One flywheel of 46M members who spend 3.4x more than non-members — compounding quality earnings that XBRL and GAAP metrics systematically understate. The stock's 29% drawdown from its 52-week high reflects DTA confusion, macro uncertainty, and AV narrative anxiety, not deterioration in underlying economics: operating income nearly doubled in FY2025, FCF is $9.8B at 6.6% yield, and three forensic models confirm financial integrity. Buy in the $68–75 entry range with a 24-month horizon for AV monetization and LA28 Olympics catalysts; monitor frequency growth rate and insurance reserve trajectory as the two leading indicators that would change the thesis.
+    </div>
+
+    <div class="synthesis-grid">
+      <div>
+        <h3>Bull Case — Confirmed Evidence</h3>
+        <ul>
+          <li>3-year framework beat in Year 1: 21% CC GB vs mid-to-high-teens target; 60% EBITDA CAGR vs 38–40% target</li>
+          <li>46M Uber One members at 3.4x spend = 156M economic-equivalent consumers with compounding upside to 50M+</li>
+          <li>Insurance cost normalization locked in for 2025 — completed carrier negotiations, not a projection</li>
+          <li>FCF 106% of EBITDA conversion; share buybacks begun ('durable share count reduction')</li>
+          <li>Advertising $2B+ run rate at ~80% gross margins — structural quality multiplier</li>
+          <li>Less-dense market expansion: 1.5x faster growth than core; U.S. non-core = 60–70% of addressable market</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Bear Case — Confirmed Evidence</h3>
+        <ul>
+          <li>Seattle minimum wage template: -45% Delivery volumes after one city's wage regulation. Replication risk systematically unaddressed</li>
+          <li>Frequency deceleration 6%→6%→4% — dropped from Q4-2024 disclosure. If continues, growth algorithm converges to audience-only</li>
+          <li>Insurance reserves $12.5B growing 27% vs 18% revenue — structural liability growing faster than business</li>
+          <li>Tesla robotaxi zero mentions in 5 quarters — #1 long-term disintermediation risk is management's blind spot</li>
+          <li>DTA depletion: $10.95B remaining; FY2026 GAAP NI will appear to collapse vs FY2025 — investor confusion risk</li>
+          <li>Aurora $802M unrealized loss; BYD silent since Q2-2024; Rivian zero transcript mentions despite $1.25B</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="synthesis-convergence">
+      <h3>Multi-Source Convergence — Findings Confirmed by 2+ Independent Sources</h3>
+      <ul>
+        <li>DTA distortion (10-K + forensic models + text analysis + L10): $4.779B non-cash benefit inflates FY2025 NI by 90%. Economic NI $5.3B is the correct figure.</li>
+        <li>Insurance reserves growing faster than business (10-K + text analysis + L10 bear case + ratios): $12.5B (+27% YoY) exceeds LTD by 1.19x.</li>
+        <li>Uber One flywheel underweighted in consensus (DEF 14A + transcripts + segments + L8): 46M × 3.4x = 156M economic-equivalent consumers — invisible in XBRL.</li>
+        <li>Management guidance systematically conservative (L2 + L4 + L10): 100% beat rate, 300–500bps EBITDA sandbagging. Deliberate pattern.</li>
+        <li>AV narrative reframed from threat to opportunity in 4 quarters (L5 + L9 + L3 + transcripts): Underlying structural risk not resolved, only reframed.</li>
+      </ul>
+    </div>
+
+    <div class="synthesis-divergence">
+      <h3>Contradictions Identified and Resolved</h3>
+      <ul>
+        <li>Uber One member count: Proxy states 46M (FY2025); transcripts reference 30M (Q4-2024). Both correct for respective periods. 46M is authoritative FY2025 figure.</li>
+        <li>Economic NI: track-a-complete $5.274B vs net-income-prediction $5.753B. Different DTA benefit figures used ($4.779B vs ~$4.3B). $5.274B from primary XBRL source is canonical.</li>
+      </ul>
+    </div>
+
+    <div class="synthesis-watchpoint">
+      <h3>Single Most Important Watchpoint</h3>
+      <div class="watchpoint-box">
+        <span class="watchpoint-metric">Frequency Growth Rate — Q1 2026 Earnings (May 6, 2026)</span>
+        <div style="margin-top:8px;">
+          <span class="watchpoint-value">Bull: 5%+ = thesis intact</span>
+          <span class="watchpoint-threshold">Bear: &lt;3% or absent = re-evaluate</span>
+        </div>
+        <p>The 6%→6%→4% frequency deceleration is the single most important leading indicator for whether Uber's compounding growth algorithm retains its power or converges to a slower, audience-only trajectory. Uber One (46M members at 3.4x spend) is management's explicit tool to counter this. If frequency rebounds, the flywheel is working. If it continues declining, the bull thesis requires material revision. Listen for CFO's explicit decomposition of the growth algorithm — if frequency is no longer broken out, the absence is itself a signal.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card analyst-insight">
+    <div class="card-title">Would I Put My Own Money Here?</div>
+    <p>YES — at $72.34 with a 12–24 month horizon. The risk/reward is asymmetric: 6–7% downside to 52-week low vs 35–48% upside to analyst consensus targets. The business generated $9.8B in free cash flow in FY2025 on a company trading at $149B — a 6.6% FCF yield that is rarely offered for a company growing gross bookings at 17–22% annually. Size moderately (2–5% of portfolio), buy in the $68–75 entry range, and do not chase above $82.50.</p>
+    <p><strong>What the market is missing:</strong> The market is confusing GAAP net income ($10.1B) with economic earnings ($5.3B) and creating a false comparison problem. When FY2026 GAAP NI comes in at ~$5.8B (probability-weighted) vs FY2025's $10.1B, many investors will read it as a 42% earnings decline. It is not — it is DTA normalization against a business where operating income grows from $5.6B to ~$7.0B. This confusion will create a buying opportunity around May 6 earnings when GAAP EPS disappoints retail investors.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title" style="color:var(--accent-red);">Thesis Invalidation Signals — Exit if These Occur</div>
+    <ul style="list-style:none;padding:0;font-size:13px;color:var(--text-secondary);">
+      <li style="padding:10px 0;border-bottom:1px solid var(--border);">&#x26A0; <strong>Frequency growth falls below 3%</strong> for two consecutive quarters — platform maturity accelerating faster than Uber One can compensate</li>
+      <li style="padding:10px 0;border-bottom:1px solid var(--border);">&#x26A0; <strong>Waymo or Tesla announces direct-to-consumer rideshare</strong> at scale without Uber — structural disintermediation risk materializes</li>
+      <li style="padding:10px 0;border-bottom:1px solid var(--border);">&#x26A0; <strong>Insurance reserves grow &gt;25% YoY against &lt;15% revenue growth</strong> for two consecutive years — structural liability outpacing the business</li>
+      <li style="padding:10px 0;border-bottom:1px solid var(--border);">&#x26A0; <strong>Driver reclassification to full employee status</strong> in a major market (US federal or large European country) — materially increases driver cost structure</li>
+      <li style="padding:10px 0;">&#x26A0; <strong>Stock breaks below $60</strong> — implies market pricing structural EPS cuts; reinvestigate before adding</li>
+    </ul>
+  </div>
+
+  <div class="report-disclaimer">
+    <p><strong>Disclaimer:</strong> This report is generated by an automated SEC forensic analysis pipeline for informational and research purposes only. It does not constitute investment advice, a recommendation to buy or sell any security, or an offer or solicitation of any investment product. All data sourced from SEC EDGAR public filings (10-K, DEF 14A, Form 4), company earnings call transcripts, and third-party analyst estimates (J.P. Morgan, Benzinga, AlphaQuery). Financial models and valuation estimates are inherently uncertain and subject to material error. Past performance does not predict future results. Users should conduct their own due diligence and consult qualified financial advisors before making investment decisions. Report generated April 13, 2026. Pipeline: V2 · Layers: L1–L10, VL1–VL4 · Source files: 30+</p>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div>Uber Technologies, Inc. (UBER) · SEC Forensic Analysis · April 13, 2026</div>
+  <div>Data: FY2025 10-K · DEF 14A 2026 · 5 Quarters Transcripts · Pipeline V2</div>
+</footer>
+
+<script>
+// Sidebar active state on scroll
+const sections = document.querySelectorAll('.section');
+const navLinks = document.querySelectorAll('.nav-link');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(link => link.classList.remove('active'));
+      const id = entry.target.getAttribute('id');
+      const activeLink = document.querySelector(`.nav-link[href="#${id}"]`);
+      if (activeLink) activeLink.classList.add('active');
+    }
+  });
+}, { rootMargin: '-20% 0px -70% 0px' });
+sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
