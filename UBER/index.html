@@ -299,6 +299,23 @@ tr:hover { background: var(--bg-card-hover); }
   .main-content { padding: 16px; }
   .section { margin-bottom: 32px; }
   .card { padding: 16px; }
+  .section-title { font-size: 18px; }
+  .stat-value { font-size: 20px; }
+  .synthesis-card h2 { font-size: 1.2rem; }
+  .synthesis-grid h3,
+  .synthesis-convergence h3,
+  .synthesis-divergence h3,
+  .synthesis-watchpoint h3 { font-size: 0.88rem; }
+  .synthesis-thesis { font-size: 0.95rem; padding: 1rem; }
+  .synthesis-scope { font-size: 0.9rem; }
+  .mobile-chart { display: block; }
+  .desktop-table { display: none; }
+}
+.mobile-chart { display: none; }
+.section-source {
+  font-size: 11px; color: var(--text-muted);
+  margin-top: 16px; padding-top: 12px;
+  border-top: 1px solid var(--border);
 }
 </style>
 </head>
@@ -326,19 +343,19 @@ tr:hover { background: var(--bg-card-hover); }
 <nav class="sidebar">
   <a class="nav-link active" href="#executive-summary"><span class="nav-icon">📋</span>Executive Summary</a>
   <a class="nav-link" href="#verdicts"><span class="nav-icon">⚖️</span>Verdicts</a>
-  <a class="nav-link" href="#valuation"><span class="nav-icon">💰</span>Valuation</a>
-  <a class="nav-link" href="#financials"><span class="nav-icon">📊</span>Financials</a>
+  <a class="nav-link" href="#valuation-context"><span class="nav-icon">💰</span>Valuation</a>
+  <a class="nav-link" href="#financial-overview"><span class="nav-icon">📊</span>Financials</a>
   <a class="nav-link" href="#forensic-models"><span class="nav-icon">🔬</span>Forensic Models</a>
   <a class="nav-link" href="#transcript-intelligence"><span class="nav-icon">🎙️</span>Transcript Intelligence</a>
-  <a class="nav-link" href="#segments"><span class="nav-icon">🗂️</span>Revenue Segments</a>
+  <a class="nav-link" href="#revenue-segments"><span class="nav-icon">🗂️</span>Revenue Segments</a>
   <a class="nav-link" href="#governance"><span class="nav-icon">🏛️</span>Governance</a>
-  <a class="nav-link" href="#insiders"><span class="nav-icon">👥</span>Insiders &amp; Institutions</a>
-  <a class="nav-link" href="#peers"><span class="nav-icon">🏁</span>Peer Comparison</a>
+  <a class="nav-link" href="#insider-institutional"><span class="nav-icon">👥</span>Insiders &amp; Institutions</a>
+  <a class="nav-link" href="#peer-comparison"><span class="nav-icon">🏁</span>Peer Comparison</a>
   <a class="nav-link" href="#text-analysis"><span class="nav-icon">📝</span>Text Analysis</a>
-  <a class="nav-link" href="#advanced"><span class="nav-icon">🚀</span>Advanced Analysis</a>
-  <a class="nav-link" href="#risks"><span class="nav-icon">⚠️</span>Risk Convergence</a>
-  <a class="nav-link" href="#watchlist"><span class="nav-icon">👁️</span>Watchlist &amp; Predictions</a>
-  <a class="nav-link" href="#synthesis"><span class="nav-icon">🔮</span>Closing Synthesis</a>
+  <a class="nav-link" href="#advanced-analysis"><span class="nav-icon">🚀</span>Advanced Analysis</a>
+  <a class="nav-link" href="#risk-convergence"><span class="nav-icon">⚠️</span>Risk Convergence</a>
+  <a class="nav-link" href="#watchlist-predictions"><span class="nav-icon">👁️</span>Watchlist &amp; Predictions</a>
+  <a class="nav-link" href="#closing-synthesis"><span class="nav-icon">🔮</span>Closing Synthesis</a>
 </nav>
 
 <main class="main-content">
@@ -406,6 +423,7 @@ tr:hover { background: var(--bg-card-hover); }
       </ul>
     </div>
   </div>
+  <div class="section-source">Source: FY2025 10-K · DEF 14A · Form 4 (SEC EDGAR) · 5 earnings call transcripts · J.P. Morgan analyst note · April 13, 2026</div>
 </section>
 
 <!-- ===== SECTION 2: VERDICTS ===== -->
@@ -467,10 +485,11 @@ tr:hover { background: var(--bg-card-hover); }
       </div>
     </div>
   </div>
+  <div class="section-source">Source: consolidated-facts.json · phase2/ analysis suite · investigation layers L1–L10 · April 13, 2026</div>
 </section>
 
 <!-- ===== SECTION 3: VALUATION ===== -->
-<section class="section" id="valuation">
+<section class="section" id="valuation-context">
   <h2 class="section-title"><span class="icon">💰</span>Valuation Context</h2>
 
   <div class="stats-row">
@@ -485,8 +504,9 @@ tr:hover { background: var(--bg-card-hover); }
   <div class="grid-2">
     <div class="card">
       <div class="card-title">Valuation Multiples</div>
+      <p style="font-size:13px;color:var(--text-secondary);margin-bottom:12px;">GAAP P/E of 14.8x uses DTA-inflated net income — a one-time accounting release, not operating earnings. Economic P/E of 28x strips out the $4.779B non-cash benefit and reflects true value. FCF yield of 6.6% and PEG below 1.0 are the most relevant entry metrics for a 17%+ growth company trading 29% below its peak.</p>
       <div class="table-wrap">
-        <table>
+        <table class="data-table">
           <thead><tr><th>Metric</th><th class="num">Value</th><th>Note</th></tr></thead>
           <tbody>
             <tr><td>P/E GAAP</td><td class="num neutral">14.8x</td><td>Inflated by $4.8B DTA — misleading</td></tr>
@@ -506,7 +526,7 @@ tr:hover { background: var(--bg-card-hover); }
     <div class="card">
       <div class="card-title">Intrinsic Value Estimates (VIS System)</div>
       <div class="table-wrap">
-        <table>
+        <table class="data-table">
           <thead><tr><th>Model</th><th class="num">Value</th><th>vs $72.34</th></tr></thead>
           <tbody>
             <tr><td>Graham Formula</td><td class="num">$203.32</td><td class="num positive">+181%</td></tr>
@@ -574,11 +594,12 @@ tr:hover { background: var(--bg-card-hover); }
 </section>
 
 <!-- ===== SECTION 4: FINANCIALS ===== -->
-<section class="section" id="financials">
+<section class="section" id="financial-overview">
   <h2 class="section-title"><span class="icon">📊</span>Financial Overview</h2>
 
   <div class="card" style="border-left:4px solid var(--accent-red);">
-    <div class="card-title" style="color:var(--accent-red);">&#x26A0; DTA Distortion Warning — Read Before Interpreting Net Income</div>
+    <div class="card-title" style="color:var(--accent-red);">&#x26A0; DTA Distortion Warning</div>
+    <div style="font-size:12px;color:var(--accent-red);margin-bottom:8px;font-weight:500;">Read before interpreting any net income or P/E figure in this report</div>
     <div style="font-size:13px;color:var(--text-secondary);line-height:1.7;">
       FY2025 GAAP net income of $10.1B includes <strong style="color:var(--accent-red);">$4.779B in non-cash deferred tax asset (DTA) benefit</strong> — an accounting recognition event from releasing a valuation allowance against accumulated net operating losses. FY2024 NI included $6.027B of the same benefit. These are real (represent future taxes Uber won't pay) but non-recurring in the year they boost net income. <strong>Economic NI strips out DTA: FY2025 = $5.274B; FY2024 = $3.829B.</strong> All P/E comparisons should use economic NI. The GAAP P/E of 14.8x is misleading; 28x economic P/E is the correct valuation figure. FY2026 GAAP NI will be ~$6.1B (base case) — this is lower than FY2025's $10.1B but represents continued strong growth in the underlying business.
     </div>
@@ -588,7 +609,7 @@ tr:hover { background: var(--bg-card-hover); }
     <div class="card-title">Three-Year Income Statement ($ millions)</div>
     <div style="font-size:11px;color:var(--text-muted);margin-bottom:12px;">Source: FY2025 10-K (SEC EDGAR); Gross Bookings from DEF 14A Pay vs. Performance table</div>
     <div class="table-wrap">
-      <table>
+      <table class="data-table">
         <thead><tr><th>Metric</th><th class="num">FY2023</th><th class="num">FY2024</th><th class="num">FY2025</th><th class="num">YoY Growth</th></tr></thead>
         <tbody>
           <tr><td><strong>Gross Bookings</strong></td><td class="num">$137,865</td><td class="num">$162,773</td><td class="num"><strong>$193,454</strong></td><td class="num positive">+18.8%</td></tr>
@@ -616,8 +637,19 @@ tr:hover { background: var(--bg-card-hover); }
   <div class="grid-2">
     <div class="card">
       <div class="card-title">Balance Sheet Snapshot (Dec 31, 2025)</div>
+      <p style="font-size:13px;color:var(--text-secondary);margin-bottom:12px;">Uber holds $7.1B cash against $10.5B long-term debt — manageable at 1.21x Adj. EBITDA. The structural flag is insurance reserves of $12.5B, which exceed all long-term debt by 19% and grew 27% YoY versus 18% revenue. The DTA balance of $10.95B is a future tax shield that inflates total assets but will compress GAAP earnings as it depletes.</p>
+      <div class="mobile-chart">
+        <div style="font-size:11px;color:var(--text-muted);margin-bottom:10px;">Key items — relative scale (largest = Equity $28.1B)</div>
+        <div class="bar-row"><div class="bar-label">Cash</div><div class="bar-track"><div class="bar-fill" style="width:25%;background:var(--accent-green);">$7.1B</div></div><div class="bar-value positive">$7,105M</div></div>
+        <div class="bar-row"><div class="bar-label">Goodwill</div><div class="bar-track"><div class="bar-fill" style="width:32%;background:var(--accent-blue);">$8.9B</div></div><div class="bar-value">$8,931M</div></div>
+        <div class="bar-row"><div class="bar-label">DTA Balance</div><div class="bar-track"><div class="bar-fill" style="width:39%;background:var(--accent-yellow);">$11.0B</div></div><div class="bar-value neutral">$10,951M</div></div>
+        <div class="bar-row"><div class="bar-label" style="color:var(--accent-red);">Insurance Res.</div><div class="bar-track"><div class="bar-fill" style="width:44%;background:var(--accent-red);">$12.5B ⚠</div></div><div class="bar-value negative">$12,463M</div></div>
+        <div class="bar-row"><div class="bar-label">Long-Term Debt</div><div class="bar-track"><div class="bar-fill" style="width:37%;background:var(--accent-orange);">$10.5B</div></div><div class="bar-value">$10,521M</div></div>
+        <div class="bar-row"><div class="bar-label">Equity</div><div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--accent-green);">$28.1B</div></div><div class="bar-value positive">$28,083M</div></div>
+      </div>
+      <div class="desktop-table">
       <div class="table-wrap">
-        <table>
+        <table class="data-table">
           <thead><tr><th>Item</th><th class="num">$ Millions</th></tr></thead>
           <tbody>
             <tr><td>Cash &amp; Equivalents</td><td class="num positive">$7,105</td></tr>
@@ -633,14 +665,29 @@ tr:hover { background: var(--bg-card-hover); }
           </tbody>
         </table>
       </div>
+      </div><!-- /desktop-table -->
       <div style="margin-top:12px;padding:10px;background:rgba(239,68,68,0.08);border-radius:6px;border-left:3px solid var(--accent-red);font-size:12px;">
         <strong style="color:var(--accent-red);">Insurance Flag:</strong> $12.5B reserves exceed LTD $10.5B (1.19x coverage ratio). Grew 27% YoY vs 18% revenue — structural liability growing faster than the business. This is the most underemphasized balance sheet risk in Uber's filings.
       </div>
     </div>
     <div class="card">
       <div class="card-title">Key Ratios</div>
+      <p style="font-size:13px;color:var(--text-secondary);margin-bottom:12px;">All margin and return metrics reflect FY2025 actuals. ROIC of 16.3% confirms the business earns above its cost of capital. Low CapEx intensity (0.65% of revenue) and 1.21x debt/EBITDA mean the balance sheet creates no drag on future compounding.</p>
+      <div class="mobile-chart">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+          <div style="padding:10px;background:var(--bg-secondary);border-radius:8px;border-left:3px solid var(--accent-green);"><div style="font-size:11px;color:var(--text-muted);">Gross Margin</div><div style="font-size:20px;font-weight:700;color:var(--accent-green);">39.8%</div><div style="font-size:10px;color:var(--text-muted);">Stable 3 years</div></div>
+          <div style="padding:10px;background:var(--bg-secondary);border-radius:8px;border-left:3px solid var(--accent-green);"><div style="font-size:11px;color:var(--text-muted);">Op. Margin</div><div style="font-size:20px;font-weight:700;color:var(--accent-green);">10.7%</div><div style="font-size:10px;color:var(--text-muted);">Strong expansion</div></div>
+          <div style="padding:10px;background:var(--bg-secondary);border-radius:8px;border-left:3px solid var(--accent-green);"><div style="font-size:11px;color:var(--text-muted);">Adj EBITDA Margin</div><div style="font-size:20px;font-weight:700;color:var(--accent-green);">16.7%</div><div style="font-size:10px;color:var(--text-muted);">Of revenue</div></div>
+          <div style="padding:10px;background:var(--bg-secondary);border-radius:8px;border-left:3px solid var(--accent-yellow);"><div style="font-size:11px;color:var(--text-muted);">Econ. Net Margin</div><div style="font-size:20px;font-weight:700;color:var(--text-primary);">10.1%</div><div style="font-size:10px;color:var(--text-muted);">DTA-adjusted</div></div>
+          <div style="padding:10px;background:var(--bg-secondary);border-radius:8px;border-left:3px solid var(--accent-green);"><div style="font-size:11px;color:var(--text-muted);">ROIC</div><div style="font-size:20px;font-weight:700;color:var(--accent-green);">16.3%</div><div style="font-size:10px;color:var(--text-muted);">Above WACC</div></div>
+          <div style="padding:10px;background:var(--bg-secondary);border-radius:8px;border-left:3px solid var(--accent-green);"><div style="font-size:11px;color:var(--text-muted);">ROE (Economic)</div><div style="font-size:20px;font-weight:700;color:var(--accent-green);">20.9%</div><div style="font-size:10px;color:var(--text-muted);">Strong</div></div>
+          <div style="padding:10px;background:var(--bg-secondary);border-radius:8px;border-left:3px solid var(--accent-green);"><div style="font-size:11px;color:var(--text-muted);">Interest Coverage</div><div style="font-size:20px;font-weight:700;color:var(--accent-green);">12.65x</div><div style="font-size:10px;color:var(--text-muted);">Conservative leverage</div></div>
+          <div style="padding:10px;background:var(--bg-secondary);border-radius:8px;border-left:3px solid var(--accent-green);"><div style="font-size:11px;color:var(--text-muted);">Revenue CAGR 3yr</div><div style="font-size:20px;font-weight:700;color:var(--accent-green);">17.7%</div><div style="font-size:10px;color:var(--text-muted);">Consistent compounding</div></div>
+        </div>
+      </div>
+      <div class="desktop-table">
       <div class="table-wrap">
-        <table>
+        <table class="data-table">
           <thead><tr><th>Ratio</th><th class="num">Value</th><th>Assessment</th></tr></thead>
           <tbody>
             <tr><td>Gross Margin</td><td class="num positive">39.8%</td><td>Stable 3 years</td></tr>
@@ -656,6 +703,7 @@ tr:hover { background: var(--bg-card-hover); }
           </tbody>
         </table>
       </div>
+      </div><!-- /desktop-table -->
     </div>
   </div>
 
@@ -676,7 +724,8 @@ tr:hover { background: var(--bg-card-hover); }
   <h2 class="section-title"><span class="icon">🔬</span>Forensic Models</h2>
 
   <div class="card" style="border-left:4px solid var(--accent-green);">
-    <div class="card-title" style="color:var(--accent-green);">Overall Verdict: CLEAN — No Manipulation Signal Detected</div>
+    <div class="card-title" style="color:var(--accent-green);">Forensic Verdict: CLEAN</div>
+    <div style="font-size:12px;color:var(--accent-green);margin-bottom:8px;font-weight:500;">No manipulation signal detected across all 6 models</div>
     <div style="font-size:13px;color:var(--text-secondary);">All six forensic models return favorable scores. The primary risk is DTA presentation opacity (misleading GAAP NI), not earnings manipulation. OCF $10.1B far exceeds economic NI $5.3B — earnings are strongly cash-backed. Source: phase2/forensic-models.json</div>
   </div>
 
@@ -734,7 +783,7 @@ tr:hover { background: var(--bg-card-hover); }
       <div class="card-title">Cash Quality Composite</div>
       <div style="font-size:13px;color:var(--text-secondary);">
         <div class="table-wrap">
-          <table>
+          <table class="data-table">
             <tbody>
               <tr><td>OCF / Net Income</td><td class="num positive">100.5%</td></tr>
               <tr><td>FCF / Adj EBITDA</td><td class="num positive">155.4%</td></tr>
@@ -872,8 +921,10 @@ tr:hover { background: var(--bg-card-hover); }
 </section>
 
 <!-- ===== SECTION 7: REVENUE SEGMENTS ===== -->
-<section class="section" id="segments">
+<section class="section" id="revenue-segments">
   <h2 class="section-title"><span class="icon">🗂️</span>Revenue Segments</h2>
+
+  <p style="font-size:13px;color:var(--text-secondary);margin-bottom:20px;">Uber operates three segments: Mobility (57% of revenue, rideshare + AV), Delivery (33%, Eats + grocery + advertising), and Freight (10%, brokerage). The growth story is Delivery re-accelerating to 25.4% YoY after a slow FY2024, driven by Uber One flywheel adoption and advertising reaching $2B+ at ~80% margins. Mobility is steady. Freight is structural drag. Watch the segment table for whether Delivery's re-acceleration is durable or one-quarter noise. Source: FY2025 10-K (SEC EDGAR).</p>
 
   <div class="stats-row">
     <div class="stat-box"><div class="stat-value">$193.5B</div><div class="stat-label">Gross Bookings</div></div>
@@ -894,7 +945,7 @@ tr:hover { background: var(--bg-card-hover); }
       </div>
     </div>
     <div class="table-wrap">
-      <table>
+      <table class="data-table">
         <thead><tr><th>Segment</th><th class="num">FY2023</th><th class="num">FY2024</th><th class="num">FY2025</th><th class="num">YoY</th><th>Assessment</th></tr></thead>
         <tbody>
           <tr>
@@ -978,7 +1029,8 @@ tr:hover { background: var(--bg-card-hover); }
   <h2 class="section-title"><span class="icon">🏛️</span>Governance</h2>
 
   <div class="card">
-    <div class="card-title">Entrenchment Score: 3.5 / 10 (Lower = Better)</div>
+    <div class="card-title">Entrenchment Score: 3.5 / 10</div>
+    <div style="font-size:12px;color:var(--text-muted);margin-bottom:4px;">Lower = better governance. 0 = ideal, 10 = fully entrenched</div>
     <div class="entrenchment-track">
       <div class="entrenchment-marker" style="left:35%;border-color:var(--accent-green);">3.5</div>
     </div>
@@ -991,8 +1043,9 @@ tr:hover { background: var(--bg-card-hover); }
   <div class="grid-2">
     <div class="card">
       <div class="card-title">Board &amp; Compensation</div>
+      <p style="font-size:13px;color:var(--text-secondary);margin-bottom:12px;">Strong structural governance: dual-class shares eliminated, 90% board independence, S&amp;P 100 member since September 2025. Main concern is pay metric design — Gross Bookings as primary CEO metric incentivizes volume over profitability, a structural misalignment for a maturing platform. SBC at 3.5% of revenue is elevated but declining.</p>
       <div class="table-wrap">
-        <table>
+        <table class="data-table">
           <tbody>
             <tr><td>Board Directors</td><td class="num">10</td></tr>
             <tr><td>Independent Directors</td><td class="num positive">9 (90%)</td></tr>
@@ -1040,7 +1093,7 @@ tr:hover { background: var(--bg-card-hover); }
 </section>
 
 <!-- ===== SECTION 9: INSIDERS & INSTITUTIONS ===== -->
-<section class="section" id="insiders">
+<section class="section" id="insider-institutional">
   <h2 class="section-title"><span class="icon">👥</span>Insiders &amp; Institutional Holdings</h2>
 
   <div class="grid-2">
@@ -1060,8 +1113,23 @@ tr:hover { background: var(--bg-card-hover); }
     </div>
     <div class="card">
       <div class="card-title">Institutional Ownership Overview</div>
+      <div class="mobile-chart">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+          <div style="text-align:center;padding:16px;background:var(--bg-secondary);border-radius:8px;">
+            <div style="font-size:28px;font-weight:700;color:var(--accent-yellow);">79.4%</div>
+            <div style="font-size:11px;color:var(--text-secondary);margin-top:4px;">Institutional Ownership</div>
+            <div style="font-size:11px;color:var(--text-muted);">December 2025</div>
+          </div>
+          <div style="text-align:center;padding:16px;background:var(--bg-secondary);border-radius:8px;">
+            <div style="font-size:28px;font-weight:700;color:var(--accent-red);">&#8209;3.0pp</div>
+            <div style="font-size:11px;color:var(--text-secondary);margin-top:4px;">Change vs Prior Qtr</div>
+            <div style="font-size:11px;color:var(--text-muted);">Prior: 82.4%</div>
+          </div>
+        </div>
+      </div>
+      <div class="desktop-table">
       <div class="table-wrap">
-        <table>
+        <table class="data-table">
           <tbody>
             <tr><td>Total Institutional Ownership</td><td class="num neutral">79.4%</td></tr>
             <tr><td>Prior Quarter</td><td class="num">82.4%</td></tr>
@@ -1070,6 +1138,7 @@ tr:hover { background: var(--bg-card-hover); }
           </tbody>
         </table>
       </div>
+      </div><!-- /desktop-table -->
       <div style="margin-top:12px;padding:10px;background:rgba(234,179,8,0.08);border-radius:6px;border-left:3px solid var(--accent-yellow);font-size:12px;">
         <strong>Net Signal: NEUTRAL-TO-CAUTIOUS</strong> — Net institutional selling in Q4 2025, anchored by passive/sovereign holders limiting downside. Largest buyer: Norges Bank +30.8M shares (Norway SWF — long-term valuation confidence). Largest sellers: Tudor Investment -43.7M, Fidelity -29.4M.
       </div>
@@ -1079,7 +1148,7 @@ tr:hover { background: var(--bg-card-hover); }
   <div class="card">
     <div class="card-title">Top 10 Institutional Holders</div>
     <div class="table-wrap">
-      <table>
+      <table class="data-table">
         <thead><tr><th>#</th><th>Institution</th><th class="num">Shares (M)</th><th>Type</th><th>Activity</th></tr></thead>
         <tbody>
           <tr><td>1</td><td>Vanguard Group</td><td class="num">192.5 (9.06%)</td><td>Passive Index</td><td class="neutral">Stable</td></tr>
@@ -1095,17 +1164,19 @@ tr:hover { background: var(--bg-card-hover); }
         </tbody>
       </table>
     </div>
+    <div style="font-size:11px;color:var(--text-muted);margin-top:10px;">Source: SEC EDGAR 13F filings (Q4 2025) · Form 4 database · phase2/institutional.json</div>
   </div>
 </section>
 
 <!-- ===== SECTION 10: PEER COMPARISON ===== -->
-<section class="section" id="peers">
+<section class="section" id="peer-comparison">
   <h2 class="section-title"><span class="icon">🏁</span>Peer Comparison</h2>
 
   <div class="card">
     <div class="card-title">UBER vs LYFT vs DASH — FY2025</div>
+    <p style="font-size:13px;color:var(--text-secondary);margin-bottom:12px;">Uber dominates across every financial metric — gross bookings 10.4x Lyft, EBITDA margin 55–73% ahead of peers. The competitive nuance is that DoorDash is FIFA's official food delivery partner (brand advantage), while Uber holds the transportation infrastructure position. Scale, global footprint, and OCF generation make this comparison one-sided in Uber's favor.</p>
     <div class="table-wrap">
-      <table>
+      <table class="data-table">
         <thead><tr><th>Metric</th><th class="num">UBER</th><th class="num">LYFT</th><th class="num">DASH</th></tr></thead>
         <tbody>
           <tr><td>Gross Bookings ($B)</td><td class="num positive"><strong>$193.0</strong></td><td class="num">$18.5</td><td class="num">—</td></tr>
@@ -1151,10 +1222,23 @@ tr:hover { background: var(--bg-card-hover); }
 <section class="section" id="text-analysis">
   <h2 class="section-title"><span class="icon">📝</span>Text Analysis — 10-K &amp; Proxy</h2>
 
-  <div class="card">
-    <div class="card-title">Linguistic Credibility Score: 7.5/10 — Above Average</div>
-    <div style="font-size:13px;color:var(--text-secondary);margin-bottom:16px;">Above average. Narrative is credible but selectively transparent. Management discloses risks being managed; opaque on risks not yet acknowledged. Source: phase2/text-analysis.json</div>
+  <div class="gauge-container">
+    <div class="gauge-card">
+      <div class="gauge-title">Linguistic Credibility</div>
+      <div class="gauge-subtitle">10-K &amp; Proxy narrative analysis — disclosure quality, hedging, forward-looking balance</div>
+      <div class="gauge-score neutral">7.5 / 10</div>
+      <div class="gauge-bar">
+        <div class="gauge-fill" style="width:75%;background:var(--accent-yellow);"></div>
+      </div>
+      <div class="gauge-vars">
+        <div><span class="severity-badge severity-LOW">ABOVE AVERAGE</span></div>
+        <div style="margin-top:10px;">Narrative is credible but selectively transparent. Management discloses risks being managed well; notably opaque on risks not yet acknowledged (Tesla robotaxi, frequency deceleration, BYD silence). Voluntary disclosure score high; hedging frequency normal; risk language balanced.</div>
+        <div style="margin-top:8px;font-size:11px;color:var(--text-muted);">Source: phase2/text-analysis.json</div>
+      </div>
+    </div>
+  </div>
 
+  <div class="card">
     <div class="card-title">MDA Key Narratives — Verified</div>
     <div style="font-size:13px;color:var(--text-secondary);">
       <div style="padding:10px 0;border-bottom:1px solid var(--border);">
@@ -1193,8 +1277,9 @@ tr:hover { background: var(--bg-card-hover); }
 
   <div class="card">
     <div class="card-title">Regulatory Landscape</div>
+    <p style="font-size:13px;color:var(--text-secondary);margin-bottom:12px;">Driver classification is the systemic risk. The UK (20.4% of revenue) is the most material open front — drivers classified as 'workers' with pension and holiday pay rights. France resolved favorably in July 2025. California Prop 22 upheld. EU preserved country-by-country determination. Net: most jurisdictions stabilized; UK remains the live risk to watch.</p>
     <div class="table-wrap">
-      <table>
+      <table class="data-table">
         <thead><tr><th>Jurisdiction</th><th>Status</th><th>Risk Level</th></tr></thead>
         <tbody>
           <tr><td><strong>UK</strong> ($10.6B, 20.4% revenue)</td><td>Drivers = 'workers' (Supreme Court 2021)</td><td><span class="severity-badge severity-HIGH">HIGH</span></td></tr>
@@ -1210,7 +1295,7 @@ tr:hover { background: var(--bg-card-hover); }
 </section>
 
 <!-- ===== SECTION 12: ADVANCED ANALYSIS ===== -->
-<section class="section" id="advanced">
+<section class="section" id="advanced-analysis">
   <h2 class="section-title"><span class="icon">🚀</span>Advanced Analysis</h2>
 
   <!-- FIFA World Cup 2026 -->
@@ -1253,14 +1338,15 @@ tr:hover { background: var(--bg-card-hover); }
 
   <!-- FY2026 Net Income Prediction -->
   <div class="card" style="border-left:4px solid var(--accent-blue);">
-    <div class="card-title" style="color:var(--accent-blue);">FY2026 Net Income Prediction — Bear / Base / Bull</div>
+    <div class="card-title" style="color:var(--accent-blue);">FY2026 Net Income Prediction</div>
+    <div style="font-size:12px;color:var(--text-muted);margin-bottom:8px;">Bear (20%) · Base (55%) · Bull (25%) scenarios</div>
     <div style="font-size:12px;color:var(--text-muted);margin-bottom:8px;">Source: phase5/net-income-prediction.json; anchored to FY2025 actuals and Q1 2026 guidance (Feb 4, 2026 earnings call)</div>
     <div style="padding:10px;background:rgba(239,68,68,0.08);border-radius:6px;border-left:3px solid var(--accent-red);font-size:12px;margin-bottom:16px;">
       <strong style="color:var(--accent-red);">DTA NORMALIZATION WARNING:</strong> GAAP NI will decline from FY2025 $10.1B to ~$6.1B (base) in FY2026 as the $4.8B DTA benefit does not repeat. <strong>This is NOT business deterioration.</strong> Operating income grows from $5.6B to ~$7.0B. Economic NI (DTA-adjusted) grows from $5.3B to ~$5.1B (base). Watch adj. EBITDA and economic NI — not GAAP NI — for performance assessment. Consensus EPS of $3.46 appears optimistic vs. our base case $2.92 economic EPS.
     </div>
 
     <div class="table-wrap">
-      <table>
+      <table class="data-table">
         <thead>
           <tr>
             <th>Metric</th>
@@ -1319,7 +1405,7 @@ tr:hover { background: var(--bg-card-hover); }
 </section>
 
 <!-- ===== SECTION 13: RISK CONVERGENCE ===== -->
-<section class="section" id="risks">
+<section class="section" id="risk-convergence">
   <h2 class="section-title"><span class="icon">⚠️</span>Risk Convergence</h2>
 
   <div class="grid-2">
@@ -1353,7 +1439,7 @@ tr:hover { background: var(--bg-card-hover); }
   <div class="card">
     <div class="card-title">Risk Matrix</div>
     <div class="table-wrap">
-      <table>
+      <table class="data-table">
         <thead><tr><th>Risk</th><th>Severity</th><th>Probability</th><th>Time Horizon</th></tr></thead>
         <tbody>
           <tr><td>AV Disintermediation (Waymo/Tesla direct)</td><td><span class="severity-badge severity-CRITICAL">CRITICAL</span></td><td>LOW near-term / MEDIUM medium-term</td><td>2–5 years</td></tr>
@@ -1370,7 +1456,8 @@ tr:hover { background: var(--bg-card-hover); }
   </div>
 
   <div class="card">
-    <div class="card-title">Multi-Source Convergence — Findings Confirmed by 2+ Independent Sources</div>
+    <div class="card-title">Multi-Source Convergence</div>
+    <div style="font-size:12px;color:var(--text-muted);margin-bottom:12px;font-weight:500;">Each finding confirmed by 2+ independent data sources</div>
     <div class="timeline">
       <div class="timeline-item">
         <div class="timeline-dot positive"></div>
@@ -1397,7 +1484,7 @@ tr:hover { background: var(--bg-card-hover); }
 </section>
 
 <!-- ===== SECTION 14: WATCHLIST & PREDICTIONS ===== -->
-<section class="section" id="watchlist">
+<section class="section" id="watchlist-predictions">
   <h2 class="section-title"><span class="icon">👁️</span>Watchlist &amp; Predictions</h2>
 
   <div class="watchlist-item">
@@ -1499,7 +1586,7 @@ tr:hover { background: var(--bg-card-hover); }
 </section>
 
 <!-- ===== SECTION 15: CLOSING SYNTHESIS ===== -->
-<section class="section" id="synthesis">
+<section class="section synthesis-card" id="closing-synthesis">
   <h2 class="section-title"><span class="icon">🔮</span>Closing Synthesis</h2>
 
   <div class="synthesis-card">
@@ -1574,7 +1661,8 @@ tr:hover { background: var(--bg-card-hover); }
   </div>
 
   <div class="card">
-    <div class="card-title" style="color:var(--accent-red);">Thesis Invalidation Signals — Exit if These Occur</div>
+    <div class="card-title" style="color:var(--accent-red);">Thesis Invalidation Signals</div>
+    <div style="font-size:12px;color:var(--accent-red);margin-bottom:12px;font-weight:500;">Exit or reduce position if any of these materialize</div>
     <ul style="list-style:none;padding:0;font-size:13px;color:var(--text-secondary);">
       <li style="padding:10px 0;border-bottom:1px solid var(--border);">&#x26A0; <strong>Frequency growth falls below 3%</strong> for two consecutive quarters — platform maturity accelerating faster than Uber One can compensate</li>
       <li style="padding:10px 0;border-bottom:1px solid var(--border);">&#x26A0; <strong>Waymo or Tesla announces direct-to-consumer rideshare</strong> at scale without Uber — structural disintermediation risk materializes</li>
