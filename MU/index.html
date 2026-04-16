@@ -1,0 +1,2277 @@
+<!--
+  FORENSIC REPORT TEMPLATE v3.0
+  Micron Technology, Inc. (MU) — Generated April 16, 2026
+  Source of truth: report-template.html (canonical template)
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<title>Micron Technology, Inc. (MU) - SEC Forensic Analysis Report</title>
+<style>
+:root {
+  --bg-primary: #0a0e1a;
+  --bg-secondary: #111827;
+  --bg-card: #1a2234;
+  --bg-card-hover: #1f2a40;
+  --border: #2a3550;
+  --text-primary: #e8edf5;
+  --text-secondary: #8b99b0;
+  --text-muted: #5a6880;
+  --accent-green: #22c55e;
+  --accent-green-dim: rgba(34,197,94,0.15);
+  --accent-yellow: #eab308;
+  --accent-yellow-dim: rgba(234,179,8,0.15);
+  --accent-red: #ef4444;
+  --accent-red-dim: rgba(239,68,68,0.15);
+  --accent-blue: #3b82f6;
+  --accent-blue-dim: rgba(59,130,246,0.12);
+  --accent-purple: #a855f7;
+  --accent-cyan: #06b6d4;
+  --accent-orange: #f97316;
+  --nav-width: 240px;
+  --header-height: 90px;
+  --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --accent-gold: #C9A227;
+  --accent-gold-dim: rgba(201,162,39,0.10);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-padding-top: 100px; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  font-size: 14px;
+}
+a { color: var(--accent-blue); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* Header */
+.site-header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: var(--header-height);
+  background: linear-gradient(135deg, #0B0E13 0%, #141A26 100%);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: max(6px, env(safe-area-inset-top)) 32px 0;
+}
+.site-header::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 3px; background: linear-gradient(90deg, #C9A227 0%, #E0B830 50%, #C9A227 100%);
+}
+.header-left { display: flex; align-items: center; gap: 20px; }
+.home-btn {
+  display: flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px; border-radius: 6px;
+  background: rgba(201,162,39,0.10); border: 1px solid rgba(201,162,39,0.25);
+  color: #C9A227; text-decoration: none; transition: all 0.2s;
+  flex-shrink: 0;
+}
+.home-btn:hover { background: rgba(201,162,39,0.2); border-color: #C9A227; text-decoration: none; }
+.home-btn svg { width: 18px; height: 18px; }
+.header-logo { width: 36px; height: 36px; object-fit: contain; filter: brightness(0) invert(0.85); flex-shrink: 0; }
+.company-name { font-family: var(--font-serif); font-size: 24px; font-weight: 700; letter-spacing: -0.5px; }
+.ticker-badge {
+  background: rgba(201,162,39,0.10); color: #C9A227;
+  padding: 4px 12px; border-radius: 6px; font-weight: 600; font-size: 14px;
+  border: 1px solid rgba(201,162,39,0.25);
+}
+.header-right { display: flex; align-items: center; gap: 12px; }
+.verdict-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 14px; border-radius: 8px; font-size: 12px; font-weight: 600;
+  letter-spacing: 0.3px;
+}
+.verdict-badge .label { opacity: 0.7; font-weight: 400; }
+.badge-green { background: var(--accent-green-dim); color: var(--accent-green); border: 1px solid rgba(34,197,94,0.3); }
+.badge-yellow { background: var(--accent-yellow-dim); color: var(--accent-yellow); border: 1px solid rgba(234,179,8,0.3); }
+.badge-red { background: var(--accent-red-dim); color: var(--accent-red); border: 1px solid rgba(239,68,68,0.3); }
+.badge-blue { background: var(--accent-blue-dim); color: var(--accent-blue); border: 1px solid rgba(59,130,246,0.3); }
+
+/* Sidebar Nav */
+.sidebar {
+  position: fixed; top: var(--header-height); left: 0; bottom: 0;
+  width: var(--nav-width); background: var(--bg-secondary);
+  border-right: 1px solid var(--border);
+  overflow-y: auto; padding: 16px 0; z-index: 90;
+}
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+.nav-link {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 20px; color: var(--text-secondary);
+  font-size: 13px; cursor: pointer; transition: all 0.2s;
+  border-left: 3px solid transparent;
+}
+.nav-link:hover { background: var(--bg-card); color: var(--text-primary); text-decoration: none; }
+.nav-link.active { color: var(--accent-gold); border-left-color: var(--accent-gold); background: var(--accent-gold-dim); }
+.nav-icon { width: 18px; text-align: center; font-size: 14px; }
+
+/* Main Content */
+.main-content {
+  margin-left: var(--nav-width); margin-top: var(--header-height);
+  padding: 32px; max-width: 1200px;
+}
+.section { margin-bottom: 48px; scroll-margin-top: 100px; }
+.section-title {
+  font-family: var(--font-serif); font-size: 22px; font-weight: 700; margin-bottom: 20px;
+  padding-bottom: 12px; border-bottom: 2px solid var(--border);
+  display: flex; align-items: center; gap: 10px;
+}
+.section-title .icon { font-size: 20px; }
+
+/* Cards */
+.card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 24px; margin-bottom: 16px;
+}
+.card-title { font-size: 16px; font-weight: 600; margin-bottom: 12px; }
+
+/* Analyst Insight Cards */
+.analyst-insight {
+  border-left: 3px solid #c9a227;
+  background: linear-gradient(135deg, rgba(201,162,39,0.05), transparent);
+}
+.analyst-insight .card-title {
+  color: #c9a227;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.analyst-insight p { line-height: 1.7; margin-bottom: 12px; }
+.analyst-insight .cross-source {
+  background: rgba(201,162,39,0.08);
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-top: 12px;
+  font-size: 13px;
+}
+.analyst-insight .cross-source strong { color: #c9a227; }
+.analyst-insight .red-flag-inline { color: var(--accent-red); font-weight: 600; }
+.analyst-insight .watch-item { color: var(--accent-yellow); font-style: italic; }
+
+/* Collapsible */
+.collapsible { cursor: pointer; user-select: none; }
+.collapsible::after { content: ' \25BC'; font-size: 10px; opacity: 0.5; }
+.collapsible.collapsed::after { content: ' \25B6'; }
+.collapse-content { overflow: hidden; transition: max-height 0.3s ease; }
+.collapse-content.hidden { max-height: 0 !important; padding: 0; }
+
+/* Tables */
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th {
+  background: var(--bg-secondary); color: var(--text-secondary);
+  padding: 10px 12px; text-align: left; font-weight: 600;
+  border-bottom: 2px solid var(--border); position: sticky; top: 0;
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;
+}
+td { padding: 10px 12px; border-bottom: 1px solid var(--border); }
+tr:nth-child(even) { background: rgba(255,255,255,0.02); }
+tr:hover { background: var(--bg-card-hover); }
+.num { text-align: right; font-variant-numeric: tabular-nums; }
+.positive { color: var(--accent-green); }
+.negative { color: var(--accent-red); }
+.neutral { color: var(--accent-yellow); }
+
+/* Gauges */
+.gauge-container { display: flex; flex-wrap: wrap; gap: 20px; }
+.gauge-card {
+  flex: 1; min-width: 280px; background: var(--bg-card);
+  border: 1px solid var(--border); border-radius: 12px; padding: 20px;
+}
+.gauge-title { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+.gauge-subtitle { font-size: 11px; color: var(--text-secondary); margin-bottom: 16px; }
+.gauge-bar {
+  height: 24px; background: var(--bg-secondary); border-radius: 12px;
+  overflow: hidden; position: relative; margin-bottom: 8px;
+}
+.gauge-fill { height: 100%; border-radius: 12px; transition: width 0.5s ease; position: relative; }
+.gauge-zones {
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  display: flex;
+}
+.gauge-zone { height: 100%; opacity: 0.15; }
+.gauge-marker {
+  position: absolute; top: -4px; width: 4px; height: 32px;
+  background: var(--text-primary); border-radius: 2px;
+  transform: translateX(-50%);
+}
+.gauge-labels { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted); }
+.gauge-score { font-family: var(--font-serif); font-size: 28px; font-weight: 700; margin: 8px 0; }
+.gauge-vars { font-size: 12px; color: var(--text-secondary); line-height: 1.8; }
+
+/* Grid layouts */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+@media (max-width: 1024px) {
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  .header-right { display: none; }
+}
+
+/* Red flag cards */
+.flag-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 20px; margin-bottom: 12px;
+  border-left: 4px solid;
+}
+.flag-card.high { border-left-color: var(--accent-red); }
+.flag-card.moderate { border-left-color: var(--accent-yellow); }
+.flag-card.low { border-left-color: var(--accent-green); }
+.severity-badge {
+  display: inline-block; padding: 2px 8px; border-radius: 4px;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.5px;
+}
+.severity-HIGH { background: var(--accent-red-dim); color: var(--accent-red); }
+.severity-MEDIUM { background: var(--accent-yellow-dim); color: var(--accent-yellow); }
+.severity-LOW { background: var(--accent-green-dim); color: var(--accent-green); }
+.severity-CRITICAL { background: var(--accent-red-dim); color: var(--accent-red); }
+
+/* Timeline */
+.timeline { position: relative; padding-left: 24px; }
+.timeline::before {
+  content: ''; position: absolute; left: 8px; top: 0; bottom: 0;
+  width: 2px; background: var(--border);
+}
+.timeline-item { position: relative; margin-bottom: 20px; }
+.timeline-dot {
+  position: absolute; left: -20px; top: 6px;
+  width: 12px; height: 12px; border-radius: 50%;
+  border: 2px solid; background: var(--bg-primary);
+}
+.timeline-dot.positive { border-color: var(--accent-green); }
+.timeline-dot.negative { border-color: var(--accent-red); }
+.timeline-dot.neutral { border-color: var(--accent-yellow); }
+.timeline-date { font-size: 11px; color: var(--text-muted); margin-bottom: 4px; }
+.timeline-title { font-weight: 600; margin-bottom: 4px; }
+.timeline-detail { font-size: 13px; color: var(--text-secondary); }
+
+/* Watchlist */
+.watchlist-item {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 16px; background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 10px; margin-bottom: 10px;
+}
+.priority-dot {
+  width: 8px; height: 8px; border-radius: 50%; margin-top: 6px; flex-shrink: 0;
+}
+.priority-CRITICAL { background: var(--accent-red); box-shadow: 0 0 8px var(--accent-red); }
+.priority-HIGH { background: var(--accent-orange); }
+.priority-MODERATE { background: var(--accent-yellow); }
+.priority-LOW { background: var(--accent-green); }
+
+/* Bar chart using CSS */
+.bar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+.bar-label { width: 140px; font-size: 12px; text-align: right; color: var(--text-secondary); flex-shrink: 0; }
+.bar-track { flex: 1; height: 22px; background: var(--bg-secondary); border-radius: 4px; overflow: hidden; position: relative; }
+.bar-fill { height: 100%; border-radius: 4px; display: flex; align-items: center; padding-left: 8px; font-size: 11px; font-weight: 600; color: #fff; min-width: 40px; }
+.bar-value { width: 80px; font-size: 12px; text-align: right; font-variant-numeric: tabular-nums; flex-shrink: 0; }
+
+/* Prediction cards */
+.prediction-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 20px; margin-bottom: 12px;
+}
+.confidence-bar {
+  height: 6px; background: var(--bg-secondary); border-radius: 3px;
+  overflow: hidden; margin-top: 8px;
+}
+.confidence-fill { height: 100%; border-radius: 3px; }
+
+/* Footer */
+.site-footer {
+  margin-left: var(--nav-width); padding: 24px 32px;
+  border-top: 1px solid var(--border);
+  color: var(--text-muted); font-size: 12px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+
+/* Summary stats row */
+.stats-row { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 24px; }
+.stat-box {
+  flex: 1; min-width: 150px; background: var(--bg-card);
+  border: 1px solid var(--border); border-radius: 10px; padding: 16px;
+  text-align: center;
+}
+.stat-value { font-size: 24px; font-weight: 700; }
+.stat-label { font-size: 11px; color: var(--text-secondary); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* Entrenchment visual */
+.entrenchment-track {
+  height: 32px; background: linear-gradient(to right, var(--accent-green), var(--accent-yellow), var(--accent-red));
+  border-radius: 16px; position: relative; margin: 16px 0;
+  opacity: 0.3;
+}
+.entrenchment-marker {
+  position: absolute; top: -4px; width: 40px; height: 40px;
+  background: var(--bg-card); border: 3px solid var(--accent-green);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 16px;
+  transform: translateX(-50%);
+}
+
+/* Exec summary */
+.exec-summary { font-size: 15px; line-height: 1.8; color: var(--text-primary); }
+.exec-summary p { margin-bottom: 16px; text-align: justify; }
+
+/* Stacked bar */
+.stacked-bar { display: flex; height: 28px; border-radius: 6px; overflow: hidden; margin-bottom: 4px; }
+.stacked-seg { display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 600; color: #fff; min-width: 20px; }
+
+/* Crash analysis hero */
+.crash-hero {
+  background: linear-gradient(135deg, rgba(34,197,94,0.08) 0%, rgba(59,130,246,0.08) 100%);
+  border: 2px solid rgba(34,197,94,0.3);
+  border-radius: 16px; padding: 32px; margin-bottom: 24px;
+}
+.crash-hero h3 { font-size: 20px; margin-bottom: 12px; color: var(--accent-green); }
+.crash-metric { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 600; margin: 4px; }
+
+/* Table scroll wrapper */
+.table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 -4px; padding: 0 4px; }
+
+/* Piotroski score badges */
+.score-weak        { color: #fff; background-color: #dc3545; }
+.score-moderate    { color: #212529; background-color: #ffc107; }
+.score-fair        { color: #fff; background-color: #6c757d; }
+.score-strong      { color: #fff; background-color: #28a745; }
+.score-very-strong { color: #fff; background-color: #155724; }
+.piotroski-badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 0.85em;
+  letter-spacing: 0.03em;
+}
+
+/* Forensic model label override */
+.model-label {
+  display: inline-block;
+  padding: 3px 12px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 0.8em;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* Disclaimer */
+.report-disclaimer {
+  margin-top: 3rem;
+  margin-bottom: 1.5rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--text-muted);
+  border-radius: 4px;
+  background: rgba(255,255,255,0.02);
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+  font-style: italic;
+}
+.report-disclaimer p { margin: 0; }
+
+/* Closing Synthesis — gold card */
+.synthesis-card {
+  margin: 3rem 0;
+  padding: 2.5rem;
+  border: 2px solid #c8a84e;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  width: 100%;
+  max-width: 100%;
+}
+.synthesis-card h2 {
+  font-size: 1.75rem;
+  color: #c8a84e;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-bottom: none;
+  padding-bottom: 0;
+}
+.synthesis-scope {
+  text-align: center;
+  font-size: 1.05rem;
+  color: #a0a0b8;
+  margin-bottom: 2rem;
+}
+.synthesis-thesis {
+  font-size: 1.2rem;
+  line-height: 1.7;
+  color: #e0e0e8;
+  padding: 1.5rem;
+  border-left: 4px solid #c8a84e;
+  background: rgba(200, 168, 78, 0.06);
+  margin-bottom: 2rem;
+}
+.synthesis-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+.synthesis-grid h3 {
+  color: #c8a84e;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid rgba(200, 168, 78, 0.3);
+  padding-bottom: 0.5rem;
+}
+.synthesis-grid ul { list-style: none; padding: 0; }
+.synthesis-grid li {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  color: #c8c8d8;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+.synthesis-grid li::before { content: "\25B8 "; color: #c8a84e; }
+.synthesis-convergence { margin-bottom: 2rem; }
+.synthesis-convergence h3 { color: #4ecdc4; font-size: 1.1rem; margin-bottom: 0.75rem; }
+.synthesis-convergence ul { list-style: none; padding: 0; }
+.synthesis-convergence li { color: #c8c8d8; padding: 0.5rem 0; line-height: 1.5; }
+.synthesis-convergence li::before { content: "\2714 "; color: #4ecdc4; }
+.synthesis-divergence {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: rgba(231, 76, 60, 0.08);
+  border-radius: 8px;
+  border-left: 4px solid #e74c3c;
+}
+.synthesis-divergence h3 { color: #e74c3c; font-size: 1.1rem; margin-bottom: 0.75rem; }
+.synthesis-divergence ul { list-style: none; padding: 0; }
+.synthesis-divergence li { color: #d8c8c8; padding: 0.5rem 0; font-weight: 500; line-height: 1.5; }
+.synthesis-divergence li::before { content: "\26A0 "; color: #e74c3c; }
+.synthesis-watchpoint h3 { color: #c8a84e; font-size: 1.1rem; margin-bottom: 0.75rem; }
+.watchpoint-box {
+  text-align: center;
+  padding: 1.5rem;
+  background: rgba(200, 168, 78, 0.1);
+  border: 1px solid #c8a84e;
+  border-radius: 8px;
+  margin-top: 1rem;
+}
+.watchpoint-metric { display: block; font-size: 1.3rem; font-weight: 700; color: #c8a84e; margin-bottom: 0.5rem; }
+.watchpoint-value { display: inline-block; font-size: 1.1rem; color: #e0e0e8; margin-right: 2rem; }
+.watchpoint-threshold { display: inline-block; font-size: 1.1rem; color: #e74c3c; font-weight: 600; }
+.watchpoint-box p { margin-top: 1rem; font-size: 1rem; color: #a0a0b8; line-height: 1.6; }
+
+/* ============ TABLET (<1024px) ============ */
+@media (max-width: 1024px) {
+  .main-content { padding: 24px; }
+  .gauge-card { min-width: 220px; }
+  .synthesis-grid { grid-template-columns: 1fr; }
+  .synthesis-card { padding: 1.5rem; }
+}
+
+/* ============ PHONE (<768px) ============ */
+@media (max-width: 768px) {
+  .sidebar { display: none; }
+  .main-content { margin-left: 0; }
+  .site-footer { margin-left: 0; }
+  .site-header { padding: 0 16px; gap: 8px; height: 60px; }
+  .company-name { font-size: 18px; }
+  .header-logo { width: 28px; height: 28px; }
+  .ticker-badge { font-size: 12px; padding: 3px 8px; }
+  .site-header .header-left > span { display: none; }
+  .main-content { padding: 16px; }
+  .section { margin-bottom: 32px; scroll-margin-top: 70px; }
+  .section-title { font-size: 18px; }
+  .stats-row { gap: 8px; }
+  .stat-box { min-width: 100px; padding: 12px 8px; }
+  .stat-value { font-size: 18px; }
+  .stat-label { font-size: 9px; }
+  .card { padding: 16px; border-radius: 10px; }
+  .card-title { font-size: 14px; }
+  .exec-summary { font-size: 14px; line-height: 1.7; }
+  .exec-summary p { text-align: left; }
+  table { font-size: 12px; }
+  th { font-size: 10px; padding: 8px 6px; }
+  td { padding: 8px 6px; }
+  .gauge-container { gap: 12px; }
+  .gauge-card { min-width: unset; padding: 16px; }
+  .gauge-score { font-size: 24px; }
+  .bar-row { gap: 6px; }
+  .bar-label { width: 80px; font-size: 11px; }
+  .bar-value { width: 60px; font-size: 11px; }
+  .bar-fill { font-size: 10px; padding-left: 4px; }
+  .flag-card { padding: 14px; }
+  .watchlist-item { padding: 12px; }
+  .site-footer { padding: 16px; flex-direction: column; gap: 8px; text-align: center; }
+  .nav-link { padding: 14px 20px; font-size: 14px; min-height: 44px; }
+  .stacked-bar { height: 24px; }
+  .prediction-card { padding: 16px; }
+  .timeline { padding-left: 20px; }
+}
+
+/* ============ SMALL PHONE (<480px) ============ */
+@media (max-width: 480px) {
+  .site-header { padding: 0 12px; }
+  .company-name { font-size: 16px; max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .main-content { padding: 12px; }
+  .stats-row { flex-direction: column; gap: 6px; }
+  .stat-box { min-width: unset; flex-direction: row; justify-content: space-between; align-items: center; text-align: left; padding: 10px 14px; }
+  .stat-value { font-size: 20px; }
+  .stat-label { font-size: 10px; margin-top: 0; }
+  .bar-label { width: 60px; font-size: 10px; }
+  .bar-value { width: 50px; font-size: 10px; }
+  .section-title { font-size: 16px; gap: 6px; }
+}
+
+/* ===== MOBILE V2 FIXES (smartphone-specific) ===== */
+
+/* FIX 1: Red flags + cross-layer */
+@media (max-width: 768px) {
+  .flag-card { padding: 16px !important; margin-bottom: 16px !important; border-radius: 10px; }
+  .flag-card > div:first-child {
+    flex-direction: column !important; align-items: flex-start !important; gap: 8px !important;
+  }
+  .flag-card .severity-badge { font-size: 11px; }
+  .flag-card p { font-size: 13px; line-height: 1.6; margin-top: 8px; }
+}
+
+/* FIX 2: Insider/Ownership tables */
+@media (max-width: 768px) {
+  #insiders table, #insiders thead, #insiders tbody, #insiders tr, #insiders th, #insiders td {
+    display: block; width: 100%;
+  }
+  #insiders thead { display: none; }
+  #insiders tr {
+    margin-bottom: 12px; padding: 12px; border-radius: 8px;
+    background: var(--bg-card, #1a2234); border: 1px solid var(--border, #2a3550);
+  }
+  #insiders td { padding: 4px 0; border-bottom: none; text-align: left; }
+  #insiders td.num { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+  #insiders td:last-child { font-size: 12px; color: var(--text-secondary, #8b99b0); line-height: 1.5; }
+}
+
+/* FIX 3: Table scroll hint */
+@media (max-width: 768px) {
+  .table-wrap { position: relative; }
+  .table-wrap::after {
+    content: '\2190 scroll \2192';
+    display: block; text-align: center; font-size: 10px;
+    color: var(--text-muted, #5a6880); padding: 6px 0 2px; opacity: 0.5;
+  }
+}
+
+/* FIX 4: Segments */
+@media (max-width: 768px) {
+  .stacked-bar {
+    height: auto !important; flex-direction: column !important; gap: 4px;
+    border-radius: 0 !important;
+  }
+  .stacked-seg {
+    height: 32px !important; width: 100% !important;
+    border-radius: 6px !important;
+    justify-content: flex-start !important; padding-left: 12px !important;
+    font-size: 12px !important;
+  }
+}
+
+/* FIX 5: Forensic models */
+@media (max-width: 768px) {
+  .gauge-container { gap: 16px; flex-direction: column; }
+  .gauge-card {
+    min-width: unset !important; padding: 20px 16px !important;
+    background: var(--bg-secondary, #111827) !important; border-radius: 12px;
+  }
+  .gauge-title { font-size: 16px !important; text-align: center; margin-bottom: 4px; }
+  .gauge-subtitle { font-size: 11px !important; text-align: center; }
+  .gauge-score { font-size: 32px !important; text-align: center; margin: 12px 0 !important; }
+  .gauge-bar { height: 14px !important; border-radius: 7px !important; margin-bottom: 6px; }
+  .gauge-marker { height: 22px !important; top: -4px !important; width: 3px !important; }
+  .gauge-zones .gauge-zone { opacity: 0.25 !important; }
+  .gauge-labels { font-size: 9px !important; padding: 0 2px; }
+  .gauge-labels span:nth-child(2) { opacity: 0.5; font-size: 8px; }
+  .gauge-vars {
+    font-size: 12px !important; line-height: 2.0 !important; margin-top: 12px;
+    padding-top: 12px; border-top: 1px solid var(--border, #2a3550);
+  }
+}
+@media (max-width: 480px) {
+  .flag-card { padding: 14px 12px !important; margin-bottom: 12px !important; border-radius: 8px; }
+  .gauge-score { font-size: 28px !important; }
+  .gauge-title { font-size: 15px !important; }
+  .gauge-labels span:nth-child(2) { display: none; }
+  .gauge-vars { font-size: 11px !important; }
+}
+
+
+/* ===== MOBILE PATCH v2.2 — April 2026 ===== */
+
+@media (max-width: 768px) {
+  #verdicts [style*="font-size:48px"],
+  #verdicts [style*="font-size: 48px"],
+  #transcript-intelligence [style*="font-size:42px"],
+  #transcript-intelligence [style*="font-size: 42px"] {
+    font-size: 2rem !important; line-height: 1 !important;
+  }
+  #verdicts [style*="font-size:20px"],
+  #verdicts [style*="font-size: 20px"] { font-size: 0.95rem !important; }
+  #verdicts .card > div[style*="gap"] { flex-wrap: wrap; gap: 8px !important; }
+
+  .synthesis-card   { padding: 1.5rem !important; margin: 2rem 0 !important; }
+  .synthesis-card h2 { font-size: 1.25rem !important; margin-bottom: 0.9rem !important; }
+  .synthesis-title  { font-size: 1.25rem !important; }
+  .synthesis-scope  { font-size: 0.85rem !important; margin-bottom: 1.25rem !important; }
+  .synthesis-thesis { font-size: 0.95rem !important; padding: 1rem !important;
+                      margin-bottom: 1.25rem !important; line-height: 1.65 !important; }
+  .synthesis-grid h3,
+  .synthesis-convergence h3,
+  .synthesis-divergence h3,
+  .synthesis-watchpoint h3,
+  .synthesis-col h3 { font-size: 0.9rem !important; margin-bottom: 0.6rem !important; }
+  .synthesis-grid li,
+  .synthesis-convergence li,
+  .synthesis-divergence li,
+  .synthesis-col li { font-size: 0.85rem !important; line-height: 1.55 !important; padding: 3px 0 !important; }
+  .watchpoint-box   { padding: 0.9rem !important; }
+  .watchpoint-metric { font-size: 1rem !important; margin-bottom: 0.2rem !important; }
+  .watchpoint-value,
+  .watchpoint-threshold { font-size: 0.875rem !important; display: block !important;
+                          margin-right: 0 !important; margin-bottom: 4px !important; }
+  .watchpoint-box p { font-size: 0.85rem !important; margin-top: 0.5rem !important; }
+  .synthesis-body { font-size: 0.9rem !important; }
+
+  .card.exec-summary {
+    padding: 18px 16px !important;
+    background: linear-gradient(180deg, #1c2640 0%, #111827 100%) !important;
+    border-top: 3px solid #3b82f6 !important;
+    border-radius: 12px !important;
+  }
+  .exec-summary p:first-child {
+    font-size: 14.5px !important;
+    font-weight: 500 !important;
+    color: #e8eaf0 !important;
+    border-left: 3px solid #3b82f6;
+    padding-left: 11px !important;
+    line-height: 1.75 !important;
+    margin-bottom: 18px !important;
+    padding-bottom: 0 !important;
+    border-bottom: none !important;
+  }
+  .exec-summary p {
+    font-size: 13.5px !important;
+    line-height: 1.75 !important;
+    margin-bottom: 0 !important;
+    padding: 14px 0 !important;
+    border-bottom: 1px solid rgba(255,255,255,0.07) !important;
+    text-align: left !important;
+    color: var(--text-secondary) !important;
+  }
+  .exec-summary p:last-child {
+    border-bottom: none !important;
+    padding-bottom: 0 !important;
+  }
+  .exec-summary strong {
+    display: block !important;
+    font-size: 10.5px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.9px !important;
+    margin-bottom: 5px !important;
+    opacity: 1 !important;
+  }
+}
+
+@media (max-width: 480px) {
+  #verdicts [style*="font-size:48px"],
+  #verdicts [style*="font-size: 48px"],
+  #transcript-intelligence [style*="font-size:42px"],
+  #transcript-intelligence [style*="font-size: 42px"] { font-size: 1.7rem !important; }
+
+  .stats-row {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 7px !important;
+    margin-bottom: 14px !important;
+  }
+  .stat-box {
+    flex-direction: column !important;
+    text-align: center !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 11px 8px !important;
+    border-radius: 10px !important;
+    border-top: 2px solid rgba(255,255,255,0.12) !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: none !important;
+    background: linear-gradient(160deg,#1a2234,#111827) !important;
+    min-width: unset !important;
+  }
+  .stat-value         { font-size: 17px !important; line-height: 1.2 !important; }
+  .stat-value.positive { color: #22c55e !important; }
+  .stat-value.negative { color: #ef4444 !important; }
+  .stat-value.neutral  { color: #eab308 !important; }
+  .stat-label { font-size: 9px !important; margin-top: 5px !important;
+                letter-spacing: 0.4px !important; }
+
+  .card.exec-summary  { padding: 14px 12px !important; }
+  .exec-summary p:first-child { font-size: 13.5px !important; }
+  .exec-summary p     { font-size: 12.5px !important; line-height: 1.7 !important; padding: 12px 0 !important; }
+
+  .synthesis-card     { padding: 1rem !important; margin: 1.5rem 0 !important; }
+  .synthesis-card h2, .synthesis-title { font-size: 1.05rem !important; }
+  .synthesis-thesis   { font-size: 0.9rem !important; padding: 0.75rem !important; }
+}
+/* ===== END MOBILE PATCH v2.2 ===== */
+
+/* ===== START MOBILE PATCH v2.3 ===== */
+@media (max-width: 768px) {
+  h3, .card-title {
+    font-size: 9px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1.2px !important;
+    color: var(--text-muted, #6b7280) !important;
+    margin-bottom: 6px !important;
+    padding-bottom: 0 !important;
+    border-bottom: none !important;
+    line-height: 1.3 !important;
+  }
+
+  .card.exec-summary {
+    background: linear-gradient(175deg, #0f1e3d 0%, #111827 70%, #0a0f1a 100%) !important;
+    border: 1px solid rgba(59,130,246,0.2) !important;
+    border-top: 3px solid #3b82f6 !important;
+    border-radius: 12px !important;
+    padding: 16px 14px !important;
+  }
+
+  .exec-summary p {
+    font-size: 14px !important;
+    line-height: 1.85 !important;
+    color: #d1d5db !important;
+    border-left: none !important;
+    border-bottom: 1px solid rgba(59,130,246,0.12) !important;
+    padding: 14px 0 !important;
+    margin: 0 !important;
+  }
+
+  .exec-summary p:last-child {
+    border-bottom: none !important;
+    padding-bottom: 4px !important;
+  }
+
+  .exec-summary strong {
+    display: inline !important;
+    color: #93c5fd !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    text-transform: none !important;
+    letter-spacing: 0 !important;
+    background: rgba(59,130,246,0.12) !important;
+    padding: 1px 5px !important;
+    border-radius: 4px !important;
+    border: 1px solid rgba(59,130,246,0.22) !important;
+  }
+}
+@media (max-width: 480px) {
+  .exec-summary p { font-size: 13.5px !important; }
+  .exec-summary strong { font-size: 13.5px !important; }
+}
+/* ===== END MOBILE PATCH v2.3 ===== */
+
+/* ===== P-12 Glossary Tooltip Styles (V3.1) ===== */
+.glossary-term {
+  border-bottom: 1px dotted #6b7280;
+  cursor: help;
+  position: relative;
+  white-space: nowrap;
+}
+.glossary-term:hover {
+  border-bottom-color: #2563eb;
+  color: #2563eb;
+}
+.glossary-tooltip {
+  position: absolute;
+  z-index: 10000;
+  background: #1e293b;
+  color: #f1f5f9;
+  font-size: 13px;
+  line-height: 1.45;
+  padding: 10px 14px;
+  border-radius: 8px;
+  max-width: 340px;
+  min-width: 180px;
+  width: max-content;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+}
+.glossary-tooltip.visible { opacity: 1; }
+.glossary-tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: #1e293b;
+}
+.glossary-tooltip.flip-below {
+  bottom: auto;
+  top: calc(100% + 8px);
+}
+.glossary-tooltip.flip-below::after {
+  top: auto;
+  bottom: 100%;
+  border-top-color: transparent;
+  border-bottom-color: #1e293b;
+}
+.glossary-tooltip strong {
+  color: #93c5fd;
+  display: block;
+  margin-bottom: 3px;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+}
+@media (max-width: 768px) {
+  .glossary-tooltip {
+    position: fixed;
+    bottom: auto;
+    left: 16px !important;
+    right: 16px;
+    top: auto;
+    transform: none;
+    max-width: none;
+    width: auto;
+    padding: 14px 18px;
+    font-size: 14px;
+    pointer-events: auto;
+  }
+  .glossary-tooltip.mobile-show { bottom: 24px; }
+  .glossary-tooltip::after { display: none; }
+}
+/* ===== END P-12 ===== */
+
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="site-header">
+  <div class="header-left">
+    <a href="https://thekinghippopotamus.github.io/ForensicAnalysis/" class="home-btn" title="Back to all reports"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></a>
+    <img src="../static/ticker_logos/MU.svg" alt="MU" class="header-logo">
+    <div>
+      <div class="company-name">Micron Technology, Inc.</div>
+      <div style="font-size:12px;color:var(--text-muted);">SEC Forensic Analysis Report &middot; April 16, 2026</div>
+    </div>
+    <span class="ticker-badge">MU</span>
+    <span style="font-size:12px;color:var(--text-muted);">Nasdaq &middot; Semiconductors &amp; Related Devices</span>
+  </div>
+  <div class="header-right">
+    <span class="verdict-badge badge-green"><span class="label">Business</span> A- (82/100)</span>
+    <span class="verdict-badge badge-yellow"><span class="label">Management</span> B (65/100)</span>
+    <span class="verdict-badge badge-yellow"><span class="label">Trajectory</span> B+ (74/100)</span>
+  </div>
+</header>
+
+<!-- Sidebar -->
+<nav class="sidebar" id="sidebar">
+  <a href="#executive-summary" class="nav-link active"><span class="nav-icon">&#9670;</span> Executive Summary</a>
+  <a href="#verdicts" class="nav-link"><span class="nav-icon">&#9733;</span> Verdicts</a>
+  <a href="#valuation-context" class="nav-link"><span class="nav-icon">&#9670;</span> Valuation Context</a>
+  <a href="#financial-overview" class="nav-link"><span class="nav-icon">&#9635;</span> Financial Overview</a>
+  <a href="#forensic-models" class="nav-link"><span class="nav-icon">&#9878;</span> Forensic Models</a>
+  <a href="#transcript-intelligence" class="nav-link"><span class="nav-icon">&#9835;</span> Transcript Intelligence</a>
+  <a href="#revenue-segments" class="nav-link"><span class="nav-icon">&#9638;</span> Revenue &amp; Segments</a>
+  <a href="#governance" class="nav-link"><span class="nav-icon">&#9881;</span> Governance</a>
+  <a href="#insider-institutional" class="nav-link"><span class="nav-icon">&#9650;</span> Insider &amp; Institutional</a>
+  <a href="#peer-comparison" class="nav-link"><span class="nav-icon">&#9741;</span> Peer Comparison</a>
+  <a href="#text-analysis" class="nav-link"><span class="nav-icon">&#9998;</span> Text Analysis</a>
+  <a href="#advanced-analysis" class="nav-link"><span class="nav-icon">&#9830;</span> Advanced Analysis</a>
+  <a href="#risk-convergence" class="nav-link"><span class="nav-icon">&#9888;</span> Risk &amp; Convergence</a>
+  <a href="#watchlist-predictions" class="nav-link"><span class="nav-icon">&#9745;</span> Watchlist &amp; Predictions</a>
+  <a href="#closing-synthesis" class="nav-link"><span class="nav-icon">&#9670;</span> Closing Synthesis</a>
+</nav>
+
+<!-- Main Content -->
+<main class="main-content">
+
+<!-- ==================== 1. EXECUTIVE SUMMARY ==================== -->
+<section class="section" id="executive-summary">
+  <h2 class="section-title"><span class="icon">&#9670;</span> Executive Summary</h2>
+  <div class="stats-row">
+    <div class="stat-box"><div class="stat-value positive">$37.4B</div><div class="stat-label">FY2025 Revenue</div></div>
+    <div class="stat-box"><div class="stat-value positive">$8.5B</div><div class="stat-label">FY2025 Net Income</div></div>
+    <div class="stat-box"><div class="stat-value positive">$17.5B</div><div class="stat-label">FY2025 OCF</div></div>
+    <div class="stat-box"><div class="stat-value">$9.6B</div><div class="stat-label">Cash Position</div></div>
+    <div class="stat-box"><div class="stat-value positive">$23.9B</div><div class="stat-label">Q2FY26 Revenue</div></div>
+  </div>
+  <div class="card exec-summary">
+    <p>Micron is executing a historic AI-driven transformation from commodity memory to strategic infrastructure supply. Revenue surged from a <strong>$15.5B trough</strong> to <strong>$23.9B in a single quarter</strong> at <strong>74.4% gross margins</strong>, backed by pristine forensic quality across every quantitative model and <strong>$17.5B operating cash flow</strong> at 2.05x net income conversion. However, the thesis rests on a paradox: management transparency is declining as results peak, and the structural bull case (SCAs, reduced cyclicality, AI durability) remains deliberately opaque.</p>
+    <p>Investors are pricing structural transformation on commodity-level disclosure. The first demand deceleration will reveal whether this is a new era or the most spectacular peak in memory history.</p>
+    <p><strong>VERDICT: B+ (72/100)</strong> -- Exceptional execution and pristine forensics at cycle peak, but declining transparency and unaddressed cyclicality risk prevent conviction at current levels.</p>
+    <p><strong>TOP CONCERNS:</strong></p>
+    <p><strong>1. Peak Opacity:</strong> Management directness declining as revenue tripled. Maximum confidence paired with minimum disclosure is historically the signature of semiconductor cycle peaks.</p>
+    <p><strong>2. SCA Black Box:</strong> $200B+ customer commitments with zero disclosed terms -- pricing, cancellation, downside protection all unknown after 10+ analyst questions.</p>
+    <p><strong>3. CapEx Overextension:</strong> $25B+ annual capex with no marginal return framework. FY2025 capex of $15.9B is Micron's largest ever, with FY2027 "meaningful step-up" telegraphed.</p>
+  </div>
+</section>
+
+<!-- ==================== 2. VERDICTS ==================== -->
+<section class="section" id="verdicts">
+  <h2 class="section-title"><span class="icon">&#9733;</span> Verdicts</h2>
+
+  <!-- Business Quality -->
+  <div class="card">
+    <div style="display:flex;align-items:center;gap:20px;margin-bottom:16px;flex-wrap:wrap;">
+      <div style="font-size:48px;font-weight:800;font-family:var(--font-serif);color:var(--accent-green);">A-</div>
+      <div>
+        <div style="font-size:20px;font-weight:700;">Business Quality</div>
+        <div style="color:var(--text-secondary);">82 / 100</div>
+      </div>
+      <span class="verdict-badge badge-green" style="margin-left:auto;">STRONG</span>
+    </div>
+    <p style="color:var(--text-secondary);line-height:1.8;">Micron is an exceptional cyclical business in the midst of a structural transformation. As one of only three companies globally capable of manufacturing advanced DRAM (alongside Samsung and SK Hynix), it operates in a tight oligopoly with genuine barriers to entry. The HBM pivot has transformed it from a commodity memory maker into a strategic AI infrastructure supplier. Every forensic model confirms fundamental strength -- pristine scores across all quantitative tests. However, this remains a deeply cyclical business with margins that have swung from -9.1% to 74.4% in 10 quarters. The 76.5% DRAM concentration and 64.5% US geographic concentration create single-factor risks. The question is not whether this is a good business today (it emphatically is) but whether the structural arguments (HBM, SCAs, AI demand) have genuinely changed its cyclical DNA.</p>
+  </div>
+
+  <!-- Management Quality -->
+  <div class="card">
+    <div style="display:flex;align-items:center;gap:20px;margin-bottom:16px;flex-wrap:wrap;">
+      <div style="font-size:48px;font-weight:800;font-family:var(--font-serif);color:var(--accent-yellow);">B</div>
+      <div>
+        <div style="font-size:20px;font-weight:700;">Management Quality</div>
+        <div style="color:var(--text-secondary);">65 / 100</div>
+      </div>
+      <span class="verdict-badge badge-yellow" style="margin-left:auto;">ADEQUATE</span>
+    </div>
+    <p style="color:var(--text-secondary);line-height:1.8;">Micron's management team delivers flawless execution: 100% guidance beat rate across all metrics for 4 consecutive quarters. Governance is clean with minimal entrenchment. But the trust score drops significantly on transparency. The Information Paradox -- maximum confidence at minimum transparency -- is the defining management quality concern. Directness declined as results improved; SCA terms remain opaque; HBM margin disclosure was buried in Q&amp;A; the CFO rejected mean reversion at 81% margins despite 10-K risk factor acknowledgment. Trust their execution, but do not accept their forward narrative at face value.</p>
+  </div>
+
+  <!-- Trajectory -->
+  <div class="card">
+    <div style="display:flex;align-items:center;gap:20px;margin-bottom:16px;flex-wrap:wrap;">
+      <div style="font-size:48px;font-weight:800;font-family:var(--font-serif);color:var(--accent-yellow);">B+</div>
+      <div>
+        <div style="font-size:20px;font-weight:700;">Trajectory</div>
+        <div style="color:var(--text-secondary);">74 / 100</div>
+      </div>
+      <span class="verdict-badge badge-yellow" style="margin-left:auto;">POSITIVE</span>
+    </div>
+    <p style="color:var(--text-secondary);line-height:1.8;">Near-term trajectory is spectacular. Q2FY26 revenue of $23.9B at 74.4% gross margin suggests annualized revenue approaching $80-100B. The systematic sandbagging pattern suggests Q3FY26 will significantly beat the $33.5B / 81% guidance. Medium-term (12-36 months), cyclicality risk looms unaddressed. Six independent signals point to peak-cycle dynamics. CapEx of $25B+ annually creates massive operating leverage in both directions. If AI demand sustains through 2028, Micron could genuinely be a $100B+ revenue company. If hyperscaler capex slows, the company faces committed capital spending against declining ASPs. The trajectory verdict depends entirely on the question management refuses to answer: are SCAs real downside protection, or fair-weather agreements that evaporate with demand?</p>
+  </div>
+</section>
+
+<!-- ==================== 3. VALUATION CONTEXT ==================== -->
+<section class="section" id="valuation-context">
+  <h2 class="section-title"><span class="icon">&#9670;</span> Valuation Context</h2>
+  <div class="card">
+    <h3 class="card-title">Valuation Snapshot</h3>
+    <p style="color:var(--text-secondary);margin-bottom:16px;">Valuation context for Micron is uniquely challenging due to extreme cyclicality. Traditional multiples are misleading at cycle peaks -- low P/E at peak earnings historically signals overvaluation, not value.</p>
+    <div class="grid-3" style="margin-bottom:16px;">
+      <div class="stat-box"><div class="stat-value">$7.59</div><div class="stat-label">FY2025 EPS (Diluted)</div></div>
+      <div class="stat-box"><div class="stat-value positive">$12.07</div><div class="stat-label">Q2FY26 EPS (Diluted)</div></div>
+      <div class="stat-box"><div class="stat-value">1.12B</div><div class="stat-label">Shares Outstanding</div></div>
+    </div>
+    <div class="card analyst-insight">
+      <div class="card-title">Cyclical Valuation Warning</div>
+      <p>Memory semiconductor stocks historically peak on low P/E ratios and trough on high P/E ratios -- the inverse of most sectors. FY2025 EPS of $7.59 is already being dwarfed by Q2FY26's $12.07 single-quarter result, making trailing multiples meaningless. Forward multiples depend entirely on AI demand sustainability, which is the core uncertainty this report investigates.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 4. FINANCIAL OVERVIEW & QUARTERLY TRENDS ==================== -->
+<section class="section" id="financial-overview">
+  <h2 class="section-title"><span class="icon">&#9635;</span> Financial Overview &amp; Quarterly Trends</h2>
+  <div class="card">
+    <h3 class="card-title collapsible" onclick="toggleCollapse(this)">Annual Financial Summary</h3>
+    <div class="collapse-content">
+      <div class="table-wrap"><table class="data-table">
+        <thead>
+          <tr><th>Metric</th><th class="num">FY2022</th><th class="num">FY2023</th><th class="num">FY2024</th><th class="num">FY2025</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Revenue</td><td class="num">$30.8B</td><td class="num negative">$15.5B</td><td class="num">$25.1B</td><td class="num positive">$37.4B</td></tr>
+          <tr><td>COGS</td><td class="num">$16.9B</td><td class="num">$17.0B</td><td class="num">$19.5B</td><td class="num">$22.5B</td></tr>
+          <tr><td>Gross Profit</td><td class="num positive">$13.9B</td><td class="num negative">-$1.4B</td><td class="num">$5.6B</td><td class="num positive">$14.9B</td></tr>
+          <tr><td>Gross Margin</td><td class="num">45.2%</td><td class="num negative">-9.1%</td><td class="num">22.4%</td><td class="num positive">39.8%</td></tr>
+          <tr><td>Operating Income</td><td class="num positive">$9.7B</td><td class="num negative">-$5.7B</td><td class="num">$1.3B</td><td class="num positive">$9.8B</td></tr>
+          <tr><td>Net Income</td><td class="num positive">$8.7B</td><td class="num negative">-$5.8B</td><td class="num">$778M</td><td class="num positive">$8.5B</td></tr>
+          <tr><td>EPS (Diluted)</td><td class="num">$7.75</td><td class="num negative">-$5.34</td><td class="num">$0.70</td><td class="num positive">$7.59</td></tr>
+          <tr><td>R&amp;D</td><td class="num">$3.1B</td><td class="num">$3.1B</td><td class="num">$3.4B</td><td class="num">$3.8B</td></tr>
+          <tr><td>SGA</td><td class="num">$1.1B</td><td class="num">$920M</td><td class="num">$1.1B</td><td class="num">$1.2B</td></tr>
+          <tr><td>SBC</td><td class="num">$514M</td><td class="num">$596M</td><td class="num">$833M</td><td class="num">$975M</td></tr>
+          <tr><td>Depreciation</td><td class="num">$7.1B</td><td class="num">$7.8B</td><td class="num">$7.8B</td><td class="num">$8.4B</td></tr>
+        </tbody>
+      </table></div>
+      <p style="color:var(--text-secondary);margin-top:16px;line-height:1.7;">Micron's income statement tells a classic semiconductor cyclicality story with an AI twist. FY2023 was the worst memory downturn in a decade (-$5.8B net loss, negative gross margin). FY2024 was recovery ($778M net income). FY2025 was the AI/HBM-driven boom ($8.5B net income). FY2025 revenue of $37.4B exceeds FY2022's prior peak of $30.8B by 21%, but margins have not fully recovered: FY2025 gross margin (39.8%) still trails FY2022 (45.2%) despite higher revenue.</p>
+
+      <h3 class="card-title" style="margin-top:24px;">Balance Sheet</h3>
+      <div class="table-wrap"><table class="data-table">
+        <thead>
+          <tr><th>Metric</th><th class="num">FY2023</th><th class="num">FY2024</th><th class="num">FY2025</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Total Assets</td><td class="num">$64.3B</td><td class="num">$69.4B</td><td class="num positive">$82.8B</td></tr>
+          <tr><td>Cash &amp; Equivalents</td><td class="num">$8.6B</td><td class="num">$7.0B</td><td class="num">$9.6B</td></tr>
+          <tr><td>Inventory</td><td class="num">$8.4B</td><td class="num">$8.9B</td><td class="num">$8.4B</td></tr>
+          <tr><td>Long-Term Debt</td><td class="num">$13.1B</td><td class="num">$13.0B</td><td class="num positive">$11.5B</td></tr>
+          <tr><td>Stockholders' Equity</td><td class="num">$44.1B</td><td class="num">$45.1B</td><td class="num positive">$54.2B</td></tr>
+          <tr><td>Debt-to-Equity</td><td class="num">0.302</td><td class="num">0.297</td><td class="num positive">0.223</td></tr>
+          <tr><td>Current Ratio</td><td class="num">4.46</td><td class="num">2.64</td><td class="num">2.52</td></tr>
+          <tr><td>Net Debt</td><td class="num">$3.7B</td><td class="num">$5.3B</td><td class="num positive">$2.5B</td></tr>
+        </tbody>
+      </table></div>
+      <p style="color:var(--text-secondary);margin-top:12px;line-height:1.7;">Balance sheet strength is a key positive. Inventory declined $520M (-5.9%) despite 49% revenue growth -- a powerful demand signal. Long-term debt declined to $11.5B even as the company invested $15.9B in capex. Net debt fell to $2.5B. All growth is organic with zero acquisitions.</p>
+
+      <h3 class="card-title" style="margin-top:24px;">Cash Flow</h3>
+      <div class="table-wrap"><table class="data-table">
+        <thead>
+          <tr><th>Metric</th><th class="num">FY2022</th><th class="num">FY2023</th><th class="num">FY2024</th><th class="num">FY2025</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Operating Cash Flow</td><td class="num positive">$15.2B</td><td class="num">$1.6B</td><td class="num">$8.5B</td><td class="num positive">$17.5B</td></tr>
+          <tr><td>Capital Expenditures</td><td class="num">$12.1B</td><td class="num">$7.7B</td><td class="num">$8.4B</td><td class="num negative">$15.9B</td></tr>
+          <tr><td>Free Cash Flow</td><td class="num positive">$3.1B</td><td class="num negative">-$6.1B</td><td class="num">$121M</td><td class="num">$1.7B</td></tr>
+          <tr><td>OCF Margin</td><td class="num">49.4%</td><td class="num">10.0%</td><td class="num">33.9%</td><td class="num positive">46.9%</td></tr>
+          <tr><td>FCF Margin</td><td class="num">10.1%</td><td class="num negative">-39.4%</td><td class="num">0.5%</td><td class="num">4.5%</td></tr>
+        </tbody>
+      </table></div>
+      <p style="color:var(--text-secondary);margin-top:12px;line-height:1.7;">Cash flow tells the story of a company generating enormous operating cash but consuming nearly all of it in capacity investment. FY2025 OCF of $17.5B (47% margin) is exceptional, but capex of $15.9B leaves only $1.7B FCF (4.5% margin). This is a deliberate strategic choice -- Micron is building HBM and advanced DRAM capacity for AI demand.</p>
+
+      <h3 class="card-title" style="margin-top:24px;">Key Ratios</h3>
+      <div class="table-wrap"><table class="data-table">
+        <thead>
+          <tr><th>Ratio</th><th class="num">FY2023</th><th class="num">FY2024</th><th class="num">FY2025</th><th class="num">Q2FY26</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Gross Margin</td><td class="num negative">-9.1%</td><td class="num">22.4%</td><td class="num">39.8%</td><td class="num positive">74.4%</td></tr>
+          <tr><td>Operating Margin</td><td class="num negative">-37.0%</td><td class="num">5.2%</td><td class="num">26.1%</td><td class="num positive">67.6%</td></tr>
+          <tr><td>Net Margin</td><td class="num negative">-37.5%</td><td class="num">3.1%</td><td class="num">22.8%</td><td class="num positive">57.8%</td></tr>
+          <tr><td>ROE</td><td class="num negative">-12.4%</td><td class="num">1.7%</td><td class="num positive">17.2%</td><td class="num">--</td></tr>
+          <tr><td>ROIC</td><td class="num negative">-9.4%</td><td class="num">1.5%</td><td class="num positive">13.4%</td><td class="num">--</td></tr>
+          <tr><td>DSO (days)</td><td class="num">57.4</td><td class="num">96.2</td><td class="num positive">69.9</td><td class="num">--</td></tr>
+          <tr><td>DIO (days)</td><td class="num">180.5</td><td class="num">166.1</td><td class="num positive">135.5</td><td class="num">--</td></tr>
+          <tr><td>CCC (days)</td><td class="num">152.7</td><td class="num">125.7</td><td class="num positive">29.2</td><td class="num">--</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+  <div class="card">
+    <h3 class="card-title collapsible" onclick="toggleCollapse(this)">Quarterly Trends</h3>
+    <div class="collapse-content">
+      <div class="table-wrap"><table class="data-table">
+        <thead>
+          <tr><th>Quarter</th><th class="num">Revenue</th><th class="num">Gross Margin</th><th class="num">Op. Margin</th><th class="num">EPS</th><th class="num">OCF</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Q1-FY2024</td><td class="num">$4.7B</td><td class="num negative">-0.7%</td><td class="num negative">-23.9%</td><td class="num negative">-$1.12</td><td class="num">$1.4B</td></tr>
+          <tr><td>Q2-FY2024</td><td class="num">$5.8B</td><td class="num">18.5%</td><td class="num">3.3%</td><td class="num">$0.71</td><td class="num">$1.2B</td></tr>
+          <tr><td>Q3-FY2024</td><td class="num">$6.8B</td><td class="num">26.9%</td><td class="num">10.6%</td><td class="num">$0.30</td><td class="num">$2.5B</td></tr>
+          <tr><td>Q4-FY2024</td><td class="num">$7.8B</td><td class="num">35.0%</td><td class="num">19.5%</td><td class="num">$0.80</td><td class="num">$3.4B</td></tr>
+          <tr><td>Q1-FY2025</td><td class="num">$8.7B</td><td class="num">38.4%</td><td class="num">25.0%</td><td class="num">$1.67</td><td class="num">$3.2B</td></tr>
+          <tr><td>Q2-FY2025</td><td class="num">$8.1B</td><td class="num">36.8%</td><td class="num">22.0%</td><td class="num">$1.41</td><td class="num">$3.9B</td></tr>
+          <tr><td>Q3-FY2025</td><td class="num">$9.3B</td><td class="num">37.7%</td><td class="num">23.3%</td><td class="num">$1.68</td><td class="num">$4.6B</td></tr>
+          <tr><td>Q4-FY2025</td><td class="num positive">$11.1B</td><td class="num positive">45.4%</td><td class="num positive">32.8%</td><td class="num positive">$2.84</td><td class="num positive">$5.7B</td></tr>
+          <tr><td>Q1-FY2026</td><td class="num positive">$13.6B</td><td class="num positive">56.0%</td><td class="num positive">45.0%</td><td class="num positive">$4.60</td><td class="num positive">$8.4B</td></tr>
+          <tr style="background:rgba(34,197,94,0.08);"><td><strong>Q2-FY2026</strong></td><td class="num positive"><strong>$23.9B</strong></td><td class="num positive"><strong>74.4%</strong></td><td class="num positive"><strong>67.6%</strong></td><td class="num positive"><strong>$12.07</strong></td><td class="num positive"><strong>$11.9B</strong></td></tr>
+        </tbody>
+      </table></div>
+      <p style="color:var(--text-secondary);margin-top:16px;line-height:1.7;">The quarterly trajectory is extraordinary. Revenue went from $4.7B (Q1FY24) to $23.9B (Q2FY26) -- a 5x increase in 8 quarters. Gross margins swung from -0.7% to 74.4% over the same period -- a 75 percentage point expansion. The Q2FY26 quarter is the inflection point: 75% QoQ revenue growth with a 74.4% gross margin signals the full impact of HBM3E/HBM4 volume ramp.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 5. FORENSIC MODELS ==================== -->
+<section class="section" id="forensic-models">
+  <h2 class="section-title"><span class="icon">&#9878;</span> Forensic Models</h2>
+
+  <div class="card analyst-insight" style="margin-bottom:20px;">
+    <div class="card-title">Composite Forensic Assessment</div>
+    <p>All forensic models deliver clean scores: Beneish (no manipulation), Altman (safe zone), Piotroski (strong), Sloan (healthy negative accruals), Benford (natural distribution), and cash conversion (exceptional quality). This is emphatically NOT an accounting quality story. The risks are forward-looking (cyclicality, capex, opacity) rather than current-period forensic.</p>
+  </div>
+
+  <div class="gauge-container">
+    <!-- Beneish M-Score -->
+    <div class="gauge-card">
+      <div class="gauge-title">Beneish M-Score</div>
+      <div class="gauge-subtitle">Earnings Manipulation Detection</div>
+      <div class="gauge-score" style="color:var(--accent-green);">-3.01</div>
+      <div class="gauge-bar">
+        <div class="gauge-zones">
+          <div class="gauge-zone" style="width:60%;background:var(--accent-green);"></div>
+          <div class="gauge-zone" style="width:15%;background:var(--accent-yellow);"></div>
+          <div class="gauge-zone" style="width:25%;background:var(--accent-red);"></div>
+        </div>
+        <div class="gauge-marker" style="left:15%;"></div>
+      </div>
+      <div class="gauge-labels"><span>-3.5 (Safe)</span><span>-1.78 (Threshold)</span><span>0 (Danger)</span></div>
+      <div class="gauge-vars">
+        <span class="model-label" style="background:var(--accent-green-dim);color:var(--accent-green);">Unlikely Manipulator</span><br>
+        DSRI: 0.727 (improved collections)<br>
+        GMI: 0.562 (margins expanding)<br>
+        AQI: 0.888 (asset quality improved)<br>
+        SGI: 1.489 (49% growth -- organic)<br>
+        TATA: -0.109 (strong cash quality)
+      </div>
+    </div>
+
+    <!-- Altman Z-Score -->
+    <div class="gauge-card">
+      <div class="gauge-title">Altman Z-Score</div>
+      <div class="gauge-subtitle">Bankruptcy Risk Assessment</div>
+      <div class="gauge-score" style="color:var(--accent-green);">4.27</div>
+      <div class="gauge-bar">
+        <div class="gauge-zones">
+          <div class="gauge-zone" style="width:30%;background:var(--accent-red);"></div>
+          <div class="gauge-zone" style="width:20%;background:var(--accent-yellow);"></div>
+          <div class="gauge-zone" style="width:50%;background:var(--accent-green);"></div>
+        </div>
+        <div class="gauge-marker" style="left:78%;"></div>
+      </div>
+      <div class="gauge-labels"><span>0 (Distress)</span><span>1.81 / 2.99</span><span>5+ (Safe)</span></div>
+      <div class="gauge-vars">
+        <span class="model-label" style="background:var(--accent-green-dim);color:var(--accent-green);">Safe Zone</span><br>
+        X1 (WC/TA): 0.210<br>
+        X2 (RE/TA): 0.587<br>
+        X3 (EBIT/TA): 0.118<br>
+        X4 (MktCap/TL): 3.919<br>
+        X5 (Rev/TA): 0.452<br>
+        Remained safe through FY2023 trough (4.42)
+      </div>
+    </div>
+
+    <!-- Piotroski F-Score -->
+    <div class="gauge-card">
+      <div class="gauge-title">Piotroski F-Score</div>
+      <div class="gauge-subtitle">Financial Strength</div>
+      <div class="gauge-score" style="color:var(--accent-green);">8 / 9</div>
+      <div class="gauge-bar">
+        <div class="gauge-zones">
+          <div class="gauge-zone" style="width:33%;background:var(--accent-red);"></div>
+          <div class="gauge-zone" style="width:34%;background:var(--accent-yellow);"></div>
+          <div class="gauge-zone" style="width:33%;background:var(--accent-green);"></div>
+        </div>
+        <div class="gauge-marker" style="left:89%;"></div>
+      </div>
+      <div class="gauge-labels"><span>0 (Weak)</span><span>5 (Average)</span><span>9 (Strong)</span></div>
+      <div class="gauge-vars">
+        <span class="piotroski-badge score-strong">STRONG</span><br>
+        Profitability: 4/4 (positive ROA, OCF, improving ROA, negative accruals)<br>
+        Leverage: 1/3 (LTD declined; minor current ratio/SBC dilution fails)<br>
+        Efficiency: 2/2 (margins expanding, turnover improving)
+      </div>
+    </div>
+  </div>
+
+  <div class="gauge-container" style="margin-top:20px;">
+    <!-- Sloan Accrual -->
+    <div class="gauge-card">
+      <div class="gauge-title">Sloan Accrual Ratio</div>
+      <div class="gauge-subtitle">Earnings Quality via Accruals</div>
+      <div class="gauge-score" style="color:var(--accent-green);">-11.8%</div>
+      <div class="gauge-bar">
+        <div class="gauge-zones">
+          <div class="gauge-zone" style="width:40%;background:var(--accent-green);"></div>
+          <div class="gauge-zone" style="width:30%;background:var(--accent-yellow);"></div>
+          <div class="gauge-zone" style="width:30%;background:var(--accent-red);"></div>
+        </div>
+        <div class="gauge-marker" style="left:12%;"></div>
+      </div>
+      <div class="gauge-labels"><span>-20% (Best)</span><span>0% (Neutral)</span><span>+20% (Worst)</span></div>
+      <div class="gauge-vars">
+        <span class="model-label" style="background:var(--accent-green-dim);color:var(--accent-green);">Healthy</span><br>
+        Strongly negative accruals in the HEALTHY direction. OCF substantially exceeds net income due to $8.4B annual depreciation on semiconductor fabs. Structural for capital-intensive manufacturing.
+      </div>
+    </div>
+
+    <!-- Benford's Law -->
+    <div class="gauge-card">
+      <div class="gauge-title">Benford's Law Test</div>
+      <div class="gauge-subtitle">Digit Distribution Analysis</div>
+      <div class="gauge-score" style="color:var(--accent-green);">PASS</div>
+      <div class="gauge-bar">
+        <div class="gauge-zones">
+          <div class="gauge-zone" style="width:70%;background:var(--accent-green);"></div>
+          <div class="gauge-zone" style="width:30%;background:var(--accent-red);"></div>
+        </div>
+        <div class="gauge-marker" style="left:45%;"></div>
+      </div>
+      <div class="gauge-labels"><span>0 (Perfect fit)</span><span>15.51 (Critical)</span><span>30+</span></div>
+      <div class="gauge-vars">
+        <span class="model-label" style="background:var(--accent-green-dim);color:var(--accent-green);">Natural Distribution</span><br>
+        Chi-square: 10.38 (critical: 15.51)<br>
+        P-value: 0.24<br>
+        122 values analyzed<br>
+        No evidence of data fabrication
+      </div>
+    </div>
+
+    <!-- Cash Conversion -->
+    <div class="gauge-card">
+      <div class="gauge-title">Cash Conversion Quality</div>
+      <div class="gauge-subtitle">OCF / Net Income Ratio</div>
+      <div class="gauge-score" style="color:var(--accent-green);">2.05x</div>
+      <div class="gauge-bar">
+        <div class="gauge-zones">
+          <div class="gauge-zone" style="width:25%;background:var(--accent-red);"></div>
+          <div class="gauge-zone" style="width:25%;background:var(--accent-yellow);"></div>
+          <div class="gauge-zone" style="width:50%;background:var(--accent-green);"></div>
+        </div>
+        <div class="gauge-marker" style="left:82%;"></div>
+      </div>
+      <div class="gauge-labels"><span>0x (Poor)</span><span>1.0x (Par)</span><span>2.5x+ (Excellent)</span></div>
+      <div class="gauge-vars">
+        <span class="model-label" style="background:var(--accent-green-dim);color:var(--accent-green);">Exceptional</span><br>
+        CCC: 29.2 days (from 152.7 in FY2023)<br>
+        DPO: 176.2 days (supplier leverage)<br>
+        For every $1 of reported earnings, Micron generates $2.05 in operating cash
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 6. TRANSCRIPT INTELLIGENCE ==================== -->
+<section class="section" id="transcript-intelligence">
+  <h2 class="section-title"><span class="icon">&#9835;</span> Transcript Intelligence</h2>
+
+  <div class="grid-3" style="margin-bottom:20px;">
+    <div class="stat-box"><div class="stat-value neutral">62</div><div class="stat-label">Management Trust</div></div>
+    <div class="stat-box"><div class="stat-value negative">48</div><div class="stat-label">Info Quality</div></div>
+    <div class="stat-box"><div class="stat-value positive">78</div><div class="stat-label">Risk Convergence</div></div>
+  </div>
+
+  <div class="card analyst-insight" style="margin-bottom:20px;">
+    <div class="card-title">The Information Paradox</div>
+    <p>Across all 13 investigation layers, the single most important finding is the <strong>inverse relationship between Micron's financial performance and information transparency</strong>. As results improved from $8.1B to $23.9B quarterly revenue, management simultaneously became less transparent. The bull thesis depends on structural arguments (SCAs, supply constraints, AI demand) that management asks investors to accept on faith rather than evidence. The market is pricing a structural transformation story on commodity-level disclosure.</p>
+    <p style="font-size:13px;color:var(--text-muted);">Quarters analyzed: Q2FY25, Q3FY25, Q4FY25, Q1FY26, Q2FY26</p>
+  </div>
+
+  <!-- Credibility Scorecard -->
+  <div class="card">
+    <h3 class="card-title">Credibility Scorecard</h3>
+    <div class="table-wrap"><table class="data-table">
+      <thead>
+        <tr><th>Metric</th><th>Result</th><th>Assessment</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Guidance Beat Rate</td><td class="positive">100%</td><td>4 consecutive quarters, all metrics</td></tr>
+        <tr><td>Revenue Beat Range</td><td class="positive">5.7% - 25.1%</td><td>Widening each quarter</td></tr>
+        <tr><td>GM Beat Range</td><td class="positive">250 - 700 bps</td><td>Consistent margin outperformance</td></tr>
+        <tr><td>EPS Beat Range</td><td class="positive">21.7% - 44.9%</td><td>Accelerating beats</td></tr>
+        <tr><td>Sandbagging Pattern</td><td class="neutral">SYSTEMATIC</td><td>Guidance is a floor, not a forecast</td></tr>
+        <tr><td>CEO Credibility</td><td class="neutral">1.0 exec / 2.5 directness</td><td>Flawless delivery, declining transparency</td></tr>
+        <tr><td>CFO Credibility</td><td class="neutral">1.0 exec / 3.4 directness</td><td>Better disclosure than CEO, still guarded</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <!-- Key Findings -->
+  <div class="card">
+    <h3 class="card-title collapsible" onclick="toggleCollapse(this)">Key Findings (7 Layers)</h3>
+    <div class="collapse-content">
+
+      <div class="flag-card high">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+          <strong>#1: Peak Opacity at Peak Performance</strong>
+          <span class="severity-badge severity-HIGH">HIGH</span>
+        </div>
+        <p style="color:var(--text-secondary);">Management became LESS transparent as results improved dramatically. Directness declined from 2.6 to 2.5/5, specificity from 2.8 to 2.3, while revenue grew 196% and margins hit 75%. HBM metrics introduced then hidden. Maximum confidence paired with minimum disclosure is historically the signature of semiconductor cycle peaks.</p>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:8px;">Sources: L1, L2, L3, L9, VL4</div>
+      </div>
+
+      <div class="flag-card high">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+          <strong>#2: Systematic Sandbagging</strong>
+          <span class="severity-badge severity-HIGH">HIGH</span>
+        </div>
+        <p style="color:var(--text-secondary);">100% guidance beat rate with accelerating magnitude: revenue beats 5.7% to 25.1%, EPS beats 21.7% to 44.9% across 4 consecutive quarters. Q2FY26 beat of $5.2B exceeds most semiconductor companies' total quarterly revenue. Guidance is a floor, not a forecast.</p>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:8px;">Sources: L2, L4, VL2, L9</div>
+      </div>
+
+      <div class="flag-card high">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+          <strong>#3: Written Risk vs. Spoken Confidence</strong>
+          <span class="severity-badge severity-HIGH">HIGH</span>
+        </div>
+        <p style="color:var(--text-secondary);">10-K cites memory pricing cyclicality as HIGH severity risk, referencing FY2022-FY2023 margin collapse (45.2% to -9.1%). CFO on Q2FY26 call explicitly told analysts to "revisit" mean reversion thesis. Direct contradiction between legal disclosure and discretionary performance.</p>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:8px;">Sources: VL4, L9, L1</div>
+      </div>
+
+      <div class="flag-card high">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+          <strong>#4: SCA Black Box</strong>
+          <span class="severity-badge severity-HIGH">HIGH</span>
+        </div>
+        <p style="color:var(--text-secondary);">SCAs are the contractual basis for claiming reduced cyclicality, justifying $25B+ CapEx. Yet zero terms disclosed: pricing mechanism, cancellation penalties, downside protection, volume commitments all unknown after 10+ analyst questions.</p>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:8px;">Sources: L1, L3, L8</div>
+      </div>
+
+      <div class="flag-card moderate">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+          <strong>#5: HBM Margins Lower Than Non-HBM</strong>
+          <span class="severity-badge severity-MEDIUM">MEDIUM</span>
+        </div>
+        <p style="color:var(--text-secondary);">CEO confirmed in Q2FY26 Q&amp;A that non-HBM margins are higher than HBM margins. Never in prepared remarks. Contradicts market narrative. Overall margins rising because DDR5/LP pricing power is even stronger.</p>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:8px;">Sources: L1, L3, VL2</div>
+      </div>
+
+      <div class="flag-card moderate">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+          <strong>#6: CapEx Without Return Framework</strong>
+          <span class="severity-badge severity-MEDIUM">MEDIUM</span>
+        </div>
+        <p style="color:var(--text-secondary);">CapEx escalated 79% in 12 months ($14B to >$25B) with FY27 "meaningful step-up." No project-level return analysis provided. ROIC >30% cited but does not validate marginal returns.</p>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:8px;">Sources: L1, L4, L6, L7</div>
+      </div>
+
+      <div class="flag-card moderate">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+          <strong>#7: Zero Analyst AI Demand Challenge</strong>
+          <span class="severity-badge severity-MEDIUM">MEDIUM</span>
+        </div>
+        <p style="color:var(--text-secondary);">Across 63 Q&amp;A exchanges over 5 quarters, not one analyst asked "what if AI spending slows?" Consensus complacency on the demand premise. The unmodeled risk is demand deceleration.</p>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:8px;">Sources: L3, L9</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Cross-Validation -->
+  <div class="card">
+    <h3 class="card-title">Cross-Validation Summary</h3>
+    <div class="table-wrap"><table class="data-table">
+      <thead>
+        <tr><th>Layer</th><th>Finding</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>VL1</td><td>Forensic models fully aligned with management tone -- no earnings manipulation detected</td></tr>
+        <tr><td>VL2</td><td>Ratio analysis confirms systematic pessimism bias in guidance. Guidance has negative predictive value for actual results</td></tr>
+        <tr><td>VL3</td><td>Governance and insider signals consistent. CapEx escalation without visible board pushback is a governance concern</td></tr>
+        <tr><td>VL4</td><td class="negative">CRITICAL: Written 10-K risk factors cite cyclicality as ongoing risk while CFO explicitly rejects mean reversion. Trust the legally constrained document.</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<!-- ==================== 7. REVENUE & SEGMENTS ==================== -->
+<section class="section" id="revenue-segments">
+  <h2 class="section-title"><span class="icon">&#9638;</span> Revenue &amp; Segments</h2>
+
+  <!-- Product Mix -->
+  <div class="card">
+    <h3 class="card-title">Product Mix: DRAM vs. NAND</h3>
+    <div class="stacked-bar" style="margin-bottom:12px;">
+      <div class="stacked-seg" style="width:76.5%;background:var(--accent-blue);">DRAM 76.5%</div>
+      <div class="stacked-seg" style="width:22.7%;background:var(--accent-purple);">NAND 22.7%</div>
+      <div class="stacked-seg" style="width:1%;background:var(--accent-cyan);">Other</div>
+    </div>
+    <div class="table-wrap"><table class="data-table">
+      <thead>
+        <tr><th>Product</th><th class="num">FY2022</th><th class="num">FY2023</th><th class="num">FY2024</th><th class="num">FY2025</th><th class="num">3Y CAGR</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>DRAM</td><td class="num">$22.4B</td><td class="num">$11.0B</td><td class="num">$17.6B</td><td class="num positive">$28.6B</td><td class="num">8.5%</td></tr>
+        <tr><td>NAND</td><td class="num">$7.8B</td><td class="num">$4.2B</td><td class="num">$7.2B</td><td class="num">$8.5B</td><td class="num">2.9%</td></tr>
+        <tr><td>Other</td><td class="num">--</td><td class="num">$297M</td><td class="num">$281M</td><td class="num">$356M</td><td class="num">--</td></tr>
+      </tbody>
+    </table></div>
+    <p style="color:var(--text-secondary);margin-top:12px;">DRAM dominance is increasing -- from 72.8% to 76.5% of revenue over 3 years. HBM, a subset of DRAM used in AI accelerators, is the primary growth driver. NAND is commoditizing faster and becoming less relevant to the growth narrative.</p>
+  </div>
+
+  <!-- Business Units -->
+  <div class="card">
+    <h3 class="card-title">Business Unit Revenue</h3>
+    <div class="bar-row"><div class="bar-label">CMBU (Compute)</div><div class="bar-track"><div class="bar-fill" style="width:36.2%;background:var(--accent-blue);">36.2%</div></div><div class="bar-value positive">$13.5B</div></div>
+    <div class="bar-row"><div class="bar-label">MCBU (Mfg/Cloud)</div><div class="bar-track"><div class="bar-fill" style="width:31.7%;background:var(--accent-purple);">31.7%</div></div><div class="bar-value">$11.9B</div></div>
+    <div class="bar-row"><div class="bar-label">CDBU (Client/DC)</div><div class="bar-track"><div class="bar-fill" style="width:19.3%;background:var(--accent-cyan);">19.3%</div></div><div class="bar-value">$7.2B</div></div>
+    <div class="bar-row"><div class="bar-label">AEBU (Auto/Emb)</div><div class="bar-track"><div class="bar-fill" style="width:12.7%;background:var(--accent-orange);">12.7%</div></div><div class="bar-value">$4.8B</div></div>
+    <div class="card analyst-insight" style="margin-top:16px;">
+      <div class="card-title">Two-Speed Business</div>
+      <p>CMBU is the explosive growth engine: $1.9B to $13.5B in 2 years (169% CAGR), contributing <strong>79% of all incremental FY2025 revenue</strong>. This segment is anchored by HBM demand for AI training and inference. Meanwhile, MCBU (+1.6%) and AEBU (+2.6%) are essentially flat -- revealing extreme growth concentration in AI/data center end markets.</p>
+    </div>
+  </div>
+
+  <!-- Geography -->
+  <div class="card">
+    <h3 class="card-title">Geographic Revenue (FY2025)</h3>
+    <div class="bar-row"><div class="bar-label">United States</div><div class="bar-track"><div class="bar-fill" style="width:64.5%;background:var(--accent-blue);">64.5%</div></div><div class="bar-value positive">$24.1B</div></div>
+    <div class="bar-row"><div class="bar-label">Taiwan</div><div class="bar-track"><div class="bar-fill" style="width:15.2%;background:var(--accent-purple);">15.2%</div></div><div class="bar-value">$5.7B</div></div>
+    <div class="bar-row"><div class="bar-label">China</div><div class="bar-track"><div class="bar-fill" style="width:8.1%;background:var(--accent-red);">8.1%</div></div><div class="bar-value">$3.0B</div></div>
+    <div class="bar-row"><div class="bar-label">Other APAC</div><div class="bar-track"><div class="bar-fill" style="width:5.1%;background:var(--accent-cyan);">5.1%</div></div><div class="bar-value">$1.9B</div></div>
+    <div class="bar-row"><div class="bar-label">Hong Kong</div><div class="bar-track"><div class="bar-fill" style="width:3.0%;background:var(--accent-yellow);">3.0%</div></div><div class="bar-value">$1.1B</div></div>
+    <div class="bar-row"><div class="bar-label">Japan</div><div class="bar-track"><div class="bar-fill" style="width:2.6%;background:var(--accent-orange);">2.6%</div></div><div class="bar-value">$987M</div></div>
+    <div class="bar-row"><div class="bar-label">Europe</div><div class="bar-track"><div class="bar-fill" style="width:2.2%;background:var(--text-muted);">2.2%</div></div><div class="bar-value">$818M</div></div>
+    <p style="color:var(--text-secondary);margin-top:12px;">US revenue share surged from 50.2% to 64.5% in 2 years (+$16.3B), reflecting hyperscaler AI infrastructure spending. China share halved from 14.0% to 8.1% due to export controls.</p>
+  </div>
+
+  <!-- Concentration -->
+  <div class="card analyst-insight">
+    <div class="card-title">Diversification Paradox</div>
+    <p>Business unit HHI is <strong>improving</strong> (more balanced segments) but product HHI is <strong>worsening</strong> (more DRAM dependent) and geographic HHI is <strong>worsening</strong> (more US dependent). Micron is diversifying by end market but concentrating by product and geography. US 64.5% geographic concentration implies a handful of hyperscalers represent 50%+ of revenue.</p>
+  </div>
+</section>
+
+<!-- ==================== 8. GOVERNANCE & COMPENSATION ==================== -->
+<section class="section" id="governance">
+  <h2 class="section-title"><span class="icon">&#9881;</span> Governance &amp; Compensation</h2>
+
+  <div class="grid-2" style="margin-bottom:16px;">
+    <div class="stat-box"><div class="stat-value positive">B+</div><div class="stat-label">Governance Grade</div></div>
+    <div class="stat-box"><div class="stat-value positive">1/6</div><div class="stat-label">Entrenchment Index</div></div>
+  </div>
+
+  <div class="entrenchment-track">
+    <div class="entrenchment-marker" style="left:16.7%;">1</div>
+  </div>
+  <p style="text-align:center;font-size:12px;color:var(--text-muted);margin-bottom:20px;">Entrenchment Index: 1/6 (Minimal -- only golden parachute scores)</p>
+
+  <!-- CEO Compensation -->
+  <div class="card">
+    <h3 class="card-title">CEO Compensation</h3>
+    <div class="table-wrap"><table class="data-table">
+      <thead>
+        <tr><th>Component</th><th class="num">Amount</th><th class="num">% of Total</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Base Salary</td><td class="num">$1.4M</td><td class="num">4.7%</td></tr>
+        <tr><td>Stock Awards</td><td class="num">$25.4M</td><td class="num">82.0%</td></tr>
+        <tr><td>Non-Equity Incentive</td><td class="num">$3.9M</td><td class="num">12.6%</td></tr>
+        <tr><td>Other</td><td class="num">$239K</td><td class="num">0.8%</td></tr>
+        <tr style="font-weight:700;"><td>Total (Sanjay Mehrotra)</td><td class="num">$30.9M</td><td class="num">--</td></tr>
+        <tr><td>At-Risk Compensation</td><td class="num positive" colspan="2">94.5%</td></tr>
+        <tr><td>Pay Ratio (CEO:Median)</td><td class="num" colspan="2">529:1</td></tr>
+        <tr><td>Comp Actually Paid (FY25)</td><td class="num" colspan="2">$86.6M</td></tr>
+      </tbody>
+    </table></div>
+    <p style="color:var(--text-secondary);margin-top:12px;">94.5% of CEO comp is at-risk. PRSU targets are unusually specific -- tied directly to HBM3E+ market share, the company's most critical competitive metric. Pay-for-performance correlation is strong: CAP tracked TSR directionally across all years. STI payout at 122.1% of target -- strong but not maximum.</p>
+  </div>
+
+  <!-- Board & Shareholder Rights -->
+  <div class="card">
+    <h3 class="card-title">Board &amp; Shareholder Rights</h3>
+    <div class="table-wrap"><table class="data-table">
+      <thead>
+        <tr><th>Feature</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Board Size</td><td>8 directors (7 independent, 87.5%)</td></tr>
+        <tr><td>Combined Chair/CEO</td><td class="neutral">Yes (mitigated by Lead Independent Director)</td></tr>
+        <tr><td>Dual-Class Shares</td><td class="positive">No</td></tr>
+        <tr><td>Classified Board</td><td class="positive">No</td></tr>
+        <tr><td>Poison Pill</td><td class="positive">No</td></tr>
+        <tr><td>Supermajority Required</td><td class="positive">No</td></tr>
+        <tr><td>Special Meeting Threshold</td><td class="positive">10% ownership</td></tr>
+        <tr><td>Say-on-Pay Approval</td><td class="neutral">84% (below 90% comfort zone)</td></tr>
+        <tr><td>Anti-Hedging / Anti-Pledging</td><td class="positive">Both in place</td></tr>
+        <tr><td>Clawback Policy</td><td>Meets SEC/Nasdaq minimum</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <!-- Golden Parachute -->
+  <div class="card">
+    <h3 class="card-title">Golden Parachute</h3>
+    <div class="table-wrap"><table class="data-table">
+      <thead>
+        <tr><th>Component</th><th class="num">Amount</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>CEO Total</td><td class="num negative">$117.8M</td></tr>
+        <tr><td>CEO Unearned PRSUs</td><td class="num">$93.6M</td></tr>
+        <tr><td>All NEOs Total</td><td class="num negative">$255.4M</td></tr>
+        <tr><td>Trigger</td><td>Double-trigger (CIC + qualifying termination)</td></tr>
+      </tbody>
+    </table></div>
+    <p style="color:var(--text-secondary);margin-top:12px;">CEO golden parachute of $117.8M is very large, driven by $93.6M in unearned PRSUs. Double-trigger is appropriate but magnitude is a concern.</p>
+  </div>
+
+  <!-- SBC -->
+  <div class="card">
+    <h3 class="card-title">Stock-Based Compensation</h3>
+    <div class="table-wrap"><table class="data-table">
+      <thead>
+        <tr><th>Year</th><th class="num">SBC</th><th class="num">% of Revenue</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>FY2022</td><td class="num">$514M</td><td class="num">1.7%</td></tr>
+        <tr><td>FY2023</td><td class="num">$596M</td><td class="num">3.8%</td></tr>
+        <tr><td>FY2024</td><td class="num">$833M</td><td class="num">3.3%</td></tr>
+        <tr><td>FY2025</td><td class="num">$975M</td><td class="num positive">2.6%</td></tr>
+      </tbody>
+    </table></div>
+    <p style="color:var(--text-secondary);margin-top:12px;">SBC at 2.6% of revenue is low for tech. Annual dilution of ~1.1% is minimal. Absolute SBC growth ($514M to $975M) is offset by declining percentage of revenue.</p>
+  </div>
+
+</section>
+
+<!-- ==================== 9. INSIDER & INSTITUTIONAL ==================== -->
+<section class="section" id="insider-institutional">
+  <h2 class="section-title"><span class="icon">&#9650;</span> Insider &amp; Institutional Activity</h2>
+
+  <div class="card">
+    <h3 class="card-title">Insider Trading Summary</h3>
+    <div class="table-wrap"><table class="data-table">
+      <thead>
+        <tr><th>Insider</th><th>Pattern</th><th>Assessment</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Sanjay Mehrotra (CEO)</td><td class="negative">0 buys / 60 sells (5 years)</td><td>Consistent 10b5-1 plan selling. Holdings: ~$108M</td></tr>
+        <tr><td>Mark Murphy (CFO)</td><td>Limited data</td><td>Recently appointed, minimal trading history</td></tr>
+        <tr><td>Net Direction</td><td class="negative" colspan="2">NET SELLING across all time frames (3, 6, 12 months)</td></tr>
+        <tr><td>Insider Ownership</td><td colspan="2">0.24% of shares outstanding</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title">Notable Insider Clusters</h3>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot negative"></div>
+        <div class="timeline-date">2026-01-27 to 2026-02-04</div>
+        <div class="timeline-title">$15.77M Concentrated Selling <span class="severity-badge severity-HIGH">HIGH</span></div>
+        <div class="timeline-detail">Senior officers including $10.75M by CBO</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot negative"></div>
+        <div class="timeline-date">2025-10-15</div>
+        <div class="timeline-title">19-Filing Cluster <span class="severity-badge severity-HIGH">HIGH</span></div>
+        <div class="timeline-detail">Massive cluster -- likely annual RSU vesting event</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot neutral"></div>
+        <div class="timeline-date">2025-07-17</div>
+        <div class="timeline-title">Quarterly Vesting <span class="severity-badge severity-MEDIUM">MODERATE</span></div>
+        <div class="timeline-detail">7 filings -- standard quarterly equity vesting</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot neutral"></div>
+        <div class="timeline-date">2025-04-17</div>
+        <div class="timeline-title">Quarterly Vesting <span class="severity-badge severity-MEDIUM">MODERATE</span></div>
+        <div class="timeline-detail">7 filings -- standard quarterly equity vesting</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title">Institutional Holdings</h3>
+    <div class="table-wrap"><table class="data-table">
+      <thead>
+        <tr><th class="num">Rank</th><th>Institution</th><th class="num">Ownership</th><th>Type</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="num">1</td><td>Vanguard Group</td><td class="num">9.38%</td><td>Index</td></tr>
+        <tr><td class="num">2</td><td>BlackRock Fund Advisors</td><td class="num">8.41%</td><td>Index</td></tr>
+        <tr><td class="num">3</td><td>BlackRock Inc.</td><td class="num">8.29%</td><td>Index</td></tr>
+        <tr><td class="num">4</td><td>Capital World Investors</td><td class="num">--</td><td>Active</td></tr>
+        <tr><td class="num">5</td><td>State Street</td><td class="num">--</td><td>Index</td></tr>
+        <tr><td class="num">6</td><td>FMR LLC (Fidelity)</td><td class="num">--</td><td>Active</td></tr>
+        <tr><td class="num">7</td><td>PRIMECAP Management</td><td class="num">--</td><td>Active</td></tr>
+        <tr><td class="num">8</td><td>Norges Bank</td><td class="num">--</td><td>Sovereign Wealth</td></tr>
+      </tbody>
+    </table></div>
+    <p style="color:var(--text-secondary);margin-top:12px;">Institutional ownership at 77.0%. Top 3 combined: 26.1%. Index/passive: ~45%, Active: ~32%. No major exits, no activist positions. The notable absence: <strong>zero insider purchases</strong> across the entire dataset, even as the stock delivered transformational results. When insiders only sell and never buy with their own money, it warrants monitoring even if 10b5-1 plans explain the pattern.</p>
+  </div>
+</section>
+
+<!-- ==================== 10. PEER COMPARISON ==================== -->
+<section class="section" id="peer-comparison">
+  <h2 class="section-title"><span class="icon">&#9741;</span> Peer Comparison</h2>
+  <div class="card">
+    <h3 class="card-title">Memory Semiconductor Oligopoly</h3>
+    <p style="color:var(--text-secondary);margin-bottom:16px;">Micron competes in a tight 3-player oligopoly for DRAM and NAND memory. Samsung Electronics and SK Hynix are the primary competitors, with all three racing to scale HBM production for AI workloads. Micron's positioning is unique as the only US-based memory manufacturer, giving it strategic advantages via CHIPS Act funding and proximity to US hyperscaler customers.</p>
+    <div class="table-wrap"><table class="data-table">
+      <thead>
+        <tr><th>Metric</th><th class="num">Micron (MU)</th><th>Peer Context</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>FY2025 Revenue</td><td class="num">$37.4B</td><td>Samsung Memory: ~$75B, SK Hynix: ~$50B</td></tr>
+        <tr><td>Gross Margin (Q2FY26)</td><td class="num positive">74.4%</td><td>Industry-leading at current quarter</td></tr>
+        <tr><td>HBM Position</td><td class="num">Strong #2/#3</td><td>SK Hynix leads in market share; Samsung catching up</td></tr>
+        <tr><td>Capex Intensity</td><td class="num">42.4%</td><td>All three investing heavily; CHIPS Act gives MU edge in US</td></tr>
+        <tr><td>Debt-to-Equity</td><td class="num positive">0.22x</td><td>Most conservative balance sheet of the three</td></tr>
+        <tr><td>Geographic Mix</td><td class="num">64.5% US</td><td>Samsung/Hynix more Asia/Korea concentrated</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<!-- ==================== 11. TEXT ANALYSIS ==================== -->
+<section class="section" id="text-analysis">
+  <h2 class="section-title"><span class="icon">&#9998;</span> Text Analysis</h2>
+
+  <div class="card">
+    <h3 class="card-title">MD&amp;A Tone Evolution</h3>
+    <div class="grid-2">
+      <div>
+        <h3 class="card-title" style="color:var(--accent-yellow);">FY2024 Tone</h3>
+        <p style="color:var(--text-secondary);font-size:13px;">Cautiously optimistic. Recovery framing. Emphasis on operating leverage beginning to return. Inventory normalization. Measured capex language.</p>
+      </div>
+      <div>
+        <h3 class="card-title" style="color:var(--accent-green);">FY2025 Tone</h3>
+        <p style="color:var(--text-secondary);font-size:13px;">Confidently bullish. "Strongest year in company history." Aggressive expansion. HBM as transformative growth driver. Pricing power narrative. Minimal downside scenario discussion.</p>
+      </div>
+    </div>
+    <p style="color:var(--accent-yellow);font-weight:600;margin-top:16px;">Tone Shift: SIGNIFICANT -- from recovery caution to expansion confidence</p>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title collapsible" onclick="toggleCollapse(this)">Key Topic Changes</h3>
+    <div class="collapse-content">
+      <div class="table-wrap"><table class="data-table">
+        <thead>
+          <tr><th>Topic</th><th>FY2024</th><th>FY2025</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>CapEx Framing</td><td>Cautious investment</td><td class="positive">Aggressive expansion confidence</td></tr>
+          <tr><td>Profitability</td><td>Early recovery</td><td class="positive">Structural profitability leadership</td></tr>
+          <tr><td>DRAM Mix</td><td>Recovery pricing</td><td class="positive">Structural pricing power with HBM premium</td></tr>
+        </tbody>
+      </table></div>
+      <h3 class="card-title" style="margin-top:16px;">Topics Added in FY2025</h3>
+      <ul style="color:var(--text-secondary);padding-left:20px;margin-bottom:12px;">
+        <li>HBM as explicit core growth driver</li>
+        <li>Segment reorganization (CMBU/MCBU/CDBU/AEBU)</li>
+        <li>Deferred revenue collapse ($766M to $26M)</li>
+        <li>US revenue concentration acceleration (52.4% to 64.5%)</li>
+      </ul>
+      <h3 class="card-title">Topics Removed</h3>
+      <ul style="color:var(--text-secondary);padding-left:20px;">
+        <li>Inventory overhang/write-down risk (demand normalized)</li>
+        <li>Recovery narrative (replaced by "leadership" language)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title">Risk Factor Changes</h3>
+    <div class="grid-2">
+      <div>
+        <h3 class="card-title" style="color:var(--accent-red);">New Risks Added</h3>
+        <div class="flag-card high" style="margin-bottom:8px;padding:12px;"><span class="severity-badge severity-HIGH">HIGH</span> HBM Technology Execution Risk</div>
+        <div class="flag-card high" style="margin-bottom:8px;padding:12px;"><span class="severity-badge severity-HIGH">HIGH</span> AI Demand Dependency</div>
+        <div class="flag-card moderate" style="margin-bottom:8px;padding:12px;"><span class="severity-badge severity-MEDIUM">MED-HIGH</span> Cybersecurity Threats</div>
+        <div class="flag-card moderate" style="margin-bottom:8px;padding:12px;"><span class="severity-badge severity-MEDIUM">MED-HIGH</span> Hyperscaler Concentration</div>
+      </div>
+      <div>
+        <h3 class="card-title" style="color:var(--accent-yellow);">Modified Risks</h3>
+        <div style="color:var(--text-secondary);font-size:13px;line-height:1.8;">
+          <p><strong>China Geopolitical:</strong> Acute threat &rarr; structural constraint with expansion risk</p>
+          <p><strong>Capital Intensity:</strong> Recovery-phase investment risk &rarr; boom-phase overcapacity risk</p>
+          <p><strong>CHIPS Act:</strong> Opportunity framing &rarr; compliance obligation with constraints</p>
+          <p><strong>ETR Volatility:</strong> Elevated burden &rarr; favorable geography but continuing volatility</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title">Red Flag Keywords</h3>
+    <div class="flag-card moderate">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <strong>Deferred Revenue Collapse</strong>
+        <span class="severity-badge severity-MEDIUM">MEDIUM</span>
+      </div>
+      <p style="color:var(--text-secondary);">$766M to $26M (97% decline) with minimal MD&amp;A explanation of underlying customer commitments.</p>
+    </div>
+    <div class="flag-card moderate">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <strong>CapEx Without Downside Framing</strong>
+        <span class="severity-badge severity-MEDIUM">MEDIUM</span>
+      </div>
+      <p style="color:var(--text-secondary);">42.4% capex-to-revenue ratio presented as confident expansion without prominent discussion of stranded asset risk.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 12. ADVANCED ANALYSIS ==================== -->
+<section class="section" id="advanced-analysis">
+  <h2 class="section-title"><span class="icon">&#9830;</span> Advanced Analysis</h2>
+
+  <!-- Tax Forensics -->
+  <div class="card">
+    <h3 class="card-title">Tax Forensics</h3>
+    <div class="table-wrap"><table class="data-table">
+      <thead>
+        <tr><th>Year</th><th class="num">ETR</th><th>Commentary</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>FY2022</td><td class="num positive">9.3%</td><td>Offshore mix + favorable geography</td></tr>
+        <tr><td>FY2023</td><td class="num">-3.1%</td><td>Taxes paid on profitable foreign ops despite consolidated loss</td></tr>
+        <tr><td>FY2024</td><td class="num negative">36.4%</td><td>Thin earnings base inflates rate mechanically</td></tr>
+        <tr><td>FY2025</td><td class="num positive">11.6%</td><td>Offshore manufacturing + CHIPS Act credits</td></tr>
+      </tbody>
+    </table></div>
+    <p style="color:var(--text-secondary);margin-top:12px;">ETR volatility is extreme (range: -3.1% to 36.4%) but explainable by cyclicality and geographic mix. Normalized ETR in high-profitability years: 9-13%. Massive FY2025 capex ($15.9B) creates significant future depreciation tax shield. Combined with CHIPS Act credits, cash tax rate should remain well below statutory for 5+ years.</p>
+    <p style="color:var(--text-secondary);margin-top:8px;">Capex-Depreciation Gap: FY2025 = $7.5B (capex far exceeds depreciation, building future tax shield)</p>
+  </div>
+
+  <!-- Debt & Stress -->
+  <div class="card">
+    <h3 class="card-title">Debt &amp; Financial Stress</h3>
+    <div class="table-wrap"><table class="data-table">
+      <thead>
+        <tr><th>Metric</th><th class="num">FY2023</th><th class="num">FY2024</th><th class="num">FY2025</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Total Debt</td><td class="num">$13.3B</td><td class="num">$13.4B</td><td class="num positive">$12.1B</td></tr>
+        <tr><td>LTD/EBITDA</td><td class="num negative">6.49x</td><td class="num">1.43x</td><td class="num positive">0.64x</td></tr>
+        <tr><td>Net Debt</td><td class="num">$3.7B</td><td class="num">$5.3B</td><td class="num positive">$2.5B</td></tr>
+        <tr><td>Interest Coverage</td><td class="num" colspan="2">--</td><td class="num positive">~18-20x</td></tr>
+      </tbody>
+    </table></div>
+    <p style="color:var(--text-secondary);margin-top:12px;"><strong>Stress Score: 0/10</strong> -- all 10 stress factors clean. Financial stress is at cyclical minimum. Debt declining, coverage exceptional, cash covers 23 months of opex. Refinancing risk LOW -- small current maturities ($560M), strong cash position ($9.6B).</p>
+  </div>
+
+  <!-- CapEx Analysis -->
+  <div class="card">
+    <h3 class="card-title">CapEx Deep Dive</h3>
+    <div class="table-wrap"><table class="data-table">
+      <thead>
+        <tr><th>Metric</th><th class="num">FY2022</th><th class="num">FY2023</th><th class="num">FY2024</th><th class="num">FY2025</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>CapEx</td><td class="num">$12.1B</td><td class="num">$7.7B</td><td class="num">$8.4B</td><td class="num negative">$15.9B</td></tr>
+        <tr><td>CapEx % Revenue</td><td class="num">39.2%</td><td class="num">49.4%</td><td class="num">33.4%</td><td class="num">42.4%</td></tr>
+        <tr><td>CapEx/Depreciation</td><td class="num">1.70x</td><td class="num">1.00x</td><td class="num">1.09x</td><td class="num negative">1.91x</td></tr>
+      </tbody>
+    </table></div>
+    <div class="card analyst-insight" style="margin-top:16px;">
+      <div class="card-title">Overbuild Risk Assessment</div>
+      <p><strong class="red-flag-inline">HIGH</strong> if AI demand decelerates. FY2025 capex of $15.9B is Micron's largest ever. FY2026 guided at $25B+ with "meaningful step-up" in FY2027. Greenfield construction (Idaho, Japan, Singapore) locks in multi-year capital commitments against 2028-2030 demand assumptions. Memory industry has a documented history of over-investment at cycle peaks.</p>
+      <p>CHIPS Act provides $6.1B+ funding commitments for Idaho and New York fabs but imposes 10-year China capacity expansion restriction.</p>
+      <p><strong>FCF compression:</strong> Revenue 5x in 8 quarters but FCF only $1.7B annually (FY2025) due to massive capex. OCF margin of 47% is excellent but capex consumes 90% of operating cash flow.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 13. RISK & CONVERGENCE MATRIX ==================== -->
+<section class="section" id="risk-convergence">
+  <h2 class="section-title"><span class="icon">&#9888;</span> Risk &amp; Convergence Matrix</h2>
+
+  <div class="flag-card high">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+      <strong>Peak Cycle / Margin Mean Reversion</strong>
+      <span class="severity-badge severity-HIGH">HIGH</span>
+    </div>
+    <p style="color:var(--text-secondary);">Six independent signals converge on peak-cycle dynamics: opacity at peak performance, zero analyst challenge to AI thesis, widening guidance beats, no competitive pressure, framework rejection at 81% margins, and 10-K/call contradictions. Convergence count: 6 sources (L1, L3, L4, L5, L9, VL4).</p>
+  </div>
+
+  <div class="flag-card high">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+      <strong>CapEx Overextension / Overbuild</strong>
+      <span class="severity-badge severity-HIGH">HIGH</span>
+    </div>
+    <p style="color:var(--text-secondary);">CapEx escalated 79% in 12 months with FY27 "meaningful step-up" telegraphed. No marginal return framework provided. Greenfield construction locks multi-year commitments. Convergence count: 4 sources (L4, L6, L7, L9).</p>
+  </div>
+
+  <div class="flag-card moderate">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+      <strong>Hyperscaler Customer Concentration</strong>
+      <span class="severity-badge severity-MEDIUM">MEDIUM-HIGH</span>
+    </div>
+    <p style="color:var(--text-secondary);">Data center 56%+ of revenue and accelerating. US geographic concentration 64.5%. Revenue concentrating toward handful of hyperscalers. If major customer shifts architecture, HBM demand disrupted. Convergence: 3 sources.</p>
+  </div>
+
+  <div class="flag-card high">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+      <strong>SCA Black Box / Unknown Contracts</strong>
+      <span class="severity-badge severity-HIGH">HIGH</span>
+    </div>
+    <p style="color:var(--text-secondary);">10+ analyst questions with zero substantive terms disclosed. Pricing, cancellation, downside protection all unknown. The structural bull case rests on undisclosed contract terms. Convergence: 3 sources (L1, L3, L8).</p>
+  </div>
+
+  <div class="flag-card moderate">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+      <strong>HBM Margin Dilution / Mix</strong>
+      <span class="severity-badge severity-MEDIUM">MEDIUM</span>
+    </div>
+    <p style="color:var(--text-secondary);">CEO confirmed non-HBM margins higher than HBM. As HBM mix grows with rising trade ratios, creates structural mix headwind. Convergence: 2 sources (L1, VL2).</p>
+  </div>
+
+  <div class="flag-card high">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+      <strong>China Export Controls Expansion</strong>
+      <span class="severity-badge severity-HIGH">HIGH</span>
+    </div>
+    <p style="color:var(--text-secondary);">China revenue share already halved from 14% to 8.1%. Ban could expand to additional product categories. CHIPS Act requires 10-year China capacity restriction. Convergence: 2 sources.</p>
+  </div>
+
+  <!-- Risk Matrix Summary -->
+  <div class="card" style="margin-top:16px;">
+    <h3 class="card-title">Risk Matrix Summary</h3>
+    <div class="table-wrap"><table class="data-table">
+      <thead>
+        <tr><th>Probability / Severity</th><th>High Severity</th><th>Medium Severity</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>High Probability</strong></td><td class="negative">Peak Cycle / Mean Reversion</td><td class="neutral">Tax Rate Volatility</td></tr>
+        <tr><td><strong>Medium Probability</strong></td><td class="negative">CapEx Overextension, AI Demand Deceleration, China Export Controls</td><td class="neutral">HBM Margin Dilution, Hyperscaler Concentration, Competitor Breakthrough</td></tr>
+        <tr><td><strong>Low Probability</strong></td><td class="negative">SCA Failure, Taiwan Geopolitical</td><td>--</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <!-- Monitoring Triggers -->
+  <div class="card">
+    <h3 class="card-title collapsible" onclick="toggleCollapse(this)">Monitoring Triggers</h3>
+    <div class="collapse-content">
+      <div class="table-wrap"><table class="data-table">
+        <thead>
+          <tr><th>Trigger</th><th>Significance</th><th>Timeframe</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Q3FY26 guidance beat narrows to &lt;5% or margins at/below 81%</td><td class="negative">Breaks sandbagging pattern -- signals demand ceiling</td><td>Next quarter</td></tr>
+          <tr><td>Two+ hyperscalers reduce AI CapEx guidance</td><td class="negative">Leading indicator for memory demand deceleration</td><td>1-2 quarters</td></tr>
+          <tr><td>FY27 CapEx exceeds $30B while growth decelerates below 30%</td><td class="negative">Overbuild dynamics activate</td><td>12 months</td></tr>
+          <tr><td>SCA customer requests renegotiation</td><td class="negative">Destroys reduced-cyclicality thesis</td><td>6-18 months</td></tr>
+          <tr><td>Samsung/Hynix major HBM qualification wins</td><td class="neutral">Reduces MU supply scarcity premium</td><td>6-12 months</td></tr>
+          <tr><td>Gross margins decline from Q3FY26 peak</td><td class="negative">Validates cyclicality CFO dismissed</td><td>3-6 months</td></tr>
+          <tr><td>CapEx-to-FCF ratio exceeds 1.5x for 2 quarters</td><td class="neutral">Capital discipline eroding</td><td>Ongoing</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 14. WATCHLIST & PREDICTIONS ==================== -->
+<section class="section" id="watchlist-predictions">
+  <h2 class="section-title"><span class="icon">&#9745;</span> Watchlist &amp; Predictions</h2>
+  <div class="card">
+    <h3 class="card-title">Monitoring Watchlist</h3>
+
+    <div class="watchlist-item">
+      <div class="priority-dot priority-HIGH"></div>
+      <div>
+        <strong>Q3FY26 Guidance Beat Magnitude</strong>
+        <p style="color:var(--text-secondary);font-size:13px;margin-top:4px;">The sandbagging pattern (5.7% to 25.1% revenue beats) has conditioned the market. A narrowing beat or first non-beat would signal demand ceiling.</p>
+        <p style="font-size:12px;color:var(--text-muted);margin-top:4px;">Trigger: Revenue beat &lt;10% or GM at/below 81% guide &middot; Timeframe: June 2026</p>
+      </div>
+    </div>
+
+    <div class="watchlist-item">
+      <div class="priority-dot priority-HIGH"></div>
+      <div>
+        <strong>Hyperscaler CapEx Guidance</strong>
+        <p style="color:var(--text-secondary);font-size:13px;margin-top:4px;">Leading indicator for memory demand by 1-2 quarters. No analyst in 5 quarters of MU calls has asked about demand deceleration risk.</p>
+        <p style="font-size:12px;color:var(--text-muted);margin-top:4px;">Trigger: Two+ hyperscalers reduce CapEx guidance &middot; Timeframe: Ongoing quarterly</p>
+      </div>
+    </div>
+
+    <div class="watchlist-item">
+      <div class="priority-dot priority-HIGH"></div>
+      <div>
+        <strong>FY27 CapEx Guidance</strong>
+        <p style="color:var(--text-secondary);font-size:13px;margin-top:4px;">Management telegraphed "meaningful step-up" beyond FY26's $25B+. If &gt;$30B while growth decelerates, overbuild dynamics activate.</p>
+        <p style="font-size:12px;color:var(--text-muted);margin-top:4px;">Trigger: FY27 CapEx &gt;$30B with revenue growth &lt;30% &middot; Timeframe: Q4FY26</p>
+      </div>
+    </div>
+
+    <div class="watchlist-item">
+      <div class="priority-dot priority-MODERATE"></div>
+      <div>
+        <strong>SCA Additional Signings</strong>
+        <p style="color:var(--text-secondary);font-size:13px;margin-top:4px;">Only one SCA confirmed. If no additional signings, it may be an outlier. Language shift from "robust terms" to "constructive discussions" would be a red flag.</p>
+        <p style="font-size:12px;color:var(--text-muted);margin-top:4px;">Trigger: No new SCAs by Q4FY26 or softening language &middot; Timeframe: 6-12 months</p>
+      </div>
+    </div>
+
+    <div class="watchlist-item">
+      <div class="priority-dot priority-MODERATE"></div>
+      <div>
+        <strong>Samsung / SK Hynix HBM Wins</strong>
+        <p style="color:var(--text-secondary);font-size:13px;margin-top:4px;">MU's HBM premium depends on supply scarcity. Competitor breakthroughs in yield and qualification would reduce pricing power.</p>
+        <p style="font-size:12px;color:var(--text-muted);margin-top:4px;">Trigger: Major HBM3E/HBM4 qualification matching Micron yields &middot; Timeframe: 6-18 months</p>
+      </div>
+    </div>
+
+    <div class="watchlist-item">
+      <div class="priority-dot priority-MODERATE"></div>
+      <div>
+        <strong>HBM % of DRAM Revenue</strong>
+        <p style="color:var(--text-secondary);font-size:13px;margin-top:4px;">CEO confirmed HBM margins LOWER than non-HBM. As HBM mix grows, creates structural margin headwind. Management refuses to disclose this metric.</p>
+        <p style="font-size:12px;color:var(--text-muted);margin-top:4px;">Trigger: If forced to disclose and HBM &gt;40% of DRAM at lower margins &middot; Timeframe: Ongoing</p>
+      </div>
+    </div>
+
+    <div class="watchlist-item">
+      <div class="priority-dot priority-MODERATE"></div>
+      <div>
+        <strong>CapEx-to-FCF Ratio</strong>
+        <p style="color:var(--text-secondary);font-size:13px;margin-top:4px;">Currently healthy at Q2FY26 ($6.25B CapEx vs $6.9B FCF = 0.91x). If exceeds 1.5x for 2 quarters, capital discipline is eroding.</p>
+        <p style="font-size:12px;color:var(--text-muted);margin-top:4px;">Trigger: Ratio &gt;1.5x for 2 consecutive quarters &middot; Timeframe: Ongoing</p>
+      </div>
+    </div>
+
+    <div class="watchlist-item">
+      <div class="priority-dot priority-MODERATE"></div>
+      <div>
+        <strong>China Export Controls Expansion</strong>
+        <p style="color:var(--text-secondary);font-size:13px;margin-top:4px;">China revenue share already halved (14% to 8.1%). Further restrictions on memory products would remove additional $2-3B in accessible revenue.</p>
+        <p style="font-size:12px;color:var(--text-muted);margin-top:4px;">Trigger: New US export control rules or China retaliatory measures &middot; Timeframe: Ongoing</p>
+      </div>
+    </div>
+
+    <div class="watchlist-item">
+      <div class="priority-dot priority-LOW"></div>
+      <div>
+        <strong>Insider Purchase Activity</strong>
+        <p style="color:var(--text-secondary);font-size:13px;margin-top:4px;">Zero insider purchases across entire dataset (5+ years for CEO). First open-market purchase by CEO or CFO would be a strong conviction signal.</p>
+        <p style="font-size:12px;color:var(--text-muted);margin-top:4px;">Trigger: Any Form 4 filing showing insider purchase (not vesting) &middot; Timeframe: Ongoing</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title">Forward Predictions</h3>
+
+    <div class="prediction-card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <strong>Q3FY26 Revenue: $38-40B</strong>
+        <span class="verdict-badge badge-yellow">60% confidence</span>
+      </div>
+      <p style="color:var(--text-secondary);font-size:13px;">Revenue will exceed guidance midpoint by 13-19%. Sandbagging pattern continuation -- management has beaten by 5.7% to 25.1% in prior 4 quarters, with beats widening.</p>
+      <p style="color:var(--text-muted);font-size:12px;margin-top:8px;">Bull: $42B+ (25%+ beat) | Bear: $34.0B (first "meet")</p>
+      <div class="confidence-bar"><div class="confidence-fill" style="width:60%;background:var(--accent-yellow);"></div></div>
+    </div>
+
+    <div class="prediction-card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <strong>Q3FY26 Gross Margins: 83-85%</strong>
+        <span class="verdict-badge badge-yellow">55% confidence</span>
+      </div>
+      <p style="color:var(--text-secondary);font-size:13px;">Beating the 81% guide by 200-400bps. Margin beats have ranged 250-700bps. CFO's comment that "incremental price increases have less effect at these levels" suggests margin ceiling approaching.</p>
+      <p style="color:var(--text-muted);font-size:12px;margin-top:8px;">Bull: 86%+ (historic) | Bear: 80-81% (first non-beat, peak marker)</p>
+      <div class="confidence-bar"><div class="confidence-fill" style="width:55%;background:var(--accent-yellow);"></div></div>
+    </div>
+
+    <div class="prediction-card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <strong>FY2026 Revenue: $70-75B</strong>
+        <span class="verdict-badge badge-yellow">50% confidence</span>
+      </div>
+      <p style="color:var(--text-secondary);font-size:13px;">H1 FY2026 already $37.5B, annualizing to $75B+. FY2027 approaching $100B if AI demand sustains.</p>
+      <p style="color:var(--text-muted);font-size:12px;margin-top:8px;">Bull: $80B+ FY26, $120B+ FY27 | Bear: $60-65B if demand decelerates</p>
+      <div class="confidence-bar"><div class="confidence-fill" style="width:50%;background:var(--accent-yellow);"></div></div>
+    </div>
+
+    <div class="prediction-card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <strong>First Non-Beat: 15-25% Stock Decline</strong>
+        <span class="verdict-badge badge-green">70% confidence</span>
+      </div>
+      <p style="color:var(--text-secondary);font-size:13px;">Market is calibrated to 20-45% EPS beats. When beat magnitude narrows to single digits or margins flat-line, the expectation recalibration will be violent. This is a prediction about market psychology, not business deterioration.</p>
+      <p style="color:var(--text-muted);font-size:12px;margin-top:8px;">Within 4 quarters | Bull: delayed to FY2027+ | Bear: as early as Q3FY26</p>
+      <div class="confidence-bar"><div class="confidence-fill" style="width:70%;background:var(--accent-green);"></div></div>
+    </div>
+
+    <div class="prediction-card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <strong>SCA Terms Will Be Tested</strong>
+        <span class="verdict-badge badge-green">75% confidence</span>
+      </div>
+      <p style="color:var(--text-secondary);font-size:13px;">Memory cycles are 3-4 years peak to peak. Current cycle began recovering in Q2FY24. Historical pattern suggests downturn begins 2027-2028. SCAs will face their first demand softening test.</p>
+      <p style="color:var(--text-muted);font-size:12px;margin-top:8px;">12-36 months | Bull: SCAs provide real protection | Bear: renegotiated at first sign of softening</p>
+      <div class="confidence-bar"><div class="confidence-fill" style="width:75%;background:var(--accent-green);"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 15. CLOSING SYNTHESIS ==================== -->
+<section class="section synthesis-card" id="closing-synthesis">
+  <h2>Final Synthesis &#8212; The Complete Picture</h2>
+  <p class="synthesis-scope">
+    After analyzing 10-K filings (2 years), 10-Q filings (8 quarters), DEF 14A proxy, Form 4 insider trades, 13F institutional holdings, 5 earnings call transcripts, and 6 forensic models, here is what we know about <strong>Micron Technology, Inc.</strong>.
+  </p>
+  <div class="synthesis-thesis">
+    <p>Micron presents the most compelling case study of the Information Paradox in modern semiconductor investing. The numbers are extraordinary: revenue quintuple in 8 quarters, 74.4% gross margins, pristine forensic scores across every model, and $17.5B operating cash flow at 2.05x earnings conversion. Yet the investment thesis rests on a structural transformation narrative -- HBM dominance, SCA-protected demand, reduced cyclicality -- that management deliberately keeps opaque. The market is pricing Micron as a structural growth company on commodity-level disclosure. The first demand deceleration will reveal whether this is a genuine new era for memory or the most spectacular peak in the industry's cyclical history. At B+ (72/100), the execution commands respect while the opacity demands skepticism.</p>
+  </div>
+  <div class="synthesis-grid">
+    <div class="synthesis-col">
+      <h3>What the Numbers Say</h3>
+      <ul>
+        <li>Revenue surged from $15.5B (FY2023) to $37.4B (FY2025) with Q2FY26 hitting $23.9B -- a 5x trajectory in 8 quarters</li>
+        <li>Gross margins expanded from -9.1% to 74.4% -- a 75 percentage point swing unprecedented in memory history</li>
+        <li>All forensic models clean: Beneish M-Score -3.01, Altman Z-Score 4.27, Piotroski 8/9, Benford PASS</li>
+        <li>OCF/NI quality ratio of 2.05x confirms earnings are backed by real cash, not accounting artifacts</li>
+        <li>Balance sheet strengthening: net debt fell to $2.5B, inventory declining despite 49% revenue growth</li>
+      </ul>
+    </div>
+    <div class="synthesis-col">
+      <h3>What Management Says</h3>
+      <ul>
+        <li>Claims structural transformation via HBM and SCAs that reduce traditional memory cyclicality</li>
+        <li>CFO explicitly told analysts to "revisit" mean reversion thesis at 81% margins</li>
+        <li>100% guidance beat rate with widening beats suggests systematic sandbagging</li>
+        <li>Refuses to disclose SCA terms, HBM margin details, or project-level CapEx returns</li>
+        <li>Directness scores declined from 2.6 to 2.5/5 as results tripled -- less transparent at peak</li>
+      </ul>
+    </div>
+  </div>
+  <div class="synthesis-convergence">
+    <h3>Where They Agree</h3>
+    <ul>
+      <li>Current-period financial quality is exceptional -- zero forensic red flags, pristine cash conversion, declining leverage</li>
+      <li>HBM/AI is genuinely transforming memory demand patterns, at least in the near term</li>
+      <li>Micron's competitive position in a 3-player oligopoly is strong and strengthening</li>
+      <li>Governance is clean with minimal entrenchment (E-Index 1/6) and appropriate pay-for-performance alignment</li>
+    </ul>
+  </div>
+  <div class="synthesis-divergence">
+    <h3>Where They Conflict</h3>
+    <ul>
+      <li>10-K risk factors cite cyclicality as HIGH risk while CFO on call rejects mean reversion -- trust the legally constrained document</li>
+      <li>Management claims reduced cyclicality via SCAs but refuses to disclose any SCA terms after 10+ analyst questions</li>
+      <li>CEO confirmed HBM margins are LOWER than non-HBM -- buried in Q&amp;A, never in prepared remarks, contradicts market narrative</li>
+      <li>$25B+ CapEx with "meaningful step-up" in FY27 but zero marginal return framework -- memory's history of peak-cycle overbuild demands scrutiny</li>
+    </ul>
+  </div>
+  <div class="synthesis-watchpoint">
+    <h3>The Single Most Important Thing to Watch</h3>
+    <div class="watchpoint-box">
+      <span class="watchpoint-metric">Q3FY26 Guidance Beat Magnitude</span>
+      <span class="watchpoint-value">Currently: 5.7% - 25.1% revenue beats (widening)</span>
+      <span class="watchpoint-threshold">Threshold: Beat narrows to &lt;5% or margins at/below 81%</span>
+      <p>The market has been conditioned by four consecutive quarters of widening beats. The first quarter where Micron merely meets guidance -- even on objectively excellent results -- will trigger a violent expectation recalibration. This single data point will reveal whether the Information Paradox was genuine structural transformation or the most sophisticated sandbagging operation in semiconductor history.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="report-disclaimer">
+    <p>This report is an automated analysis of publicly available SEC filings and earnings call transcripts. It does not constitute investment advice, a recommendation, or a solicitation to buy, sell, or hold any security. All ratings, scores, and assessments are algorithmic outputs based on historical data and should not be relied upon for investment decisions. Past performance does not indicate future results. Investors should conduct their own due diligence and consult qualified financial advisors.</p>
+  </div>
+  <div style="display:flex; justify-content:space-between; align-items:center; margin-top:1rem;">
+    <div>SEC Forensic Analysis &middot; Micron Technology, Inc. (MU) &middot; Generated April 16, 2026</div>
+    <div>Data sources: SEC EDGAR (10-K, 10-Q, 8-K, DEF 14A, Form 4, 13F), Earnings Call Transcripts &middot; 12 SEC filings + 5 transcripts analyzed</div>
+  </div>
+</footer>
+
+<script>
+// Sidebar active link tracking
+const sections = document.querySelectorAll('.section');
+const navLinks = document.querySelectorAll('.nav-link');
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(link => link.classList.remove('active'));
+      const activeLink = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
+      if (activeLink) activeLink.classList.add('active');
+    }
+  });
+}, { rootMargin: '-100px 0px -60% 0px' });
+
+sections.forEach(section => observer.observe(section));
+
+// Smooth scrolling
+document.querySelectorAll('.nav-link').forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    const target = document.querySelector(link.getAttribute('href'));
+    if (target) { target.scrollIntoView({ behavior: 'smooth' }); }
+  });
+});
+
+// Collapsible sections
+function toggleCollapse(el) {
+  el.classList.toggle('collapsed');
+  const content = el.nextElementSibling;
+  if (content) content.classList.toggle('hidden');
+}
+
+// Scroll spy — highlight active section in sidebar
+const spySections = document.querySelectorAll('.section[id]');
+const spyLinks = document.querySelectorAll('.nav-link');
+function updateSpy() {
+  let cur = '';
+  spySections.forEach(s => { if (window.scrollY >= s.offsetTop - 140) cur = s.id; });
+  spyLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + cur));
+}
+window.addEventListener('scroll', updateSpy, { passive: true });
+updateSpy();
+
+/* ===== P-12 Glossary Tooltip System (V3.1) ===== */
+(function () {
+  "use strict";
+  const GLOSSARY = {
+    "TATA": "Total Accruals to Total Assets -- measures the gap between reported earnings and actual cash flow; high values may signal earnings manipulation",
+    "SGI": "Sales Growth Index -- ratio of current to prior-year revenue; abnormally high growth can precede earnings management",
+    "DSRI": "Days Sales in Receivables Index -- detects aggressive revenue recognition by comparing receivables growth to revenue growth",
+    "LVGI": "Leverage Index -- ratio of current to prior-year total debt/assets; rising leverage increases manipulation incentive",
+    "GMI": "Gross Margin Index -- ratio of prior-year to current-year gross margin; declining margins create pressure to manipulate",
+    "AQI": "Asset Quality Index -- captures changes in non-current assets other than PP&E; rising values suggest aggressive capitalization",
+    "DEPI": "Depreciation Index -- ratio of prior-year to current-year depreciation rate; declining depreciation inflates earnings",
+    "SGAI": "SGA Expense Index -- ratio of current to prior-year SGA-to-revenue; disproportionate cost growth may signal trouble",
+    "M-Score": "Beneish M-Score -- composite of 8 financial ratios; scores above -1.78 indicate probable earnings manipulation",
+    "F-Score": "Piotroski F-Score -- 9-point scale measuring financial strength from profitability, leverage, liquidity, and operating efficiency",
+    "Z-Score": "Altman Z-Score -- bankruptcy prediction model combining profitability, leverage, liquidity, solvency, and activity ratios",
+    "C-Score": "Montier C-Score -- 6-point checklist for detecting earnings manipulation based on accruals, asset growth, and funding patterns",
+    "DSO": "Days Sales Outstanding -- average number of days to collect payment after a sale; rising DSO may indicate revenue quality issues",
+    "DIO": "Days Inventory Outstanding -- average number of days inventory is held before sale; rising DIO suggests demand weakness or obsolescence",
+    "DPO": "Days Payable Outstanding -- average number of days a company takes to pay suppliers; changes affect cash conversion cycle",
+    "CCC": "Cash Conversion Cycle -- DSO + DIO - DPO; measures how quickly a company converts investment in inventory into cash from sales",
+    "SBC": "Stock-Based Compensation -- non-cash expense from equity awards to employees; excluded from non-GAAP earnings, dilutes shareholders",
+    "NOL": "Net Operating Loss -- tax loss carryforward that offsets future taxable income; affects deferred tax assets and effective tax rate",
+    "DTA": "Deferred Tax Asset -- future tax benefit from losses or timing differences; utilization inflates GAAP net income without economic gain",
+    "DCF": "Discounted Cash Flow -- valuation method that estimates intrinsic value by projecting and discounting future free cash flows",
+    "FCF": "Free Cash Flow -- operating cash flow minus capital expenditures; measures cash available for dividends, buybacks, or debt reduction",
+    "OCF": "Operating Cash Flow -- cash generated from core business operations; primary indicator of earnings quality when compared to net income",
+    "ROIC": "Return on Invested Capital -- NOPAT divided by invested capital; measures how efficiently a company generates returns on deployed capital",
+    "NOPAT": "Net Operating Profit After Tax -- operating income adjusted for taxes, excluding financing effects; used in ROIC and EVA calculations",
+    "WACC": "Weighted Average Cost of Capital -- blended cost of debt and equity financing; the hurdle rate for value creation (ROIC > WACC)",
+    "EVA": "Economic Value Added -- NOPAT minus capital charge (invested capital x WACC); positive EVA means the company creates shareholder value",
+    "ARPU": "Average Revenue Per User -- total revenue divided by subscriber/user count; key SaaS and telecom metric for monetization efficiency",
+    "DAUq": "Daily Active Users (quarterly average) -- average daily unique users over a quarter; measures platform engagement and retention",
+    "DAU": "Daily Active Users -- unique users engaging with a platform in a single day; core engagement metric for consumer tech",
+    "MAU": "Monthly Active Users -- unique users engaging with a platform within a calendar month; core engagement metric for consumer tech",
+    "NRR": "Net Revenue Retention -- revenue from existing customers including expansion minus churn; above 100% means organic growth from the base",
+    "ARR": "Annual Recurring Revenue -- annualized value of active subscriptions; primary top-line metric for SaaS companies",
+    "TAM": "Total Addressable Market -- total revenue opportunity available if a company achieved 100% market share in its target segments",
+    "FDDEI": "Foreign-Derived Deductible Eligible Income -- portion of US income eligible for FDII deduction under TCJA; reduces effective tax on export income",
+    "FDII": "Foreign-Derived Intangible Income -- tax provision giving US companies a deduction on income from serving foreign markets",
+    "GILTI": "Global Intangible Low-Taxed Income -- US tax on foreign subsidiary earnings exceeding a routine return on tangible assets",
+    "BEAT": "Base Erosion and Anti-Abuse Tax -- minimum tax on US companies making large deductible payments to foreign related parties",
+    "HBM": "High Bandwidth Memory -- advanced DRAM packaging (stacked dies with through-silicon vias) used in AI accelerators and GPUs",
+    "CoWoS": "Chip-on-Wafer-on-Substrate -- TSMC advanced packaging technology enabling high-bandwidth interconnect between chiplets",
+    "PP&E": "Property, Plant & Equipment -- long-lived tangible assets used in operations; changes in depreciation policy affect earnings quality",
+    "EBITDA": "Earnings Before Interest, Taxes, Depreciation & Amortization -- proxy for operating cash generation; widely used but ignores capex needs",
+    "EV/EBITDA": "Enterprise Value to EBITDA -- valuation multiple comparing total firm value to operating earnings; lower generally means cheaper",
+    "P/E": "Price-to-Earnings Ratio -- stock price divided by earnings per share; primary valuation metric, but sensitive to accounting choices",
+    "PEG": "Price/Earnings to Growth Ratio -- P/E divided by earnings growth rate; values below 1.0 suggest undervaluation relative to growth",
+    "EPS": "Earnings Per Share -- net income divided by shares outstanding; primary per-share profitability metric",
+    "R&D": "Research & Development -- spending on innovation and new products; capitalization vs. expensing affects reported earnings",
+    "SGA": "Selling, General & Administrative -- operating expenses excluding cost of goods sold and R&D; overhead efficiency indicator",
+    "CAGR": "Compound Annual Growth Rate -- smoothed annualized growth rate over a multi-year period; useful for comparing growth trajectories",
+    "YoY": "Year-over-Year -- comparison of a metric in the current period versus the same period one year ago; removes seasonality",
+    "QoQ": "Quarter-over-Quarter -- comparison of a metric in the current quarter versus the immediately preceding quarter",
+    "RSU": "Restricted Stock Unit -- equity award that converts to shares on a vesting schedule; standard employee compensation in tech",
+    "10b5-1": "SEC Rule 10b5-1 -- pre-scheduled stock selling plan that protects insiders from insider trading accusations by setting trades in advance",
+    "DEF 14A": "Definitive Proxy Statement -- annual SEC filing disclosing governance, executive compensation, board structure, and shareholder votes",
+    "10-K": "Annual Report -- comprehensive SEC filing covering a company's fiscal year: business, financials, risks, management discussion",
+    "10-Q": "Quarterly Report -- condensed SEC filing covering a company's fiscal quarter; reviewed but not audited",
+    "8-K": "Current Report -- SEC filing disclosing material events (earnings, M&A, executive changes) within 4 business days",
+    "GAAP": "Generally Accepted Accounting Principles -- standardized US accounting rules that all public companies must follow in SEC filings",
+    "MD&A": "Management's Discussion and Analysis -- narrative section of 10-K/10-Q where management explains financial results and outlook"
+  };
+  let activeTooltip = null;
+  const isMobile = window.matchMedia("(max-width: 768px)").matches;
+  const terms = Object.keys(GLOSSARY).sort((a, b) => b.length - a.length);
+  function escapeRegex(str) {
+    return str.replace(/[.*+?^${}()|[\]\\\/]/g, "\\$&");
+  }
+  function annotateTerms() {
+    const matched = new Set();
+    const SKIP_TAGS = new Set(["SCRIPT","STYLE","CODE","PRE","TEXTAREA","INPUT","SVG","CANVAS","NOSCRIPT","IFRAME"]);
+    for (const term of terms) {
+      if (matched.has(term)) continue;
+      const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+        acceptNode: function(node) {
+          if (!node.parentElement) return NodeFilter.FILTER_REJECT;
+          if (SKIP_TAGS.has(node.parentElement.tagName)) return NodeFilter.FILTER_REJECT;
+          if (node.parentElement.classList.contains("glossary-term")) return NodeFilter.FILTER_REJECT;
+          if (node.parentElement.classList.contains("glossary-tooltip")) return NodeFilter.FILTER_REJECT;
+          return NodeFilter.FILTER_ACCEPT;
+        }
+      });
+      const regex = new RegExp("(?<![A-Za-z0-9])" + escapeRegex(term) + "(?![A-Za-z0-9])", "g");
+      let textNode, found = false;
+      while ((textNode = walker.nextNode()) && !found) {
+        const text = textNode.nodeValue;
+        regex.lastIndex = 0;
+        const match = regex.exec(text);
+        if (!match) continue;
+        const before = text.substring(0, match.index);
+        const after = text.substring(match.index + term.length);
+        const span = document.createElement("span");
+        span.className = "glossary-term";
+        span.setAttribute("data-term", term);
+        span.textContent = term;
+        const parent = textNode.parentNode;
+        if (before) parent.insertBefore(document.createTextNode(before), textNode);
+        parent.insertBefore(span, textNode);
+        if (after) parent.insertBefore(document.createTextNode(after), textNode);
+        parent.removeChild(textNode);
+        matched.add(term);
+        found = true;
+      }
+    }
+  }
+  function createTooltip(term, definition) {
+    const tip = document.createElement("div");
+    tip.className = "glossary-tooltip";
+    tip.innerHTML = "<strong>" + term + "</strong>" + definition;
+    return tip;
+  }
+  function positionTooltip(tip, anchor) {
+    tip.style.opacity = "0";
+    tip.classList.add("visible");
+    requestAnimationFrame(function() {
+      if (isMobile) { tip.classList.add("mobile-show"); tip.style.opacity = ""; return; }
+      const tipRect = tip.getBoundingClientRect();
+      const anchorRect = anchor.getBoundingClientRect();
+      if (anchorRect.top - tipRect.height - 12 < 0) tip.classList.add("flip-below");
+      else tip.classList.remove("flip-below");
+      const tipLeft = anchorRect.left + anchorRect.width/2 - tipRect.width/2;
+      const vw = document.documentElement.clientWidth;
+      if (tipLeft < 8) tip.style.left = "calc(50% + " + (8-tipLeft) + "px)";
+      else if (tipLeft + tipRect.width > vw - 8) tip.style.left = "calc(50% - " + ((tipLeft+tipRect.width)-(vw-8)) + "px)";
+      tip.style.opacity = "";
+    });
+  }
+  function dismissTooltip() {
+    if (activeTooltip) {
+      activeTooltip.tip.classList.remove("visible");
+      activeTooltip.tip.classList.remove("mobile-show");
+      setTimeout(function() {
+        if (activeTooltip && activeTooltip.tip.parentNode) activeTooltip.tip.parentNode.removeChild(activeTooltip.tip);
+        activeTooltip = null;
+      }, 160);
+    }
+  }
+  function showTooltip(el) {
+    dismissTooltip();
+    const term = el.getAttribute("data-term");
+    const def = GLOSSARY[term];
+    if (!def) return;
+    const tip = createTooltip(term, def);
+    if (isMobile) document.body.appendChild(tip);
+    else el.appendChild(tip);
+    activeTooltip = { tip: tip, anchor: el };
+    positionTooltip(tip, el);
+  }
+  function attachListeners() {
+    const all = document.querySelectorAll(".glossary-term");
+    if (isMobile) {
+      all.forEach(function(el) {
+        el.addEventListener("click", function(e) {
+          e.preventDefault(); e.stopPropagation();
+          if (activeTooltip && activeTooltip.anchor === el) dismissTooltip();
+          else showTooltip(el);
+        });
+      });
+      document.addEventListener("click", function() { dismissTooltip(); });
+    } else {
+      all.forEach(function(el) {
+        el.addEventListener("mouseenter", function() { showTooltip(el); });
+        el.addEventListener("mouseleave", function() { dismissTooltip(); });
+      });
+    }
+  }
+  function init() { annotateTerms(); attachListeners(); }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+  else init();
+})();
+/* ===== END P-12 ===== */
+</script>
+</body>
+</html>

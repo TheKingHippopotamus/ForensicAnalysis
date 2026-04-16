@@ -1,0 +1,1521 @@
+{
+  "meta": {
+    "ticker": "MU",
+    "company": "Micron Technology, Inc.",
+    "cik": "723125",
+    "report_date": "2026-04-16",
+    "fiscal_year_end": "August",
+    "analysis_period": "FY2022-FY2025 annual + Q1FY2024-Q2FY2026 quarterly",
+    "exchange": "Nasdaq",
+    "sic": "3674",
+    "sic_description": "Semiconductors & Related Devices",
+    "shares_outstanding": 1122000000,
+    "report_version": "UUUU-v2",
+    "pipeline_note": "Full UUUU standard: 10-K (2 yrs) + 10-Q (8 qtrs) + 8-K + DEF 14A + Form 4 + 13F + 5 earnings transcripts. Phase 8 investigation: 9 layers (L1-L9) + 4 cross-validators (VL1-VL4) + L10 synthesis."
+  },
+  "executiveSummary": {
+    "narrative": "Micron is executing a historic AI-driven transformation from commodity memory to strategic infrastructure supply. Revenue surged from a $15.5B trough to $23.9B in a single quarter at 74.4% gross margins, backed by pristine forensic quality across every quantitative model and $17.5B operating cash flow at 2.05x net income conversion. However, the thesis rests on a paradox: management transparency is declining as results peak, and the structural bull case (SCAs, reduced cyclicality, AI durability) remains deliberately opaque. Investors are pricing structural transformation on commodity-level disclosure. The first demand deceleration will reveal whether this is a new era or the most spectacular peak in memory history.\n\nVERDICT: B+ (72/100) -- Exceptional execution and pristine forensics at cycle peak, but declining transparency and unaddressed cyclicality risk prevent conviction.\n\nTOP CONCERNS:\n1. Peak Opacity: Management directness declining as revenue tripled [See \u00a7Transcript Intelligence].\n2. SCA Black Box: $200B+ commitments with zero disclosed terms [See \u00a7Transcript Intelligence].\n3. CapEx Overextension: $25B+ annual capex with no marginal return framework [See \u00a7Advanced Analysis].",
+    "verdict": {
+      "rating": "B+",
+      "score": 72,
+      "one_line": "Exceptional execution and pristine forensics at cycle peak, but declining transparency and unaddressed cyclicality risk prevent conviction at current levels"
+    },
+    "top_concerns": [
+      {
+        "concern": "Peak Opacity at Peak Performance: Management transparency declining as results reach historic highs [See \u00a7Transcript Intelligence]",
+        "severity": "HIGH",
+        "section_ref": "transcript_intelligence"
+      },
+      {
+        "concern": "SCA Black Box: $200B+ customer commitments with zero disclosed terms [See \u00a7Transcript Intelligence]",
+        "severity": "HIGH",
+        "section_ref": "transcript_intelligence"
+      },
+      {
+        "concern": "CapEx Overextension Risk: $25B+ annual capex with no marginal return framework [See \u00a7Advanced Analysis]",
+        "severity": "HIGH",
+        "section_ref": "advanced_analysis"
+      }
+    ],
+    "key_metrics_snapshot": {
+      "revenue_fy2025": 37378000000,
+      "revenue_q2fy2026": 23860000000,
+      "gross_margin_fy2025": "39.8%",
+      "gross_margin_q2fy2026": "74.4%",
+      "net_income_fy2025": 8539000000,
+      "net_income_q2fy2026": 13785000000,
+      "fcf_fy2025": 1668000000,
+      "ocf_fy2025": 17525000000,
+      "debt_equity_fy2025": 0.223,
+      "capex_fy2025": 15857000000,
+      "capex_pct_revenue_fy2025": "42.4%",
+      "eps_diluted_fy2025": 7.59,
+      "eps_diluted_q2fy2026": 12.07,
+      "dram_pct_revenue": "76.5%",
+      "us_pct_revenue": "64.5%",
+      "shares_outstanding": 1122000000
+    }
+  },
+  "financial_overview": {
+    "income_trends": {
+      "annual_data": {
+        "FY2025": {
+          "revenue": 37378000000,
+          "cogs": 22505000000,
+          "gross_profit": 14873000000,
+          "operating_income": 9770000000,
+          "net_income": 8539000000,
+          "eps_diluted": 7.59,
+          "sbc": 975000000,
+          "rd": 3798000000,
+          "sga": 1205000000,
+          "depreciation": 8352000000
+        },
+        "FY2024": {
+          "revenue": 25111000000,
+          "cogs": 19498000000,
+          "gross_profit": 5613000000,
+          "operating_income": 1304000000,
+          "net_income": 778000000,
+          "eps_diluted": 0.7,
+          "sbc": 833000000,
+          "rd": 3430000000,
+          "sga": 1129000000,
+          "depreciation": 7780000000
+        },
+        "FY2023": {
+          "revenue": 15540000000,
+          "cogs": 16956000000,
+          "gross_profit": -1416000000,
+          "operating_income": -5745000000,
+          "net_income": -5833000000,
+          "eps_diluted": -5.34,
+          "sbc": 596000000,
+          "rd": 3114000000,
+          "sga": 920000000,
+          "depreciation": 7756000000
+        },
+        "FY2022": {
+          "revenue": 30758000000,
+          "cogs": 16860000000,
+          "gross_profit": 13898000000,
+          "operating_income": 9702000000,
+          "net_income": 8687000000,
+          "eps_diluted": 7.75,
+          "sbc": 514000000,
+          "rd": 3116000000,
+          "sga": 1066000000,
+          "depreciation": 7116000000
+        }
+      },
+      "commentary": "Micron's income statement tells a classic semiconductor cyclicality story with an AI twist. FY2023 was the worst memory downturn in a decade (-$5.8B net loss, negative gross margin). FY2024 was recovery ($778M net income). FY2025 was the AI/HBM-driven boom ($8.5B net income). Critically, FY2025 revenue of $37.4B exceeds FY2022's prior peak of $30.8B by 21%, but margins have not fully recovered: FY2025 gross margin (39.8%) still trails FY2022 (45.2%) despite higher revenue. This gap is driven by COGS growing faster than revenue due to HBM manufacturing complexity and elevated depreciation from the massive capex cycle. R&D spending is at all-time highs ($3.8B) but declining as a percentage of revenue (10.2% vs 20% at trough), demonstrating operating leverage."
+    },
+    "balance_sheet": {
+      "annual_data": {
+        "FY2025": {
+          "total_assets": 82798000000,
+          "current_assets": 28841000000,
+          "cash": 9642000000,
+          "inventory": 8355000000,
+          "ar": 7163000000,
+          "total_liabilities": 28633000000,
+          "current_liabilities": 11454000000,
+          "long_term_debt": 11533000000,
+          "stockholders_equity": 54165000000,
+          "goodwill": 1150000000
+        },
+        "FY2024": {
+          "total_assets": 69416000000,
+          "current_assets": 24372000000,
+          "cash": 7041000000,
+          "inventory": 8875000000,
+          "ar": 6615000000,
+          "total_liabilities": 24285000000,
+          "current_liabilities": 9248000000,
+          "long_term_debt": 12966000000,
+          "stockholders_equity": 45131000000,
+          "goodwill": 1150000000
+        },
+        "FY2023": {
+          "total_assets": 64254000000,
+          "current_assets": 21244000000,
+          "cash": 8577000000,
+          "inventory": 8387000000,
+          "ar": 2443000000,
+          "total_liabilities": 20134000000,
+          "current_liabilities": 4765000000,
+          "long_term_debt": 13052000000,
+          "stockholders_equity": 44120000000,
+          "goodwill": 1150000000
+        }
+      },
+      "commentary": "Balance sheet strength is a key positive. Total assets grew to $82.8B driven by massive PPE investment in new fabs. Inventory declined $520M (-5.9%) despite 49% revenue growth -- a powerful demand signal. Long-term debt DECLINED from $13.1B to $11.5B even as the company invested $15.9B in capex, funded primarily by $17.5B in operating cash flow. Debt-to-equity at 0.22x is conservative for a capital-intensive manufacturer. Net debt (total debt minus cash) fell to $2.5B. Goodwill is flat at $1.15B -- all growth is organic with zero acquisitions."
+    },
+    "cash_flow": {
+      "annual_data": {
+        "FY2025": {
+          "ocf": 17525000000,
+          "capex": 15857000000,
+          "fcf": 1668000000,
+          "sbc_cf": 972000000
+        },
+        "FY2024": {
+          "ocf": 8507000000,
+          "capex": 8386000000,
+          "fcf": 121000000,
+          "sbc_cf": 833000000,
+          "investing_cf": -8309000000,
+          "financing_cf": -1842000000
+        },
+        "FY2023": {
+          "ocf": 1559000000,
+          "capex": 7676000000,
+          "fcf": -6117000000,
+          "sbc_cf": 596000000,
+          "investing_cf": -6191000000,
+          "financing_cf": 4983000000
+        },
+        "FY2022": {
+          "ocf": 15181000000,
+          "capex": 12067000000,
+          "fcf": 3114000000,
+          "sbc_cf": 514000000,
+          "investing_cf": -11585000000,
+          "financing_cf": -2980000000
+        }
+      },
+      "commentary": "Cash flow tells the story of a company generating enormous operating cash but consuming nearly all of it in capacity investment. FY2025 OCF of $17.5B (47% margin) is exceptional, but capex of $15.9B leaves only $1.7B FCF (4.5% margin). This is a deliberate strategic choice -- Micron is building HBM and advanced DRAM capacity for AI demand. OCF remained positive even during FY2023's $5.8B net loss ($1.6B OCF), demonstrating depreciation-driven cash flow resilience. [See \u00a7Forensic Models > cash_conversion for OCF/NI quality ratios, CCC analysis, and DSO/DIO/DPO trends.]"
+    },
+    "quarterly_trends": {
+      "quarters": [
+        {
+          "period": "Q1-FY2024",
+          "revenue_m": 4726,
+          "gross_margin_pct": -0.7,
+          "operating_margin_pct": -23.9,
+          "eps_diluted": -1.12,
+          "ocf_m": 1401
+        },
+        {
+          "period": "Q2-FY2024",
+          "revenue_m": 5824,
+          "gross_margin_pct": 18.5,
+          "operating_margin_pct": 3.3,
+          "eps_diluted": 0.71,
+          "ocf_m": 1219
+        },
+        {
+          "period": "Q3-FY2024",
+          "revenue_m": 6811,
+          "gross_margin_pct": 26.9,
+          "operating_margin_pct": 10.6,
+          "eps_diluted": 0.3,
+          "ocf_m": 2482
+        },
+        {
+          "period": "Q4-FY2024",
+          "revenue_m": 7824,
+          "gross_margin_pct": 35.0,
+          "operating_margin_pct": 19.5,
+          "eps_diluted": 0.8,
+          "ocf_m": 3405
+        },
+        {
+          "period": "Q1-FY2025",
+          "revenue_m": 8709,
+          "gross_margin_pct": 38.4,
+          "operating_margin_pct": 25.0,
+          "eps_diluted": 1.67,
+          "ocf_m": 3244
+        },
+        {
+          "period": "Q2-FY2025",
+          "revenue_m": 8053,
+          "gross_margin_pct": 36.8,
+          "operating_margin_pct": 22.0,
+          "eps_diluted": 1.41,
+          "ocf_m": 3942
+        },
+        {
+          "period": "Q3-FY2025",
+          "revenue_m": 9301,
+          "gross_margin_pct": 37.7,
+          "operating_margin_pct": 23.3,
+          "eps_diluted": 1.68,
+          "ocf_m": 4609
+        },
+        {
+          "period": "Q4-FY2025",
+          "revenue_m": 11134,
+          "gross_margin_pct": 45.4,
+          "operating_margin_pct": 32.8,
+          "eps_diluted": 2.84,
+          "ocf_m": 5730
+        },
+        {
+          "period": "Q1-FY2026",
+          "revenue_m": 13643,
+          "gross_margin_pct": 56.0,
+          "operating_margin_pct": 45.0,
+          "eps_diluted": 4.6,
+          "ocf_m": 8411
+        },
+        {
+          "period": "Q2-FY2026",
+          "revenue_m": 23860,
+          "gross_margin_pct": 74.4,
+          "operating_margin_pct": 67.6,
+          "eps_diluted": 12.07,
+          "ocf_m": 11903
+        }
+      ],
+      "commentary": "The quarterly trajectory is extraordinary. Revenue went from $4.7B (Q1FY24) to $23.9B (Q2FY26) -- a 5x increase in 8 quarters. Gross margins swung from -0.7% to 74.4% over the same period -- a 75 percentage point expansion. The Q2FY26 quarter is the inflection point: 75% QoQ revenue growth with a 74.4% gross margin signals the full impact of HBM3E/HBM4 volume ramp. Note Q2FY25 showed a rare sequential dip (-7.5% QoQ) but acceleration resumed immediately, suggesting a one-time seasonal/mix effect."
+    },
+    "key_ratios": {
+      "margins": {
+        "gross_margin": {
+          "FY2025": "39.8%",
+          "FY2024": "22.4%",
+          "FY2023": "-9.1%",
+          "FY2022": "45.2%",
+          "Q2FY2026": "74.4%"
+        },
+        "operating_margin": {
+          "FY2025": "26.1%",
+          "FY2024": "5.2%",
+          "FY2023": "-37.0%",
+          "FY2022": "31.5%",
+          "Q2FY2026": "67.6%"
+        },
+        "net_margin": {
+          "FY2025": "22.8%",
+          "FY2024": "3.1%",
+          "FY2023": "-37.5%",
+          "FY2022": "28.2%",
+          "Q2FY2026": "57.8%"
+        },
+        "ebitda_margin": {
+          "FY2025": "48.5%",
+          "FY2024": "36.2%",
+          "FY2023": "12.9%",
+          "FY2022": "54.7%"
+        }
+      },
+      "returns": {
+        "roe": {
+          "FY2025": "17.2%",
+          "FY2024": "1.7%",
+          "FY2023": "-12.4%"
+        },
+        "roa": {
+          "FY2025": "10.3%",
+          "FY2024": "1.1%",
+          "FY2023": "-9.1%"
+        },
+        "roic": {
+          "FY2025": "13.4%",
+          "FY2024": "1.5%",
+          "FY2023": "-9.4%"
+        }
+      },
+      "efficiency": {
+        "asset_turnover": {
+          "FY2025": 0.452,
+          "FY2024": 0.362,
+          "FY2023": 0.242
+        },
+        "dso_days": {
+          "FY2025": 69.9,
+          "FY2024": 96.2,
+          "FY2023": 57.4
+        },
+        "dio_days": {
+          "FY2025": 135.5,
+          "FY2024": 166.1,
+          "FY2023": 180.5
+        },
+        "ccc_days": {
+          "FY2025": 29.2,
+          "FY2024": 125.7,
+          "FY2023": 152.7
+        }
+      },
+      "leverage": {
+        "debt_to_equity": {
+          "FY2025": 0.223,
+          "FY2024": 0.297,
+          "FY2023": 0.302
+        },
+        "current_ratio": {
+          "FY2025": 2.52,
+          "FY2024": 2.64,
+          "FY2023": 4.46
+        },
+        "net_debt": {
+          "FY2025": 2451000000,
+          "FY2024": 5291000000,
+          "FY2023": 3736000000
+        }
+      }
+    }
+  },
+  "revenue_segments": {
+    "by_product": {
+      "DRAM": {
+        "FY2025": {
+          "revenue": 28578000000,
+          "share": "76.5%",
+          "yoy_growth": "62.3%"
+        },
+        "FY2024": {
+          "revenue": 17603000000,
+          "share": "70.1%",
+          "yoy_growth": "60.3%"
+        },
+        "FY2023": {
+          "revenue": 10978000000,
+          "share": "70.6%",
+          "yoy_growth": "-51.0%"
+        },
+        "FY2022": {
+          "revenue": 22386000000,
+          "share": "72.8%"
+        },
+        "three_year_cagr": "8.5%"
+      },
+      "NAND": {
+        "FY2025": {
+          "revenue": 8503000000,
+          "share": "22.7%",
+          "yoy_growth": "17.7%"
+        },
+        "FY2024": {
+          "revenue": 7227000000,
+          "share": "28.8%",
+          "yoy_growth": "71.8%"
+        },
+        "FY2023": {
+          "revenue": 4206000000,
+          "share": "27.1%",
+          "yoy_growth": "-46.2%"
+        },
+        "FY2022": {
+          "revenue": 7811000000,
+          "share": "25.4%"
+        },
+        "three_year_cagr": "2.9%"
+      },
+      "Other": {
+        "FY2025": {
+          "revenue": 356000000,
+          "share": "1.0%"
+        },
+        "FY2024": {
+          "revenue": 281000000,
+          "share": "1.1%"
+        },
+        "FY2023": {
+          "revenue": 297000000,
+          "share": "1.9%"
+        }
+      },
+      "commentary": "DRAM dominance is increasing -- from 72.8% to 76.5% of revenue over 3 years. DRAM is growing structurally faster than NAND (8.5% vs 2.9% CAGR). HBM, a subset of DRAM used in AI accelerators, is the primary growth driver. NAND is commoditizing faster and becoming less relevant to the growth narrative."
+    },
+    "by_business_unit": {
+      "note": "FY2025 segment reorganization: CNBU/MBU/SBU/EBU became CMBU/MCBU/CDBU/AEBU. Historical data recast.",
+      "CMBU": {
+        "description": "Compute & Mobile (includes HBM for AI)",
+        "FY2025": {
+          "revenue": 13524000000,
+          "share": "36.2%",
+          "yoy_growth": "256.7%"
+        },
+        "FY2024": {
+          "revenue": 3792000000,
+          "share": "15.1%",
+          "yoy_growth": "102.6%"
+        },
+        "FY2023": {
+          "revenue": 1872000000,
+          "share": "12.0%"
+        },
+        "two_year_cagr": "168.8%",
+        "incremental_revenue_share_fy2025": "79.3%"
+      },
+      "MCBU": {
+        "description": "Manufacturing & Cloud",
+        "FY2025": {
+          "revenue": 11859000000,
+          "share": "31.7%",
+          "yoy_growth": "1.6%"
+        },
+        "FY2024": {
+          "revenue": 11667000000,
+          "share": "46.5%",
+          "yoy_growth": "57.8%"
+        },
+        "FY2023": {
+          "revenue": 7394000000,
+          "share": "47.6%"
+        }
+      },
+      "CDBU": {
+        "description": "Client & Data Center",
+        "FY2025": {
+          "revenue": 7229000000,
+          "share": "19.3%",
+          "yoy_growth": "45.1%"
+        },
+        "FY2024": {
+          "revenue": 4984000000,
+          "share": "19.8%",
+          "yoy_growth": "134.6%"
+        },
+        "FY2023": {
+          "revenue": 2124000000,
+          "share": "13.7%"
+        }
+      },
+      "AEBU": {
+        "description": "Automotive, Embedded & Industrial",
+        "FY2025": {
+          "revenue": 4753000000,
+          "share": "12.7%",
+          "yoy_growth": "2.6%"
+        },
+        "FY2024": {
+          "revenue": 4631000000,
+          "share": "18.4%",
+          "yoy_growth": "11.9%"
+        },
+        "FY2023": {
+          "revenue": 4139000000,
+          "share": "26.6%"
+        }
+      },
+      "commentary": "CMBU is the explosive growth engine: $1.9B to $13.5B in 2 years, contributing 79% of all incremental FY2025 revenue. This segment is anchored by HBM demand for AI training and inference. MCBU and AEBU are essentially flat (+1.6% and +2.6%), revealing a two-speed business. Growth is narrowing to AI/data center end markets, creating both opportunity and concentration risk."
+    },
+    "by_geography": {
+      "FY2025": {
+        "US": {
+          "revenue": 24113000000,
+          "share": "64.5%"
+        },
+        "Taiwan": {
+          "revenue": 5672000000,
+          "share": "15.2%"
+        },
+        "China": {
+          "revenue": 3045000000,
+          "share": "8.1%"
+        },
+        "Other_Asia_Pacific": {
+          "revenue": 1913000000,
+          "share": "5.1%"
+        },
+        "Hong_Kong": {
+          "revenue": 1138000000,
+          "share": "3.0%"
+        },
+        "Japan": {
+          "revenue": 987000000,
+          "share": "2.6%"
+        },
+        "Europe": {
+          "revenue": 818000000,
+          "share": "2.2%"
+        }
+      },
+      "FY2024": {
+        "US": {
+          "revenue": 13168000000,
+          "share": "52.4%"
+        },
+        "Taiwan": {
+          "revenue": 4708000000,
+          "share": "18.8%"
+        },
+        "China": {
+          "revenue": 2639000000,
+          "share": "10.5%"
+        },
+        "Japan": {
+          "revenue": 895000000,
+          "share": "3.6%"
+        },
+        "Europe": {
+          "revenue": 682000000,
+          "share": "2.7%"
+        }
+      },
+      "FY2023": {
+        "US": {
+          "revenue": 7805000000,
+          "share": "50.2%"
+        },
+        "Taiwan": {
+          "revenue": 2697000000,
+          "share": "17.4%"
+        },
+        "China": {
+          "revenue": 2181000000,
+          "share": "14.0%"
+        },
+        "Japan": {
+          "revenue": 840000000,
+          "share": "5.4%"
+        },
+        "Europe": {
+          "revenue": 625000000,
+          "share": "4.0%"
+        }
+      },
+      "commentary": "US revenue share surged from 50.2% to 64.5% in 2 years (+$16.3B), reflecting hyperscaler AI infrastructure spending. China share halved from 14.0% to 8.1% due to export controls. [See \u00a7Risk Convergence for hyperscaler dependency and China export controls risk assessments.]"
+    },
+    "concentration_analysis": {
+      "hhi_by_business_unit": {
+        "FY2025": 2849,
+        "FY2024": 3121,
+        "FY2023": 3305,
+        "trend": "Improving -- more balanced across segments"
+      },
+      "hhi_by_product": {
+        "FY2025": 6369,
+        "FY2024": 5745,
+        "FY2023": 5722,
+        "trend": "Worsening -- DRAM concentration increasing"
+      },
+      "us_revenue_pct": {
+        "FY2025": "64.5%",
+        "FY2024": "52.4%",
+        "FY2023": "50.2%",
+        "trend": "Geographic concentration increasing sharply"
+      },
+      "top_customer_risk": "Not disclosed at customer level. US 64.5% geographic concentration implies handful of hyperscalers represent 50%+ of revenue. [See \u00a7Risk Convergence for full customer concentration risk assessment.]",
+      "diversification_paradox": "Business unit HHI is improving (more balanced segments) but product HHI is worsening (more DRAM dependent) and geographic HHI is worsening (more US dependent). Micron is diversifying by end market but concentrating by product and geography."
+    }
+  },
+  "forensic_models": {
+    "beneish": {
+      "FY2025_vs_FY2024": {
+        "m_score": -3.013,
+        "result": "UNLIKELY MANIPULATOR",
+        "threshold": -1.78,
+        "key_variables": {
+          "DSRI": {
+            "value": 0.727,
+            "interpretation": "AR/Revenue IMPROVED -- excellent collection discipline"
+          },
+          "GMI": {
+            "value": 0.562,
+            "interpretation": "Gross margin expanding -- healthy"
+          },
+          "AQI": {
+            "value": 0.888,
+            "interpretation": "Asset quality improved"
+          },
+          "SGI": {
+            "value": 1.489,
+            "interpretation": "49% revenue growth -- extreme but organic/industry-wide"
+          },
+          "DEPI": {
+            "value": 1.112,
+            "interpretation": "Slight depreciation rate decline from new fab additions"
+          },
+          "SGAI": {
+            "value": 0.717,
+            "interpretation": "Operating leverage -- SGA grew 6.7% on 49% revenue growth"
+          },
+          "TATA": {
+            "value": -0.1085,
+            "interpretation": "Strongly negative accruals -- cash quality excellent"
+          },
+          "LVGI": {
+            "value": 0.989,
+            "interpretation": "Leverage flat despite massive capex"
+          }
+        }
+      },
+      "FY2024_vs_FY2023": {
+        "m_score": -2.579,
+        "result": "UNLIKELY MANIPULATOR",
+        "threshold": -1.78
+      },
+      "interpretation": "M-Scores of -3.01 (FY2025) and -2.58 (FY2024) are well below the -1.78 manipulation threshold. The strongly negative TATA across both periods confirms earnings are backed by real cash flows. No manipulation detected."
+    },
+    "altman": {
+      "FY2025": {
+        "z_score": 4.267,
+        "zone": "SAFE",
+        "threshold_safe": 2.99,
+        "variables": {
+          "X1_WC_TA": 0.21,
+          "X2_RE_TA": 0.587,
+          "X3_EBIT_TA": 0.118,
+          "X4_MktCap_TL": 3.919,
+          "X5_Rev_TA": 0.452
+        }
+      },
+      "FY2024": {
+        "z_score": 4.249,
+        "zone": "SAFE"
+      },
+      "FY2023": {
+        "z_score": 4.416,
+        "zone": "SAFE"
+      },
+      "interpretation": "Z-Scores remained in the safe zone (>2.99) throughout the entire cycle, including the FY2023 trough. Bankruptcy risk is negligible. Conservative debt management and accumulated retained earnings provide a thick equity cushion."
+    },
+    "piotroski": {
+      "FY2025": {
+        "f_score": 8,
+        "max_score": 9,
+        "result": "STRONG",
+        "signals": {
+          "profitability": {
+            "score": "4/4",
+            "detail": "Positive ROA, positive OCF, improving ROA, negative accruals"
+          },
+          "leverage": {
+            "score": "1/3",
+            "detail": "LTD declined; minor fails on current ratio decline and SBC dilution"
+          },
+          "efficiency": {
+            "score": "2/2",
+            "detail": "Gross margin expanding, asset turnover improving"
+          }
+        }
+      },
+      "FY2024": {
+        "f_score": 8,
+        "max_score": 9,
+        "result": "STRONG"
+      },
+      "interpretation": "Piotroski F-Score of 8/9 in both years confirms exceptional financial strength. All profitability and efficiency signals pass. Only minor leverage failures from current ratio compression and modest SBC dilution."
+    },
+    "sloan_accrual": {
+      "FY2025": {
+        "ratio": -0.118,
+        "flag": "HIGH_NEGATIVE_ACCRUAL"
+      },
+      "FY2024": {
+        "ratio": -0.116,
+        "flag": "HIGH_NEGATIVE_ACCRUAL"
+      },
+      "interpretation": "Strongly negative accruals (-11.8%) in the HEALTHY direction. OCF substantially exceeds net income due to $8.4B annual depreciation on semiconductor fabs. This is structural for capital-intensive manufacturing -- the opposite of the earnings manipulation Sloan's research targets."
+    },
+    "benford": {
+      "chi_square": 10.38,
+      "critical_value": 15.51,
+      "p_value": 0.24,
+      "degrees_of_freedom": 8,
+      "result": "PASS",
+      "values_analyzed": 122,
+      "interpretation": "Financial data follows Benford's Law distribution. Slight over-representation of digits 7 and 8 is a scale artifact -- Micron's financial line items naturally cluster in the $7-9B range. No evidence of data fabrication."
+    },
+    "cash_conversion": {
+      "ccc_days": {
+        "FY2025": 29.2,
+        "FY2024": 125.7,
+        "FY2023": 152.7,
+        "trend": "Dramatic improvement"
+      },
+      "dso_days": {
+        "FY2025": 69.9,
+        "FY2024": 96.2,
+        "FY2023": 57.4
+      },
+      "dio_days": {
+        "FY2025": 135.5,
+        "FY2024": 166.1,
+        "FY2023": 180.5
+      },
+      "dpo_days_est": {
+        "FY2025": 176.2,
+        "FY2024": 136.6,
+        "FY2023": 85.2
+      },
+      "ocf_ni_quality": {
+        "FY2025": 2.05,
+        "FY2024": 10.94,
+        "FY2022": 1.75
+      },
+      "interpretation": "Cash conversion cycle compressed from 153 days to 29 days over 2 years -- a dramatic improvement. OCF/NI quality is exceptional: for every $1 of reported earnings, Micron generates $2.05 in operating cash. Even during the FY2023 loss year, OCF remained positive ($1.6B on -$5.8B NI)."
+    },
+    "composite_assessment": "All forensic models deliver clean scores: Beneish (no manipulation), Altman (safe zone), Piotroski (strong), Sloan (healthy negative accruals), Benford (natural distribution), and cash conversion (exceptional quality). This is emphatically NOT an accounting quality story. The risks are forward-looking (cyclicality, capex, opacity) rather than current-period forensic. [See individual model sections above for detailed scores and interpretation.]"
+  },
+  "governance": {
+    "compensation": {
+      "ceo": {
+        "name": "Sanjay Mehrotra",
+        "title": "Chairman, President and CEO",
+        "total_comp_fy2025": 30940146,
+        "breakdown": {
+          "base_salary": 1446185,
+          "stock_awards": 25360029,
+          "non_equity_incentive": 3894990,
+          "other": 238942
+        },
+        "at_risk_pct": 94.5,
+        "pay_ratio": "529:1",
+        "comp_actually_paid_fy2025": 86570533,
+        "three_year_comp_cagr": "10.6%"
+      },
+      "neo_average_comp": 11229365,
+      "sti_payout_vs_target": "122.1% (strong but not maximum)",
+      "prsu_metrics": [
+        "HBM3E+ bits shipped / market share",
+        "Data center SSD bits shipped / market share",
+        "Relative TSR vs semiconductor sector"
+      ],
+      "prsu_vesting": "3-year cliff with year 2 banking",
+      "pay_for_performance_grade": "A-",
+      "commentary": "94.5% of CEO comp is at-risk. PRSU targets are unusually specific -- tied directly to HBM3E+ market share, the company's most critical competitive metric. Pay-for-performance correlation is strong: CAP tracked TSR directionally across all years."
+    },
+    "board": {
+      "size": 8,
+      "independent": 7,
+      "independence_pct": 87.5,
+      "combined_chair_ceo": true,
+      "lead_independent_director": true,
+      "departing": [
+        "Mary Pat McCarthy",
+        "A. Christine Simons"
+      ],
+      "assessment": "Strong independence. Combined Chair/CEO partially mitigated by Lead Independent Director."
+    },
+    "shareholder_rights": {
+      "dual_class": false,
+      "classified_board": false,
+      "poison_pill": false,
+      "supermajority_required": false,
+      "say_on_pay_approval": "84% (below 90% comfort zone)",
+      "special_meeting_threshold": "10% ownership",
+      "entrenchment_index": "1/6 (minimal -- only golden parachute scores)"
+    },
+    "golden_parachute": {
+      "ceo_total": 117833318,
+      "ceo_unearned_prsus": 93591080,
+      "total_all_neos": 255358747,
+      "trigger": "Double-trigger (Change in Control + qualifying termination)",
+      "assessment": "CEO golden parachute of $117.8M is very large, driven by $93.6M in unearned PRSUs. Double-trigger is appropriate but magnitude is a concern."
+    },
+    "sbc_analysis": {
+      "sbc_fy2025": 975000000,
+      "sbc_pct_revenue": "2.6%",
+      "sbc_trend": "Absolute growth ($514M to $975M over 3 years) but declining as % of revenue",
+      "dilution_annual": "~1.1% share count growth",
+      "assessment": "SBC at 2.6% of revenue is low for tech. Minimal dilution.",
+      "sbc_trend_detail": {
+        "FY2022": 514000000,
+        "FY2023": 596000000,
+        "FY2024": 833000000,
+        "FY2025": 975000000
+      },
+      "sbc_pct_revenue_history": {
+        "FY2022": "1.7%",
+        "FY2023": "3.8%",
+        "FY2024": "3.3%",
+        "FY2025": "2.6%"
+      },
+      "sbc_adjusted_opinc": {
+        "FY2025": 10745000000,
+        "FY2024": 2137000000
+      }
+    },
+    "related_party": {
+      "findings": "No material related party transactions disclosed. Self-dealing risk LOW.",
+      "anti_hedging": true,
+      "anti_pledging": true,
+      "clawback": "Meets SEC/Nasdaq minimum standard; does not exceed requirements"
+    },
+    "overall_governance_grade": "B+"
+  },
+  "insider_institutional": {
+    "insider_summary": {
+      "net_direction": "NET SELLING across all time frames (3, 6, 12 months)",
+      "ceo_behavior": {
+        "name": "Sanjay Mehrotra",
+        "pattern": "Consistent seller -- 0 buys / 60 sells over 5 years",
+        "recent_activity": "12,500 shares sold 2025-11-07",
+        "assessment": "Pattern strongly suggests pre-arranged 10b5-1 plan given regularity. Not conviction selling."
+      },
+      "cfo_behavior": {
+        "name": "Mark Murphy",
+        "note": "Limited trading data available; recently appointed"
+      },
+      "clusters": [
+        {
+          "date": "2025-10-15",
+          "filings": 19,
+          "severity": "HIGH",
+          "note": "Massive cluster -- likely annual RSU vesting event"
+        },
+        {
+          "date": "2026-01-27 to 2026-02-04",
+          "sales": "$15.77M",
+          "severity": "HIGH",
+          "note": "Concentrated selling by senior officers including $10.75M by CBO"
+        },
+        {
+          "date": "2025-07-17",
+          "filings": 7,
+          "severity": "MODERATE",
+          "note": "Quarterly equity vesting"
+        },
+        {
+          "date": "2025-04-17",
+          "filings": 7,
+          "severity": "MODERATE",
+          "note": "Quarterly equity vesting"
+        }
+      ],
+      "ten_b5_1": "CEO's 60-sale/0-buy pattern over 5 years is consistent with pre-arranged trading plan. CBO multi-tranche sales also suggest planned dispositions.",
+      "insider_ownership_pct": 0.24,
+      "ceo_holdings_value": "~$108M (1.08M shares at ~$100/share)"
+    },
+    "institutional_summary": {
+      "institutional_ownership_pct": 77.02,
+      "top_holders": [
+        {
+          "rank": 1,
+          "name": "Vanguard Group",
+          "pct": 9.38,
+          "type": "index"
+        },
+        {
+          "rank": 2,
+          "name": "BlackRock Fund Advisors",
+          "pct": 8.41,
+          "type": "index"
+        },
+        {
+          "rank": 3,
+          "name": "BlackRock Inc.",
+          "pct": 8.29,
+          "type": "index"
+        },
+        {
+          "rank": 4,
+          "name": "Capital World Investors",
+          "type": "active"
+        },
+        {
+          "rank": 5,
+          "name": "State Street",
+          "type": "index"
+        },
+        {
+          "rank": 6,
+          "name": "FMR LLC (Fidelity)",
+          "type": "active"
+        },
+        {
+          "rank": 7,
+          "name": "PRIMECAP Management",
+          "type": "active"
+        },
+        {
+          "rank": 8,
+          "name": "Norges Bank",
+          "type": "sovereign_wealth"
+        }
+      ],
+      "index_passive_pct": 45,
+      "active_pct": 32,
+      "top_3_combined_pct": 26.08,
+      "five_pct_exits": false,
+      "activist_positions": false
+    },
+    "signal_interpretation": "Insider selling is ubiquitous but follows 10b5-1 plan patterns -- no panic selling or unusual dumps detected. The cluster events align with standard equity vesting schedules. Institutional ownership at 77% with no major exits or activist positions signals broad market confidence. The ~45/32 passive-to-active split is standard for a mega-cap S&P 500 component. The notable absence: zero insider purchases across the entire dataset, even as the stock delivered transformational results. When insiders only sell and never buy with their own money, it warrants monitoring even if 10b5-1 plans explain the pattern."
+  },
+  "text_analysis": {
+    "mda_evolution": {
+      "fy2024_tone": "Cautiously optimistic. Recovery framing. Emphasis on operating leverage beginning to return. Inventory normalization. Measured capex language.",
+      "fy2025_tone": "Confidently bullish. 'Strongest year in company history.' Aggressive expansion. HBM as transformative growth driver. Pricing power narrative. Minimal downside scenario discussion.",
+      "tone_shift": "SIGNIFICANT -- from recovery caution to expansion confidence",
+      "topics_added": [
+        "HBM as explicit core growth driver",
+        "Segment reorganization (CMBU/MCBU/CDBU/AEBU)",
+        "Deferred revenue collapse ($766M to $26M -- advance payments recognized)",
+        "US revenue concentration acceleration (52.4% to 64.5%)"
+      ],
+      "topics_removed": [
+        "Inventory overhang/write-down risk (demand normalized)",
+        "Recovery narrative (replaced by 'leadership' language)"
+      ],
+      "key_modifications": [
+        {
+          "topic": "CapEx Framing",
+          "shift": "Cautious investment to aggressive expansion confidence"
+        },
+        {
+          "topic": "Profitability",
+          "shift": "Early recovery to structural profitability leadership"
+        },
+        {
+          "topic": "DRAM Mix",
+          "shift": "Recovery pricing to structural pricing power with HBM premium"
+        }
+      ]
+    },
+    "risk_factor_changes": {
+      "new_risks": [
+        {
+          "risk": "HBM Technology Execution Risk",
+          "severity": "HIGH"
+        },
+        {
+          "risk": "Cybersecurity Threats to Operations and IP",
+          "severity": "MEDIUM-HIGH"
+        },
+        {
+          "risk": "Hyperscaler Customer Concentration",
+          "severity": "MEDIUM-HIGH"
+        },
+        {
+          "risk": "AI Demand Dependency",
+          "severity": "HIGH"
+        }
+      ],
+      "removed_risks": [
+        "Inventory write-down risk (deemphasized)",
+        "Goodwill impairment risk (deemphasized)"
+      ],
+      "modified_risks": [
+        {
+          "risk": "China Geopolitical Risk",
+          "shift": "Acute threat to structural constraint with expansion risk",
+          "cross_ref": "See \u00a7Risk Convergence for China export controls convergence analysis."
+        },
+        {
+          "risk": "Capital Intensity / Overcapacity",
+          "shift": "Recovery-phase investment risk to boom-phase overcapacity risk"
+        },
+        {
+          "risk": "CHIPS Act Compliance",
+          "shift": "Opportunity framing to compliance obligation with constraints"
+        },
+        {
+          "risk": "ETR Volatility",
+          "shift": "Elevated tax burden to favorable geography but continuing volatility"
+        }
+      ]
+    },
+    "keyword_signals": {
+      "positive_shifts": [
+        "'Strongest year in company history' replacing 'recovery'",
+        "'Pricing power' replacing 'price recovery'",
+        "'Aggressive fab expansion' replacing 'continued investment'"
+      ],
+      "negative_shifts": [
+        "China revenue discussed in percentage-of-total framing (understating erosion)",
+        "CapEx intensity (42.4%) presented without explicit downside scenarios"
+      ],
+      "red_flags": [
+        {
+          "flag": "Deferred Revenue Collapse Underexplained",
+          "severity": "MEDIUM",
+          "detail": "$766M to $26M (97% decline) with minimal MD&A explanation of underlying customer commitments"
+        },
+        {
+          "flag": "CapEx Intensity Without Downside Framing",
+          "severity": "MEDIUM",
+          "detail": "42.4% capex-to-revenue ratio presented as confident expansion without prominent discussion of stranded asset risk"
+        }
+      ]
+    }
+  },
+  "transcript_intelligence": {
+    "management_trust_score": 62,
+    "information_quality_score": 48,
+    "risk_convergence_score": 78,
+    "quarters_analyzed": [
+      "Q2FY25",
+      "Q3FY25",
+      "Q4FY25",
+      "Q1FY26",
+      "Q2FY26"
+    ],
+    "key_findings": [
+      {
+        "rank": 1,
+        "finding": "PEAK OPACITY AT PEAK PERFORMANCE",
+        "severity": "HIGH",
+        "sources": [
+          "L1",
+          "L2",
+          "L3",
+          "L9",
+          "VL4"
+        ],
+        "detail": "Management became LESS transparent as results improved dramatically. Directness declined from 2.6 to 2.5/5, specificity from 2.8 to 2.3, while revenue grew 196% and margins hit 75%. HBM metrics introduced then hidden. Maximum confidence paired with minimum disclosure is historically the signature of semiconductor cycle peaks."
+      },
+      {
+        "rank": 2,
+        "finding": "SYSTEMATIC SANDBAGGING RENDERS GUIDANCE MEANINGLESS",
+        "severity": "HIGH",
+        "sources": [
+          "L2",
+          "L4",
+          "VL2",
+          "L9"
+        ],
+        "detail": "100% guidance beat rate with accelerating magnitude: revenue beats 5.7% to 25.1%, EPS beats 21.7% to 44.9% across 4 consecutive quarters. Q2FY26 beat of $5.2B exceeds most semiconductor companies' total quarterly revenue. Guidance is a floor, not a forecast."
+      },
+      {
+        "rank": 3,
+        "finding": "WRITTEN RISK FACTORS CONTRADICT SPOKEN CONFIDENCE",
+        "severity": "HIGH",
+        "sources": [
+          "VL4",
+          "L9",
+          "L1"
+        ],
+        "detail": "10-K cites memory pricing cyclicality as HIGH severity risk, referencing FY2022-FY2023 margin collapse (45.2% to -9.1%). CFO on Q2FY26 call explicitly told analysts to 'revisit' mean reversion thesis. Direct contradiction between legal disclosure and discretionary performance."
+      },
+      {
+        "rank": 4,
+        "finding": "SCA BLACK BOX ANCHORS BULL THESIS WITHOUT EVIDENCE",
+        "severity": "HIGH",
+        "sources": [
+          "L1",
+          "L3",
+          "L8"
+        ],
+        "detail": "SCAs are the contractual basis for claiming reduced cyclicality, justifying $25B+ CapEx. Yet zero terms disclosed: pricing mechanism, cancellation penalties, downside protection, volume commitments all unknown after 10+ analyst questions."
+      },
+      {
+        "rank": 5,
+        "finding": "HBM MARGINS LOWER THAN NON-HBM -- BURIED DISCLOSURE",
+        "severity": "MEDIUM",
+        "sources": [
+          "L1",
+          "L3",
+          "VL2"
+        ],
+        "detail": "CEO confirmed in Q2FY26 Q&A that non-HBM margins are higher than HBM margins. Never in prepared remarks. Contradicts market narrative. Overall margins rising because DDR5/LP pricing power is even stronger."
+      },
+      {
+        "rank": 6,
+        "finding": "CAPEX ESCALATION WITHOUT MARGINAL RETURN FRAMEWORK",
+        "severity": "MEDIUM",
+        "sources": [
+          "L1",
+          "L4",
+          "L6",
+          "L7"
+        ],
+        "detail": "CapEx escalated 79% in 12 months ($14B to >$25B) with FY27 'meaningful step-up.' No project-level return analysis provided. ROIC >30% cited but does not validate marginal returns. [See \u00a7Advanced Analysis > capex_analysis for full capex data and overbuild risk modeling.]"
+      },
+      {
+        "rank": 7,
+        "finding": "ZERO ANALYSTS CHALLENGED AI DEMAND THESIS",
+        "severity": "MEDIUM",
+        "sources": [
+          "L3",
+          "L9"
+        ],
+        "detail": "Across 63 Q&A exchanges over 5 quarters, not one analyst asked 'what if AI spending slows?' Consensus complacency on the demand premise. The unmodeled risk is demand deceleration."
+      }
+    ],
+    "cross_validation": [
+      {
+        "layer": "VL1",
+        "finding": "Forensic models fully aligned with management tone -- no earnings manipulation detected. [See \u00a7Forensic Models for M-Score, Z-Score, Piotroski details.]"
+      },
+      {
+        "layer": "VL2",
+        "finding": "Ratio analysis confirms systematic pessimism bias in guidance. Guidance has negative predictive value for actual results."
+      },
+      {
+        "layer": "VL3",
+        "finding": "Governance and insider signals consistent. Minimal entrenchment. CapEx escalation without visible board pushback is a governance concern. [See \u00a7Governance for E-Index and board structure; \u00a7Advanced Analysis for capex analysis.]"
+      },
+      {
+        "layer": "VL4",
+        "finding": "CRITICAL CONTRADICTION: Written 10-K risk factors cite cyclicality as ongoing risk while CFO on call explicitly rejects mean reversion. Trust the legally constrained document."
+      }
+    ],
+    "meta_finding": "THE INFORMATION PARADOX: Maximum Confidence at Minimum Transparency. Across all 13 investigation layers, the single most important finding is the inverse relationship between Micron's financial performance and information transparency. As results improved from $8.1B to $23.9B quarterly revenue, management simultaneously became less transparent. The bull thesis depends on structural arguments (SCAs, supply constraints, AI demand) that management asks investors to accept on faith rather than evidence. The market is pricing a structural transformation story on commodity-level disclosure.",
+    "credibility_scorecard": {
+      "guidance_beat_rate": "100% across all metrics for 4 consecutive quarters",
+      "revenue_beat_range": "5.7% to 25.1%",
+      "gm_beat_range": "250bps to 700bps",
+      "eps_beat_range": "21.7% to 44.9%",
+      "sandbagging_pattern": "SYSTEMATIC -- guidance is a floor, beats widening each quarter",
+      "ceo_credibility_score": "1.0 (execution) but 2.5/5 (directness)",
+      "cfo_credibility_score": "1.0 (execution) but 3.4/5 (directness)"
+    },
+    "analyst_concerns": {
+      "persistent_topics": [
+        "HBM margin sustainability and competition (every quarter)",
+        "SCA terms and downside protection (Q4FY25, Q1FY26, Q2FY26)",
+        "CapEx return on investment framework (Q1FY26, Q2FY26)",
+        "Gross margin ceiling / mean reversion risk (Q2FY26)"
+      ],
+      "new_concerns": [
+        "Framework rejection -- CFO telling analysts to abandon mean reversion at 81% margins",
+        "Trade ratio economics -- HBM4 requiring 4x bits per unit vs conventional DRAM",
+        "ROIC sustainability at 50% target -- historically unprecedented for memory"
+      ],
+      "unasked_question": "What if AI infrastructure spending decelerates? -- not one analyst across 5 quarters raised this question."
+    }
+  },
+  "advanced_analysis": {
+    "tax_forensics": {
+      "etr_trend": {
+        "FY2025": "11.6%",
+        "FY2024": "36.4%",
+        "FY2023": "-3.1%",
+        "FY2022": "9.3%"
+      },
+      "etr_volatility": "Extreme -- range from -3.1% to 36.4% across 4 years",
+      "explanation": "Low ETR in boom years (FY2022, FY2025) from offshore manufacturing mix (Singapore, Taiwan, Japan) plus CHIPS Act investment tax credits. FY2024's 36.4% is mechanically inflated by thin earnings base with fixed foreign minimum taxes. FY2023's negative ETR reflects taxes paid despite consolidated loss due to profitable foreign operations.",
+      "normalized_etr": "9-13% in high-profitability years",
+      "deferred_tax": "Massive FY2025 capex ($15.9B) creates significant future depreciation tax shield. Combined with CHIPS Act credits, cash tax rate should remain well below statutory for 5+ years.",
+      "capex_depreciation_gap": {
+        "FY2025": 7505000000,
+        "FY2024": 606000000,
+        "FY2023": -80000000
+      }
+    },
+    "sbc_deep_dive": {
+      "cross_ref": "See \u00a7Governance > sbc_analysis for full SBC analysis including trend data, dilution, and adjusted operating income.",
+      "summary": "SBC at 2.6% of revenue ($975M) with ~1.1% annual dilution. Low for tech sector."
+    },
+    "debt_analysis": {
+      "total_debt": {
+        "FY2025": 12093000000,
+        "FY2024": 13397000000,
+        "FY2023": 13330000000
+      },
+      "ltd_trend": "Declining -- paying down $1.5B over 2 years during recovery/boom",
+      "ltd_to_ebitda": {
+        "FY2025": 0.64,
+        "FY2024": 1.43,
+        "FY2023": 6.49
+      },
+      "interest_coverage_est": "~18-20x (FY2025)",
+      "net_debt": {
+        "FY2025": 2451000000,
+        "FY2024": 5291000000
+      },
+      "refinancing_risk": "LOW -- small current maturities ($560M), strong cash position ($9.6B)",
+      "stress_score": "0/10 -- all 10 stress factors clean",
+      "assessment": "Financial stress is at cyclical minimum. Debt declining, coverage exceptional, cash covers 23 months of opex. Only forward risk is structural cyclicality."
+    },
+    "capex_analysis": {
+      "capex_trend": {
+        "FY2025": 15857000000,
+        "FY2024": 8386000000,
+        "FY2023": 7676000000,
+        "FY2022": 12067000000
+      },
+      "capex_pct_revenue": {
+        "FY2025": "42.4%",
+        "FY2024": "33.4%",
+        "FY2023": "49.4%"
+      },
+      "capex_to_depreciation": {
+        "FY2025": 1.91,
+        "FY2024": 1.09,
+        "FY2023": 1.0
+      },
+      "chips_act_impact": "Preliminary $6.1B+ funding commitments for Idaho and New York fabs. 10-year China capacity expansion restriction. Provides capex co-funding but creates compliance constraints.",
+      "overbuild_risk": "HIGH if AI demand decelerates. FY2025 capex of $15.9B is MU's largest ever. FY2026 guided at $25B+ with 'meaningful step-up' in FY2027. Greenfield construction (Idaho, Japan, Singapore) locks in multi-year capital commitments against 2028-2030 demand assumptions. Memory industry has a documented history of over-investment at cycle peaks.",
+      "fcf_compression": "Revenue 5x in 8 quarters but FCF only $1.7B annually (FY2025) due to massive capex. OCF margin of 47% is excellent but capex consumes 90% of operating cash flow."
+    }
+  },
+  "risk_convergence": {
+    "red_flags": [
+      {
+        "flag": "Peak Cycle / Margin Mean Reversion",
+        "severity": "HIGH",
+        "confidence": "HIGH",
+        "convergence_count": 6,
+        "sources": [
+          "L1",
+          "L3",
+          "L4",
+          "L5",
+          "L9",
+          "VL4"
+        ],
+        "evidence": "Six independent signals converge on peak-cycle dynamics: opacity at peak performance, zero analyst challenge to AI thesis, widening guidance beats, no competitive pressure, framework rejection at 81% margins, and 10-K/call contradictions. [See \u00a7Transcript Intelligence findings #1-#3 for detailed peak opacity, sandbagging, and framework rejection analysis.]"
+      },
+      {
+        "flag": "CapEx Overextension / Overbuild",
+        "severity": "HIGH",
+        "confidence": "HIGH",
+        "convergence_count": 4,
+        "sources": [
+          "L4",
+          "L6",
+          "L7",
+          "L9"
+        ],
+        "evidence": "CapEx escalated 79% in 12 months with FY27 'meaningful step-up' telegraphed. No marginal return framework provided. Greenfield construction locks multi-year commitments. [See \u00a7Advanced Analysis > capex_analysis for full capex data, CHIPS Act impact, and overbuild risk assessment.]"
+      },
+      {
+        "flag": "Customer Concentration / Hyperscaler Dependency",
+        "severity": "MEDIUM-HIGH",
+        "confidence": "MEDIUM",
+        "convergence_count": 3,
+        "sources": [
+          "L6",
+          "L8",
+          "segments"
+        ],
+        "evidence": "Data center 56%+ of revenue and accelerating. US geographic concentration 64.5%. Revenue concentrating toward handful of hyperscalers. If major customer shifts architecture, HBM demand disrupted."
+      },
+      {
+        "flag": "SCA Black Box / Unknown Contract Quality",
+        "severity": "HIGH",
+        "confidence": "MEDIUM",
+        "convergence_count": 3,
+        "sources": [
+          "L1",
+          "L3",
+          "L8"
+        ],
+        "evidence": "10+ analyst questions with zero substantive terms disclosed. Pricing, cancellation, downside protection all unknown. [See \u00a7Transcript Intelligence finding #4 for full SCA opacity analysis.]"
+      },
+      {
+        "flag": "HBM Margin Dilution / Mix Headwind",
+        "severity": "MEDIUM",
+        "confidence": "HIGH",
+        "convergence_count": 2,
+        "sources": [
+          "L1",
+          "VL2"
+        ],
+        "evidence": "CEO confirmed non-HBM margins higher than HBM. As HBM mix grows with rising trade ratios, creates structural mix headwind. [See \u00a7Transcript Intelligence finding #5 for full HBM margin disclosure analysis.]"
+      },
+      {
+        "flag": "China Export Controls Expansion",
+        "severity": "HIGH",
+        "confidence": "MEDIUM-HIGH",
+        "convergence_count": 2,
+        "sources": [
+          "text-risk",
+          "segments"
+        ],
+        "evidence": "China revenue share halved from 14% to 8.1%. Ban could expand to additional product categories. CHIPS Act requires 10-year China capacity restriction."
+      }
+    ],
+    "risk_matrix": {
+      "high_severity_high_probability": [
+        "Peak Cycle / Margin Mean Reversion"
+      ],
+      "high_severity_medium_probability": [
+        "CapEx Overextension",
+        "AI Demand Deceleration",
+        "China Export Controls"
+      ],
+      "high_severity_low_probability": [
+        "SCA Failure / Renegotiation",
+        "Taiwan Geopolitical Risk"
+      ],
+      "medium_severity_high_probability": [
+        "Tax Rate Volatility"
+      ],
+      "medium_severity_medium_probability": [
+        "HBM Margin Dilution",
+        "Hyperscaler Concentration",
+        "Competitor HBM Breakthrough"
+      ]
+    },
+    "monitoring_triggers": [
+      {
+        "trigger": "Q3FY26 guidance beat narrows to <5% or margins at/below 81% guide",
+        "significance": "Breaks sandbagging pattern -- signals demand ceiling",
+        "timeframe": "Next quarter"
+      },
+      {
+        "trigger": "Two+ hyperscalers reduce AI CapEx guidance",
+        "significance": "Leading indicator for memory demand deceleration",
+        "timeframe": "1-2 quarters"
+      },
+      {
+        "trigger": "FY27 CapEx exceeds $30B while revenue growth decelerates below 30%",
+        "significance": "Overbuild dynamics activate",
+        "timeframe": "12 months"
+      },
+      {
+        "trigger": "SCA customer requests renegotiation or language softens",
+        "significance": "Destroys reduced-cyclicality thesis",
+        "timeframe": "6-18 months"
+      },
+      {
+        "trigger": "Samsung/Hynix major HBM qualification wins",
+        "significance": "Reduces MU supply scarcity premium",
+        "timeframe": "6-12 months"
+      },
+      {
+        "trigger": "Gross margins decline in any quarter from Q3FY26 peak",
+        "significance": "Validates cyclicality risk CFO dismissed",
+        "timeframe": "3-6 months"
+      },
+      {
+        "trigger": "CapEx-to-FCF ratio exceeds 1.5x for 2 consecutive quarters",
+        "significance": "Capital discipline eroding",
+        "timeframe": "Ongoing"
+      }
+    ]
+  },
+  "three_verdicts": {
+    "business_quality": {
+      "grade": "A-",
+      "score": 82,
+      "narrative": "Micron is an exceptional cyclical business in the midst of a structural transformation. As one of only three companies globally capable of manufacturing advanced DRAM (alongside Samsung and SK Hynix), it operates in a tight oligopoly with genuine barriers to entry. The HBM pivot has transformed it from a commodity memory maker into a strategic AI infrastructure supplier [See \u00a7Revenue Segments for CMBU growth data]. Every forensic model confirms fundamental strength -- pristine scores across all quantitative tests [See \u00a7Forensic Models for Beneish, Altman, Piotroski, Sloan, and Benford results]. However, this remains a deeply cyclical business with margins that have swung from -9.1% to 74.4% in 10 quarters. The 76.5% DRAM concentration and 64.5% US geographic concentration create single-factor risks [See \u00a7Revenue Segments for concentration analysis]. The question is not whether this is a good business today (it emphatically is) but whether the structural arguments (HBM, SCAs, AI demand) have genuinely changed its cyclical DNA."
+    },
+    "management_quality": {
+      "grade": "B",
+      "score": 65,
+      "narrative": "Micron's management team delivers flawless execution: 100% guidance beat rate across all metrics for 4 consecutive quarters [See \u00a7Transcript Intelligence > credibility_scorecard for beat magnitudes]. Governance is clean with minimal entrenchment [See \u00a7Governance for E-Index, board structure, and compensation details]. But the trust score drops significantly on transparency. The Information Paradox -- maximum confidence at minimum transparency -- is the defining management quality concern. Directness declined as results improved; SCA terms remain opaque; HBM margin disclosure was buried in Q&A; the CFO rejected mean reversion at 81% margins despite 10-K risk factor acknowledgment [See \u00a7Transcript Intelligence for full opacity and framework rejection analysis]. Trust their execution, but do not accept their forward narrative at face value."
+    },
+    "trajectory": {
+      "grade": "B+",
+      "score": 74,
+      "narrative": "Near-term trajectory is spectacular. Q2FY26 revenue of $23.9B at 74.4% gross margin suggests annualized revenue approaching $80-100B. The systematic sandbagging pattern suggests Q3FY26 will significantly beat the $33.5B/$81% guidance [See \u00a7Transcript Intelligence > credibility_scorecard]. Medium-term (12-36 months), cyclicality risk looms unaddressed. Six independent signals point to peak-cycle dynamics [See \u00a7Risk Convergence for full convergence analysis]. CapEx of $25B+ annually creates massive operating leverage in both directions [See \u00a7Advanced Analysis > capex_analysis for overbuild risk]. If AI demand sustains through 2028, Micron could genuinely be a $100B+ revenue company. If hyperscaler capex slows, the company faces committed capital spending against declining ASPs. The trajectory verdict depends entirely on the question management refuses to answer: are SCAs real downside protection, or fair-weather agreements that evaporate with demand?"
+    }
+  },
+  "predictions": [
+    {
+      "prediction": "Q3FY26 revenue will exceed guidance midpoint by 13-19%, landing at $38-40B",
+      "confidence": "60%",
+      "timeframe": "Next quarter (June 2026)",
+      "trigger": "Sandbagging pattern continuation -- management has beaten revenue guidance by 5.7% to 25.1% in prior 4 quarters, with beats widening",
+      "bull_case": "$42B+ (25%+ beat) if AI demand acceleration continues unabated and HBM4 ramp ahead of schedule",
+      "bear_case": "$34.0B (1.5% beat) -- first 'meet' instead of 'beat' would be perceived as deceleration even on objectively excellent results"
+    },
+    {
+      "prediction": "Q3FY26 gross margins will land at 83-85%, beating the 81% guide by 200-400bps",
+      "confidence": "55%",
+      "timeframe": "Next quarter (June 2026)",
+      "trigger": "Margin beats have ranged 250-700bps over prior 4 quarters. CFO's own comment that 'incremental price increases have less effect at these levels' suggests margin ceiling approaching.",
+      "bull_case": "86%+ (highest semiconductor gross margin in history) if DDR5/LP pricing power continues",
+      "bear_case": "80-81% (at/below guide) -- would be first non-beat and significant signal. Framework rejection at 81% becomes the peak marker."
+    },
+    {
+      "prediction": "FY2026 revenue will reach $70-75B (full year), with FY2027 approaching $100B if AI demand sustains",
+      "confidence": "50%",
+      "timeframe": "12 months",
+      "trigger": "H1 FY2026 revenue already $37.5B ($13.6B Q1 + $23.9B Q2), annualizing to $75B+",
+      "bull_case": "$80B+ FY2026, $120B+ FY2027 -- AI demand is genuinely structural and SCAs lock in minimum volumes",
+      "bear_case": "FY2026 $60-65B if demand decelerates in H2, FY2027 $50-60B if cyclicality reasserts (would still be above FY2025)"
+    },
+    {
+      "prediction": "The first non-beat quarter will trigger a 15-25% stock decline regardless of absolute result quality",
+      "confidence": "70%",
+      "timeframe": "Within 4 quarters",
+      "trigger": "Market is calibrated to 20-45% EPS beats. When the beat magnitude narrows to single digits or margins flat-line, the expectation recalibration will be violent. This is not a prediction of business deterioration -- it is a prediction about market psychology.",
+      "bull_case": "Non-beat delayed to FY2027+ if HBM4 ramp sustains demand acceleration",
+      "bear_case": "Non-beat as early as Q3FY26 if margin ceiling is real at 81-83%"
+    },
+    {
+      "prediction": "SCA terms will eventually be tested in a softer demand environment, revealing whether they provide real downside protection or are demand-pull agreements",
+      "confidence": "75%",
+      "timeframe": "12-36 months",
+      "trigger": "Memory cycles are 3-4 years peak to peak. Current cycle began recovering in Q2FY24. Historical pattern suggests downturn begins 2027-2028.",
+      "bull_case": "SCAs contain meaningful volume commitments, pricing floors, and cancellation penalties -- reduced cyclicality thesis validated",
+      "bear_case": "SCAs are renegotiated or cancelled at first sign of demand softening -- 'robust terms' was marketing language, not contractual reality"
+    }
+  ],
+  "watchlist": [
+    {
+      "item": "Q3FY26 Guidance Beat Magnitude",
+      "why": "The sandbagging pattern (5.7% to 25.1% revenue beats) has conditioned the market. A narrowing beat or first non-beat would signal demand ceiling.",
+      "trigger": "Revenue beat <10% or gross margin at/below 81% guide",
+      "timeframe": "June 2026",
+      "source_layers": [
+        "L2",
+        "L4",
+        "VL2"
+      ]
+    },
+    {
+      "item": "Hyperscaler CapEx Guidance (MSFT, GOOG, AMZN, META)",
+      "why": "Leading indicator for memory demand by 1-2 quarters. No analyst in 5 quarters of MU calls has asked about demand deceleration risk.",
+      "trigger": "Two or more hyperscalers reduce CapEx guidance",
+      "timeframe": "Ongoing quarterly",
+      "source_layers": [
+        "L3",
+        "L9",
+        "text-risk"
+      ]
+    },
+    {
+      "item": "FY27 CapEx Guidance",
+      "why": "Management telegraphed 'meaningful step-up' beyond FY26's $25B+. If >$30B while growth decelerates, overbuild dynamics activate.",
+      "trigger": "FY27 CapEx guidance >$30B with revenue growth <30%",
+      "timeframe": "Q4FY26 / FY26 annual",
+      "source_layers": [
+        "L7",
+        "L4"
+      ]
+    },
+    {
+      "item": "SCA Additional Signings and Language Changes",
+      "why": "Only one SCA confirmed. If no additional signings, it may be an outlier. Language shift from 'robust terms' to 'constructive discussions' would be a red flag.",
+      "trigger": "No new SCAs by Q4FY26 or softening language",
+      "timeframe": "6-12 months",
+      "source_layers": [
+        "L1",
+        "L3",
+        "L8"
+      ]
+    },
+    {
+      "item": "Samsung / SK Hynix HBM Qualification Wins",
+      "why": "MU's HBM premium depends on supply scarcity. Competitor breakthroughs in yield and customer qualification would reduce pricing power.",
+      "trigger": "Samsung/Hynix announces major HBM3E/HBM4 qualification with yields matching Micron",
+      "timeframe": "6-18 months",
+      "source_layers": [
+        "L5",
+        "text-risk"
+      ]
+    },
+    {
+      "item": "HBM as Percentage of DRAM Revenue",
+      "why": "CEO confirmed HBM margins LOWER than non-HBM. As HBM mix grows, creates structural margin headwind. Management refuses to disclose this metric.",
+      "trigger": "If forced to disclose (SEC, activist) and HBM >40% of DRAM at lower margins",
+      "timeframe": "Ongoing",
+      "source_layers": [
+        "L1",
+        "VL2"
+      ]
+    },
+    {
+      "item": "CapEx-to-FCF Ratio",
+      "why": "Currently healthy at Q2FY26 ($6.25B CapEx vs $6.9B FCF = 0.91x). If exceeds 1.5x for 2 quarters, capital discipline is eroding.",
+      "trigger": "Ratio >1.5x for 2 consecutive quarters",
+      "timeframe": "Ongoing quarterly",
+      "source_layers": [
+        "L7",
+        "debt-stress"
+      ]
+    },
+    {
+      "item": "China Export Controls Expansion",
+      "why": "China revenue share already halved (14% to 8.1%). Further restrictions on memory products would remove additional $2-3B in accessible revenue.",
+      "trigger": "New US export control rules targeting memory products or China retaliatory measures",
+      "timeframe": "Ongoing",
+      "source_layers": [
+        "text-risk",
+        "segments"
+      ]
+    },
+    {
+      "item": "Insider Purchase Activity",
+      "why": "Zero insider purchases across entire dataset (5+ years for CEO). First open-market purchase by CEO or CFO would be a strong conviction signal.",
+      "trigger": "Any Form 4 filing showing insider purchase (not vesting)",
+      "timeframe": "Ongoing",
+      "source_layers": [
+        "form4-trades",
+        "governance"
+      ]
+    }
+  ]
+}
