@@ -1,0 +1,8 @@
+# Off-origin hosts this repo is allowed to link to. One host per line.
+# A leading dot matches subdomains. Anything not listed fails the gate.
+
+# EDGAR: every forensic report cites primary filings on the regulator's site.
+www.sec.gov
+
+# Repository / profile links in the README.
+github.com

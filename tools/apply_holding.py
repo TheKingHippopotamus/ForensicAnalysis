@@ -1,4 +1,13 @@
 #!/usr/bin/env python3
+# PUBLISH-GATE-SELF-EXCLUDE
+#
+# This file is exempt from the denylist scan, and it says so where a reviewer
+# will see it. Reason: it is a *stripping tool*. Its job is to find and remove
+# the overclaim "institutional-grade" and the third-party font host
+# fonts.googleapis.com, so both strings necessarily appear here as regex
+# sources. A tool that searches for a banned string cannot avoid containing it.
+# The exemption covers this file only; the exclusion is printed by the gate on
+# every run, so it can never hide silently.
 """apply_holding.py — put every published report page into the HOLDING state.
 
 Idempotent. Run from anywhere:
@@ -9,6 +18,10 @@ Idempotent. Run from anywhere:
 For each report page it:
   1. inserts a fixed "UNDER RE-VERIFICATION" banner immediately after <body>,
      styled with the report template's own CSS custom properties;
+  1b. injects a <style> block that reserves the banner's height at the top of
+     the page (--holding-banner-h) and pushes the report's own fixed chrome
+     (.site-header, .sidebar) down by it, so the banner never covers the
+     report header;
   2. adds <meta name="robots" content="noindex,nofollow"> to <head>;
   3. removes every <link> to a third-party font host (fonts.googleapis.com /
      fonts.gstatic.com), including rel=preconnect hints, so the page makes no
@@ -43,6 +56,35 @@ BANNER = (
     "See the homepage.</a></div>"
 )
 
+STYLE_ID = "holding-banner-style"
+
+# Height reserved for the banner, as one CSS custom property.
+#   desktop: 9px padding-top + 9px padding-bottom + 13px * 1.5 line-height
+#            + 2px border-bottom  =  39.5px  -> 40px
+# Narrower viewports wrap the banner text, so the reservation grows with it:
+#   <=768px : two lines  -> 18 + 39 + 2  = 59px  -> 62px (2px slack)
+#   <=480px : three/four lines -> 18 + 58.5 + 2 = 78.5px -> 84px
+BANNER_H = "40px"
+BANNER_H_TABLET = "62px"
+BANNER_H_PHONE = "84px"
+
+# The report template puts .site-header at `position:fixed; top:0` and anchors
+# .sidebar / .main-content on --header-height. A fixed banner therefore sits ON
+# TOP of the header unless both are shifted; body padding alone is not enough
+# for fixed elements. This block is injected LAST in <head> so it wins on
+# source order without needing !important.
+STYLE = (
+    '<style id="' + STYLE_ID + '">'
+    ":root{--holding-banner-h:" + BANNER_H + "}"
+    "@media (max-width:768px){:root{--holding-banner-h:" + BANNER_H_TABLET + "}}"
+    "@media (max-width:480px){:root{--holding-banner-h:" + BANNER_H_PHONE + "}}"
+    "body{padding-top:var(--holding-banner-h)}"
+    ".site-header{top:var(--holding-banner-h)}"
+    ".sidebar{top:calc(var(--header-height,90px) + var(--holding-banner-h))}"
+    ".section{scroll-margin-top:calc(100px + var(--holding-banner-h))}"
+    "</style>"
+)
+
 ROBOTS = '<meta name="robots" content="noindex,nofollow">'
 
 # <link ...fonts.googleapis.com...> / <link ...fonts.gstatic.com...>, incl. preconnect hints.
@@ -55,6 +97,8 @@ HEAD_RE = re.compile(r"<head\b[^>]*>", re.IGNORECASE)
 # Anchor the robots meta after <meta charset> so the charset declaration stays first.
 CHARSET_RE = re.compile(r"<meta\b[^>]*charset=[^>]*>", re.IGNORECASE)
 BANNER_RE = re.compile(r'<div id="' + BANNER_ID + r'".*?</div>\s*', re.IGNORECASE | re.DOTALL)
+STYLE_RE = re.compile(r'<style id="' + STYLE_ID + r'".*?</style>\s*', re.IGNORECASE | re.DOTALL)
+HEAD_CLOSE_RE = re.compile(r"</head>", re.IGNORECASE)
 ROBOTS_RE = re.compile(r'<meta\b[^>]*name=["\']robots["\'][^>]*>', re.IGNORECASE)
 INSTITUTIONAL_RE = re.compile(r"institutional[-‑– ]grade", re.IGNORECASE)
 
@@ -74,7 +118,8 @@ def report_pages() -> list[Path]:
 
 
 def transform(html: str) -> tuple[str, dict[str, int]]:
-    counts = {"font_links": 0, "robots": 0, "banner": 0, "institutional": 0}
+    counts = {"font_links": 0, "robots": 0, "banner": 0, "style": 0,
+              "institutional": 0}
 
     html, counts["font_links"] = FONT_LINK_RE.subn("", html)
 
@@ -84,6 +129,18 @@ def transform(html: str) -> tuple[str, dict[str, int]]:
             raise ValueError("no <head> element")
         html = html[: m.end()] + "\n" + ROBOTS + html[m.end():]
         counts["robots"] = 1
+
+    # Re-insert the offset stylesheet from scratch (same idempotency rule as the
+    # banner: strip any previous copy first, so a re-run never stacks two).
+    stripped = STYLE_RE.sub("", html)
+    if stripped == html:
+        counts["style"] = 1
+    else:
+        html = stripped
+    m = HEAD_CLOSE_RE.search(html)
+    if m is None:
+        raise ValueError("no </head> element")
+    html = html[: m.start()] + STYLE + "\n" + html[m.start():]
 
     # Re-insert the banner from scratch so edits to BANNER propagate on re-run.
     m = BODY_RE.search(html)
@@ -123,7 +180,8 @@ def main() -> int:
         print(
             f"{page.relative_to(REPO)!s:<22} {state:<13} "
             f"font_links_removed={counts['font_links']} robots_added={counts['robots']} "
-            f"banner_added={counts['banner']} institutional_grade_replaced={counts['institutional']}"
+            f"banner_added={counts['banner']} offset_style_added={counts['style']} "
+            f"institutional_grade_replaced={counts['institutional']}"
         )
 
     print(f"\n{len(pages)} report page(s); {changed} changed.")
