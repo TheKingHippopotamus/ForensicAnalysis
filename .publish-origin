@@ -1,4 +1,0 @@
-# Hosts that ARE this site. Links to them are same-origin, not third-party.
-# One hostname per line; '#' starts a comment. Read automatically by
-# tools/publish_gate.py (--origin still works and is added to this list).
-thekinghippopotamus.github.io
